@@ -30,7 +30,8 @@ The example is an agent that runs email marketing campaigns from data kept in No
   for the aip server's catalog and run history
 - `aip` and `aip-spec` installed, with the `aip` and `aip-runtime` skills in Claude Code:
   `curl -sSfL https://raw.githubusercontent.com/zach-blumenfeld/aip/aip-0.5a0/install.sh | bash`
-  then `aip server --init` and fill in the Neo4j backend and the TypeSafe key
+  then `aip server --init` and fill in the Neo4j backend and the TypeSafe key, and
+  `aip config --server http://localhost:8000` so the client and the agent find the server
 - A [TypeSafe](https://typesafe.ai) API key (the aip server answers decisions with it; without it
   every decision pauses and asks you)
 - In `aip-demo/`: `cp .env.example .env` (memory database credentials, TypeSafe key),
@@ -85,7 +86,7 @@ page: `data/notion/sop_email_blast.md`. Read it; it is what the agent reads.
 
 First the data goes into [neo4j-agent-memory](https://neo4j.com/labs/agent-memory/), the
 open-source graph memory library, so the agent can look things up easily and so
-everything the agent later does lands in the same graph and connects to sources
+everything the agent later does lands in the same graph and connects to its sources.
 
 Why graph memory: it gives the agent queryable, auditable and shared memory, from which semantic
 and procedural knowledge can be extracted while keeping source provenance.
@@ -144,7 +145,7 @@ write passes `generate_embedding=False`), so no embedding provider is needed.
 
 #### Writing to memory
 
-Four methods do all the writing in this demo. Each one creates nodes in the graph:
+Five methods do all the writing in this demo. Each one creates nodes in the graph:
 
 | SDK call | creates |
 |---|---|
@@ -242,7 +243,7 @@ Any `claude` session started in this folder is recorded; `BLAST_RECORD=0` switch
 hooks never fail the session; problems go to `.run/recorder.log`. The hook plumbing itself and
 how to do this for your own agent: [docs/recording.md](docs/recording.md).
 
-To watch one use the below
+To watch a run live (about five minutes; on stage, show the recording below instead):
 
 ```
 claude
@@ -256,9 +257,7 @@ The recording of the four runs we made:
 blast traces show run-01      # also run-02 (launch), run-03 (digest), run-04 (urgent hotfix)
 ```
 
-The same run in the memory graph:
-
-One run as a connected subgraph: the conversation and its two messages, the trace, every step
+The same run in the memory graph, as a connected subgraph: the conversation and its two messages, the trace, every step
 with its tool call. Judgment calls carry the extra `Decision` label; colour by label and they
 stand out. Change `LIMIT 1` to `LIMIT 4` for all four runs side by side.
 
@@ -292,7 +291,7 @@ How the tools and the hooks work, and how to set this up for your own agent: [do
 
 ## Distilling memory into a skill
 
-We distill the traces into a skill to fix above problems. There are two major parts to this:
+We distill the traces into a skill to fix the problems above. There are two major parts to this:
 
 1. The skill we build is graph-shaped: a control flow with typed steps, decisions, script execution,
 routers, and generative client tasks, instead of a page of prose.
@@ -337,7 +336,8 @@ In the paper we showed that compiling skills to the AIP format resulted in impro
 
 ![](img/aip-paper-results.png)
 
-We are on a later version than the paper (format 0.5a1) which includes
+We are on a later version than the paper (format 0.5a1) which includes:
+
 1. a client-server runtime that executes the graph and enforces sequencing and typed
 I/O
 2. decision model steps with thresholds
@@ -362,7 +362,7 @@ You can view skills in the inspector.
 
 ![](img/aip-inspector-skill.png)
 
-YOu can also query against the aip server's database to inspect. The whole skill: name, revision, procedure, steps, edges, inputs and questions:
+You can also query against the aip server's database to inspect. The whole skill: name, revision, procedure, steps, edges, inputs and questions:
 
 ```cypher
 MATCH (n:Name {name: 'launch-email-blast'})-[:HAS_REVISION]->(s:Skill)-[:HAS_PROCEDURE]->(p:Procedure)
@@ -424,7 +424,7 @@ flowchart LR
 Run it:
 
 ```
-make fresh                        # forget earlier local runs
+make fresh                        # from aip-demo/: forget earlier local runs and drafts
 claude --model sonnet             # or plain claude
 > Launch the email blast for brief-013, "riverbed 2.0 release", send 2026-11-04 09:00 UTC.
 ```
@@ -460,5 +460,5 @@ RETURN r, s, p1, p2, p3, p4
 - neo4j-agent-memory: https://neo4j.com/labs/agent-memory/
 - NAMS: https://memory.neo4jlabs.com/docs
 - AIP: https://github.com/zach-blumenfeld/aip/tree/aip-0.5a0 ; spec: https://github.com/zach-blumenfeld/aip-spec ; paper: https://arxiv.org/abs/2606.04781
-Other Neo4j + AI Resources: https://neo4j.com/developer/ai 
+- Other Neo4j + AI resources: https://neo4j.com/developer/ai
 - TypeSafe: https://docs.typesafe.ai/
