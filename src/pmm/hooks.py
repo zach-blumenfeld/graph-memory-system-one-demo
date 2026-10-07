@@ -39,12 +39,11 @@ class SdkMemory:
         return client
 
     async def create_conversation(self, metadata: dict[str, str]) -> str:
-        client = await self._client()
-        try:
-            conv = await client.short_term.create_conversation(metadata={k: str(v) for k, v in metadata.items()})
-            return str(conv.id)
-        finally:
-            await client.close()
+        # Same route `pmm record` uses. The SDK's short_term.create_conversation needs a session_id
+        # on the NAMS backend, which does not exist yet for a brand-new interactive session.
+        from pmm.nams_rest import NamsRest
+
+        return str(NamsRest().create_conversation({k: str(v) for k, v in metadata.items()})["id"])
 
     async def add_message(self, conversation_id: str, role: str, content: str) -> None:
         client = await self._client()
@@ -74,7 +73,15 @@ async def handle(event: str, payload: dict[str, Any], memory: Memory | None = No
         if data is None:
             m = BRIEF_RE.search(prompt)
             metadata = {"runKind": "interactive", "briefId": m.group(0) if m else "", "task": prompt.strip()[:160], "claudeSessionId": session_id}
-            cid = await memory.create_conversation(metadata)
+            try:
+                cid = await memory.create_conversation(metadata)
+            except Exception:
+                # Never let the MCP server fall back to a stale current.json and record into the
+                # wrong conversation: drop it so this session simply goes unrecorded.
+                from pmm.recorder import current_session_file
+
+                current_session_file().unlink(missing_ok=True)
+                raise
             data = {"session_id": session_id, "conversation_id": cid, "run_id": "interactive", "kind": "interactive", "brief_id": metadata["briefId"], "task": metadata["task"], "created_at": _now(), "messages": 0, "tool_uses": []}
             log_line(f"hook: created conversation {cid} for interactive session {session_id}")
         if prompt.strip():

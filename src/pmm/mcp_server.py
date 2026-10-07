@@ -172,7 +172,7 @@ def _now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
-RECORD_SETTLE_SECONDS = float(os.environ.get("PMM_RECORD_SETTLE_SECONDS", "8"))
+RECORD_SETTLE_SECONDS = float(os.environ.get("PMM_RECORD_SETTLE_SECONDS", "1"))
 
 
 async def _settle(recorder: Recorder) -> None:
