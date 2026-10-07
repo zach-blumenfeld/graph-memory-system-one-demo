@@ -118,7 +118,9 @@ claude --disallowedTools "Skill(launch-email-blast)"
 ```
 
 That blocks only this one skill; if Claude tries it, the call is denied and it carries on with
-the tools. Then paste:
+the tools. The eight `pmm-tools` calls are pre-allowed in `.claude/settings.json`, so Claude
+will not stop to ask permission for each one (if it ever does, the one-off form is
+`claude --allowedTools "mcp__pmm-tools__*"`). Then paste:
 
 ```
 New brief in Notion: brief-001, "riverbed 1.8: checkpointed state for every pipeline".

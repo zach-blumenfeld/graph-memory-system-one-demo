@@ -1,10 +1,21 @@
 {
-  "enabledMcpjsonServers": ["pmm-tools"],
+  "permissions": {
+    "allow": [
+      "mcp__pmm-tools__*"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "pmm-tools"
+  ],
   "hooks": {
     "UserPromptSubmit": [
       {
         "hooks": [
-          { "type": "command", "command": "uv run --project \"$CLAUDE_PROJECT_DIR\" pmm-hook user-prompt-submit", "timeout": 30 }
+          {
+            "type": "command",
+            "command": "uv run --project \"$CLAUDE_PROJECT_DIR\" pmm-hook user-prompt-submit",
+            "timeout": 30
+          }
         ]
       }
     ],
@@ -12,14 +23,22 @@
       {
         "matcher": "mcp__pmm-tools__.*",
         "hooks": [
-          { "type": "command", "command": "uv run --project \"$CLAUDE_PROJECT_DIR\" pmm-hook post-tool-use", "timeout": 30 }
+          {
+            "type": "command",
+            "command": "uv run --project \"$CLAUDE_PROJECT_DIR\" pmm-hook post-tool-use",
+            "timeout": 30
+          }
         ]
       }
     ],
     "Stop": [
       {
         "hooks": [
-          { "type": "command", "command": "uv run --project \"$CLAUDE_PROJECT_DIR\" pmm-hook stop", "timeout": 60 }
+          {
+            "type": "command",
+            "command": "uv run --project \"$CLAUDE_PROJECT_DIR\" pmm-hook stop",
+            "timeout": 60
+          }
         ]
       }
     ]
