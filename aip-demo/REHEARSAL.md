@@ -7,7 +7,7 @@ cd ~/dev/graph-memory-systemone-demo/aip-demo
 uv run blast doctor                 # memory db, keys, aip, claude, blast on PATH
 aip config                          # server: http://localhost:8000 ; if not: aip config --server http://localhost:8000
 curl -s localhost:8000/catalog | head -c 200   # the aip server is up (else: aip server --inspector, in its own terminal)
-aip list                            # launch-email-blast is published
+aip list                            # billing-support and launch-email-blast are published
 ```
 
 Open: Neo4j Browser on the memory database (`1e78d87c`, creds in `.env`) and on the aip database
@@ -45,7 +45,11 @@ writing the email. `source/README.md` lists what was dropped and why.
 
 ## Beat 4: the skill as a graph (2 min)
 
-Inspector catalog page (the step graph), then Browser on the aip db, `queries.md` beat 4.
+Inspector catalog page. Open `billing-support` first: the bundled example, five steps, one
+decision, one router, the simplest possible AIP graph, good for explaining the step kinds in
+thirty seconds. Then `launch-email-blast`: the same shapes, thirteen nodes, learned from traces.
+Then Browser on the aip db, `queries.md` beat 4 (change the name to `billing-support` to draw the
+small one).
 
 ## Beat 5: run it, live (3 min)
 
