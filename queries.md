@@ -19,19 +19,16 @@ Entities carry the ontology class in `type` (`Campaign`, `Persona`, `Product`, `
 
 ## 1. Memory: the PMM ontology as a graph (beat 1)
 
-The whole long-term layer, as paths so Browser draws it:
+One campaign and everything it depends on, two hops out (the campaign is the primary entity; the agent's job is to turn one brief into one compliant, scheduled email):
 
 ```cypher
-MATCH p = (c:Entity {type:'Campaign'})-[:PROMOTES|TARGETS|USES_CHANNEL|CONSTRAINED_BY]->(:Entity)
+MATCH (c:Entity {type:'Campaign'})
 WHERE c.sourceStage IS NULL
-RETURN p
-UNION
-MATCH p = (:Entity {type:'Product'})-[:ASSERTS]->(cl:Entity {type:'Claim'})
-WHERE cl.sourceStage IS NULL
-RETURN p
-UNION
-MATCH p = (:Entity {type:'Persona'})-[:REPRESENTS]->(:Entity {type:'AudienceSegment'})
-RETURN p
+WITH c ORDER BY c.brief_id LIMIT 1
+MATCH p = (c)-[]->(n:Entity)
+OPTIONAL MATCH q = (n)-[:ASSERTS|REPRESENTS]-(m:Entity)
+WHERE m.sourceStage IS NULL
+RETURN p, q
 ```
 
 13 campaigns in a ring around 4 products, 6 segments and 4 personas, one Email channel, one brand

@@ -39,25 +39,28 @@ property objects, and the importer maps them to the ontology. Rename a class or 
 To see it, in Neo4j Browser or the NAMS query view:
 
 ```cypher
-MATCH p = (c:Entity {type:'Campaign'})-[:PROMOTES|TARGETS|USES_CHANNEL|CONSTRAINED_BY]->(:Entity)
+MATCH (c:Entity {type:'Campaign'})
 WHERE c.sourceStage IS NULL
-RETURN p
-UNION
-MATCH p = (:Entity {type:'Product'})-[:ASSERTS]->(cl:Entity {type:'Claim'})
-WHERE cl.sourceStage IS NULL
-RETURN p
-UNION
-MATCH p = (:Entity {type:'Persona'})-[:REPRESENTS]->(:Entity {type:'AudienceSegment'})
-RETURN p
+WITH c ORDER BY c.brief_id LIMIT 1
+MATCH p = (c)-[]->(n:Entity)
+OPTIONAL MATCH q = (n)-[:ASSERTS|REPRESENTS]-(m:Entity)
+WHERE m.sourceStage IS NULL
+RETURN p, q
 ```
-
-The three `UNION` branches matter: joining them with `OPTIONAL MATCH` multiplies the rows (82 × 13 × 6) and every node carries two 1024-float embeddings, which is why that version takes ages in Browser.
 
 What the node and relationship names mean, and what `sourceStage` is, is in `SCHEMA.md`.
 
-Colour nodes by `type` and caption by `name`. You get 13 campaigns around 4 products, 6
-segments, 4 personas, 13 claims, one channel and one brand guide. The `sourceStage IS NULL`
-filter shows only what was imported; drop it after step 2 to see everything the agent's runs added.
+One campaign in the middle. One hop out: the product it promotes, the segment it targets, the
+persona for that segment, the brand guide it must obey, the email channel. Two hops out: the
+product's approved claims. About 16 nodes, and each one answers one of the four questions the
+agent has to answer before it can write a word: what am I selling, who am I talking to, how must
+I sound, where does it go.
+
+Imported nodes only carry the `Entity` label, so set the Browser caption to `type` first to see
+which is which, then to `name`. Change `LIMIT 1` to `LIMIT 3` for a few campaigns side by side,
+or replace the first three lines with `MATCH (c:Entity {type:'Campaign', brief_id:'brief-013'})`
+for the live-demo brief. The `sourceStage IS NULL` filters hide the entities NAMS extracts from
+the runs later; `SCHEMA.md` explains that property and the rest of the graph.
 
 ## 2. The agent does the job twelve times, and we record everything
 
