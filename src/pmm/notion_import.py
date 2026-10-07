@@ -117,7 +117,44 @@ def run_import(nams: NamsRest, fx: Fixture, log=print, force: bool = False) -> d
         rel_created += len(chunk)
     log(f"relationships: {rel_created} created ({len(want) - len(missing)} already present, {len(rels) - len(want)} skipped for unmapped endpoints)")
 
+    labelled = sync_labels(log=log)
     CHECKPOINTS.mkdir(exist_ok=True)
-    ckpt = {"stage": 1, "entities": mapping, "merged": merged, "relationship_count": len(want), "source": "data/notion"}
+    ckpt = {"stage": 1, "labelled": labelled, "entities": mapping, "merged": merged, "relationship_count": len(want), "source": "data/notion"}
     CHECKPOINT.write_text(json.dumps(ckpt, indent=2) + "\n")
     return ckpt
+
+
+def sync_labels(log=print) -> int:
+    """Give every API-created entity its ontology class as a label (``:Campaign`` etc.).
+
+    NAMS's extraction pipeline labels the entities it creates with their class, but the
+    ``POST /v1/entities`` route stores only the ``type`` property, so imported and extracted
+    entities would otherwise look different in Browser and to label-based queries. This runs over
+    bolt against the workspace database (external mode, ``NEO4J_*`` in .env) and is a no-op when
+    those variables are absent. Additive and reversible (``REMOVE e:Campaign``).
+    """
+    import os
+
+    from pmm.env import load_dotenv
+
+    load_dotenv()
+    uri, user, pw = os.environ.get("NEO4J_URI"), os.environ.get("NEO4J_USERNAME"), os.environ.get("NEO4J_PASSWORD")
+    if not (uri and user and pw):
+        log("labels: NEO4J_URI/USERNAME/PASSWORD not set, skipping class labels on imported entities")
+        return 0
+    from neo4j import GraphDatabase
+
+    db = os.environ.get("NEO4J_DATABASE", "neo4j")
+    total = 0
+    with GraphDatabase.driver(uri, auth=(user, pw)) as driver:
+        types = [r["t"] for r in driver.execute_query(
+            "MATCH (e:Entity) WHERE e.sourceStage IS NULL AND e.type IS NOT NULL RETURN DISTINCT e.type AS t", database_=db).records]
+        for t in types:
+            if not t.replace("_", "").isalnum():
+                continue
+            n = driver.execute_query(
+                f"MATCH (e:Entity {{type: $t}}) WHERE e.sourceStage IS NULL AND NOT e:`{t}` SET e:`{t}` RETURN count(e) AS n",
+                t=t, database_=db).records[0]["n"]
+            total += n
+    log(f"labels: {total} imported entities given their class label ({', '.join(types)})")
+    return total

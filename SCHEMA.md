@@ -51,8 +51,12 @@ everything in its scope. A `DistillationRun` records the job (`DERIVED_BY`), its
 | custom keys (`brief_id`, `campaign_id`, `size`, ...) | whatever the importer passed as properties |
 
 Extracted entities also get extra labels: the ontology class as a label (`:Campaign`,
-`:Product`, ...) and a POLE+O label (`:Person`, `:Organization`, `:Event`, `:Object`). Imported
-entities only have `:Entity`, so always filter on `type`, not on labels.
+`:Product`, ...) and a POLE+O label (`:Person`, `:Organization`, `:Event`, `:Object`). The
+`POST /v1/entities` route does not add the class label (a NAMS inconsistency: two write paths,
+one labels and one does not), so `pmm notion import` finishes by running `pmm labels-sync`, which
+sets the class label on every imported entity over bolt. After that, `MATCH (c:Campaign)` and
+colouring by label in Browser work the same for imported and extracted entities. The `type`
+property is still the safest thing to filter on.
 
 ## Entity resolution
 

@@ -207,6 +207,14 @@ def notion_import(force: bool = typer.Option(False, help="ignore the checkpoint 
     say(f"import done: {len(ck['entities'])} entities mapped, {ck['relationship_count']} relationships")
 
 
+@app.command("labels-sync")
+def labels_sync() -> None:
+    """Give imported entities their ontology class as a label (idempotent; see notion_import.sync_labels)."""
+    from pmm.notion_import import sync_labels
+
+    sync_labels(log=say)
+
+
 # ====================================================================== verify
 @app.command()
 def verify(stage: str = typer.Argument(..., help="stage1 | stage3 | stage4 | stage5")) -> None:
