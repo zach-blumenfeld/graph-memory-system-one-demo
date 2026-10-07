@@ -17,7 +17,10 @@ NAMS 1.1.0, workspace `system-one-demo` in external mode on Aura). Budget about 
 - Run `queries.md` §1 (the ontology graph). Point at: 13 campaigns, 4 products, the claims, the
   brand guideline every campaign is `CONSTRAINED_BY`.
 - Say: this is the long-term layer under a custom PMM ontology; the SDK wrote it through NAMS;
-  entity resolution already flagged three look-alike campaigns (`SAME_AS`).
+  entity resolution flagged three look-alike campaigns (`SAME_AS`) on import. Then show the
+  imported-vs-extracted count table: the 12 runs grew the layer from 42 to about 230 entities by
+  reading the agent's own messages and tool calls under the ontology, and resolution now holds 97
+  pairs for review. Memory builds itself from the traces; merging stays a human decision.
 
 ## Beat 2: Traces (5 min, live)
 

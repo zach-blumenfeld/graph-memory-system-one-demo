@@ -29,29 +29,45 @@ RETURN p, q, r
 ```
 
 13 campaigns in a ring around 4 products, 6 segments and 4 personas, one Email channel, one brand
-guideline that every campaign and product is `CONSTRAINED_BY`, and 14 approved claims hanging off
+guideline that every campaign and product is `CONSTRAINED_BY`, and 13 approved claims hanging off
 the products. Set the `Entity` caption to `name` and colour by `type`.
 
-Counts, as a table:
+Two sets of counts, because the long-term layer keeps growing after the import. The 42 fixture
+entities have no `sourceStage`; everything NAMS extracted from the recorded conversations and tool
+calls carries one (`llm`, `alias` or `spacy`):
 
 ```cypher
-MATCH (e:Entity) RETURN e.type AS class, count(*) AS n ORDER BY n DESC
+MATCH (e:Entity)
+RETURN e.type AS class,
+       sum(CASE WHEN e.sourceStage IS NULL THEN 1 ELSE 0 END) AS imported,
+       sum(CASE WHEN e.sourceStage IS NOT NULL THEN 1 ELSE 0 END) AS extracted,
+       count(*) AS total
+ORDER BY total DESC
 ```
 
-| class | n |
-|---|---|
-| Claim | 14 |
-| Campaign | 13 |
-| AudienceSegment | 6 |
-| Persona | 4 |
-| Product | 4 |
-| BrandGuideline | 1 |
-| Channel | 1 |
+| class | imported | extracted | total after the 12 runs |
+|---|---|---|---|
+| Claim | 13 | 52 | 65 |
+| Campaign | 13 | 46 | 59 |
+| Product | 4 | 47 | 51 |
+| AudienceSegment | 6 | 12 | 18 |
+| Persona | 4 | 10 | 14 |
+| Channel | 1 | 13 | 14 |
+| BrandGuideline | 1 | 4 | 5 |
+| organization / concept / person | 0 | 3 | 3 |
+
+The extracted column is the automatic entity extraction at work: every message and tool I/O the
+agent produced was read under the PMM ontology, so "GitHub Actions" became a `Channel`, each email
+draft's claims became `Claim` entities, and "riverbed" was re-created as a `Product` many times
+over. That is a talking point for beat 1 (memory builds itself from the traces) and a caveat
+(entity resolution is a review queue, not a merge): 3 `SAME_AS` pairs right after import, 97 after
+the runs. Filter with `WHERE e.sourceStage IS NULL` whenever a query should see only the fixture.
 
 What a campaign is allowed to say, derived from the graph rather than from the brief text:
 
 ```cypher
 MATCH (c:Entity {type:'Campaign', brief_id:'brief-013'})-[:PROMOTES]->(p:Entity)-[:ASSERTS]->(cl:Entity)
+WHERE cl.sourceStage IS NULL
 MATCH (c)-[:CONSTRAINED_BY]->(bg:Entity {type:'BrandGuideline'})
 RETURN c.name AS campaign, p.name AS product, collect(cl.name) AS approved_claims,
        bg.required_disclaimer AS disclaimer
@@ -64,8 +80,9 @@ MATCH (a:Entity)-[s:SAME_AS]->(b:Entity)
 RETURN a.name, b.name, a.type, b.type, s
 ```
 
-Three pairs after import, all campaigns of the same product with similar titles. They sit in the
-review queue; nothing was merged.
+Three pairs right after import, all campaigns of the same product with similar titles; 97 pairs
+after the 12 runs, mostly extracted duplicates of the fixture's products and campaigns. They sit in
+the review queue; nothing was merged.
 
 ## 2. Traces: every run as a path of tool calls (beat 2)
 
