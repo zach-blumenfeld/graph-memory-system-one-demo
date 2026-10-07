@@ -10,9 +10,11 @@ We are going over three things in this talk:
 2. Skill distillation and graph-shaped skills (AIP)
 3. System One, structured decisions, and extending them naturally into a graph workflow
 
-Graph memory provides … `<a, b, c>`
-Skill distillation provides … `<x, y, z>`
-We integrate TypeSafe's Jev (a System One model) for speed and consistency … `<placeholder>`
+Graph memory gives an agent a durable record of what happened, what it knows, and why it acted,
+in one graph next to your business data. Skill distillation turns that record into a reusable
+procedure with evidence behind every step. A System One model (TypeSafe's Jev) answers the
+procedure's judgment calls in milliseconds, with a probability, so the run is fast, consistent,
+and knows when to ask a human.
 
 `<placeholder image for the above>`
 
@@ -62,7 +64,24 @@ First the data goes into [neo4j-agent-memory](https://neo4j.com/labs/agent-memor
 open-source graph memory library, so the agent can look things up instead of guessing and so
 everything the agent later does lands in the same graph as the things it knew.
 
-`<placeholder: why graph memory, the three layers; I'll put some stuff here>`
+Why graph memory (after Will Lyon's "Actionable Knowledge with Context Graphs"):
+
+- **The problem.** Your agent is brilliant and amnesiac. Task, reason, act, forget. It solved
+  this last week and remembers nothing.
+- **Recall is not knowledge.** Embed, retrieve, stuff the context, generate. A pile of similar
+  text, not a model of who, what or why. Three mentions of one customer stay three strings.
+- **Three failures between experience and reuse:** forgetting (nothing persists), no transfer
+  (transcripts don't generalise into a procedure), no provenance (a learned rule you can't audit).
+- **A context graph attacks all three.** Durable store; typed, resolved entities and edges for
+  transfer; edges for provenance. Graphs capture understanding, vectors only similarity.
+- **Three memory types, one graph.** Short-term: the messages. Long-term: typed entities and
+  relationships. Reasoning: decisions and tool calls as nodes. Reasoning is the differentiator;
+  most memory systems stop at the first two. And it is what skills are distilled from.
+
+In this demo: what's known is the Notion workspace, what happened is each run's conversation, why
+it acted is the trace with its `Decision` steps. All in the next two sections.
+
+`<placeholder image>`
 
 ```
 blast import          # SDK writes the entities, typed edges are added; then counts what landed
