@@ -31,3 +31,6 @@ publish: ## step 4: publish the authored skill
 
 clean:
 	rm -rf .run
+
+author: ## step 3b: Claude Code + the aip authoring skill compile ./launch-email-blast from source/ (~15 min)
+	claude -p "$$(cat prompts/author.md)" --allowedTools "Read,Write,Edit,Glob,Grep,Bash,Skill" --permission-mode dontAsk --output-format json > .run/author.json; python3 -c "import json;d=json.load(open('.run/author.json'));print(d.get('result','')[:3000]);print('cost',d.get('total_cost_usd'),'turns',d.get('num_turns'))"

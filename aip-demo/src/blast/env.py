@@ -10,12 +10,12 @@ DATA = ROOT / "data" / "notion"
 SOP_FILE = DATA / "sop_email_blast.md"
 RUNS_FILE = ROOT / "prompts" / "runs.yaml"
 CHECKPOINTS = ROOT / "checkpoints"
-SOURCE = ROOT / "source"
+SKILL_DIR = ROOT / "launch-email-blast"
+SOURCE = SKILL_DIR / "source"
 RUN_DIR = ROOT / ".run"
 SESSIONS_DIR = RUN_DIR / "sessions"
 DRAFTS_DIR = RUN_DIR / "drafts"
 RECORDER_LOG = RUN_DIR / "recorder.log"
-SKILL_DIR = ROOT / "launch-email-blast"
 
 
 def load_dotenv(path: Path | None = None) -> None:
