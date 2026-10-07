@@ -110,7 +110,15 @@ answer), and one `AgentStep` + `ToolCall` pair per tool call, in order. NAMS the
 that and links the entities it mentions, which is how the conversation ends up connected to the
 campaign node from step 1.
 
-**To show it live.** Open `claude` in the repo and paste:
+**To show it live.** First hide the distilled skill, otherwise Claude will find it in
+`.claude/skills/` and you will be demoing step 5 by accident:
+
+```
+make skill-hide      # moves .claude/skills/launch-email-blast out of the way
+claude
+```
+
+(`make skill-show` puts it back before step 5.) Then paste:
 
 ```
 New brief in Notion: brief-001, "riverbed 1.8: checkpointed state for every pipeline".
@@ -119,9 +127,7 @@ Launch the email blast for it to the Python streaming developers segment, schedu
 
 About 90 seconds. Watch the tool calls go by: brief, segments, classify, draft, compliance
 (fails on the disclaimer), draft again, compliance (passes), scoring, schedule, log. In a second
-terminal, `tail -f .run/recorder.log` shows each step landing in NAMS as it happens. The skill
-from step 3 is installed in `.claude/skills/`, so for a pure step-2 feel start Claude with
-`claude --disallowedTools Skill`.
+terminal, `tail -f .run/recorder.log` shows each step landing in NAMS as it happens.
 
 Then show the run in the query view. This is one run: the conversation, its two messages, its
 eleven steps and tool calls, and the links back to the campaign from step 1:
@@ -193,7 +199,7 @@ email.
 
 ## 5. A cheaper agent runs the skill
 
-New session. Claude loads the skill and gets a new brief: "launch riverbed 2.0."
+New session, after `make skill-show`. Claude loads the skill and gets a new brief: "launch riverbed 2.0."
 
 With the default model it follows the eight steps and finishes in 84 seconds for about a dollar.
 

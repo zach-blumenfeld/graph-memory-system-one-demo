@@ -1,7 +1,7 @@
 UV ?= uv
 PMM = $(UV) run pmm
 
-.PHONY: sync selftest doctor verify demo replay-from clean fixture record distill run-skill report
+.PHONY: sync selftest doctor verify demo replay-from clean fixture record distill run-skill report skill-hide skill-show
 
 sync:
 	$(UV) sync --all-groups
@@ -15,6 +15,16 @@ selftest: ## no network: fakes for Jev and the recorder
 
 doctor:
 	$(PMM) doctor
+
+SKILL = .claude/skills/launch-email-blast
+HIDDEN = .run/hidden-skills/launch-email-blast
+
+skill-hide: ## step 2 live demo: Claude must not see the distilled skill
+	@mkdir -p .run/hidden-skills
+	@if [ -d $(SKILL) ]; then mv $(SKILL) $(HIDDEN) && echo "hidden: $(SKILL) -> $(HIDDEN)"; else echo "already hidden"; fi
+
+skill-show: ## step 5: put the distilled skill back
+	@if [ -d $(HIDDEN) ]; then mv $(HIDDEN) $(SKILL) && echo "restored: $(SKILL)"; else echo "already in place"; fi
 
 verify: ## per-stage verifiers against the live workspace
 	$(PMM) verify stage1
