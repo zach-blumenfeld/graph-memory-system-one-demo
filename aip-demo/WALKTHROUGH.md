@@ -64,22 +64,20 @@ First the data goes into [neo4j-agent-memory](https://neo4j.com/labs/agent-memor
 open-source graph memory library, so the agent can look things up instead of guessing and so
 everything the agent later does lands in the same graph as the things it knew.
 
-Why graph memory (after Will Lyon's "Actionable Knowledge with Context Graphs"):
+Why graph memory: it gives the agent queryable, auditable and shared memory, from which semantic
+and procedural knowledge can be extracted while keeping source provenance.
 
-- **The problem.** Your agent is brilliant and amnesiac. Task, reason, act, forget. It solved
-  this last week and remembers nothing.
-- **Recall is not knowledge.** Embed, retrieve, stuff the context, generate. A pile of similar
-  text, not a model of who, what or why. Three mentions of one customer stay three strings.
-- **Three failures between experience and reuse:** forgetting (nothing persists), no transfer
-  (transcripts don't generalise into a procedure), no provenance (a learned rule you can't audit).
-- **A context graph attacks all three.** Durable store; typed, resolved entities and edges for
-  transfer; edges for provenance. Graphs capture understanding, vectors only similarity.
-- **Three memory types, one graph.** Short-term: the messages. Long-term: typed entities and
-  relationships. Reasoning: decisions and tool calls as nodes. Reasoning is the differentiator;
-  most memory systems stop at the first two. And it is what skills are distilled from.
-
-In this demo: what's known is the Notion workspace, what happened is each run's conversation, why
-it acted is the trace with its `Decision` steps. All in the next two sections.
+- **Queryable.** Which briefs got flagged for legal, which claims got dropped and why, how often
+  the compliance check failed: one query over four runs or four hundred, no model re-reading.
+- **Auditable.** Why did it schedule that email? Follow the `Decision` node to its question,
+  options, answer and reason, then to the tool call that acted on it.
+- **Shared.** The run outlives the session. The next agent, or a person, starts from what was
+  already known and decided.
+- **Semantic and procedural.** The Notion workspace is the semantic knowledge; the traces and
+  judgment calls are the procedural knowledge. One graph, attached to the same campaign, product
+  and brand-guide nodes the team owns.
+- **Provenance.** Every trace step links to what it touched; later, every skill step links back
+  to the trace it came from.
 
 `<placeholder image>`
 
