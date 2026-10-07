@@ -1,4 +1,4 @@
-# Walkthrough
+# AIP Skill Distillation Worked Example
 
 `Distilling Agent Knowledge into System One Workflows with Graph Memory`
 

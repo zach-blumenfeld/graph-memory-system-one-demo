@@ -1,5 +1,6 @@
-# Distilling agent knowledge into System One workflows with graph memory
+# WIP: Distilling agent knowledge into System One workflows with graph memory
 
+__NOTE: This is an incomplete WIP__
 
 A product-marketing agent (Claude Code) runs a "launch email blast" workflow against a simulated
 Notion workspace through eight typed MCP tools. Every tool call is recorded by the open-source
