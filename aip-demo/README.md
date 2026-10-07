@@ -246,10 +246,14 @@ how to do this for your own agent: [docs/recording.md](docs/recording.md).
 To watch a run live (about five minutes; on stage, show the recording below instead):
 
 ```
-claude
+claude --disallowedTools Skill
 > New brief in Notion: brief-001, "riverbed 1.8: checkpointed state for every pipeline".
 > Do the email blast for it: Python streaming developers, send window per the brief, 09:00 UTC.
 ```
+
+The flag matters: with skills enabled, the `aip-runtime` skill would spot that a matching
+procedure is published and run that instead. For this step the agent must have nothing but the
+SOP and the `blast` command, which is also how the four runs below were recorded.
 
 The recording of the four runs we made:
 
