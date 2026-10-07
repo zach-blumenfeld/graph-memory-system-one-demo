@@ -126,6 +126,40 @@ Three Claude Code hooks write everything into the memory graph as it happens: th
 and every `blast` call as a reasoning step with its tool call. Judgment calls get a `Decision`
 label.
 
+### How memory hooks up to Claude Code
+
+Two directions, both through the `neo4j-agent-memory` Python SDK over bolt. No MCP.
+
+**Reading.** The agent reads memory through `blast`. `blast sop` is a one-line query for the
+`Playbook` node; `blast brief`, `blast product`, `blast segments`, `blast brand` read the same
+Notion data (from the fixture files in this demo; the graph holds the same entities).
+
+**Writing.** `.claude/settings.json` in this folder registers three hooks. Claude Code runs the
+command at each event and pipes the event's JSON (session id, prompt, tool name, tool input and
+output, last message) to it:
+
+```json
+"hooks": {
+  "UserPromptSubmit": [{ "hooks": [{ "type": "command", "command": "uv run blast-hook user-prompt-submit" }] }],
+  "PostToolUse":      [{ "matcher": "Bash", "hooks": [{ "type": "command", "command": "uv run blast-hook post-tool-use" }] }],
+  "Stop":             [{ "hooks": [{ "type": "command", "command": "uv run blast-hook stop" }] }]
+}
+```
+
+`blast-hook` (`src/blast/hooks.py`) turns each event into SDK calls. The Claude session id is the
+memory session id:
+
+| event | SDK call | what lands in the graph |
+|---|---|---|
+| prompt submitted | `reasoning.start_trace(session_id, task)`, `short_term.add_message(session_id, "user", prompt)` | `ReasoningTrace`; `Conversation` → `Message` |
+| a `blast` command ran | `reasoning.add_step(trace_id, thought, action)`, `reasoning.record_tool_call(step_id, tool, args, result, status)` | `ReasoningStep` → `ToolCall` |
+| a `blast decide` ran | the same, plus the `Decision` label and `question`/`options`/`answer`/`why` properties | a `Decision` step |
+| Claude finished | `short_term.add_message(session_id, "assistant", answer)`, `reasoning.complete_trace(trace_id)` | the closing `Message`; trace completed |
+
+Any `claude` session started in this folder is recorded; `BLAST_RECORD=0` switches it off. The
+hooks never fail the session; problems go to `.run/recorder.log`. Full detail and how to do the
+same for your own agent and tools: [docs/recording.md](docs/recording.md).
+
 To watch one use the below
 
 ```
