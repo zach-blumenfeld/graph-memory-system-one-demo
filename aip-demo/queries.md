@@ -35,11 +35,11 @@ with its tool call. Judgment calls carry the extra `Decision` label; colour by l
 stand out. Change `LIMIT 1` to `LIMIT 4` for all four runs side by side.
 
 ```cypher
-MATCH (c:Conversation)-[:HAS_TRACE]->(t:ReasoningTrace)
-WITH c, t ORDER BY t.started_at LIMIT 1
+MATCH (c:Conversation)-[ht:HAS_TRACE]->(t:ReasoningTrace)
+WITH c, ht, t ORDER BY t.started_at LIMIT 1
 MATCH p1 = (c)-[:HAS_MESSAGE]->(:Message)
 MATCH p2 = (t)-[:HAS_STEP]->(:ReasoningStep)-[:USES_TOOL]->(:ToolCall)
-RETURN c, t, p1, p2
+RETURN c, ht, t, p1, p2
 ```
 
 The same run as a table, which reads better on stage:

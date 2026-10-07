@@ -229,6 +229,15 @@ With embeddings on, the agent could instead call `memory.get_context("how do we 
 blast", session_id=...)` and get the SOP, relevant entities and past steps in one string. That is
 the package's intended read path; we kept the demo on exact queries to keep the graph legible.
 
+**What is the package and what is ours.** The package writes every node. Three things are added
+on top with the Neo4j driver, because the package's model does not say what we mean: the typed
+domain edges on import (`PROMOTES`, `TARGETS`, ...; the package stores relationships as
+`RELATED_TO` with the type in a property), the `Decision` label and fields on a judgment-call
+step (the package has no notion of one), and the `HAS_TRACE` edge from a conversation to its
+trace (the package keeps them as separate nodes sharing a `session_id`). All additive; nothing
+the package created is changed. It is a Neo4j database, so when the model falls short you can
+say what you mean.
+
 Any `claude` session started in this folder is recorded; `BLAST_RECORD=0` switches it off. The
 hooks never fail the session; problems go to `.run/recorder.log`. The hook plumbing itself and
 how to do this for your own agent: [docs/recording.md](docs/recording.md).
@@ -254,11 +263,11 @@ with its tool call. Judgment calls carry the extra `Decision` label; colour by l
 stand out. Change `LIMIT 1` to `LIMIT 4` for all four runs side by side.
 
 ```cypher
-MATCH (c:Conversation)-[:HAS_TRACE]->(t:ReasoningTrace)
-WITH c, t ORDER BY t.started_at LIMIT 1
+MATCH (c:Conversation)-[ht:HAS_TRACE]->(t:ReasoningTrace)
+WITH c, ht, t ORDER BY t.started_at LIMIT 1
 MATCH p1 = (c)-[:HAS_MESSAGE]->(:Message)
 MATCH p2 = (t)-[:HAS_STEP]->(:ReasoningStep)-[:USES_TOOL]->(:ToolCall)
-RETURN c, t, p1, p2
+RETURN c, ht, t, p1, p2
 ```
 
 `<image: the run in Browser>`
