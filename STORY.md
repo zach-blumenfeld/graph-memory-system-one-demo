@@ -110,15 +110,15 @@ answer), and one `AgentStep` + `ToolCall` pair per tool call, in order. NAMS the
 that and links the entities it mentions, which is how the conversation ends up connected to the
 campaign node from step 1.
 
-**To show it live.** First hide the distilled skill, otherwise Claude will find it in
-`.claude/skills/` and you will be demoing step 5 by accident:
+**To show it live.** Start Claude with the distilled skill switched off, otherwise it will find
+it in `.claude/skills/` and you will be demoing step 5 by accident:
 
 ```
-make skill-hide      # moves .claude/skills/launch-email-blast out of the way
-claude
+claude --disallowedTools "Skill(launch-email-blast)"
 ```
 
-(`make skill-show` puts it back before step 5.) Then paste:
+That blocks only this one skill; if Claude tries it, the call is denied and it carries on with
+the tools. Then paste:
 
 ```
 New brief in Notion: brief-001, "riverbed 1.8: checkpointed state for every pipeline".
@@ -199,7 +199,7 @@ email.
 
 ## 5. A cheaper agent runs the skill
 
-New session, after `make skill-show`. Claude loads the skill and gets a new brief: "launch riverbed 2.0."
+New session, plain `claude` this time so the skill is available. Claude loads it and gets a new brief: "launch riverbed 2.0."
 
 With the default model it follows the eight steps and finishes in 84 seconds for about a dollar.
 
