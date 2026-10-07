@@ -24,10 +24,14 @@ The whole long-term layer, as paths so Browser draws it:
 ```cypher
 MATCH p = (c:Entity {type:'Campaign'})-[:PROMOTES|TARGETS|USES_CHANNEL|CONSTRAINED_BY]->(:Entity)
 WHERE c.sourceStage IS NULL
-OPTIONAL MATCH q = (:Entity {type:'Product'})-[:ASSERTS]->(cl:Entity {type:'Claim'})
+RETURN p
+UNION
+MATCH p = (:Entity {type:'Product'})-[:ASSERTS]->(cl:Entity {type:'Claim'})
 WHERE cl.sourceStage IS NULL
-OPTIONAL MATCH r = (:Entity {type:'Persona'})-[:REPRESENTS]->(:Entity {type:'AudienceSegment'})
-RETURN p, q, r
+RETURN p
+UNION
+MATCH p = (:Entity {type:'Persona'})-[:REPRESENTS]->(:Entity {type:'AudienceSegment'})
+RETURN p
 ```
 
 13 campaigns in a ring around 4 products, 6 segments and 4 personas, one Email channel, one brand

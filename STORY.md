@@ -41,11 +41,19 @@ To see it, in Neo4j Browser or the NAMS query view:
 ```cypher
 MATCH p = (c:Entity {type:'Campaign'})-[:PROMOTES|TARGETS|USES_CHANNEL|CONSTRAINED_BY]->(:Entity)
 WHERE c.sourceStage IS NULL
-OPTIONAL MATCH q = (:Entity {type:'Product'})-[:ASSERTS]->(cl:Entity {type:'Claim'})
+RETURN p
+UNION
+MATCH p = (:Entity {type:'Product'})-[:ASSERTS]->(cl:Entity {type:'Claim'})
 WHERE cl.sourceStage IS NULL
-OPTIONAL MATCH r = (:Entity {type:'Persona'})-[:REPRESENTS]->(:Entity {type:'AudienceSegment'})
-RETURN p, q, r
+RETURN p
+UNION
+MATCH p = (:Entity {type:'Persona'})-[:REPRESENTS]->(:Entity {type:'AudienceSegment'})
+RETURN p
 ```
+
+The three `UNION` branches matter: joining them with `OPTIONAL MATCH` multiplies the rows (82 × 13 × 6) and every node carries two 1024-float embeddings, which is why that version takes ages in Browser.
+
+What the node and relationship names mean, and what `sourceStage` is, is in `SCHEMA.md`.
 
 Colour nodes by `type` and caption by `name`. You get 13 campaigns around 4 products, 6
 segments, 4 personas, 13 claims, one channel and one brand guide. The `sourceStage IS NULL`
