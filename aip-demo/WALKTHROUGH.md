@@ -10,11 +10,11 @@ We are going over three things in this talk:
 2. Skill distillation and graph-shaped skills (AIP)
 3. System One, structured decisions, and extending them naturally into a graph workflow
 
-Graph memory gives an agent a durable record of what happened, what it knows, and why it acted,
-in one graph next to your business data. Skill distillation turns that record into a reusable
-procedure with evidence behind every step. A System One model (TypeSafe's Jev) answers the
-procedure's judgment calls in milliseconds, with a probability, so the run is fast, consistent,
-and knows when to ask a human.
+Graph memory gives an agent queryable, auditable, and shared memory with the ability to extract semantic and procedural knowledge while maintaining source provenance.
+
+Skill distillation turns that record into a reusable procedure for determinism, compression and governance
+
+A System One model (i.e. TypeSafe's Jev) answers the procedure's judgment calls in milliseconds, with a probability, so the run is fast and consistent.
 
 `<placeholder image for the above>`
 
@@ -29,7 +29,7 @@ The example is an agent that runs email marketing campaigns from data kept in No
 5. Run the skill and see what it does for consistency and speed
 
 Everything here is in one repo: `<repo link>`, folder `aip-demo/`. The fictional company is
-Tessera Labs; nothing in the data is real.
+Tessera Labs; all data is synthetic. 
 
 ## Prerequisites
 
