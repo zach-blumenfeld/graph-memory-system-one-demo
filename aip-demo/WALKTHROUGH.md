@@ -4,19 +4,14 @@
 
 `<QR code linking to this doc here>`
 
-We are going over three things in this talk:
+We are going over three things in this example:
 
 1. Graph memory for agents
 2. Skill distillation and graph-shaped skills (AIP)
 3. System One, structured decisions, and extending them naturally into a graph workflow
 
-Graph memory gives an agent memory that is queryable, auditable and shared, from which semantic and procedural knowledge can be extracted with source provenance intact.
 
-Skill distillation turns that record into a reusable procedure for determinism, performance, and governance.
-
-A System One model (i.e. TypeSafe's Jev) answers the procedure's judgment calls in milliseconds, with a probability, so the run is fast and consistent.  Putting them into a graph workflow is the natral next step
-
-`<placeholder image for the above>`
+![](img/memory-to-workflow.png)
 
 The example is an agent that runs email marketing campaigns from data kept in Notion. We will:
 
@@ -118,7 +113,7 @@ How it is done, file by file, and how to do it with a real Notion workspace: [do
 ## The agent uses memory and records email-blast traces
 
 Claude Code gets a brief and one instruction: start by reading the team's page (`blast sop`). No
-skill, no MCP server. It has a small `blast` command for the things an agent cannot do by hand
+skill. It has a small `blast` command for the things an agent cannot do by hand
 (read the brief, the product, the audiences, the brand guide; store a draft; run the compliance
 check; schedule; log) and the SOP asks it to log every judgment call with `blast decide`.
 
@@ -128,15 +123,34 @@ label.
 
 ### How memory hooks up to Claude Code
 
-Two directions, both through the `neo4j-agent-memory` Python SDK over bolt. No MCP.
+Two directions, both through the `neo4j-agent-memory` Python SDK over bolt. No MCP. One client,
+built once ([`src/blast/memory.py`](src/blast/memory.py)):
 
-**Reading.** The agent reads memory through `blast`. `blast sop` is a one-line query for the
-`Playbook` node; `blast brief`, `blast product`, `blast segments`, `blast brand` read the same
-Notion data (from the fixture files in this demo; the graph holds the same entities).
+```python
+from neo4j_agent_memory import MemoryClient, MemorySettings
 
-**Writing.** `.claude/settings.json` in this folder registers three hooks. Claude Code runs the
-command at each event and pipes the event's JSON (session id, prompt, tool name, tool input and
-output, last message) to it:
+settings = MemorySettings(
+    neo4j={"uri": NEO4J_URI, "username": NEO4J_USERNAME, "password": NEO4J_PASSWORD},
+    extraction={"enable_spacy": False, "enable_gliner": False, "enable_llm_fallback": False},
+)
+async with MemoryClient(settings) as memory:
+    ...   # memory.short_term / memory.long_term / memory.reasoning
+```
+
+**Reading.** The agent reads memory through `blast`. `blast sop` is one query against the graph
+([`tools.py`](src/blast/tools.py)):
+
+```python
+rows = cypher("MATCH (p:Playbook) RETURN p.name AS name, p.text AS text LIMIT 1")
+```
+
+The import that put it there was `memory.long_term.add_entity(name, "Playbook", description=...,
+attributes={"text": sop_text})`, and the same for every campaign, product, claim, segment,
+persona and brand guide ([`importer.py`](src/blast/importer.py)).
+
+**Writing.** `.claude/settings.json` registers three hooks. Claude Code runs the command at each
+event and pipes the event's JSON (session id, prompt, tool name, tool input and output, last
+message) to it on stdin:
 
 ```json
 "hooks": {
@@ -146,19 +160,45 @@ output, last message) to it:
 }
 ```
 
-`blast-hook` (`src/blast/hooks.py`) turns each event into SDK calls. The Claude session id is the
-memory session id:
+`blast-hook` ([`hooks.py`](src/blast/hooks.py)) turns each event into SDK calls. The Claude
+session id is the memory session id, so one `Conversation` and one `ReasoningTrace` per session.
 
-| event | SDK call | what lands in the graph |
-|---|---|---|
-| prompt submitted | `reasoning.start_trace(session_id, task)`, `short_term.add_message(session_id, "user", prompt)` | `ReasoningTrace`; `Conversation` → `Message` |
-| a `blast` command ran | `reasoning.add_step(trace_id, thought, action)`, `reasoning.record_tool_call(step_id, tool, args, result, status)` | `ReasoningStep` → `ToolCall` |
-| a `blast decide` ran | the same, plus the `Decision` label and `question`/`options`/`answer`/`why` properties | a `Decision` step |
-| Claude finished | `short_term.add_message(session_id, "assistant", answer)`, `reasoning.complete_trace(trace_id)` | the closing `Message`; trace completed |
+Prompt submitted: start the trace, store the message.
 
-Any `claude` session started in this folder is recorded; `BLAST_RECORD=0` switches it off. The
-hooks never fail the session; problems go to `.run/recorder.log`. Full detail and how to do the
-same for your own agent and tools: [docs/recording.md](docs/recording.md).
+```python
+trace = await memory.reasoning.start_trace(session_id, task=prompt[:200])
+await memory.short_term.add_message(session_id, "user", prompt)
+# -> (:ReasoningTrace)   (:Conversation)-[:HAS_MESSAGE]->(:Message {role:'user'})
+```
+
+A `blast` command ran (PostToolUse, Bash only; other commands are ignored): one step, one tool call.
+
+```python
+step = await memory.reasoning.add_step(trace_id, thought="blast check", action="blast check draft-…-01",
+                                       observation=json.dumps(result)[:500])
+await memory.reasoning.record_tool_call(step.id, "blast check", {"args": args}, result=result,
+                                        status=ToolCallStatus.FAILURE if "error" in result else ToolCallStatus.SUCCESS)
+# -> (:ReasoningTrace)-[:HAS_STEP]->(:ReasoningStep)-[:USES_TOOL]->(:ToolCall {tool_name, arguments, result, status})
+```
+
+A `blast decide` ran: the same two calls, then the step is marked as a judgment so it can be
+queried as one.
+
+```python
+cypher("MATCH (s:ReasoningStep {id: $id}) SET s:Decision, s.question = $q, s.options = $o, s.answer = $a, s.why = $w", ...)
+```
+
+Claude finished: store the answer, close the trace.
+
+```python
+await memory.short_term.add_message(session_id, "assistant", last_message)
+await memory.reasoning.complete_trace(trace_id, outcome="completed", success=True)
+```
+
+That is the whole integration: four SDK methods and one `SET`. Any `claude` session started in
+this folder is recorded; `BLAST_RECORD=0` switches it off; the hooks never fail the session, and
+problems go to `.run/recorder.log`. Full detail and how to do the same for your own agent and
+tools: [docs/recording.md](docs/recording.md).
 
 To watch one use the below
 
