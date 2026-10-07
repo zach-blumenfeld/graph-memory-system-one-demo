@@ -1,0 +1,409 @@
+{
+  "object": "database",
+  "id": "db-products",
+  "title": [
+    {
+      "type": "text",
+      "plain_text": "Products",
+      "text": {
+        "content": "Products"
+      }
+    }
+  ],
+  "properties": {
+    "Name": {
+      "type": "title"
+    },
+    "Tagline": {
+      "type": "rich_text"
+    },
+    "Repo": {
+      "type": "url"
+    },
+    "Docs": {
+      "type": "url"
+    },
+    "Version": {
+      "type": "rich_text"
+    },
+    "Approved claims": {
+      "type": "rich_text"
+    },
+    "Disclaimer": {
+      "type": "rich_text"
+    }
+  },
+  "pages": [
+    {
+      "object": "page",
+      "id": "prod-riverbed",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "riverbed",
+              "text": {
+                "content": "riverbed"
+              }
+            }
+          ]
+        },
+        "Tagline": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Stream processing for Python that fits in one file",
+              "text": {
+                "content": "Stream processing for Python that fits in one file"
+              }
+            }
+          ]
+        },
+        "Repo": {
+          "type": "url",
+          "url": "https://github.com/tessera-labs/riverbed"
+        },
+        "Docs": {
+          "type": "url",
+          "url": "https://tessera-labs.example/riverbed/"
+        },
+        "Version": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "1.8.0",
+              "text": {
+                "content": "1.8.0"
+              }
+            }
+          ]
+        },
+        "Approved claims": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Runs windowed aggregations over Kafka, Kinesis and local files with one API",
+              "text": {
+                "content": "Runs windowed aggregations over Kafka, Kinesis and local files with one API"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Checkpoints pipeline state so a restarted worker resumes without reprocessing",
+              "text": {
+                "content": "Checkpoints pipeline state so a restarted worker resumes without reprocessing"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Ships typed connectors for Postgres, DuckDB and Parquet",
+              "text": {
+                "content": "Ships typed connectors for Postgres, DuckDB and Parquet"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Processes 120k events per second per core on the published benchmark suite",
+              "text": {
+                "content": "Processes 120k events per second per core on the published benchmark suite"
+              }
+            }
+          ]
+        },
+        "Disclaimer": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.",
+              "text": {
+                "content": "Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice."
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "prod-tidewatch",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "tidewatch",
+              "text": {
+                "content": "tidewatch"
+              }
+            }
+          ]
+        },
+        "Tagline": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "See every pipeline, lag and retry in one place",
+              "text": {
+                "content": "See every pipeline, lag and retry in one place"
+              }
+            }
+          ]
+        },
+        "Repo": {
+          "type": "url",
+          "url": "https://github.com/tessera-labs/tidewatch"
+        },
+        "Docs": {
+          "type": "url",
+          "url": "https://tessera-labs.example/tidewatch/"
+        },
+        "Version": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "0.9.0",
+              "text": {
+                "content": "0.9.0"
+              }
+            }
+          ]
+        },
+        "Approved claims": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Collects lag, throughput and error metrics from any riverbed pipeline with no code changes",
+              "text": {
+                "content": "Collects lag, throughput and error metrics from any riverbed pipeline with no code changes"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Alerts on consumer lag with per-topic thresholds",
+              "text": {
+                "content": "Alerts on consumer lag with per-topic thresholds"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Stores 30 days of metrics in an embedded time-series store",
+              "text": {
+                "content": "Stores 30 days of metrics in an embedded time-series store"
+              }
+            }
+          ]
+        },
+        "Disclaimer": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.",
+              "text": {
+                "content": "Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice."
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "prod-mooring",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "mooring",
+              "text": {
+                "content": "mooring"
+              }
+            }
+          ]
+        },
+        "Tagline": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "A schema registry you can run from a laptop",
+              "text": {
+                "content": "A schema registry you can run from a laptop"
+              }
+            }
+          ]
+        },
+        "Repo": {
+          "type": "url",
+          "url": "https://github.com/tessera-labs/mooring"
+        },
+        "Docs": {
+          "type": "url",
+          "url": "https://tessera-labs.example/mooring/"
+        },
+        "Version": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "2.1.0",
+              "text": {
+                "content": "2.1.0"
+              }
+            }
+          ]
+        },
+        "Approved claims": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Registers Avro, Protobuf and JSON Schema definitions with compatibility checks",
+              "text": {
+                "content": "Registers Avro, Protobuf and JSON Schema definitions with compatibility checks"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Single binary, SQLite-backed, starts in under a second",
+              "text": {
+                "content": "Single binary, SQLite-backed, starts in under a second"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Compatible with the Confluent-style REST API for existing clients",
+              "text": {
+                "content": "Compatible with the Confluent-style REST API for existing clients"
+              }
+            }
+          ]
+        },
+        "Disclaimer": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.",
+              "text": {
+                "content": "Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice."
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "prod-ballast",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "ballast",
+              "text": {
+                "content": "ballast"
+              }
+            }
+          ]
+        },
+        "Tagline": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Load-test a streaming pipeline before your users do",
+              "text": {
+                "content": "Load-test a streaming pipeline before your users do"
+              }
+            }
+          ]
+        },
+        "Repo": {
+          "type": "url",
+          "url": "https://github.com/tessera-labs/ballast"
+        },
+        "Docs": {
+          "type": "url",
+          "url": "https://tessera-labs.example/ballast/"
+        },
+        "Version": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "0.4.0",
+              "text": {
+                "content": "0.4.0"
+              }
+            }
+          ]
+        },
+        "Approved claims": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Replays recorded traffic at 1x to 50x speed against a staging pipeline",
+              "text": {
+                "content": "Replays recorded traffic at 1x to 50x speed against a staging pipeline"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Reports p50/p95/p99 end-to-end latency per stage",
+              "text": {
+                "content": "Reports p50/p95/p99 end-to-end latency per stage"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Runs as a GitHub Action with a pass/fail latency budget",
+              "text": {
+                "content": "Runs as a GitHub Action with a pass/fail latency budget"
+              }
+            }
+          ]
+        },
+        "Disclaimer": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.",
+              "text": {
+                "content": "Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice."
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

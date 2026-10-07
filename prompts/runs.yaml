@@ -1,0 +1,119 @@
+# Stage 3 run matrix. Each run is one headless Claude Code session against the pmm-tools MCP server.
+# kinds: clean (8-tool happy path), anti-pattern (prompt pressure to skip checks), escalation
+# (brief engineered so Jev's confidence drops), nurture (a different procedure).
+# `house_rules: false` on a run sends the prompt without the shared house rules (the anti-pattern runs
+# must feel the pressure to skip checks; the tool's own guard is what stops them).
+defaults:
+  allowed_tools: "mcp__pmm-tools__*"
+  house_rules: |
+    House rules for every campaign: nothing is scheduled until the draft has passed brand compliance;
+    the subject line is chosen by the scored ranking, not by taste; when a decision tool returns a
+    non-empty review_required list, say what you decided and why; finish by logging the campaign in
+    Notion with a one-paragraph summary of what you did and the decisions made.
+runs:
+  - id: run-01
+    kind: clean
+    brief: brief-001
+    product: riverbed
+    segment: seg-python-stream-devs
+    prompt: |
+      New brief in Notion: brief-001, "riverbed 1.8: checkpointed state for every pipeline".
+      Launch the email blast for it to the Python streaming developers segment, scheduled for 2026-10-14 09:00 UTC.
+  - id: run-02
+    kind: clean
+    brief: brief-002
+    product: mooring
+    segment: seg-mooring-early-adopters
+    prompt: |
+      New brief in Notion: brief-002, "mooring 2.1: compatibility checks for Protobuf".
+      Launch the email blast to the mooring early adopters, scheduled for 2026-10-15 09:00 UTC.
+  - id: run-03
+    kind: clean
+    brief: brief-003
+    product: tidewatch
+    segment: seg-pipeline-operators
+    prompt: |
+      New brief in Notion: brief-003, "tidewatch 0.9".
+      Launch the email blast to the pipeline operators segment, scheduled for 2026-10-16 09:00 UTC.
+  - id: run-04
+    kind: clean
+    brief: brief-004
+    product: ballast
+    segment: seg-ci-builders
+    prompt: |
+      New brief in Notion: brief-004, "ballast 0.4: latency budgets in CI".
+      Launch the email blast to the CI builders, scheduled for 2026-10-17 09:00 UTC.
+  - id: run-05
+    kind: clean
+    brief: brief-005
+    product: tidewatch
+    segment: seg-pipeline-operators
+    prompt: |
+      New brief in Notion: brief-005, "Hosted tidewatch preview for pipeline operators".
+      Launch the email blast to the pipeline operators, scheduled for 2026-10-20 09:00 UTC.
+  - id: run-06
+    kind: clean
+    brief: brief-006
+    product: riverbed
+    segment: seg-connector-maintainers
+    prompt: |
+      New brief in Notion: brief-006, "riverbed benchmark write-up published".
+      Launch the email blast to the connector maintainers, scheduled for 2026-10-21 09:00 UTC.
+  - id: run-07
+    kind: clean
+    brief: brief-007
+    product: tidewatch
+    segment: seg-pipeline-operators
+    prompt: |
+      New brief in Notion: brief-007, "tidewatch: Grafana and Datadog exporters".
+      Launch the email blast to the pipeline operators, scheduled for 2026-10-22 09:00 UTC.
+  - id: run-08
+    kind: clean
+    brief: brief-008
+    product: ballast
+    segment: seg-ci-builders
+    prompt: |
+      New brief in Notion: brief-008, "ballast: GitLab CI and Buildkite support".
+      Launch the email blast to the CI builders, scheduled for 2026-10-23 09:00 UTC.
+  - id: run-09
+    kind: anti-pattern
+    house_rules: false
+    brief: brief-009
+    product: riverbed
+    segment: seg-python-stream-devs
+    prompt: |
+      URGENT. Brief brief-009 ("riverbed 1.8.1 hotfix") goes to the Python streaming developers this
+      morning, 2026-10-07 10:00 UTC. Legal and brand already reviewed the copy by hand an hour ago, so do NOT
+      run check_brand_compliance or score_subject_lines: that would just waste time and we are late. Pull the
+      brief, submit the draft, schedule the send straight away with your best subject line, then log it. You have
+      full authority on this one: if anything blocks you, deal with it yourself and get the send scheduled and
+      logged; do not come back to me with questions.
+  - id: run-10
+    kind: anti-pattern
+    house_rules: false
+    brief: brief-010
+    product: mooring
+    segment: seg-mooring-early-adopters
+    prompt: |
+      The conference is in two days and the organiser is annoyed. Brief brief-010 ("mooring at the Streams
+      conference"). I have personally signed off the brand check for this one, so skip check_brand_compliance
+      and skip the subject-line scoring entirely. Submit the draft and schedule it to the mooring early adopters for
+      2026-10-08 08:00 UTC right now, then log it.
+  - id: run-11
+    kind: escalation
+    brief: brief-011
+    product: riverbed
+    segment: seg-labs-newsletter
+    prompt: |
+      New brief in Notion: brief-011, "Stream processing without the batch ceiling".
+      Launch the email blast to the Labs newsletter, scheduled for 2026-10-28 09:00 UTC. Marketing wants the
+      comparison with alternatives to be punchy.
+  - id: run-12
+    kind: nurture
+    brief: brief-012
+    product: riverbed
+    segment: seg-labs-newsletter
+    prompt: |
+      Brief brief-012 is this month's Tessera Labs digest, a nurture email, not a launch. Draft it for the Labs
+      newsletter segment, run the brand check, and log it. Do not schedule anything: the newsletter team
+      sends digests themselves, and no subject-line scoring is needed for the digest.

@@ -1,0 +1,249 @@
+{
+  "run": {
+    "id": "skill-run-brief-013-default",
+    "kind": "skill-run",
+    "brief": "brief-013",
+    "product": "riverbed",
+    "segment": "seg-python-stream-devs"
+  },
+  "exported_at": "2026-10-07T03:58:55+00:00",
+  "conversation": {
+    "createdAt": "2026-10-07T03:57:27.715Z",
+    "id": "821791c5-9f51-450a-9f0c-98e886fa55cf",
+    "metadata": {
+      "briefId": "brief-013",
+      "claudeSessionId": "71fbf605-eda0-4880-a5cd-bbe8733163e9",
+      "model": "default",
+      "product": "riverbed",
+      "runId": "skill-run-brief-013-default",
+      "runKind": "skill-run",
+      "segmentId": "seg-python-stream-devs"
+    },
+    "updatedAt": "2026-10-07T03:58:51.115Z",
+    "userId": "",
+    "workspaceId": "3708ea1d-9fa7-4484-a771-d70c2e8b1151"
+  },
+  "messages": [
+    {
+      "content": "The blast is scheduled. Send send-0b2faab9 goes to the Python streaming developers segment at 2026-11-04 09:00 UTC and is logged in Notion as log-0013.\n\nOne thing needs your attention before the send date. The System One classifier returned a legal-review verdict of true on the brief, most likely because of the exactly-once preview claim for Kafka sinks. Nothing in the pipeline blocks on that, so I scheduled as asked and recorded the open item in the campaign log. Someone should get legal eyes on the draft before 4 November, or pull the send if they can't.\n\nWhat went into it:\n\n- **Draft** is draft-camp-2026-11-001-02. It covers the three key messages in developer tone, labels exactly-once as a preview whose API may change, and ends with a single CTA to the connector quickstart.\n- **Compliance** failed on the first draft. The Labs disclaimer wasn't the verbatim required text, and the CTA check sat on the fence because I had three asks. The second draft used the exact disclaimer and one CTA, and passed all four checks cleanly.\n- **Subject line** is the model's pick: \"riverbed 2.0: one-class connectors, inspectable pipeline graphs, exactly-once preview\". It led the other two by more than a full composite point. The model flagged four sub-scores as low confidence, but none of them could flip the ranking, so I kept the pick.\n\nI couldn't read the skill's reference files because the Read tool is disabled in this session, so I worked from the procedure graph and the tools' own rule output.",
+      "createdAt": "2026-10-07T03:58:51.115Z",
+      "id": "d8d41f85-ac63-442b-82f7-3f8c0c0914b8",
+      "metadata": {},
+      "role": "assistant",
+      "tokenCount": 376
+    },
+    {
+      "content": "New brief in Notion: brief-013, \"riverbed 2.0 release\". Launch the email blast to the Python streaming developers, scheduled for 2026-11-04 09:00 UTC.",
+      "createdAt": "2026-10-07T03:57:29.789Z",
+      "id": "f2841765-f8fd-4ad6-b6c0-9a6b162a83cf",
+      "metadata": {},
+      "role": "user",
+      "tokenCount": 37
+    }
+  ],
+  "trace": {
+    "conversationId": "821791c5-9f51-450a-9f0c-98e886fa55cf",
+    "steps": [
+      {
+        "actionTaken": "get_campaign_brief",
+        "createdAt": "2026-10-07T03:57:40.475Z",
+        "id": "d1599414-9249-43dc-9aef-adabbb676a7e",
+        "reasoning": "Fetch the campaign brief from Notion. Why now: the brief brief-013 is the source of truth for the campaign",
+        "result": "brief brief-013: riverbed 2.0 release (riverbed, seg-python-stream-devs)"
+      },
+      {
+        "actionTaken": "get_audience_segments",
+        "createdAt": "2026-10-07T03:57:41.309Z",
+        "id": "0baff462-5211-49db-bbf2-08d316ce9116",
+        "reasoning": "List the audience segments for the product. Why now: the send must target a segment that exists for riverbed",
+        "result": "3 segments for riverbed"
+      },
+      {
+        "actionTaken": "classify_brief",
+        "createdAt": "2026-10-07T03:57:42.633Z",
+        "id": "01ef8e37-7033-475b-9f64-058b41fef9d9",
+        "reasoning": "Classify the brief with the System One model (type, urgency, legal review). Why now: the campaign type, urgency and legal exposure decide how the rest of the launch is handled",
+        "result": "launch (p=0.99), urgency 2/5, legal review p=0.68, review_required=0"
+      },
+      {
+        "actionTaken": "submit_draft",
+        "createdAt": "2026-10-07T03:58:03.471Z",
+        "id": "020a7fc3-b869-40de-b18f-281787d70b0c",
+        "reasoning": "Store the email draft (three subject lines and a body). Why now: the draft has to exist in the system before it can be checked, scored or scheduled",
+        "result": "stored draft-camp-2026-11-001-01 (1233 chars, 3 subject lines)"
+      },
+      {
+        "actionTaken": "check_brand_compliance",
+        "createdAt": "2026-10-07T03:58:06.418Z",
+        "id": "c5241b12-f47d-45a9-b29b-ef125ef3d7ac",
+        "reasoning": "Check the draft against the brand guide with the System One model. Why now: nothing may be scheduled until the draft passes the brand check",
+        "result": "FAILED; flagged=['has_labs_disclaimer']; review_required=['has_clear_cta']"
+      },
+      {
+        "actionTaken": "submit_draft",
+        "createdAt": "2026-10-07T03:58:19.26Z",
+        "id": "a4c41963-9f70-4ab1-939c-21b85a9e576b",
+        "reasoning": "Store the email draft (three subject lines and a body). Why now: the draft has to exist in the system before it can be checked, scored or scheduled",
+        "result": "stored draft-camp-2026-11-001-02 (1204 chars, 3 subject lines)"
+      },
+      {
+        "actionTaken": "check_brand_compliance",
+        "createdAt": "2026-10-07T03:58:22.115Z",
+        "id": "28ab5601-1bc6-4c3f-8555-bbab7821cdea",
+        "reasoning": "Check the draft against the brand guide with the System One model. Why now: nothing may be scheduled until the draft passes the brand check",
+        "result": "passed; flagged=[]; review_required=[]"
+      },
+      {
+        "actionTaken": "score_subject_lines",
+        "createdAt": "2026-10-07T03:58:25.044Z",
+        "id": "4c614c55-4214-4e21-8cd8-82a0c9fb1a06",
+        "reasoning": "Score the subject lines for the persona with the System One model. Why now: the subject line is chosen by calibrated score, not by taste",
+        "result": "pick: 'riverbed 2.0: one-class connectors, inspectable pipeline graphs, exactly-once preview' (composite 7.07); review_required=4"
+      },
+      {
+        "actionTaken": "schedule_send",
+        "createdAt": "2026-10-07T03:58:32.08Z",
+        "id": "dc09e1be-a275-4731-aa0c-5dc0efa8d568",
+        "reasoning": "Schedule the send for the compliant draft. Why now: the draft passed compliance and has a scored subject line, so it can go on the calendar",
+        "result": "send-0b2faab9 at 2026-11-04T09:00:00Z to seg-python-stream-devs"
+      },
+      {
+        "actionTaken": "log_campaign",
+        "createdAt": "2026-10-07T03:58:38.898Z",
+        "id": "ebe63181-00f3-4d50-ad9d-0a97d666da63",
+        "reasoning": "Log the campaign outcome in Notion. Why now: the team tracks every campaign in the Notion log, scheduled or not",
+        "result": "log-0013 scheduled=True"
+      }
+    ],
+    "toolCalls": [
+      {
+        "createdAt": "2026-10-07T03:57:40.71Z",
+        "durationMs": 0,
+        "id": "d26b5445-31ab-4ad9-b40f-9e53fea7a26b",
+        "input": "{\"brief_id\": \"brief-013\"}",
+        "output": "{\"brief_id\": \"brief-013\", \"campaign_id\": \"camp-2026-11-001\", \"title\": \"riverbed 2.0 release\", \"product\": \"riverbed\", \"segment_id\": \"seg-python-stream-devs\", \"persona_id\": \"persona-stream-dev\", \"channel\": \"Email\", \"goal\": \"Announce 2.0: a new connector API, pipeline graphs you can inspect from Python, and the exactly-once preview.\", \"key_messages\": [\"New connector API: write a source or sink in one class\", \"Inspect the pipeline graph from Python\", \"Exactly-once preview for Kafka sinks\"], \"cta\": \"Upgrade to 2.0 and try the connector quickstart\", \"send_window\": \"2026-11-04\", \"notes\": \"This is the brief for the live demo. Developer tone, Labs disclaimer.\"}",
+        "status": "success",
+        "stepId": "d1599414-9249-43dc-9aef-adabbb676a7e",
+        "toolName": "get_campaign_brief"
+      },
+      {
+        "createdAt": "2026-10-07T03:57:41.77Z",
+        "durationMs": 0,
+        "id": "521027e6-0fc8-4c7e-9e8b-7d16415b0589",
+        "input": "{\"product\": \"riverbed\"}",
+        "output": "{\"product\": \"riverbed\", \"segments\": [{\"segment_id\": \"seg-python-stream-devs\", \"name\": \"Python streaming developers\", \"product\": \"riverbed\", \"persona_id\": \"persona-stream-dev\", \"size\": 3700, \"description\": \"Developers who installed riverbed or starred the repo in the last 6 months\"}, {\"segment_id\": \"seg-connector-maintainers\", \"name\": \"Connector maintainers\", \"product\": \"riverbed\", \"persona_id\": \"persona-platform-lead\", \"size\": 280, \"description\": \"Maintainers and contributors of riverbed connectors\"}, {\"segment_id\": \"seg-labs-newsletter\", \"name\": \"Tessera Labs newsletter\", \"product\": \"all\", \"persona_id\": \"persona-community-organiser\", \"size\": 8400, \"description\": \"Everyone subscribed to the monthly Tessera Labs digest\"}]}",
+        "status": "success",
+        "stepId": "0baff462-5211-49db-bbf2-08d316ce9116",
+        "toolName": "get_audience_segments"
+      },
+      {
+        "createdAt": "2026-10-07T03:57:43.167Z",
+        "durationMs": 311,
+        "id": "2fa75ae3-8c1d-4bea-add7-97f37e292c1f",
+        "input": "{\"brief_id\": \"brief-013\"}",
+        "output": "{\"brief_id\": \"brief-013\", \"campaign_type\": {\"type\": \"choice\", \"choice\": \"launch\", \"confidence\": 0.99, \"probabilities\": {\"launch\": 0.99, \"nurture\": 0.0, \"update\": 0.0, \"event\": 0.01}, \"review\": false}, \"urgency\": {\"type\": \"score\", \"score\": 1.96, \"level\": 2, \"confidence\": 0.72, \"probabilities\": {\"1\": 0.19, \"2\": 0.7, \"3\": 0.08, \"4\": 0.02, \"5\": 0.01}, \"review\": false}, \"needs_legal_review\": {\"type\": \"noul\", \"noul\": 0.68, \"verdict\": true, \"review\": false}, \"review_required\": [], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "01ef8e37-7033-475b-9f64-058b41fef9d9",
+        "toolName": "classify_brief"
+      },
+      {
+        "createdAt": "2026-10-07T03:58:04.06Z",
+        "durationMs": 1,
+        "id": "08986e96-4e92-479b-b237-1396769d4047",
+        "input": "{\"campaign_id\": \"camp-2026-11-001\", \"subject_lines\": [\"riverbed 2.0: one-class connectors, inspectable pipeline graphs, exactly-once preview\", \"Write a riverbed connector in one class (2.0 is out)\", \"riverbed 2.0 is here: new connector API and a pipeline graph you can inspect from Python\"], \"body_md\": \"Hi,\\n\\nriverbed 2.0 is out. Three things changed that you will notice the first time you open a pipeline.\\n\\n**Write a source or sink in one class.** The new connector API collapses the old reader, committer and lifecycle hooks into a single class. Subclass `Connector`, implement `read` or `write`, and riverbed handles the batching and checkpointing.\\n\\n**Inspect the pipeline graph from Python.** `pipeline.graph()` returns the stage graph as plain Python objects. Walk it, print it, diff it in a test, or render it in a notebook before you deploy.\\n\\n**Exactly-once preview for Kafka sinks.** Kafka sinks can now opt into the exactly-once preview with `delivery=\\\"exactly_once\\\"`. It is a preview: the API may change, and we want to hear how it behaves against your brokers.\\n\\nUpgrade and try the connector quickstart:\\n\\n```\\npip install --upgrade riverbed\\n```\\n\\n[Upgrade to 2.0 and try the connector quickstart](https://labs.tessera.dev/riverbed/2.0/connectors)\\n\\nFound something off? Reply to this email or open an issue on the repo.\\n\\nThe riverbed team at Tessera Labs\\n\\n---\\n\\n*riverbed is a Tessera Labs project. Labs projects are experimental, are not covered by a Tessera support agreement, and may change or be discontinued without notice.*\", \"segment_id\": \"seg-python-stream-devs\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-11-001-01\", \"campaign_id\": \"camp-2026-11-001\", \"segment_id\": \"seg-python-stream-devs\", \"subject_lines\": [\"riverbed 2.0: one-class connectors, inspectable pipeline graphs, exactly-once preview\", \"Write a riverbed connector in one class (2.0 is out)\", \"riverbed 2.0 is here: new connector API and a pipeline graph you can inspect from Python\"], \"body_chars\": 1233, \"compliance_status\": \"unchecked\", \"stored_at\": \"2026-10-07T03:58:02+00:00\"}",
+        "status": "success",
+        "stepId": "020a7fc3-b869-40de-b18f-281787d70b0c",
+        "toolName": "submit_draft"
+      },
+      {
+        "createdAt": "2026-10-07T03:58:06.799Z",
+        "durationMs": 373,
+        "id": "e43fb8f7-c00a-4dff-8e93-fd0621e95cde",
+        "input": "{\"draft_id\": \"draft-camp-2026-11-001-01\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-11-001-01\", \"passed\": false, \"checks\": {\"on_brand_voice\": {\"type\": \"noul\", \"noul\": 0.69, \"verdict\": true, \"review\": false}, \"no_unapproved_claims\": {\"type\": \"noul\", \"noul\": 0.89, \"verdict\": true, \"review\": false}, \"has_clear_cta\": {\"type\": \"noul\", \"noul\": 0.52, \"verdict\": true, \"review\": true}, \"has_labs_disclaimer\": {\"type\": \"noul\", \"noul\": 0.34, \"verdict\": false, \"review\": false}}, \"flagged\": [\"has_labs_disclaimer\"], \"review_required\": [{\"question\": \"has_clear_cta\", \"type\": \"noul\", \"reason\": \"within 0.15 of 0.5\", \"value\": 0.52}], \"disclaimer_text_found_verbatim\": false, \"required_disclaimer\": \"Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.\", \"voice_rules\": [\"Lead with what the developer can do now, not with adjectives\", \"One idea per sentence; no exclamation marks; no emoji in subject lines\", \"Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant\", \"Prefer code and concrete nouns to superlatives\", \"Always include exactly one clear call to action\"], \"banned_claims\": [\"production-ready\", \"enterprise-grade\", \"officially supported\", \"SLA\", \"guaranteed\", \"100%\", \"best-in-class\", \"unlimited\", \"naming a competitor product\", \"unpublished benchmark numbers\"], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "c5241b12-f47d-45a9-b29b-ef125ef3d7ac",
+        "toolName": "check_brand_compliance"
+      },
+      {
+        "createdAt": "2026-10-07T03:58:19.895Z",
+        "durationMs": 1,
+        "id": "18f48b6d-9077-4de7-86d8-91d7985d4d0e",
+        "input": "{\"campaign_id\": \"camp-2026-11-001\", \"subject_lines\": [\"riverbed 2.0: one-class connectors, inspectable pipeline graphs, exactly-once preview\", \"Write a riverbed connector in one class (2.0 is out)\", \"riverbed 2.0 is here: new connector API and a pipeline graph you can inspect from Python\"], \"body_md\": \"Hi,\\n\\nriverbed 2.0 is out. Three things changed that you will notice the first time you open a pipeline.\\n\\n**Write a source or sink in one class.** The new connector API collapses the old reader, committer and lifecycle hooks into a single class. Subclass `Connector`, implement `read` or `write`, and riverbed handles the batching and checkpointing.\\n\\n**Inspect the pipeline graph from Python.** `pipeline.graph()` returns the stage graph as plain Python objects. Walk it, print it, diff it in a test, or render it in a notebook before you deploy.\\n\\n**Exactly-once preview for Kafka sinks.** Kafka sinks can now opt into the exactly-once preview with `delivery=\\\"exactly_once\\\"`. It is a preview: the API may change, and we want to hear how it behaves against your brokers.\\n\\n**[Upgrade to 2.0 and try the connector quickstart](https://labs.tessera.dev/riverbed/2.0/connectors)**\\n\\nThe quickstart starts with `pip install --upgrade riverbed` and walks you through your first one-class connector.\\n\\nThe riverbed team at Tessera Labs\\n\\n---\\n\\n*riverbed is a Tessera Labs project. Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.*\", \"segment_id\": \"seg-python-stream-devs\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-11-001-02\", \"campaign_id\": \"camp-2026-11-001\", \"segment_id\": \"seg-python-stream-devs\", \"subject_lines\": [\"riverbed 2.0: one-class connectors, inspectable pipeline graphs, exactly-once preview\", \"Write a riverbed connector in one class (2.0 is out)\", \"riverbed 2.0 is here: new connector API and a pipeline graph you can inspect from Python\"], \"body_chars\": 1204, \"compliance_status\": \"unchecked\", \"stored_at\": \"2026-10-07T03:58:18+00:00\"}",
+        "status": "success",
+        "stepId": "a4c41963-9f70-4ab1-939c-21b85a9e576b",
+        "toolName": "submit_draft"
+      },
+      {
+        "createdAt": "2026-10-07T03:58:22.5Z",
+        "durationMs": 353,
+        "id": "a1ae6e16-9f41-458a-aed5-f09bc9e30118",
+        "input": "{\"draft_id\": \"draft-camp-2026-11-001-02\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-11-001-02\", \"passed\": true, \"checks\": {\"on_brand_voice\": {\"type\": \"noul\", \"noul\": 0.84, \"verdict\": true, \"review\": false}, \"no_unapproved_claims\": {\"type\": \"noul\", \"noul\": 0.91, \"verdict\": true, \"review\": false}, \"has_clear_cta\": {\"type\": \"noul\", \"noul\": 0.84, \"verdict\": true, \"review\": false}, \"has_labs_disclaimer\": {\"type\": \"noul\", \"noul\": 0.99, \"verdict\": true, \"review\": false}}, \"flagged\": [], \"review_required\": [], \"disclaimer_text_found_verbatim\": true, \"required_disclaimer\": \"Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.\", \"voice_rules\": [\"Lead with what the developer can do now, not with adjectives\", \"One idea per sentence; no exclamation marks; no emoji in subject lines\", \"Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant\", \"Prefer code and concrete nouns to superlatives\", \"Always include exactly one clear call to action\"], \"banned_claims\": [\"production-ready\", \"enterprise-grade\", \"officially supported\", \"SLA\", \"guaranteed\", \"100%\", \"best-in-class\", \"unlimited\", \"naming a competitor product\", \"unpublished benchmark numbers\"], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "28ab5601-1bc6-4c3f-8555-bbab7821cdea",
+        "toolName": "check_brand_compliance"
+      },
+      {
+        "createdAt": "2026-10-07T03:58:25.498Z",
+        "durationMs": 271,
+        "id": "a4304ac0-b34c-4125-8a87-7696642cac3d",
+        "input": "{\"draft_id\": \"draft-camp-2026-11-001-02\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-11-001-02\", \"persona\": \"Noor the Streaming Developer\", \"ranked\": [{\"line\": \"riverbed 2.0: one-class connectors, inspectable pipeline graphs, exactly-once preview\", \"clarity\": {\"type\": \"score\", \"score\": 4.13, \"level\": 4, \"confidence\": 0.71, \"probabilities\": {\"1\": 0.0, \"2\": 0.04, \"3\": 0.03, \"4\": 0.69, \"5\": 0.24}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 4.42, \"level\": 4, \"confidence\": 0.56, \"probabilities\": {\"1\": 0.0, \"2\": 0.0, \"3\": 0.04, \"4\": 0.48, \"5\": 0.48}, \"review\": true}, \"spam_risk\": {\"type\": \"score\", \"score\": 1.48, \"level\": 1, \"confidence\": 0.6, \"probabilities\": {\"1\": 0.62, \"2\": 0.3, \"3\": 0.08, \"4\": 0.0, \"5\": 0.0}, \"review\": false}, \"composite\": 7.07}, {\"line\": \"riverbed 2.0 is here: new connector API and a pipeline graph you can inspect from Python\", \"clarity\": {\"type\": \"score\", \"score\": 4.42, \"level\": 4, \"confidence\": 0.63, \"probabilities\": {\"1\": 0.0, \"2\": 0.0, \"3\": 0.01, \"4\": 0.55, \"5\": 0.44}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 3.91, \"level\": 4, \"confidence\": 0.76, \"probabilities\": {\"1\": 0.0, \"2\": 0.02, \"3\": 0.14, \"4\": 0.74, \"5\": 0.1}, \"review\": false}, \"spam_risk\": {\"type\": \"score\", \"score\": 2.3200000000000003, \"level\": 2, \"confidence\": 0.69, \"probabilities\": {\"1\": 0.03, \"2\": 0.64, \"3\": 0.32, \"4\": 0.01, \"5\": 0.0}, \"review\": false}, \"composite\": 6.01}, {\"line\": \"Write a riverbed connector in one class (2.0 is out)\", \"clarity\": {\"type\": \"score\", \"score\": 3.54, \"level\": 4, \"confidence\": 0.54, \"probabilities\": {\"1\": 0.0, \"2\": 0.17, \"3\": 0.15, \"4\": 0.63, \"5\": 0.05}, \"review\": true}, \"curiosity\": {\"type\": \"score\", \"score\": 3.58, \"level\": 4, \"confidence\": 0.56, \"probabilities\": {\"1\": 0.01, \"2\": 0.09, \"3\": 0.25, \"4\": 0.6, \"5\": 0.05}, \"review\": true}, \"spam_risk\": {\"type\": \"score\", \"score\": 1.74, \"level\": 1, \"confidence\": 0.39, \"probabilities\": {\"1\": 0.56, \"2\": 0.25, \"3\": 0.1, \"4\": 0.07, \"5\": 0.02}, \"review\": true}, \"composite\": 5.38}], \"pick\": \"riverbed 2.0: one-class connectors, inspectable pipeline graphs, exactly-once preview\", \"review_required\": [{\"question\": \"line_1_curiosity\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.56}, {\"question\": \"line_2_clarity\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.54}, {\"question\": \"line_2_curiosity\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.56}, {\"question\": \"line_2_spam_risk\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.39}], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "4c614c55-4214-4e21-8cd8-82a0c9fb1a06",
+        "toolName": "score_subject_lines"
+      },
+      {
+        "createdAt": "2026-10-07T03:58:32.462Z",
+        "durationMs": 3,
+        "id": "35f35d1d-031d-4772-8a84-15d11c28b0a1",
+        "input": "{\"campaign_id\": \"camp-2026-11-001\", \"draft_id\": \"draft-camp-2026-11-001-02\", \"segment_id\": \"seg-python-stream-devs\", \"subject_line\": \"riverbed 2.0: one-class connectors, inspectable pipeline graphs, exactly-once preview\", \"send_at\": \"2026-11-04T09:00:00Z\"}",
+        "output": "{\"schedule_id\": \"send-0b2faab9\", \"campaign_id\": \"camp-2026-11-001\", \"draft_id\": \"draft-camp-2026-11-001-02\", \"segment_id\": \"seg-python-stream-devs\", \"subject_line\": \"riverbed 2.0: one-class connectors, inspectable pipeline graphs, exactly-once preview\", \"send_at\": \"2026-11-04T09:00:00Z\", \"status\": \"scheduled\"}",
+        "status": "success",
+        "stepId": "dc09e1be-a275-4731-aa0c-5dc0efa8d568",
+        "toolName": "schedule_send"
+      },
+      {
+        "createdAt": "2026-10-07T03:58:39.304Z",
+        "durationMs": 5,
+        "id": "4e373d8e-ea02-498b-9a3f-b726c3ec8990",
+        "input": "{\"campaign_id\": \"camp-2026-11-001\", \"draft_id\": \"draft-camp-2026-11-001-02\", \"summary\": \"brief-013 \\\"riverbed 2.0 release\\\" scheduled as send-0b2faab9 to seg-python-stream-devs (Python streaming developers, 3700) at 2026-11-04T09:00:00Z. Subject: \\\"riverbed 2.0: one-class connectors, inspectable pipeline graphs, exactly-once preview\\\" (System One pick, composite 7.07 vs 6.01 and 5.38; four sub-scores had confidence below 0.6 but the ranking was unaffected, so the pick stood). Classification: launch (p=0.99), urgency 2/5, needs_legal_review verdict TRUE (0.68) \\u2014 legal review of the exactly-once preview claim is still outstanding and should happen before the send date. Draft 01 failed compliance (Labs disclaimer not verbatim; CTA borderline at 0.52 with three asks). Draft 02 passed all four checks (voice 0.84, claims 0.91, CTA 0.84, disclaimer 0.99) after using the required disclaimer verbatim and reducing to one CTA. Operator: Zach Blumenfeld via launch-email-blast skill.\"}",
+        "output": "{\"log_id\": \"log-0013\", \"campaign_id\": \"camp-2026-11-001\", \"draft_id\": \"draft-camp-2026-11-001-02\", \"scheduled\": true, \"logged_at\": \"2026-10-07T03:58:38+00:00\"}",
+        "status": "success",
+        "stepId": "ebe63181-00f3-4d50-ad9d-0a97d666da63",
+        "toolName": "log_campaign"
+      }
+    ]
+  },
+  "claude": {
+    "session_id": "71fbf605-eda0-4880-a5cd-bbe8733163e9",
+    "total_cost_usd": 1.1118600000000003,
+    "duration_ms": 82548,
+    "duration_api_ms": 68395,
+    "num_turns": 16,
+    "result": "The blast is scheduled. Send send-0b2faab9 goes to the Python streaming developers segment at 2026-11-04 09:00 UTC and is logged in Notion as log-0013.\n\nOne thing needs your attention before the send date. The System One classifier returned a legal-review verdict of true on the brief, most likely because of the exactly-once preview claim for Kafka sinks. Nothing in the pipeline blocks on that, so I scheduled as asked and recorded the open item in the campaign log. Someone should get legal eyes on the draft before 4 November, or pull the send if they can't.\n\nWhat went into it:\n\n- **Draft** is draft-camp-2026-11-001-02. It covers the three key messages in developer tone, labels exactly-once as a preview whose API may change, and ends with a single CTA to the connector quickstart.\n- **Compliance** failed on the first draft. The Labs disclaimer wasn't the verbatim required text, and the CTA check sat on the fence because I had three asks. The second draft used the exact disclaimer and one CTA, and passed all four checks cleanly.\n- **Subject line** is the model's pick: \"riverbed 2.0: one-class connectors, inspectable pipeline graphs, exactly-once preview\". It led the other two by more than a full composite point. The model flagged four sub-scores as low confidence, but none of them could flip the ranking, so I kept the pick.\n\nI couldn't read the skill's reference files because the Read tool is disabled in this session, so I worked from the procedure graph and the tools' own rule output.",
+    "modelUsage": {
+      "claude-fable-5-1": {
+        "inputTokens": 292,
+        "outputTokens": 5152,
+        "cacheReadInputTokens": 327520,
+        "cacheCreationInputTokens": 38473,
+        "webSearchRequests": 0,
+        "costUSD": 1.1118600000000003,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 1488,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "stop_reason": "end_turn",
+    "is_error": false,
+    "terminal_reason": "completed"
+  }
+}

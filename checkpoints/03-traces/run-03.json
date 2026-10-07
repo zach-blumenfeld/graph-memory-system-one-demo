@@ -1,0 +1,266 @@
+{
+  "run": {
+    "id": "run-03",
+    "kind": "clean",
+    "brief": "brief-003",
+    "product": "tidewatch",
+    "segment": "seg-pipeline-operators"
+  },
+  "exported_at": "2026-10-07T03:37:41+00:00",
+  "conversation": {
+    "createdAt": "2026-10-07T03:36:26.111Z",
+    "id": "2e606de3-153f-4d29-adc6-4e0fecf92efb",
+    "metadata": {
+      "briefId": "brief-003",
+      "claudeSessionId": "17756957-6cc6-4794-aa9e-cea6e24c7847",
+      "model": "default",
+      "product": "tidewatch",
+      "runId": "run-03",
+      "runKind": "clean",
+      "segmentId": "seg-pipeline-operators"
+    },
+    "updatedAt": "2026-10-07T03:37:36.555Z",
+    "userId": "",
+    "workspaceId": "3708ea1d-9fa7-4484-a771-d70c2e8b1151"
+  },
+  "messages": [
+    {
+      "content": "The tidewatch 0.9 launch email is scheduled and logged.\n\n**What was sent where**\n\n| Item | Value |\n|---|---|\n| Segment | Pipeline operators, 1,300 recipients |\n| Send time | 2026-10-16 09:00 UTC |\n| Subject | Per-topic lag alerts for riverbed, now in tidewatch 0.9 |\n| Draft | draft-camp-2026-10-003-02 |\n| Schedule ID | send-b5932c43 |\n| Notion log | log-0003 |\n\n**Decisions made along the way**\n\n- **Classification raised nothing.** The brief classified as a launch with full confidence, urgency 2, no legal review, and an empty review list.\n- **First draft failed compliance.** The Labs disclaimer was paraphrased instead of verbatim, and the call-to-action check sat at 0.53 with a review flag because I had split the ask into a reply request and a separate link. I rewrote it with the exact disclaimer and the brief's CTA as a single bolded link. The revised draft passed all four checks with no review items.\n- **Subject line chosen by ranking.** On the final draft the scorer picked the per-topic lag alerts line on composite score, well ahead of the other two. It flagged the runner-up's curiosity score for review at 0.54 confidence. I kept the scored pick, since the uncertainty was on a line already trailing by enough that a one-level swing could not overtake it.\n- **Scheduling happened only after the pass.** The first draft was never submitted for sending.\n\nOne thing worth a glance before the 16th: the third subject line mentioned \"30 seconds\", which is close to the banned unpublished benchmark category. It was not chosen and compliance did not object, but I would avoid that phrasing in future drafts.",
+      "createdAt": "2026-10-07T03:37:36.555Z",
+      "id": "9535fc32-9c42-405c-aee1-9cd378a0baef",
+      "metadata": {},
+      "role": "assistant",
+      "tokenCount": 405
+    },
+    {
+      "content": "New brief in Notion: brief-003, \"tidewatch 0.9\".\nLaunch the email blast to the pipeline operators segment, scheduled for 2026-10-16 09:00 UTC.\n\nHouse rules for every campaign: nothing is scheduled until the draft has passed brand compliance;\nthe subject line is chosen by the scored ranking, not by taste; when a decision tool returns a\nnon-empty review_required list, say what you decided and why; finish by logging the campaign in\nNotion with a one-paragraph summary of what you did and the decisions made.",
+      "createdAt": "2026-10-07T03:36:28.024Z",
+      "id": "72ee3ffa-2be7-43a0-aa58-cdfd3f0cc0fc",
+      "metadata": {},
+      "role": "user",
+      "tokenCount": 127
+    }
+  ],
+  "trace": {
+    "conversationId": "2e606de3-153f-4d29-adc6-4e0fecf92efb",
+    "steps": [
+      {
+        "actionTaken": "get_campaign_brief",
+        "createdAt": "2026-10-07T03:36:31.412Z",
+        "id": "c9760b4a-f137-4c15-b71f-1f7c94440e75",
+        "reasoning": "Fetch the campaign brief from Notion. Why now: the brief brief-003 is the source of truth for the campaign",
+        "result": "brief brief-003: tidewatch 0.9 (tidewatch, seg-pipeline-operators)"
+      },
+      {
+        "actionTaken": "classify_brief",
+        "createdAt": "2026-10-07T03:36:32.794Z",
+        "id": "06d3ded1-24e0-40b1-91c6-8fec3d51f1ad",
+        "reasoning": "Classify the brief with the System One model (type, urgency, legal review). Why now: the campaign type, urgency and legal exposure decide how the rest of the launch is handled",
+        "result": "launch (p=1.00), urgency 2/5, legal review p=0.29, review_required=0"
+      },
+      {
+        "actionTaken": "get_audience_segments",
+        "createdAt": "2026-10-07T03:36:33.649Z",
+        "id": "66162d08-d46c-481c-ab07-a35e075abea7",
+        "reasoning": "List the audience segments for the product. Why now: the send must target a segment that exists for tidewatch",
+        "result": "2 segments for tidewatch"
+      },
+      {
+        "actionTaken": "submit_draft",
+        "createdAt": "2026-10-07T03:36:43.64Z",
+        "id": "6be7f509-36d8-45c6-bd7d-c6f9cfb0d4b0",
+        "reasoning": "Store the email draft (three subject lines and a body). Why now: the draft has to exist in the system before it can be checked, scored or scheduled",
+        "result": "stored draft-camp-2026-10-003-01 (1038 chars, 3 subject lines)"
+      },
+      {
+        "actionTaken": "check_brand_compliance",
+        "createdAt": "2026-10-07T03:36:47.652Z",
+        "id": "9bd0ed3e-7ae4-4a6a-98cd-ea44f9adc456",
+        "reasoning": "Check the draft against the brand guide with the System One model. Why now: nothing may be scheduled until the draft passes the brand check",
+        "result": "FAILED; flagged=['has_labs_disclaimer']; review_required=['has_clear_cta']"
+      },
+      {
+        "actionTaken": "score_subject_lines",
+        "createdAt": "2026-10-07T03:36:48.815Z",
+        "id": "36839105-9fcc-4a84-a6ee-d2f3c29e4ae7",
+        "reasoning": "Score the subject lines for the persona with the System One model. Why now: the subject line is chosen by calibrated score, not by taste",
+        "result": "pick: 'Per-topic lag alerts for riverbed, now in tidewatch 0.9' (composite 6.47); review_required=2"
+      },
+      {
+        "actionTaken": "submit_draft",
+        "createdAt": "2026-10-07T03:37:04.042Z",
+        "id": "07cbeb4b-35aa-4a60-844b-576d88c3da17",
+        "reasoning": "Store the email draft (three subject lines and a body). Why now: the draft has to exist in the system before it can be checked, scored or scheduled",
+        "result": "stored draft-camp-2026-10-003-02 (1057 chars, 3 subject lines)"
+      },
+      {
+        "actionTaken": "check_brand_compliance",
+        "createdAt": "2026-10-07T03:37:08.224Z",
+        "id": "03d52b64-7f83-41fb-ad2e-82e559edde66",
+        "reasoning": "Check the draft against the brand guide with the System One model. Why now: nothing may be scheduled until the draft passes the brand check",
+        "result": "passed; flagged=[]; review_required=[]"
+      },
+      {
+        "actionTaken": "score_subject_lines",
+        "createdAt": "2026-10-07T03:37:09.572Z",
+        "id": "961d1a2e-a41b-4c77-810d-4c1c84cb1d0c",
+        "reasoning": "Score the subject lines for the persona with the System One model. Why now: the subject line is chosen by calibrated score, not by taste",
+        "result": "pick: 'Per-topic lag alerts for riverbed, now in tidewatch 0.9' (composite 6.4); review_required=1"
+      },
+      {
+        "actionTaken": "schedule_send",
+        "createdAt": "2026-10-07T03:37:17.185Z",
+        "id": "3ad544a6-b638-4256-86e2-d1682326957f",
+        "reasoning": "Schedule the send for the compliant draft. Why now: the draft passed compliance and has a scored subject line, so it can go on the calendar",
+        "result": "send-b5932c43 at 2026-10-16T09:00:00Z to seg-pipeline-operators"
+      },
+      {
+        "actionTaken": "log_campaign",
+        "createdAt": "2026-10-07T03:37:26.347Z",
+        "id": "09ffeadb-8950-404c-bad2-e3a0fc4b6837",
+        "reasoning": "Log the campaign outcome in Notion. Why now: the team tracks every campaign in the Notion log, scheduled or not",
+        "result": "log-0003 scheduled=True"
+      }
+    ],
+    "toolCalls": [
+      {
+        "createdAt": "2026-10-07T03:36:31.794Z",
+        "durationMs": 0,
+        "id": "cc4e7b03-1379-4f36-a5c4-2ff76f12f9a9",
+        "input": "{\"brief_id\": \"brief-003\"}",
+        "output": "{\"brief_id\": \"brief-003\", \"campaign_id\": \"camp-2026-10-003\", \"title\": \"tidewatch 0.9\", \"product\": \"tidewatch\", \"segment_id\": \"seg-pipeline-operators\", \"persona_id\": \"persona-platform-lead\", \"channel\": \"Email\", \"goal\": \"Announce the 0.9 release of the dashboard and get operators to run it once.\", \"key_messages\": [\"One command attaches the dashboard to a running riverbed pipeline\", \"Per-topic lag alerts\", \"30 days of metrics in an embedded store, nothing else to run\"], \"cta\": \"Run tidewatch attach and share a screenshot\", \"send_window\": \"2026-10-16\", \"notes\": \"Operator tone. Mention that it is a Labs project.\"}",
+        "status": "success",
+        "stepId": "c9760b4a-f137-4c15-b71f-1f7c94440e75",
+        "toolName": "get_campaign_brief"
+      },
+      {
+        "createdAt": "2026-10-07T03:36:33.074Z",
+        "durationMs": 324,
+        "id": "b2b518c2-1061-4c5c-ba05-7ce3abe9f322",
+        "input": "{\"brief_id\": \"brief-003\"}",
+        "output": "{\"brief_id\": \"brief-003\", \"campaign_type\": {\"type\": \"choice\", \"choice\": \"launch\", \"confidence\": 1.0, \"probabilities\": {\"launch\": 1.0, \"event\": 0.0, \"nurture\": 0.0, \"update\": 0.0}, \"review\": false}, \"urgency\": {\"type\": \"score\", \"score\": 2.1799999999999997, \"level\": 2, \"confidence\": 0.82, \"probabilities\": {\"1\": 0.02, \"2\": 0.8, \"3\": 0.16, \"4\": 0.02, \"5\": 0.0}, \"review\": false}, \"needs_legal_review\": {\"type\": \"noul\", \"noul\": 0.29, \"verdict\": false, \"review\": false}, \"review_required\": [], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "06d3ded1-24e0-40b1-91c6-8fec3d51f1ad",
+        "toolName": "classify_brief"
+      },
+      {
+        "createdAt": "2026-10-07T03:36:34.166Z",
+        "durationMs": 0,
+        "id": "47ed64e7-0ea9-4c1b-acd9-628eff75a376",
+        "input": "{\"product\": \"tidewatch\"}",
+        "output": "{\"product\": \"tidewatch\", \"segments\": [{\"segment_id\": \"seg-pipeline-operators\", \"name\": \"Pipeline operators\", \"product\": \"tidewatch\", \"persona_id\": \"persona-platform-lead\", \"size\": 1300, \"description\": \"People who run riverbed pipelines in a shared environment and asked about monitoring\"}, {\"segment_id\": \"seg-labs-newsletter\", \"name\": \"Tessera Labs newsletter\", \"product\": \"all\", \"persona_id\": \"persona-community-organiser\", \"size\": 8400, \"description\": \"Everyone subscribed to the monthly Tessera Labs digest\"}]}",
+        "status": "success",
+        "stepId": "66162d08-d46c-481c-ab07-a35e075abea7",
+        "toolName": "get_audience_segments"
+      },
+      {
+        "createdAt": "2026-10-07T03:36:43.85Z",
+        "durationMs": 1,
+        "id": "fc25077e-c322-4a73-830b-90077b7b6205",
+        "input": "{\"campaign_id\": \"camp-2026-10-003\", \"subject_lines\": [\"tidewatch 0.9: one command to watch a running riverbed pipeline\", \"Per-topic lag alerts for riverbed, now in tidewatch 0.9\", \"See your riverbed lag in 30 seconds with tidewatch 0.9\"], \"body_md\": \"Hi,\\n\\nYou asked about monitoring for riverbed pipelines you run in a shared environment. tidewatch 0.9 is out, and it is built for exactly that.\\n\\n**What's new in 0.9**\\n\\n- **One command attaches the dashboard to a running pipeline.** No redeploy, no config changes to the pipeline itself.\\n- **Per-topic lag alerts.** Set a threshold per topic and get told when a consumer falls behind, instead of watching a graph.\\n- **30 days of metrics in an embedded store.** Nothing else to run. No separate database or collector.\\n\\n**Try it on a pipeline you already run**\\n\\n```\\ntidewatch attach <pipeline-name>\\n```\\n\\nThen open the dashboard it prints and take a screenshot of the lag view. Reply to this email with the screenshot. We read every one, and they shape what goes into 1.0.\\n\\n[Run tidewatch attach](https://labs.tessera.dev/tidewatch/attach)\\n\\ntidewatch is a Tessera Labs project. Labs projects are experimental, are not covered by Tessera support agreements, and may change or be discontinued without notice.\\n\\nThe tidewatch team at Tessera Labs\", \"segment_id\": \"seg-pipeline-operators\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-003-01\", \"campaign_id\": \"camp-2026-10-003\", \"segment_id\": \"seg-pipeline-operators\", \"subject_lines\": [\"tidewatch 0.9: one command to watch a running riverbed pipeline\", \"Per-topic lag alerts for riverbed, now in tidewatch 0.9\", \"See your riverbed lag in 30 seconds with tidewatch 0.9\"], \"body_chars\": 1038, \"compliance_status\": \"unchecked\", \"stored_at\": \"2026-10-07T03:36:43+00:00\"}",
+        "status": "success",
+        "stepId": "6be7f509-36d8-45c6-bd7d-c6f9cfb0d4b0",
+        "toolName": "submit_draft"
+      },
+      {
+        "createdAt": "2026-10-07T03:36:48.039Z",
+        "durationMs": 353,
+        "id": "60022583-fbf3-4bbe-b689-88945de54697",
+        "input": "{\"draft_id\": \"draft-camp-2026-10-003-01\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-003-01\", \"passed\": false, \"checks\": {\"on_brand_voice\": {\"type\": \"noul\", \"noul\": 0.69, \"verdict\": true, \"review\": false}, \"no_unapproved_claims\": {\"type\": \"noul\", \"noul\": 0.77, \"verdict\": true, \"review\": false}, \"has_clear_cta\": {\"type\": \"noul\", \"noul\": 0.53, \"verdict\": true, \"review\": true}, \"has_labs_disclaimer\": {\"type\": \"noul\", \"noul\": 0.34, \"verdict\": false, \"review\": false}}, \"flagged\": [\"has_labs_disclaimer\"], \"review_required\": [{\"question\": \"has_clear_cta\", \"type\": \"noul\", \"reason\": \"within 0.15 of 0.5\", \"value\": 0.53}], \"disclaimer_text_found_verbatim\": false, \"required_disclaimer\": \"Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.\", \"voice_rules\": [\"Lead with what the developer can do now, not with adjectives\", \"One idea per sentence; no exclamation marks; no emoji in subject lines\", \"Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant\", \"Prefer code and concrete nouns to superlatives\", \"Always include exactly one clear call to action\"], \"banned_claims\": [\"production-ready\", \"enterprise-grade\", \"officially supported\", \"SLA\", \"guaranteed\", \"100%\", \"best-in-class\", \"unlimited\", \"naming a competitor product\", \"unpublished benchmark numbers\"], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "9bd0ed3e-7ae4-4a6a-98cd-ea44f9adc456",
+        "toolName": "check_brand_compliance"
+      },
+      {
+        "createdAt": "2026-10-07T03:36:49.192Z",
+        "durationMs": 215,
+        "id": "4e942377-bf94-4008-889b-e7b9cb289134",
+        "input": "{\"draft_id\": \"draft-camp-2026-10-003-01\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-003-01\", \"persona\": \"Teo the Platform Lead\", \"ranked\": [{\"line\": \"Per-topic lag alerts for riverbed, now in tidewatch 0.9\", \"clarity\": {\"type\": \"score\", \"score\": 4.529999999999999, \"level\": 5, \"confidence\": 0.61, \"probabilities\": {\"1\": 0.0, \"2\": 0.0, \"3\": 0.0, \"4\": 0.45, \"5\": 0.55}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 3.93, \"level\": 4, \"confidence\": 0.9, \"probabilities\": {\"1\": 0.0, \"2\": 0.01, \"3\": 0.08, \"4\": 0.88, \"5\": 0.03}, \"review\": false}, \"spam_risk\": {\"type\": \"score\", \"score\": 1.99, \"level\": 2, \"confidence\": 0.72, \"probabilities\": {\"1\": 0.17, \"2\": 0.68, \"3\": 0.15, \"4\": 0.0, \"5\": 0.0}, \"review\": false}, \"composite\": 6.47}, {\"line\": \"tidewatch 0.9: one command to watch a running riverbed pipeline\", \"clarity\": {\"type\": \"score\", \"score\": 3.95, \"level\": 4, \"confidence\": 0.83, \"probabilities\": {\"1\": 0.0, \"2\": 0.03, \"3\": 0.06, \"4\": 0.83, \"5\": 0.08}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 3.47, \"level\": 4, \"confidence\": 0.55, \"probabilities\": {\"1\": 0.0, \"2\": 0.08, \"3\": 0.37, \"4\": 0.54, \"5\": 0.01}, \"review\": true}, \"spam_risk\": {\"type\": \"score\", \"score\": 1.67, \"level\": 2, \"confidence\": 0.62, \"probabilities\": {\"1\": 0.39, \"2\": 0.55, \"3\": 0.05, \"4\": 0.0, \"5\": 0.0}, \"review\": false}, \"composite\": 5.75}, {\"line\": \"See your riverbed lag in 30 seconds with tidewatch 0.9\", \"clarity\": {\"type\": \"score\", \"score\": 4.24, \"level\": 4, \"confidence\": 0.72, \"probabilities\": {\"1\": 0.0, \"2\": 0.01, \"3\": 0.03, \"4\": 0.67, \"5\": 0.29}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 3.52, \"level\": 4, \"confidence\": 0.59, \"probabilities\": {\"1\": 0.0, \"2\": 0.06, \"3\": 0.36, \"4\": 0.57, \"5\": 0.01}, \"review\": true}, \"spam_risk\": {\"type\": \"score\", \"score\": 2.69, \"level\": 3, \"confidence\": 0.65, \"probabilities\": {\"1\": 0.01, \"2\": 0.35, \"3\": 0.58, \"4\": 0.06, \"5\": 0.0}, \"review\": false}, \"composite\": 5.07}], \"pick\": \"Per-topic lag alerts for riverbed, now in tidewatch 0.9\", \"review_required\": [{\"question\": \"line_1_curiosity\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.55}, {\"question\": \"line_3_curiosity\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.59}], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "36839105-9fcc-4a84-a6ee-d2f3c29e4ae7",
+        "toolName": "score_subject_lines"
+      },
+      {
+        "createdAt": "2026-10-07T03:37:04.433Z",
+        "durationMs": 0,
+        "id": "dbd10f18-9161-4b76-a30e-9e6aa64e2525",
+        "input": "{\"campaign_id\": \"camp-2026-10-003\", \"subject_lines\": [\"tidewatch 0.9: one command to watch a running riverbed pipeline\", \"Per-topic lag alerts for riverbed, now in tidewatch 0.9\", \"See your riverbed lag in 30 seconds with tidewatch 0.9\"], \"body_md\": \"Hi,\\n\\nYou asked about monitoring for riverbed pipelines you run in a shared environment. tidewatch 0.9 is out, and it is built for exactly that.\\n\\n**What's new in 0.9**\\n\\n- **One command attaches the dashboard to a running pipeline.** No redeploy, no config changes to the pipeline itself.\\n- **Per-topic lag alerts.** Set a threshold per topic and get told when a consumer falls behind, instead of watching a graph.\\n- **30 days of metrics in an embedded store.** Nothing else to run. No separate database or collector.\\n\\n**Try it on a pipeline you already run**\\n\\n```\\ntidewatch attach <pipeline-name>\\n```\\n\\nOpen the dashboard it prints, take a screenshot of the lag view, and reply to this email with it. We read every one, and they shape what goes into 1.0.\\n\\n**[Run tidewatch attach and share a screenshot](https://labs.tessera.dev/tidewatch/attach)**\\n\\ntidewatch is a Tessera Labs project. Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.\\n\\nThe tidewatch team at Tessera Labs\", \"segment_id\": \"seg-pipeline-operators\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-003-02\", \"campaign_id\": \"camp-2026-10-003\", \"segment_id\": \"seg-pipeline-operators\", \"subject_lines\": [\"tidewatch 0.9: one command to watch a running riverbed pipeline\", \"Per-topic lag alerts for riverbed, now in tidewatch 0.9\", \"See your riverbed lag in 30 seconds with tidewatch 0.9\"], \"body_chars\": 1057, \"compliance_status\": \"unchecked\", \"stored_at\": \"2026-10-07T03:37:03+00:00\"}",
+        "status": "success",
+        "stepId": "07cbeb4b-35aa-4a60-844b-576d88c3da17",
+        "toolName": "submit_draft"
+      },
+      {
+        "createdAt": "2026-10-07T03:37:08.606Z",
+        "durationMs": 335,
+        "id": "2fccb0f1-7e48-4ff4-bff0-ca31ae199841",
+        "input": "{\"draft_id\": \"draft-camp-2026-10-003-02\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-003-02\", \"passed\": true, \"checks\": {\"on_brand_voice\": {\"type\": \"noul\", \"noul\": 0.89, \"verdict\": true, \"review\": false}, \"no_unapproved_claims\": {\"type\": \"noul\", \"noul\": 0.79, \"verdict\": true, \"review\": false}, \"has_clear_cta\": {\"type\": \"noul\", \"noul\": 0.74, \"verdict\": true, \"review\": false}, \"has_labs_disclaimer\": {\"type\": \"noul\", \"noul\": 0.99, \"verdict\": true, \"review\": false}}, \"flagged\": [], \"review_required\": [], \"disclaimer_text_found_verbatim\": true, \"required_disclaimer\": \"Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.\", \"voice_rules\": [\"Lead with what the developer can do now, not with adjectives\", \"One idea per sentence; no exclamation marks; no emoji in subject lines\", \"Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant\", \"Prefer code and concrete nouns to superlatives\", \"Always include exactly one clear call to action\"], \"banned_claims\": [\"production-ready\", \"enterprise-grade\", \"officially supported\", \"SLA\", \"guaranteed\", \"100%\", \"best-in-class\", \"unlimited\", \"naming a competitor product\", \"unpublished benchmark numbers\"], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "03d52b64-7f83-41fb-ad2e-82e559edde66",
+        "toolName": "check_brand_compliance"
+      },
+      {
+        "createdAt": "2026-10-07T03:37:09.782Z",
+        "durationMs": 261,
+        "id": "3071bfe9-36d3-4856-9eea-d1393293dfd9",
+        "input": "{\"draft_id\": \"draft-camp-2026-10-003-02\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-003-02\", \"persona\": \"Teo the Platform Lead\", \"ranked\": [{\"line\": \"Per-topic lag alerts for riverbed, now in tidewatch 0.9\", \"clarity\": {\"type\": \"score\", \"score\": 4.52, \"level\": 5, \"confidence\": 0.6, \"probabilities\": {\"1\": 0.0, \"2\": 0.0, \"3\": 0.01, \"4\": 0.45, \"5\": 0.54}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 3.91, \"level\": 4, \"confidence\": 0.89, \"probabilities\": {\"1\": 0.0, \"2\": 0.01, \"3\": 0.09, \"4\": 0.88, \"5\": 0.02}, \"review\": false}, \"spam_risk\": {\"type\": \"score\", \"score\": 2.0300000000000002, \"level\": 2, \"confidence\": 0.72, \"probabilities\": {\"1\": 0.15, \"2\": 0.67, \"3\": 0.18, \"4\": 0.0, \"5\": 0.0}, \"review\": false}, \"composite\": 6.4}, {\"line\": \"tidewatch 0.9: one command to watch a running riverbed pipeline\", \"clarity\": {\"type\": \"score\", \"score\": 3.96, \"level\": 4, \"confidence\": 0.82, \"probabilities\": {\"1\": 0.0, \"2\": 0.04, \"3\": 0.06, \"4\": 0.8099999999999999, \"5\": 0.09}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 3.46, \"level\": 4, \"confidence\": 0.54, \"probabilities\": {\"1\": 0.0, \"2\": 0.08, \"3\": 0.37, \"4\": 0.54, \"5\": 0.01}, \"review\": true}, \"spam_risk\": {\"type\": \"score\", \"score\": 1.69, \"level\": 2, \"confidence\": 0.62, \"probabilities\": {\"1\": 0.38, \"2\": 0.55, \"3\": 0.07, \"4\": 0.0, \"5\": 0.0}, \"review\": false}, \"composite\": 5.73}, {\"line\": \"See your riverbed lag in 30 seconds with tidewatch 0.9\", \"clarity\": {\"type\": \"score\", \"score\": 4.26, \"level\": 4, \"confidence\": 0.71, \"probabilities\": {\"1\": 0.0, \"2\": 0.01, \"3\": 0.03, \"4\": 0.66, \"5\": 0.3}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 3.55, \"level\": 4, \"confidence\": 0.62, \"probabilities\": {\"1\": 0.0, \"2\": 0.05, \"3\": 0.34, \"4\": 0.6, \"5\": 0.01}, \"review\": false}, \"spam_risk\": {\"type\": \"score\", \"score\": 2.69, \"level\": 3, \"confidence\": 0.64, \"probabilities\": {\"1\": 0.01, \"2\": 0.36, \"3\": 0.57, \"4\": 0.06, \"5\": 0.0}, \"review\": false}, \"composite\": 5.12}], \"pick\": \"Per-topic lag alerts for riverbed, now in tidewatch 0.9\", \"review_required\": [{\"question\": \"line_1_curiosity\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.54}], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "961d1a2e-a41b-4c77-810d-4c1c84cb1d0c",
+        "toolName": "score_subject_lines"
+      },
+      {
+        "createdAt": "2026-10-07T03:37:17.393Z",
+        "durationMs": 1,
+        "id": "a7fcbc3a-0b30-4811-b02d-9f95318f2d96",
+        "input": "{\"campaign_id\": \"camp-2026-10-003\", \"draft_id\": \"draft-camp-2026-10-003-02\", \"segment_id\": \"seg-pipeline-operators\", \"subject_line\": \"Per-topic lag alerts for riverbed, now in tidewatch 0.9\", \"send_at\": \"2026-10-16T09:00:00Z\"}",
+        "output": "{\"schedule_id\": \"send-b5932c43\", \"campaign_id\": \"camp-2026-10-003\", \"draft_id\": \"draft-camp-2026-10-003-02\", \"segment_id\": \"seg-pipeline-operators\", \"subject_line\": \"Per-topic lag alerts for riverbed, now in tidewatch 0.9\", \"send_at\": \"2026-10-16T09:00:00Z\", \"status\": \"scheduled\"}",
+        "status": "success",
+        "stepId": "3ad544a6-b638-4256-86e2-d1682326957f",
+        "toolName": "schedule_send"
+      },
+      {
+        "createdAt": "2026-10-07T03:37:26.737Z",
+        "durationMs": 3,
+        "id": "0051b68e-fffc-4be6-aeb8-f5f4fbef7e8e",
+        "input": "{\"campaign_id\": \"camp-2026-10-003\", \"draft_id\": \"draft-camp-2026-10-003-02\", \"summary\": \"Launch email for tidewatch 0.9 (brief-003) scheduled as send-b5932c43 to seg-pipeline-operators (1,300 recipients, persona Teo the Platform Lead) for 2026-10-16T09:00:00Z with subject \\\"Per-topic lag alerts for riverbed, now in tidewatch 0.9\\\". classify_brief returned launch (confidence 1.0), urgency 2, no legal review, with nothing flagged for review. The first draft (draft-camp-2026-10-003-01) failed brand compliance: the Labs disclaimer was paraphrased rather than verbatim, and has_clear_cta scored 0.53 and was flagged for review because the body split the ask into a reply request and a separate link. I rewrote it as draft-camp-2026-10-003-02 with the required disclaimer verbatim and the brief's CTA (\\\"Run tidewatch attach and share a screenshot\\\") as the single bolded link; it passed all four checks with no review items. Subject lines were scored on the final draft: the pick ranked first on composite 6.40 versus 5.73 and 5.12. The scorer flagged line 1's curiosity score for review (confidence 0.54); I kept the scored pick because the uncertainty was on the runner-up, and even a one-level swing in that score would not close the composite gap. Scheduling proceeded only after compliance passed.\"}",
+        "output": "{\"log_id\": \"log-0003\", \"campaign_id\": \"camp-2026-10-003\", \"draft_id\": \"draft-camp-2026-10-003-02\", \"scheduled\": true, \"logged_at\": \"2026-10-07T03:37:25+00:00\"}",
+        "status": "success",
+        "stepId": "09ffeadb-8950-404c-bad2-e3a0fc4b6837",
+        "toolName": "log_campaign"
+      }
+    ]
+  },
+  "claude": {
+    "session_id": "17756957-6cc6-4794-aa9e-cea6e24c7847",
+    "total_cost_usd": 0.44131725,
+    "duration_ms": 69722,
+    "duration_api_ms": 54796,
+    "num_turns": 12,
+    "result": "The tidewatch 0.9 launch email is scheduled and logged.\n\n**What was sent where**\n\n| Item | Value |\n|---|---|\n| Segment | Pipeline operators, 1,300 recipients |\n| Send time | 2026-10-16 09:00 UTC |\n| Subject | Per-topic lag alerts for riverbed, now in tidewatch 0.9 |\n| Draft | draft-camp-2026-10-003-02 |\n| Schedule ID | send-b5932c43 |\n| Notion log | log-0003 |\n\n**Decisions made along the way**\n\n- **Classification raised nothing.** The brief classified as a launch with full confidence, urgency 2, no legal review, and an empty review list.\n- **First draft failed compliance.** The Labs disclaimer was paraphrased instead of verbatim, and the call-to-action check sat at 0.53 with a review flag because I had split the ask into a reply request and a separate link. I rewrote it with the exact disclaimer and the brief's CTA as a single bolded link. The revised draft passed all four checks with no review items.\n- **Subject line chosen by ranking.** On the final draft the scorer picked the per-topic lag alerts line on composite score, well ahead of the other two. It flagged the runner-up's curiosity score for review at 0.54 confidence. I kept the scored pick, since the uncertainty was on a line already trailing by enough that a one-level swing could not overtake it.\n- **Scheduling happened only after the pass.** The first draft was never submitted for sending.\n\nOne thing worth a glance before the 16th: the third subject line mentioned \"30 seconds\", which is close to the banned unpublished benchmark category. It was not chosen and compliance did not object, but I would avoid that phrasing in future drafts.",
+    "modelUsage": {
+      "claude-fable-5-1": {
+        "inputTokens": 226,
+        "outputTokens": 4350,
+        "cacheReadInputTokens": 84789,
+        "cacheCreationInputTokens": 10018,
+        "webSearchRequests": 0,
+        "costUSD": 0.44131725,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 1023,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "stop_reason": "end_turn",
+    "is_error": false,
+    "terminal_reason": "completed"
+  }
+}

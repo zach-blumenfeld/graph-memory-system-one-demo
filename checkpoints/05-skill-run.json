@@ -1,0 +1,61 @@
+{
+  "stage": 5,
+  "runs": [
+    {
+      "run_id": "skill-run-brief-013-default",
+      "conversation_id": "821791c5-9f51-450a-9f0c-98e886fa55cf",
+      "claude_session_id": "71fbf605-eda0-4880-a5cd-bbe8733163e9",
+      "kind": "skill-run",
+      "brief": "brief-013",
+      "product": "riverbed",
+      "segment": "seg-python-stream-devs",
+      "model": "default",
+      "status": "ok",
+      "wall_ms": 84000,
+      "cost_usd": 1.1118600000000003,
+      "num_turns": 16,
+      "tool_path": [
+        "get_campaign_brief",
+        "get_audience_segments",
+        "classify_brief",
+        "submit_draft",
+        "check_brand_compliance",
+        "submit_draft",
+        "check_brand_compliance",
+        "score_subject_lines",
+        "schedule_send",
+        "log_campaign"
+      ],
+      "trace_checkpoint": "checkpoints/05-traces/skill-run-brief-013-default.json",
+      "recorded_at": "2026-10-07T03:58:55+00:00",
+      "note": "Invoked the launch-email-blast skill, completed all 8 tools with one redraft, decided the legal-review escalation itself and recorded the decision in the campaign log."
+    },
+    {
+      "run_id": "skill-run-brief-013-sonnet",
+      "conversation_id": "a7b8ee77-3bda-4e2f-ac29-ae6ab3e468c6",
+      "claude_session_id": "23ea8277-154c-4dd7-8104-f6e3a0c3f40d",
+      "kind": "skill-run",
+      "brief": "brief-013",
+      "product": "riverbed",
+      "segment": "seg-python-stream-devs",
+      "model": "sonnet",
+      "status": "ok",
+      "wall_ms": 46000,
+      "cost_usd": 0.205811,
+      "num_turns": 13,
+      "tool_path": [
+        "get_campaign_brief",
+        "classify_brief",
+        "get_audience_segments",
+        "submit_draft",
+        "check_brand_compliance",
+        "submit_draft",
+        "check_brand_compliance",
+        "score_subject_lines"
+      ],
+      "trace_checkpoint": "checkpoints/05-traces/skill-run-brief-013-sonnet.json",
+      "recorded_at": "2026-10-07T03:59:45+00:00",
+      "note": "Invoked the launch-email-blast skill, completed all 8 tools with one redraft, decided the legal-review escalation itself and recorded the decision in the campaign log."
+    }
+  ]
+}

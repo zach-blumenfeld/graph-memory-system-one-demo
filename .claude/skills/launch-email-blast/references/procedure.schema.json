@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nams:schema:procedure:v0.2",
+  "title": "NAMS Procedure Graph",
+  "description": "AIP-style typed step DAG distilled from agent memory; every step is grounded in source node ids. dependsOn forms a DAG; branch records one_of/parallel/retry topology inferred from the recorded traces.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["procedureFormat", "steps"],
+  "properties": {
+    "procedureFormat": { "type": "string", "enum": ["graph", "prose"] },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "name", "groundedIn"],
+        "properties": {
+          "id": { "type": "string" },
+          "kind": { "type": "string", "enum": ["script", "description"] },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "tool": { "type": "string" },
+          "inputs": { "type": "array", "items": { "type": "string" } },
+          "outputs": { "type": "array", "items": { "type": "string" } },
+          "expectStatus": { "type": "string" },
+          "position": { "type": "integer", "minimum": 0 },
+          "dependsOn": { "type": "array", "items": { "type": "string" } },
+          "branch": { "type": "string", "enum": ["seq", "one_of", "parallel", "retry"] },
+          "condition": { "type": "string" },
+          "groundedIn": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

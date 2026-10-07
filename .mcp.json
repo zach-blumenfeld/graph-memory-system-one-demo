@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "pmm-tools": {
+      "command": "uv",
+      "args": ["run", "--project", "${CLAUDE_PROJECT_DIR:-.}", "pmm-tools"],
+      "env": {
+        "PMM_CONVERSATION_FILE": "${PMM_CONVERSATION_FILE:-}",
+        "PMM_RECORD": "${PMM_RECORD:-1}"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "batchId": "",
+  "completedAt": "2026-10-07T03:56:00.663Z",
+  "coverageScore": 1,
+  "createdAt": "2026-10-07T03:54:38.997Z",
+  "error": "",
+  "failCode": "",
+  "groundingScore": 1,
+  "id": "run-ce7b8546-bede-4794-925c-32ad0efb15ae",
+  "kind": "distill",
+  "progress": 100,
+  "scopeJson": "{\"type\":\"conversations\",\"conversationIds\":[\"3485942a-f815-4c80-925e-47fec86a0d7d\",\"342660c4-c591-4d3d-9605-0321e191accd\",\"2e606de3-153f-4d29-adc6-4e0fecf92efb\",\"6c7dbe23-4b04-4ab7-87f5-645de7f07fc0\",\"1f91c5ab-d81c-4775-80bd-f8b88216f60a\",\"ebc20238-38c6-43cd-b80e-441e9f4afeae\",\"6393a82e-2c32-4682-b917-123a2800b9c0\",\"694241bb-02bb-4f49-b361-fae46753b226\"],\"nameHint\":\"launch-email-blast\"}",
+  "skillId": "sk-run-ce7b8546-bede-4794-925c-32ad0efb15ae",
+  "skillVersionId": "sv-run-ce7b8546-bede-4794-925c-32ad0efb15ae",
+  "status": "succeeded",
+  "suggestSplitJson": null
+}

@@ -1,0 +1,145 @@
+{
+  "stage": 4,
+  "started_at": "2026-10-07T03:54:38+00:00",
+  "workspace_id": "3708ea1d-9fa7-4484-a771-d70c2e8b1151",
+  "name_hint": "launch-email-blast",
+  "attempts": [
+    {
+      "label": "clean-scope",
+      "scope": {
+        "type": "conversations",
+        "conversationIds": [
+          "3485942a-f815-4c80-925e-47fec86a0d7d",
+          "342660c4-c591-4d3d-9605-0321e191accd",
+          "2e606de3-153f-4d29-adc6-4e0fecf92efb",
+          "6c7dbe23-4b04-4ab7-87f5-645de7f07fc0",
+          "1f91c5ab-d81c-4775-80bd-f8b88216f60a",
+          "ebc20238-38c6-43cd-b80e-441e9f4afeae",
+          "6393a82e-2c32-4682-b917-123a2800b9c0",
+          "694241bb-02bb-4f49-b361-fae46753b226"
+        ],
+        "nameHint": "launch-email-blast"
+      },
+      "run_id": "run-ce7b8546-bede-4794-925c-32ad0efb15ae",
+      "outcome": "Created",
+      "skill_id": "sk-run-ce7b8546-bede-4794-925c-32ad0efb15ae",
+      "skill_version_id": "sv-run-ce7b8546-bede-4794-925c-32ad0efb15ae",
+      "grounding_score": 1,
+      "coverage_score": 1,
+      "run": {
+        "batchId": "",
+        "completedAt": "2026-10-07T03:56:00.663Z",
+        "coverageScore": 1,
+        "createdAt": "2026-10-07T03:54:38.997Z",
+        "error": "",
+        "failCode": "",
+        "groundingScore": 1,
+        "id": "run-ce7b8546-bede-4794-925c-32ad0efb15ae",
+        "kind": "distill",
+        "progress": 100,
+        "scopeJson": "{\"type\":\"conversations\",\"conversationIds\":[\"3485942a-f815-4c80-925e-47fec86a0d7d\",\"342660c4-c591-4d3d-9605-0321e191accd\",\"2e606de3-153f-4d29-adc6-4e0fecf92efb\",\"6c7dbe23-4b04-4ab7-87f5-645de7f07fc0\",\"1f91c5ab-d81c-4775-80bd-f8b88216f60a\",\"ebc20238-38c6-43cd-b80e-441e9f4afeae\",\"6393a82e-2c32-4682-b917-123a2800b9c0\",\"694241bb-02bb-4f49-b361-fae46753b226\"],\"nameHint\":\"launch-email-blast\"}",
+        "skillId": "sk-run-ce7b8546-bede-4794-925c-32ad0efb15ae",
+        "skillVersionId": "sv-run-ce7b8546-bede-4794-925c-32ad0efb15ae",
+        "status": "succeeded",
+        "suggestSplitJson": null
+      },
+      "finished_at": "2026-10-07T03:56:02+00:00"
+    },
+    {
+      "label": "workspace-scope-demo",
+      "scope": {
+        "type": "workspace"
+      },
+      "run_id": "run-f393c545-5acd-494f-bb12-be4aa53df373",
+      "outcome": "Created",
+      "skill_id": "sk-run-f393c545-5acd-494f-bb12-be4aa53df373",
+      "skill_version_id": "sv-run-f393c545-5acd-494f-bb12-be4aa53df373",
+      "grounding_score": 1,
+      "coverage_score": 1,
+      "run": {
+        "batchId": "",
+        "completedAt": "2026-10-07T03:57:19.879Z",
+        "coverageScore": 1,
+        "createdAt": "2026-10-07T03:56:03.339Z",
+        "error": "",
+        "failCode": "",
+        "groundingScore": 1,
+        "id": "run-f393c545-5acd-494f-bb12-be4aa53df373",
+        "kind": "distill",
+        "progress": 100,
+        "scopeJson": "{\"type\":\"workspace\",\"nameHint\":\"launch-email-blast\"}",
+        "skillId": "sk-run-f393c545-5acd-494f-bb12-be4aa53df373",
+        "skillVersionId": "sv-run-f393c545-5acd-494f-bb12-be4aa53df373",
+        "status": "succeeded",
+        "suggestSplitJson": null
+      },
+      "finished_at": "2026-10-07T03:57:21+00:00"
+    }
+  ],
+  "capabilities": {
+    "attestationConfigured": false,
+    "autosuggest": false,
+    "composition": false,
+    "coverageThreshold": 0.6,
+    "distillation": true,
+    "groundingThreshold": 0.9
+  },
+  "skill_id": "sk-run-ce7b8546-bede-4794-925c-32ad0efb15ae",
+  "run_id": "run-ce7b8546-bede-4794-925c-32ad0efb15ae",
+  "provenance_explain": {
+    "truncated": true
+  },
+  "review": {
+    "reviewStatus": "approved",
+    "skillId": "sk-run-ce7b8546-bede-4794-925c-32ad0efb15ae"
+  },
+  "publish": {
+    "attested": false,
+    "skillId": "sk-run-ce7b8546-bede-4794-925c-32ad0efb15ae",
+    "status": "published"
+  },
+  "zip": "/Users/zach/dev/graph-memory-systemone-demo/checkpoints/04-skill/launch-email-blast.zip",
+  "zip_bytes": 23713,
+  "installed": [
+    "SKILL.md",
+    "references/domain-model.md",
+    "references/exemplars.md",
+    "references/procedure.schema.json",
+    "references/procedures.md",
+    "references/troubleshooting.md",
+    "provenance.json"
+  ],
+  "skill_summary": {
+    "frontmatter": {
+      "name": "launch-email-blast",
+      "description": "Pipeline operators: run a compliant, ranked, logged email-blast launch from a campaign brief. Use when launching a product, feature, preview, or published result to a defined audience segment on a scheduled send time.",
+      "version": "1.0.0",
+      "source-workspace-hash": "ws_ed020d8336b65726",
+      "distilled-at": "2026-10-07T03:55:58Z",
+      "grounding-score": "1.00",
+      "nams-provenance-id": "prov_run-ce7b8546-bede-4794-925c-32ad0efb15ae",
+      "source-memory-types": "[short-term, long-term, reasoning]",
+      "procedure-format": "graph"
+    },
+    "steps": 8,
+    "claims": 6,
+    "files": [
+      "SKILL.md",
+      "provenance.json",
+      "references/domain-model.md",
+      "references/exemplars.md",
+      "references/procedure.schema.json",
+      "references/procedures.md",
+      "references/troubleshooting.md"
+    ]
+  },
+  "drift": {
+    "skillVersionId": "sv-run-ce7b8546-bede-4794-925c-32ad0efb15ae",
+    "status": "current",
+    "totalClaims": 6,
+    "staleClaims": null,
+    "totalSteps": 8
+  },
+  "result": "published",
+  "finished_at": "2026-10-07T03:57:26+00:00"
+}

@@ -1,0 +1,17 @@
+{
+  "batchId": "",
+  "completedAt": "2026-10-07T03:57:19.879Z",
+  "coverageScore": 1,
+  "createdAt": "2026-10-07T03:56:03.339Z",
+  "error": "",
+  "failCode": "",
+  "groundingScore": 1,
+  "id": "run-f393c545-5acd-494f-bb12-be4aa53df373",
+  "kind": "distill",
+  "progress": 100,
+  "scopeJson": "{\"type\":\"workspace\",\"nameHint\":\"launch-email-blast\"}",
+  "skillId": "sk-run-f393c545-5acd-494f-bb12-be4aa53df373",
+  "skillVersionId": "sv-run-f393c545-5acd-494f-bb12-be4aa53df373",
+  "status": "succeeded",
+  "suggestSplitJson": null
+}

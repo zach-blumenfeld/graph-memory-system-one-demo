@@ -1,0 +1,359 @@
+{
+  "object": "database",
+  "id": "db-personas",
+  "title": [
+    {
+      "type": "text",
+      "plain_text": "Personas",
+      "text": {
+        "content": "Personas"
+      }
+    }
+  ],
+  "properties": {
+    "Name": {
+      "type": "title"
+    },
+    "Role": {
+      "type": "rich_text"
+    },
+    "Cares about": {
+      "type": "rich_text"
+    },
+    "Reads": {
+      "type": "rich_text"
+    },
+    "Turn-offs": {
+      "type": "rich_text"
+    },
+    "Preferred tone": {
+      "type": "rich_text"
+    }
+  },
+  "pages": [
+    {
+      "object": "page",
+      "id": "persona-stream-dev",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "Noor the Streaming Developer",
+              "text": {
+                "content": "Noor the Streaming Developer"
+              }
+            }
+          ]
+        },
+        "Role": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Python developer building event pipelines",
+              "text": {
+                "content": "Python developer building event pipelines"
+              }
+            }
+          ]
+        },
+        "Cares about": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "shipping a pipeline that survives restarts without babysitting it",
+              "text": {
+                "content": "shipping a pipeline that survives restarts without babysitting it"
+              }
+            }
+          ]
+        },
+        "Reads": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "release notes, code samples, GitHub READMEs",
+              "text": {
+                "content": "release notes, code samples, GitHub READMEs"
+              }
+            }
+          ]
+        },
+        "Turn-offs": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "marketing fluff, vague claims, anything that reads like an enterprise brochure",
+              "text": {
+                "content": "marketing fluff, vague claims, anything that reads like an enterprise brochure"
+              }
+            }
+          ]
+        },
+        "Preferred tone": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "direct, technical, show me the code",
+              "text": {
+                "content": "direct, technical, show me the code"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "persona-platform-lead",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "Teo the Platform Lead",
+              "text": {
+                "content": "Teo the Platform Lead"
+              }
+            }
+          ]
+        },
+        "Role": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "platform engineer standardising streaming tooling for several teams",
+              "text": {
+                "content": "platform engineer standardising streaming tooling for several teams"
+              }
+            }
+          ]
+        },
+        "Cares about": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "operability, upgrade safety, benchmarks that can be reproduced",
+              "text": {
+                "content": "operability, upgrade safety, benchmarks that can be reproduced"
+              }
+            }
+          ]
+        },
+        "Reads": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "architecture docs, benchmark tables, specs",
+              "text": {
+                "content": "architecture docs, benchmark tables, specs"
+              }
+            }
+          ]
+        },
+        "Turn-offs": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "lock-in, unverifiable numbers, hype",
+              "text": {
+                "content": "lock-in, unverifiable numbers, hype"
+              }
+            }
+          ]
+        },
+        "Preferred tone": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "measured, evidence-led, specific",
+              "text": {
+                "content": "measured, evidence-led, specific"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "persona-data-engineer",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "Ines the Data Engineer",
+              "text": {
+                "content": "Ines the Data Engineer"
+              }
+            }
+          ]
+        },
+        "Role": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "data engineer who already runs batch pipelines and is adding streaming",
+              "text": {
+                "content": "data engineer who already runs batch pipelines and is adding streaming"
+              }
+            }
+          ]
+        },
+        "Cares about": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "reusing existing schemas and warehouses instead of adding systems",
+              "text": {
+                "content": "reusing existing schemas and warehouses instead of adding systems"
+              }
+            }
+          ]
+        },
+        "Reads": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "data modelling guides, migration write-ups",
+              "text": {
+                "content": "data modelling guides, migration write-ups"
+              }
+            }
+          ]
+        },
+        "Turn-offs": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "yet another database to operate, buzzwords",
+              "text": {
+                "content": "yet another database to operate, buzzwords"
+              }
+            }
+          ]
+        },
+        "Preferred tone": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "practical, concrete, migration-first",
+              "text": {
+                "content": "practical, concrete, migration-first"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "persona-community-organiser",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "Sam the Community Organiser",
+              "text": {
+                "content": "Sam the Community Organiser"
+              }
+            }
+          ]
+        },
+        "Role": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "developer advocate and meetup organiser",
+              "text": {
+                "content": "developer advocate and meetup organiser"
+              }
+            }
+          ]
+        },
+        "Cares about": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "demos that work live, tutorials to share, things to talk about at meetups",
+              "text": {
+                "content": "demos that work live, tutorials to share, things to talk about at meetups"
+              }
+            }
+          ]
+        },
+        "Reads": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "blog posts, demo repos, conference talks",
+              "text": {
+                "content": "blog posts, demo repos, conference talks"
+              }
+            }
+          ]
+        },
+        "Turn-offs": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "closed betas, demos that need a sales call",
+              "text": {
+                "content": "closed betas, demos that need a sales call"
+              }
+            }
+          ]
+        },
+        "Preferred tone": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "warm, curious, story-driven",
+              "text": {
+                "content": "warm, curious, story-driven"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

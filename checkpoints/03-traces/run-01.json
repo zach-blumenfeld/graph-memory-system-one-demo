@@ -1,0 +1,266 @@
+{
+  "run": {
+    "id": "run-01",
+    "kind": "clean",
+    "brief": "brief-001",
+    "product": "riverbed",
+    "segment": "seg-python-stream-devs"
+  },
+  "exported_at": "2026-10-07T03:35:03+00:00",
+  "conversation": {
+    "createdAt": "2026-10-07T03:33:43.77Z",
+    "id": "3485942a-f815-4c80-925e-47fec86a0d7d",
+    "metadata": {
+      "briefId": "brief-001",
+      "claudeSessionId": "f16a5954-cc4b-4e03-b201-17792dbd59e7",
+      "model": "default",
+      "product": "riverbed",
+      "runId": "run-01",
+      "runKind": "clean",
+      "segmentId": "seg-python-stream-devs"
+    },
+    "updatedAt": "2026-10-07T03:34:59.728Z",
+    "userId": "",
+    "workspaceId": "3708ea1d-9fa7-4484-a771-d70c2e8b1151"
+  },
+  "messages": [
+    {
+      "content": "The riverbed 1.8 launch email is scheduled and logged.\n\n**What was sent**\n\n- Segment: Python streaming developers, 3,700 recipients.\n- Send time: 2026-10-14 09:00 UTC, schedule send-ea4acab5.\n- Subject line: \"Restarted workers now resume where they stopped (riverbed 1.8)\".\n- Body: three key messages from the brief, one CTA to upgrade via pip and open the checkpoint quickstart, changelog link, and the required Labs disclaimer verbatim.\n\n**Decisions on review items**\n\n- Brief urgency was flagged at low confidence between levels 2 and 3. I set it at 2 because the send date is fixed a week out with no deadline pressure.\n- The first draft failed compliance on the CTA and the disclaimer. I rewrote it with the exact disclaimer text and a single explicit CTA, and the second draft passed all four checks.\n- The CTA check on the second draft passed but was flagged at the boundary. I accepted it because the body has one action matching the CTA the brief defines, and the changelog link is informational per the brief notes.\n- The ranked subject line's spam risk was flagged at low confidence between levels 1 and 2. I kept the ranked pick per the house rule, and it has no spam signals and leads on clarity and composite.\n\nThe campaign log entry is log-0001 in Notion with the full paragraph of decisions.",
+      "createdAt": "2026-10-07T03:34:59.728Z",
+      "id": "20536f48-43e0-48dc-8667-41ea780dbb3b",
+      "metadata": {},
+      "role": "assistant",
+      "tokenCount": 326
+    },
+    {
+      "content": "New brief in Notion: brief-001, \"riverbed 1.8: checkpointed state for every pipeline\".\nLaunch the email blast for it to the Python streaming developers segment, scheduled for 2026-10-14 09:00 UTC.\n\nHouse rules for every campaign: nothing is scheduled until the draft has passed brand compliance;\nthe subject line is chosen by the scored ranking, not by taste; when a decision tool returns a\nnon-empty review_required list, say what you decided and why; finish by logging the campaign in\nNotion with a one-paragraph summary of what you did and the decisions made.",
+      "createdAt": "2026-10-07T03:33:45.754Z",
+      "id": "b57f3357-8393-4ea5-85f7-845842124ad5",
+      "metadata": {},
+      "role": "user",
+      "tokenCount": 140
+    }
+  ],
+  "trace": {
+    "conversationId": "3485942a-f815-4c80-925e-47fec86a0d7d",
+    "steps": [
+      {
+        "actionTaken": "get_campaign_brief",
+        "createdAt": "2026-10-07T03:33:49.706Z",
+        "id": "f3398dd0-d759-4a5a-913e-e0316af55e87",
+        "reasoning": "Fetch the campaign brief from Notion. Why now: the brief brief-001 is the source of truth for the campaign",
+        "result": "brief brief-001: riverbed 1.8: checkpointed state for every pipeline (riverbed, seg-python-stream-devs)"
+      },
+      {
+        "actionTaken": "get_audience_segments",
+        "createdAt": "2026-10-07T03:33:50.753Z",
+        "id": "1365f129-867e-425c-8b15-f3c2436d5d2a",
+        "reasoning": "List the audience segments for the product. Why now: the send must target a segment that exists for riverbed",
+        "result": "3 segments for riverbed"
+      },
+      {
+        "actionTaken": "classify_brief",
+        "createdAt": "2026-10-07T03:33:51.865Z",
+        "id": "b704f044-32cc-4434-9366-c49853e7dc6f",
+        "reasoning": "Classify the brief with the System One model (type, urgency, legal review). Why now: the campaign type, urgency and legal exposure decide how the rest of the launch is handled",
+        "result": "launch (p=1.00), urgency 2/5, legal review p=0.17, review_required=1"
+      },
+      {
+        "actionTaken": "submit_draft",
+        "createdAt": "2026-10-07T03:34:04.739Z",
+        "id": "79c2d3d2-9af4-4e81-bc3a-5d05c19a9a13",
+        "reasoning": "Store the email draft (three subject lines and a body). Why now: the draft has to exist in the system before it can be checked, scored or scheduled",
+        "result": "stored draft-camp-2026-10-001-01 (979 chars, 3 subject lines)"
+      },
+      {
+        "actionTaken": "check_brand_compliance",
+        "createdAt": "2026-10-07T03:34:08.503Z",
+        "id": "d55d78e9-d40e-4c28-9dc6-e03102c12080",
+        "reasoning": "Check the draft against the brand guide with the System One model. Why now: nothing may be scheduled until the draft passes the brand check",
+        "result": "FAILED; flagged=['has_clear_cta', 'has_labs_disclaimer']; review_required=[]"
+      },
+      {
+        "actionTaken": "score_subject_lines",
+        "createdAt": "2026-10-07T03:34:09.705Z",
+        "id": "806a09b1-6db5-4726-bf8d-389fcf1e31a3",
+        "reasoning": "Score the subject lines for the persona with the System One model. Why now: the subject line is chosen by calibrated score, not by taste",
+        "result": "pick: 'Restarted workers now resume where they stopped (riverbed 1.8)' (composite 7.66); review_required=3"
+      },
+      {
+        "actionTaken": "submit_draft",
+        "createdAt": "2026-10-07T03:34:25.688Z",
+        "id": "fe12cf22-936a-4e17-9670-dc9152fcbd34",
+        "reasoning": "Store the email draft (three subject lines and a body). Why now: the draft has to exist in the system before it can be checked, scored or scheduled",
+        "result": "stored draft-camp-2026-10-001-02 (966 chars, 3 subject lines)"
+      },
+      {
+        "actionTaken": "check_brand_compliance",
+        "createdAt": "2026-10-07T03:34:29.842Z",
+        "id": "47564931-b47c-4af0-891a-02834d1186e0",
+        "reasoning": "Check the draft against the brand guide with the System One model. Why now: nothing may be scheduled until the draft passes the brand check",
+        "result": "passed; flagged=[]; review_required=['has_clear_cta']"
+      },
+      {
+        "actionTaken": "score_subject_lines",
+        "createdAt": "2026-10-07T03:34:31.017Z",
+        "id": "86a2aa4f-1d1f-4f7e-9fc6-09d05e74b877",
+        "reasoning": "Score the subject lines for the persona with the System One model. Why now: the subject line is chosen by calibrated score, not by taste",
+        "result": "pick: 'Restarted workers now resume where they stopped (riverbed 1.8)' (composite 7.65); review_required=1"
+      },
+      {
+        "actionTaken": "schedule_send",
+        "createdAt": "2026-10-07T03:34:42.684Z",
+        "id": "acc32edb-1cd4-4786-861c-9590b324af33",
+        "reasoning": "Schedule the send for the compliant draft. Why now: the draft passed compliance and has a scored subject line, so it can go on the calendar",
+        "result": "send-ea4acab5 at 2026-10-14T09:00:00Z to seg-python-stream-devs"
+      },
+      {
+        "actionTaken": "log_campaign",
+        "createdAt": "2026-10-07T03:34:51.708Z",
+        "id": "26fb1cc0-c12a-42a7-bd16-fd19c83a320e",
+        "reasoning": "Log the campaign outcome in Notion. Why now: the team tracks every campaign in the Notion log, scheduled or not",
+        "result": "log-0001 scheduled=True"
+      }
+    ],
+    "toolCalls": [
+      {
+        "createdAt": "2026-10-07T03:33:50.126Z",
+        "durationMs": 0,
+        "id": "2175ac37-85e8-476e-85c9-4644d015e454",
+        "input": "{\"brief_id\": \"brief-001\"}",
+        "output": "{\"brief_id\": \"brief-001\", \"campaign_id\": \"camp-2026-10-001\", \"title\": \"riverbed 1.8: checkpointed state for every pipeline\", \"product\": \"riverbed\", \"segment_id\": \"seg-python-stream-devs\", \"persona_id\": \"persona-stream-dev\", \"channel\": \"Email\", \"goal\": \"Announce the 1.8 release, whose headline is checkpointed pipeline state, and drive upgrades.\", \"key_messages\": [\"Pipeline state is checkpointed, so a restarted worker resumes where it stopped\", \"One pip install, no changes to existing pipelines\", \"New CLI command to inspect a checkpoint\"], \"cta\": \"Upgrade with pip install -U riverbed and open the checkpoint quickstart\", \"send_window\": \"2026-10-14\", \"notes\": \"Keep it short, developers only. Link the quickstart and the changelog.\"}",
+        "status": "success",
+        "stepId": "f3398dd0-d759-4a5a-913e-e0316af55e87",
+        "toolName": "get_campaign_brief"
+      },
+      {
+        "createdAt": "2026-10-07T03:33:51.185Z",
+        "durationMs": 0,
+        "id": "c34f153c-0df6-4054-8677-4f3a2b79ea4f",
+        "input": "{\"product\": \"riverbed\"}",
+        "output": "{\"product\": \"riverbed\", \"segments\": [{\"segment_id\": \"seg-python-stream-devs\", \"name\": \"Python streaming developers\", \"product\": \"riverbed\", \"persona_id\": \"persona-stream-dev\", \"size\": 3700, \"description\": \"Developers who installed riverbed or starred the repo in the last 6 months\"}, {\"segment_id\": \"seg-connector-maintainers\", \"name\": \"Connector maintainers\", \"product\": \"riverbed\", \"persona_id\": \"persona-platform-lead\", \"size\": 280, \"description\": \"Maintainers and contributors of riverbed connectors\"}, {\"segment_id\": \"seg-labs-newsletter\", \"name\": \"Tessera Labs newsletter\", \"product\": \"all\", \"persona_id\": \"persona-community-organiser\", \"size\": 8400, \"description\": \"Everyone subscribed to the monthly Tessera Labs digest\"}]}",
+        "status": "success",
+        "stepId": "1365f129-867e-425c-8b15-f3c2436d5d2a",
+        "toolName": "get_audience_segments"
+      },
+      {
+        "createdAt": "2026-10-07T03:33:52.254Z",
+        "durationMs": 270,
+        "id": "317edb77-5980-4a8e-9af2-c7bf3d38d50d",
+        "input": "{\"brief_id\": \"brief-001\"}",
+        "output": "{\"brief_id\": \"brief-001\", \"campaign_type\": {\"type\": \"choice\", \"choice\": \"launch\", \"confidence\": 1.0, \"probabilities\": {\"launch\": 1.0, \"update\": 0.0, \"event\": 0.0, \"nurture\": 0.0}, \"review\": false}, \"urgency\": {\"type\": \"score\", \"score\": 2.5, \"level\": 2, \"confidence\": 0.56, \"probabilities\": {\"1\": 0.01, \"2\": 0.53, \"3\": 0.42, \"4\": 0.04, \"5\": 0.0}, \"review\": true}, \"needs_legal_review\": {\"type\": \"noul\", \"noul\": 0.17, \"verdict\": false, \"review\": false}, \"review_required\": [{\"question\": \"urgency\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.56}], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "b704f044-32cc-4434-9366-c49853e7dc6f",
+        "toolName": "classify_brief"
+      },
+      {
+        "createdAt": "2026-10-07T03:34:05.166Z",
+        "durationMs": 0,
+        "id": "39a8bb72-9a11-4014-b052-071f6f3b5aee",
+        "input": "{\"campaign_id\": \"camp-2026-10-001\", \"subject_lines\": [\"riverbed 1.8: checkpointed state for every pipeline\", \"Restarted workers now resume where they stopped (riverbed 1.8)\", \"riverbed 1.8 is out: pipeline checkpoints, one pip install\"], \"body_md\": \"riverbed 1.8 is out. The headline is checkpointed pipeline state.\\n\\n**Restarts resume where they stopped.** Pipeline state is now checkpointed, so a restarted worker picks up from its last checkpoint instead of starting over.\\n\\n**No changes to your pipelines.** Checkpointing is on for every pipeline after one `pip install`. Existing pipeline code runs as is.\\n\\n**Inspect a checkpoint from the CLI.** A new `riverbed checkpoint inspect` command shows what a worker will resume from.\\n\\nUpgrade and try it:\\n\\n```\\npip install -U riverbed\\n```\\n\\nThen open the [checkpoint quickstart](https://docs.tessera-labs.dev/riverbed/checkpoints/quickstart) to see it in action. The full list of changes is in the [1.8 changelog](https://github.com/tessera-labs/riverbed/blob/main/CHANGELOG.md).\\n\\n\\u2014 The riverbed team at Tessera Labs\\n\\n*riverbed is a Tessera Labs project. Labs projects are experimental, are not covered by Tessera support agreements, and may change or be discontinued without notice.*\", \"segment_id\": \"seg-python-stream-devs\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-001-01\", \"campaign_id\": \"camp-2026-10-001\", \"segment_id\": \"seg-python-stream-devs\", \"subject_lines\": [\"riverbed 1.8: checkpointed state for every pipeline\", \"Restarted workers now resume where they stopped (riverbed 1.8)\", \"riverbed 1.8 is out: pipeline checkpoints, one pip install\"], \"body_chars\": 979, \"compliance_status\": \"unchecked\", \"stored_at\": \"2026-10-07T03:34:04+00:00\"}",
+        "status": "success",
+        "stepId": "79c2d3d2-9af4-4e81-bc3a-5d05c19a9a13",
+        "toolName": "submit_draft"
+      },
+      {
+        "createdAt": "2026-10-07T03:34:08.893Z",
+        "durationMs": 306,
+        "id": "aece343d-5c87-4205-b457-e6d7dd806a51",
+        "input": "{\"draft_id\": \"draft-camp-2026-10-001-01\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-001-01\", \"passed\": false, \"checks\": {\"on_brand_voice\": {\"type\": \"noul\", \"noul\": 0.7, \"verdict\": true, \"review\": false}, \"no_unapproved_claims\": {\"type\": \"noul\", \"noul\": 0.91, \"verdict\": true, \"review\": false}, \"has_clear_cta\": {\"type\": \"noul\", \"noul\": 0.35, \"verdict\": false, \"review\": false}, \"has_labs_disclaimer\": {\"type\": \"noul\", \"noul\": 0.33, \"verdict\": false, \"review\": false}}, \"flagged\": [\"has_clear_cta\", \"has_labs_disclaimer\"], \"review_required\": [], \"disclaimer_text_found_verbatim\": false, \"required_disclaimer\": \"Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.\", \"voice_rules\": [\"Lead with what the developer can do now, not with adjectives\", \"One idea per sentence; no exclamation marks; no emoji in subject lines\", \"Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant\", \"Prefer code and concrete nouns to superlatives\", \"Always include exactly one clear call to action\"], \"banned_claims\": [\"production-ready\", \"enterprise-grade\", \"officially supported\", \"SLA\", \"guaranteed\", \"100%\", \"best-in-class\", \"unlimited\", \"naming a competitor product\", \"unpublished benchmark numbers\"], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "d55d78e9-d40e-4c28-9dc6-e03102c12080",
+        "toolName": "check_brand_compliance"
+      },
+      {
+        "createdAt": "2026-10-07T03:34:10.11Z",
+        "durationMs": 243,
+        "id": "a7329c13-820c-4f02-8377-3f90798d20af",
+        "input": "{\"draft_id\": \"draft-camp-2026-10-001-01\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-001-01\", \"persona\": \"Noor the Streaming Developer\", \"ranked\": [{\"line\": \"Restarted workers now resume where they stopped (riverbed 1.8)\", \"clarity\": {\"type\": \"score\", \"score\": 4.82, \"level\": 5, \"confidence\": 0.85, \"probabilities\": {\"1\": 0.0, \"2\": 0.0, \"3\": 0.0, \"4\": 0.16, \"5\": 0.84}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 4.4399999999999995, \"level\": 4, \"confidence\": 0.59, \"probabilities\": {\"1\": 0.0, \"2\": 0.0, \"3\": 0.01, \"4\": 0.52, \"5\": 0.47}, \"review\": true}, \"spam_risk\": {\"type\": \"score\", \"score\": 1.6, \"level\": 1, \"confidence\": 0.5, \"probabilities\": {\"1\": 0.49, \"2\": 0.43, \"3\": 0.08, \"4\": 0.0, \"5\": 0.0}, \"review\": true}, \"composite\": 7.66}, {\"line\": \"riverbed 1.8: checkpointed state for every pipeline\", \"clarity\": {\"type\": \"score\", \"score\": 4.25, \"level\": 4, \"confidence\": 0.72, \"probabilities\": {\"1\": 0.0, \"2\": 0.01, \"3\": 0.02, \"4\": 0.68, \"5\": 0.29}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 4.24, \"level\": 4, \"confidence\": 0.72, \"probabilities\": {\"1\": 0.0, \"2\": 0.0, \"3\": 0.03, \"4\": 0.68, \"5\": 0.29}, \"review\": false}, \"spam_risk\": {\"type\": \"score\", \"score\": 1.16, \"level\": 1, \"confidence\": 0.87, \"probabilities\": {\"1\": 0.87, \"2\": 0.12, \"3\": 0.01, \"4\": 0.0, \"5\": 0.0}, \"review\": false}, \"composite\": 7.33}, {\"line\": \"riverbed 1.8 is out: pipeline checkpoints, one pip install\", \"clarity\": {\"type\": \"score\", \"score\": 4.12, \"level\": 4, \"confidence\": 0.74, \"probabilities\": {\"1\": 0.0, \"2\": 0.02, \"3\": 0.06, \"4\": 0.71, \"5\": 0.21}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 3.62, \"level\": 4, \"confidence\": 0.59, \"probabilities\": {\"1\": 0.0, \"2\": 0.08, \"3\": 0.27, \"4\": 0.6, \"5\": 0.05}, \"review\": true}, \"spam_risk\": {\"type\": \"score\", \"score\": 2.06, \"level\": 2, \"confidence\": 0.72, \"probabilities\": {\"1\": 0.14, \"2\": 0.68, \"3\": 0.17, \"4\": 0.01, \"5\": 0.0}, \"review\": false}, \"composite\": 5.68}], \"pick\": \"Restarted workers now resume where they stopped (riverbed 1.8)\", \"review_required\": [{\"question\": \"line_2_curiosity\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.59}, {\"question\": \"line_2_spam_risk\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.5}, {\"question\": \"line_3_curiosity\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.59}], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "806a09b1-6db5-4726-bf8d-389fcf1e31a3",
+        "toolName": "score_subject_lines"
+      },
+      {
+        "createdAt": "2026-10-07T03:34:26.065Z",
+        "durationMs": 0,
+        "id": "84ac5043-5561-4242-94be-3329cd027382",
+        "input": "{\"campaign_id\": \"camp-2026-10-001\", \"subject_lines\": [\"riverbed 1.8: checkpointed state for every pipeline\", \"Restarted workers now resume where they stopped (riverbed 1.8)\", \"riverbed 1.8 is out: pipeline checkpoints, one pip install\"], \"body_md\": \"riverbed 1.8 is out. The headline is checkpointed pipeline state.\\n\\n**Restarts resume where they stopped.** Pipeline state is now checkpointed, so a restarted worker picks up from its last checkpoint instead of starting over.\\n\\n**No changes to your pipelines.** Checkpointing is on for every pipeline after one `pip install`. Existing pipeline code runs as is.\\n\\n**Inspect a checkpoint from the CLI.** A new `riverbed checkpoint inspect` command shows what a worker will resume from.\\n\\n**Upgrade now and open the checkpoint quickstart:**\\n\\n```\\npip install -U riverbed\\n```\\n\\n[Open the checkpoint quickstart](https://docs.tessera-labs.dev/riverbed/checkpoints/quickstart)\\n\\nThe full list of changes is in the [1.8 changelog](https://github.com/tessera-labs/riverbed/blob/main/CHANGELOG.md).\\n\\n\\u2014 The riverbed team, a Tessera Labs project\\n\\n*Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.*\", \"segment_id\": \"seg-python-stream-devs\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-001-02\", \"campaign_id\": \"camp-2026-10-001\", \"segment_id\": \"seg-python-stream-devs\", \"subject_lines\": [\"riverbed 1.8: checkpointed state for every pipeline\", \"Restarted workers now resume where they stopped (riverbed 1.8)\", \"riverbed 1.8 is out: pipeline checkpoints, one pip install\"], \"body_chars\": 966, \"compliance_status\": \"unchecked\", \"stored_at\": \"2026-10-07T03:34:25+00:00\"}",
+        "status": "success",
+        "stepId": "fe12cf22-936a-4e17-9670-dc9152fcbd34",
+        "toolName": "submit_draft"
+      },
+      {
+        "createdAt": "2026-10-07T03:34:30.233Z",
+        "durationMs": 335,
+        "id": "29cc5c84-5627-4369-ac8f-16eab6ebc14d",
+        "input": "{\"draft_id\": \"draft-camp-2026-10-001-02\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-001-02\", \"passed\": true, \"checks\": {\"on_brand_voice\": {\"type\": \"noul\", \"noul\": 0.91, \"verdict\": true, \"review\": false}, \"no_unapproved_claims\": {\"type\": \"noul\", \"noul\": 0.93, \"verdict\": true, \"review\": false}, \"has_clear_cta\": {\"type\": \"noul\", \"noul\": 0.5, \"verdict\": true, \"review\": true}, \"has_labs_disclaimer\": {\"type\": \"noul\", \"noul\": 0.99, \"verdict\": true, \"review\": false}}, \"flagged\": [], \"review_required\": [{\"question\": \"has_clear_cta\", \"type\": \"noul\", \"reason\": \"within 0.15 of 0.5\", \"value\": 0.5}], \"disclaimer_text_found_verbatim\": true, \"required_disclaimer\": \"Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.\", \"voice_rules\": [\"Lead with what the developer can do now, not with adjectives\", \"One idea per sentence; no exclamation marks; no emoji in subject lines\", \"Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant\", \"Prefer code and concrete nouns to superlatives\", \"Always include exactly one clear call to action\"], \"banned_claims\": [\"production-ready\", \"enterprise-grade\", \"officially supported\", \"SLA\", \"guaranteed\", \"100%\", \"best-in-class\", \"unlimited\", \"naming a competitor product\", \"unpublished benchmark numbers\"], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "47564931-b47c-4af0-891a-02834d1186e0",
+        "toolName": "check_brand_compliance"
+      },
+      {
+        "createdAt": "2026-10-07T03:34:31.415Z",
+        "durationMs": 221,
+        "id": "1fbccf7e-75b8-4cff-a7d7-637cdbc6fbc4",
+        "input": "{\"draft_id\": \"draft-camp-2026-10-001-02\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-001-02\", \"persona\": \"Noor the Streaming Developer\", \"ranked\": [{\"line\": \"Restarted workers now resume where they stopped (riverbed 1.8)\", \"clarity\": {\"type\": \"score\", \"score\": 4.82, \"level\": 5, \"confidence\": 0.85, \"probabilities\": {\"1\": 0.0, \"2\": 0.0, \"3\": 0.0, \"4\": 0.16, \"5\": 0.84}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 4.43, \"level\": 4, \"confidence\": 0.61, \"probabilities\": {\"1\": 0.0, \"2\": 0.0, \"3\": 0.01, \"4\": 0.54, \"5\": 0.45}, \"review\": false}, \"spam_risk\": {\"type\": \"score\", \"score\": 1.6, \"level\": 1, \"confidence\": 0.5, \"probabilities\": {\"1\": 0.48, \"2\": 0.44, \"3\": 0.07, \"4\": 0.01, \"5\": 0.0}, \"review\": true}, \"composite\": 7.65}, {\"line\": \"riverbed 1.8: checkpointed state for every pipeline\", \"clarity\": {\"type\": \"score\", \"score\": 4.25, \"level\": 4, \"confidence\": 0.71, \"probabilities\": {\"1\": 0.0, \"2\": 0.01, \"3\": 0.02, \"4\": 0.67, \"5\": 0.3}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 4.29, \"level\": 4, \"confidence\": 0.69, \"probabilities\": {\"1\": 0.0, \"2\": 0.0, \"3\": 0.02, \"4\": 0.65, \"5\": 0.33}, \"review\": false}, \"spam_risk\": {\"type\": \"score\", \"score\": 1.2, \"level\": 1, \"confidence\": 0.83, \"probabilities\": {\"1\": 0.83, \"2\": 0.15, \"3\": 0.02, \"4\": 0.0, \"5\": 0.0}, \"review\": false}, \"composite\": 7.34}, {\"line\": \"riverbed 1.8 is out: pipeline checkpoints, one pip install\", \"clarity\": {\"type\": \"score\", \"score\": 4.279999999999999, \"level\": 4, \"confidence\": 0.69, \"probabilities\": {\"1\": 0.0, \"2\": 0.01, \"3\": 0.03, \"4\": 0.63, \"5\": 0.33}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 3.81, \"level\": 4, \"confidence\": 0.71, \"probabilities\": {\"1\": 0.0, \"2\": 0.04, \"3\": 0.18, \"4\": 0.7, \"5\": 0.08}, \"review\": false}, \"spam_risk\": {\"type\": \"score\", \"score\": 2.08, \"level\": 2, \"confidence\": 0.72, \"probabilities\": {\"1\": 0.12, \"2\": 0.6900000000000001, \"3\": 0.18, \"4\": 0.01, \"5\": 0.0}, \"review\": false}, \"composite\": 6.01}], \"pick\": \"Restarted workers now resume where they stopped (riverbed 1.8)\", \"review_required\": [{\"question\": \"line_2_spam_risk\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.5}], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "86a2aa4f-1d1f-4f7e-9fc6-09d05e74b877",
+        "toolName": "score_subject_lines"
+      },
+      {
+        "createdAt": "2026-10-07T03:34:43.24Z",
+        "durationMs": 1,
+        "id": "1daa0ccd-f3ef-45f4-beac-6994eaa79b9d",
+        "input": "{\"campaign_id\": \"camp-2026-10-001\", \"draft_id\": \"draft-camp-2026-10-001-02\", \"segment_id\": \"seg-python-stream-devs\", \"subject_line\": \"Restarted workers now resume where they stopped (riverbed 1.8)\", \"send_at\": \"2026-10-14T09:00:00Z\"}",
+        "output": "{\"schedule_id\": \"send-ea4acab5\", \"campaign_id\": \"camp-2026-10-001\", \"draft_id\": \"draft-camp-2026-10-001-02\", \"segment_id\": \"seg-python-stream-devs\", \"subject_line\": \"Restarted workers now resume where they stopped (riverbed 1.8)\", \"send_at\": \"2026-10-14T09:00:00Z\", \"status\": \"scheduled\"}",
+        "status": "success",
+        "stepId": "acc32edb-1cd4-4786-861c-9590b324af33",
+        "toolName": "schedule_send"
+      },
+      {
+        "createdAt": "2026-10-07T03:34:51.92Z",
+        "durationMs": 6,
+        "id": "2d580cca-7cab-47cd-9cb1-2dda87b16ae7",
+        "input": "{\"campaign_id\": \"camp-2026-10-001\", \"draft_id\": \"draft-camp-2026-10-001-02\", \"summary\": \"Launch email for riverbed 1.8 (checkpointed pipeline state) scheduled to Python streaming developers (seg-python-stream-devs, 3,700 recipients) for 2026-10-14T09:00:00Z, schedule send-ea4acab5, using draft-camp-2026-10-001-02 with subject line \\\"Restarted workers now resume where they stopped (riverbed 1.8)\\\". classify_brief returned launch, no legal review; urgency was flagged for review (0.56 confidence between levels 2 and 3) and I set it at 2 because the send date is fixed a week out with no deadline pressure. The first draft (draft-01) failed brand compliance on has_clear_cta and has_labs_disclaimer; I rewrote it with the required disclaimer verbatim and a single explicit CTA (pip install -U riverbed plus the checkpoint quickstart, as the brief defines it), keeping the changelog as an informational link per the brief notes. Draft-02 passed all four checks; has_clear_cta was flagged for review at exactly 0.5 and I accepted the pass because the body contains one action matching the brief's CTA. The subject line was chosen by the scored ranking (composite 7.65 vs 7.34 and 6.01); its spam_risk was flagged for review at 0.5 confidence between levels 1 and 2, and I kept the ranked pick because it leads on clarity and composite and contains no spam signals. Voice and claims checks passed on both drafts.\"}",
+        "output": "{\"log_id\": \"log-0001\", \"campaign_id\": \"camp-2026-10-001\", \"draft_id\": \"draft-camp-2026-10-001-02\", \"scheduled\": true, \"logged_at\": \"2026-10-07T03:34:51+00:00\"}",
+        "status": "success",
+        "stepId": "26fb1cc0-c12a-42a7-bd16-fd19c83a320e",
+        "toolName": "log_campaign"
+      }
+    ]
+  },
+  "claude": {
+    "session_id": "f16a5954-cc4b-4e03-b201-17792dbd59e7",
+    "total_cost_usd": 0.599103,
+    "duration_ms": 75177,
+    "duration_api_ms": 60540,
+    "num_turns": 12,
+    "result": "The riverbed 1.8 launch email is scheduled and logged.\n\n**What was sent**\n\n- Segment: Python streaming developers, 3,700 recipients.\n- Send time: 2026-10-14 09:00 UTC, schedule send-ea4acab5.\n- Subject line: \"Restarted workers now resume where they stopped (riverbed 1.8)\".\n- Body: three key messages from the brief, one CTA to upgrade via pip and open the checkpoint quickstart, changelog link, and the required Labs disclaimer verbatim.\n\n**Decisions on review items**\n\n- Brief urgency was flagged at low confidence between levels 2 and 3. I set it at 2 because the send date is fixed a week out with no deadline pressure.\n- The first draft failed compliance on the CTA and the disclaimer. I rewrote it with the exact disclaimer text and a single explicit CTA, and the second draft passed all four checks.\n- The CTA check on the second draft passed but was flagged at the boundary. I accepted it because the body has one action matching the CTA the brief defines, and the changelog link is informational per the brief notes.\n- The ranked subject line's spam risk was flagged at low confidence between levels 1 and 2. I kept the ranked pick per the house rule, and it has no spam signals and leads on clarity and composite.\n\nThe campaign log entry is log-0001 in Notion with the full paragraph of decisions.",
+    "modelUsage": {
+      "claude-fable-5-1": {
+        "inputTokens": 226,
+        "outputTokens": 4778,
+        "cacheReadInputTokens": 83052,
+        "cacheCreationInputTokens": 16859,
+        "webSearchRequests": 0,
+        "costUSD": 0.599103,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 1638,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "stop_reason": "end_turn",
+    "is_error": false,
+    "terminal_reason": "completed"
+  }
+}

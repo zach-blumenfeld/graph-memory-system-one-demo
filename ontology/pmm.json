@@ -1,0 +1,40 @@
+{
+  "domain": {
+    "id": "pmm",
+    "name": "Product Marketing",
+    "description": "Campaign briefs, personas, products, audience segments, channels, brand guidelines and approved claims for a product-marketing team",
+    "tagline": "Graph memory for a product-marketing agent",
+    "emoji": "📣"
+  },
+  "entity_types": [
+    {"label": "Campaign", "pole_type": "EVENT", "subtype": "CAMPAIGN", "color": "#f97316", "icon": "megaphone",
+     "properties": [{"name": "name", "type": "string", "required": true}, {"name": "campaign_id", "type": "string", "unique": true}, {"name": "brief_id", "type": "string"}, {"name": "campaign_type", "type": "string"}, {"name": "send_window", "type": "date"}, {"name": "description", "type": "string"}]},
+    {"label": "Persona", "pole_type": "PERSON", "subtype": "ARCHETYPE", "color": "#22c55e", "icon": "user",
+     "properties": [{"name": "name", "type": "string", "required": true}, {"name": "role", "type": "string"}, {"name": "preferred_tone", "type": "string"}, {"name": "description", "type": "string"}]},
+    {"label": "Product", "pole_type": "OBJECT", "subtype": "SOFTWARE", "color": "#eab308", "icon": "box",
+     "properties": [{"name": "name", "type": "string", "required": true}, {"name": "version", "type": "string"}, {"name": "repo", "type": "string"}, {"name": "description", "type": "string"}]},
+    {"label": "AudienceSegment", "pole_type": "ORGANIZATION", "subtype": "AUDIENCE", "color": "#3b82f6", "icon": "users",
+     "properties": [{"name": "name", "type": "string", "required": true}, {"name": "segment_id", "type": "string", "unique": true}, {"name": "size", "type": "integer"}, {"name": "description", "type": "string"}]},
+    {"label": "Channel", "pole_type": "OBJECT", "subtype": "CHANNEL", "color": "#06b6d4", "icon": "send",
+     "properties": [{"name": "name", "type": "string", "required": true}, {"name": "description", "type": "string"}]},
+    {"label": "BrandGuideline", "pole_type": "OBJECT", "subtype": "POLICY", "color": "#a855f7", "icon": "shield",
+     "properties": [{"name": "name", "type": "string", "required": true}, {"name": "required_disclaimer", "type": "string"}, {"name": "description", "type": "string"}]},
+    {"label": "Claim", "pole_type": "OBJECT", "subtype": "CLAIM", "color": "#94a3b8", "icon": "check",
+     "properties": [{"name": "name", "type": "string", "required": true}, {"name": "approved", "type": "string"}, {"name": "description", "type": "string"}]}
+  ],
+  "relationships": [
+    {"type": "TARGETS", "source": "Campaign", "target": "AudienceSegment", "description": "campaign is aimed at a segment"},
+    {"type": "TARGETS", "source": "Campaign", "target": "Persona", "description": "campaign is written for a persona"},
+    {"type": "PROMOTES", "source": "Campaign", "target": "Product", "description": "campaign promotes a product"},
+    {"type": "USES_CHANNEL", "source": "Campaign", "target": "Channel", "description": "campaign goes out on a channel"},
+    {"type": "CONSTRAINED_BY", "source": "Campaign", "target": "BrandGuideline", "description": "campaign must follow a brand guideline"},
+    {"type": "CONSTRAINED_BY", "source": "Product", "target": "BrandGuideline", "description": "product copy must follow a brand guideline"},
+    {"type": "ASSERTS", "source": "Product", "target": "Claim", "description": "product has an approved claim"},
+    {"type": "REPRESENTS", "source": "Persona", "target": "AudienceSegment", "description": "persona is the archetype of a segment"}
+  ],
+  "extraction_aliases": {
+    "campaign": "Campaign", "email blast": "Campaign", "launch": "Campaign",
+    "persona": "Persona", "product": "Product", "project": "Product", "segment": "AudienceSegment",
+    "audience": "AudienceSegment", "channel": "Channel", "brand guide": "BrandGuideline", "claim": "Claim"
+  }
+}

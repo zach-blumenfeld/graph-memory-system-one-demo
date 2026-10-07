@@ -1,0 +1,12 @@
+{
+  "stage": 0,
+  "checked_at": "2026-10-07T03:31:51+00:00",
+  "workspace_id": "3708ea1d-9fa7-4484-a771-d70c2e8b1151",
+  "workspace_name": "system-one-demo",
+  "db_mode": "external",
+  "nams_api_version": "1.1.0",
+  "pmm_version": "0.1.0",
+  "claude_code": "2.1.292 (Claude Code)",
+  "python": "3.14.5",
+  "aura_instance": "b919e0ff"
+}

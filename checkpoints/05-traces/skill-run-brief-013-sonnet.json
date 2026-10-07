@@ -1,0 +1,215 @@
+{
+  "run": {
+    "id": "skill-run-brief-013-sonnet",
+    "kind": "skill-run",
+    "brief": "brief-013",
+    "product": "riverbed",
+    "segment": "seg-python-stream-devs"
+  },
+  "exported_at": "2026-10-07T03:59:45+00:00",
+  "conversation": {
+    "createdAt": "2026-10-07T03:58:56.501Z",
+    "id": "a7b8ee77-3bda-4e2f-ac29-ae6ab3e468c6",
+    "metadata": {
+      "briefId": "brief-013",
+      "claudeSessionId": "23ea8277-154c-4dd7-8104-f6e3a0c3f40d",
+      "model": "sonnet",
+      "product": "riverbed",
+      "runId": "skill-run-brief-013-sonnet",
+      "runKind": "skill-run",
+      "segmentId": "seg-python-stream-devs"
+    },
+    "updatedAt": "2026-10-07T03:59:41.463Z",
+    "userId": "",
+    "workspaceId": "3708ea1d-9fa7-4484-a771-d70c2e8b1151"
+  },
+  "messages": [
+    {
+      "content": "I've stopped before scheduling. Two things need your input first.\n\n**Where the launch stands**\n- Brief `brief-013` is classified as a launch with urgency 2/5.\n- The segment is `seg-python-stream-devs`, 3,700 recipients.\n- The draft is `draft-camp-2026-11-001-04`. It passes brand compliance on all four checks.\n- My first draft (`-03`) failed because it paraphrased the Labs disclaimer. The second uses the required text verbatim.\n- The scorer picked \"Inspect your pipeline graph from Python (riverbed 2.0)\" with a composite of 6.72. Nothing was flagged for review.\n\n**Before I schedule**\n1. **The CTA link is a placeholder.** The brief gives CTA text but no URL, so I used `https://example.com/riverbed/2.0/connector-quickstart`. That can't go to 3,700 people. Please send the real quickstart URL. I'll resubmit and re-run the compliance check, since the body changes.\n2. **The classifier says this brief needs legal review.** It returned `needs_legal_review: true` at 0.65. It didn't set `review_required`, so it isn't formally uncertain, but it's a real signal. The likely trigger is the exactly-once preview claim for Kafka sinks. Has legal looked at this, or should I schedule anyway?\n\nOnce I have the URL and your go-ahead on legal, I'll do the following:\n- Resubmit the draft and re-check compliance.\n- Schedule to `seg-python-stream-devs` at `2026-11-04T09:00:00Z`.\n- Log the campaign.\n\nI haven't scheduled anything or written to the campaign log.",
+      "createdAt": "2026-10-07T03:59:41.463Z",
+      "id": "a36e2b49-3cb2-4178-a6ac-00e9b83afeb6",
+      "metadata": {},
+      "role": "assistant",
+      "tokenCount": 363
+    },
+    {
+      "content": "New brief in Notion: brief-013, \"riverbed 2.0 release\". Launch the email blast to the Python streaming developers, scheduled for 2026-11-04 09:00 UTC.",
+      "createdAt": "2026-10-07T03:58:58.236Z",
+      "id": "8daee5f8-7dc3-4276-b113-a1d75811e8e9",
+      "metadata": {},
+      "role": "user",
+      "tokenCount": 37
+    }
+  ],
+  "trace": {
+    "conversationId": "a7b8ee77-3bda-4e2f-ac29-ae6ab3e468c6",
+    "steps": [
+      {
+        "actionTaken": "get_campaign_brief",
+        "createdAt": "2026-10-07T03:59:04.567Z",
+        "id": "a7024161-297c-4ce1-86d5-76112139b054",
+        "reasoning": "Fetch the campaign brief from Notion. Why now: the brief brief-013 is the source of truth for the campaign",
+        "result": "brief brief-013: riverbed 2.0 release (riverbed, seg-python-stream-devs)"
+      },
+      {
+        "actionTaken": "classify_brief",
+        "createdAt": "2026-10-07T03:59:05.853Z",
+        "id": "8386789a-a1ff-4f2e-9b2c-90110528a565",
+        "reasoning": "Classify the brief with the System One model (type, urgency, legal review). Why now: the campaign type, urgency and legal exposure decide how the rest of the launch is handled",
+        "result": "launch (p=0.99), urgency 2/5, legal review p=0.65, review_required=0"
+      },
+      {
+        "actionTaken": "get_audience_segments",
+        "createdAt": "2026-10-07T03:59:06.8Z",
+        "id": "ee1c5ec6-c672-4df8-bfae-f0a70dd2062c",
+        "reasoning": "List the audience segments for the product. Why now: the send must target a segment that exists for riverbed",
+        "result": "3 segments for riverbed"
+      },
+      {
+        "actionTaken": "submit_draft",
+        "createdAt": "2026-10-07T03:59:19.378Z",
+        "id": "c3ba830f-39f2-4c24-944f-cf842a7f0359",
+        "reasoning": "Store the email draft (three subject lines and a body). Why now: the draft has to exist in the system before it can be checked, scored or scheduled",
+        "result": "stored draft-camp-2026-11-001-03 (682 chars, 3 subject lines)"
+      },
+      {
+        "actionTaken": "check_brand_compliance",
+        "createdAt": "2026-10-07T03:59:22.592Z",
+        "id": "ef4eba98-86b0-46a5-b56c-ff42d3e2c0dd",
+        "reasoning": "Check the draft against the brand guide with the System One model. Why now: nothing may be scheduled until the draft passes the brand check",
+        "result": "FAILED; flagged=['has_labs_disclaimer']; review_required=[]"
+      },
+      {
+        "actionTaken": "submit_draft",
+        "createdAt": "2026-10-07T03:59:27.059Z",
+        "id": "60fed368-b2e7-4b14-8106-5f2aafda9e4f",
+        "reasoning": "Store the email draft (three subject lines and a body). Why now: the draft has to exist in the system before it can be checked, scored or scheduled",
+        "result": "stored draft-camp-2026-11-001-04 (703 chars, 3 subject lines)"
+      },
+      {
+        "actionTaken": "check_brand_compliance",
+        "createdAt": "2026-10-07T03:59:29.974Z",
+        "id": "79287d15-0df4-44b2-9ff0-6fae164f640a",
+        "reasoning": "Check the draft against the brand guide with the System One model. Why now: nothing may be scheduled until the draft passes the brand check",
+        "result": "passed; flagged=[]; review_required=[]"
+      },
+      {
+        "actionTaken": "score_subject_lines",
+        "createdAt": "2026-10-07T03:59:32.881Z",
+        "id": "04d13efd-52a6-4d1e-8dfd-ba7d1de5101b",
+        "reasoning": "Score the subject lines for the persona with the System One model. Why now: the subject line is chosen by calibrated score, not by taste",
+        "result": "pick: 'Inspect your pipeline graph from Python (riverbed 2.0)' (composite 6.72); review_required=0"
+      }
+    ],
+    "toolCalls": [
+      {
+        "createdAt": "2026-10-07T03:59:04.948Z",
+        "durationMs": 0,
+        "id": "7dbc9b54-9ba7-418f-ac24-cd67f02781c0",
+        "input": "{\"brief_id\": \"brief-013\"}",
+        "output": "{\"brief_id\": \"brief-013\", \"campaign_id\": \"camp-2026-11-001\", \"title\": \"riverbed 2.0 release\", \"product\": \"riverbed\", \"segment_id\": \"seg-python-stream-devs\", \"persona_id\": \"persona-stream-dev\", \"channel\": \"Email\", \"goal\": \"Announce 2.0: a new connector API, pipeline graphs you can inspect from Python, and the exactly-once preview.\", \"key_messages\": [\"New connector API: write a source or sink in one class\", \"Inspect the pipeline graph from Python\", \"Exactly-once preview for Kafka sinks\"], \"cta\": \"Upgrade to 2.0 and try the connector quickstart\", \"send_window\": \"2026-11-04\", \"notes\": \"This is the brief for the live demo. Developer tone, Labs disclaimer.\"}",
+        "status": "success",
+        "stepId": "a7024161-297c-4ce1-86d5-76112139b054",
+        "toolName": "get_campaign_brief"
+      },
+      {
+        "createdAt": "2026-10-07T03:59:06.246Z",
+        "durationMs": 285,
+        "id": "820f4e4e-d7eb-4614-8ef2-81e78e906a13",
+        "input": "{\"brief_id\": \"brief-013\"}",
+        "output": "{\"brief_id\": \"brief-013\", \"campaign_type\": {\"type\": \"choice\", \"choice\": \"launch\", \"confidence\": 0.99, \"probabilities\": {\"launch\": 0.99, \"update\": 0.0, \"nurture\": 0.0, \"event\": 0.01}, \"review\": false}, \"urgency\": {\"type\": \"score\", \"score\": 1.9100000000000001, \"level\": 2, \"confidence\": 0.68, \"probabilities\": {\"1\": 0.24, \"2\": 0.65, \"3\": 0.07, \"4\": 0.03, \"5\": 0.01}, \"review\": false}, \"needs_legal_review\": {\"type\": \"noul\", \"noul\": 0.65, \"verdict\": true, \"review\": false}, \"review_required\": [], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "8386789a-a1ff-4f2e-9b2c-90110528a565",
+        "toolName": "classify_brief"
+      },
+      {
+        "createdAt": "2026-10-07T03:59:07.071Z",
+        "durationMs": 0,
+        "id": "abea45d3-e7e0-4105-b42f-17f2c4f6e5f6",
+        "input": "{\"product\": \"riverbed\"}",
+        "output": "{\"product\": \"riverbed\", \"segments\": [{\"segment_id\": \"seg-python-stream-devs\", \"name\": \"Python streaming developers\", \"product\": \"riverbed\", \"persona_id\": \"persona-stream-dev\", \"size\": 3700, \"description\": \"Developers who installed riverbed or starred the repo in the last 6 months\"}, {\"segment_id\": \"seg-connector-maintainers\", \"name\": \"Connector maintainers\", \"product\": \"riverbed\", \"persona_id\": \"persona-platform-lead\", \"size\": 280, \"description\": \"Maintainers and contributors of riverbed connectors\"}, {\"segment_id\": \"seg-labs-newsletter\", \"name\": \"Tessera Labs newsletter\", \"product\": \"all\", \"persona_id\": \"persona-community-organiser\", \"size\": 8400, \"description\": \"Everyone subscribed to the monthly Tessera Labs digest\"}]}",
+        "status": "success",
+        "stepId": "ee1c5ec6-c672-4df8-bfae-f0a70dd2062c",
+        "toolName": "get_audience_segments"
+      },
+      {
+        "createdAt": "2026-10-07T03:59:19.927Z",
+        "durationMs": 1,
+        "id": "0101cf60-8f05-4d66-af22-6dcb1cde4bcc",
+        "input": "{\"campaign_id\": \"camp-2026-11-001\", \"subject_lines\": [\"riverbed 2.0: write a connector in one class\", \"Inspect your pipeline graph from Python (riverbed 2.0)\", \"riverbed 2.0 is out: connector API, graph inspection, exactly-once preview\"], \"body_md\": \"Hi,\\n\\nriverbed 2.0 is out. Three changes matter most if you build streaming pipelines in Python:\\n\\n- **New connector API.** Write a source or sink in one class.\\n- **Inspect the pipeline graph from Python.** See how your stages connect without leaving your code.\\n- **Exactly-once preview for Kafka sinks.** This is a preview, so try it on non-critical pipelines first and tell us what you find.\\n\\n**[Upgrade to 2.0 and try the connector quickstart](https://example.com/riverbed/2.0/connector-quickstart)**\\n\\nThanks for building with riverbed.\\n\\nThe Tessera Labs team\\n\\n---\\nriverbed is a Tessera Labs project. Labs projects are experimental and provided as-is, without support or warranty.\\n\", \"segment_id\": \"seg-python-stream-devs\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-11-001-03\", \"campaign_id\": \"camp-2026-11-001\", \"segment_id\": \"seg-python-stream-devs\", \"subject_lines\": [\"riverbed 2.0: write a connector in one class\", \"Inspect your pipeline graph from Python (riverbed 2.0)\", \"riverbed 2.0 is out: connector API, graph inspection, exactly-once preview\"], \"body_chars\": 682, \"compliance_status\": \"unchecked\", \"stored_at\": \"2026-10-07T03:59:19+00:00\"}",
+        "status": "success",
+        "stepId": "c3ba830f-39f2-4c24-944f-cf842a7f0359",
+        "toolName": "submit_draft"
+      },
+      {
+        "createdAt": "2026-10-07T03:59:23.143Z",
+        "durationMs": 324,
+        "id": "672da2c6-5221-419a-9e9f-01e7bec1ff53",
+        "input": "{\"draft_id\": \"draft-camp-2026-11-001-03\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-11-001-03\", \"passed\": false, \"checks\": {\"on_brand_voice\": {\"type\": \"noul\", \"noul\": 0.65, \"verdict\": true, \"review\": false}, \"no_unapproved_claims\": {\"type\": \"noul\", \"noul\": 0.84, \"verdict\": true, \"review\": false}, \"has_clear_cta\": {\"type\": \"noul\", \"noul\": 0.94, \"verdict\": true, \"review\": false}, \"has_labs_disclaimer\": {\"type\": \"noul\", \"noul\": 0.1, \"verdict\": false, \"review\": false}}, \"flagged\": [\"has_labs_disclaimer\"], \"review_required\": [], \"disclaimer_text_found_verbatim\": false, \"required_disclaimer\": \"Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.\", \"voice_rules\": [\"Lead with what the developer can do now, not with adjectives\", \"One idea per sentence; no exclamation marks; no emoji in subject lines\", \"Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant\", \"Prefer code and concrete nouns to superlatives\", \"Always include exactly one clear call to action\"], \"banned_claims\": [\"production-ready\", \"enterprise-grade\", \"officially supported\", \"SLA\", \"guaranteed\", \"100%\", \"best-in-class\", \"unlimited\", \"naming a competitor product\", \"unpublished benchmark numbers\"], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "ef4eba98-86b0-46a5-b56c-ff42d3e2c0dd",
+        "toolName": "check_brand_compliance"
+      },
+      {
+        "createdAt": "2026-10-07T03:59:27.453Z",
+        "durationMs": 0,
+        "id": "31128a66-4774-419c-a8a5-8d4eec86a25a",
+        "input": "{\"campaign_id\": \"camp-2026-11-001\", \"subject_lines\": [\"riverbed 2.0: write a connector in one class\", \"Inspect your pipeline graph from Python (riverbed 2.0)\", \"riverbed 2.0 is out: connector API, graph inspection, exactly-once preview\"], \"body_md\": \"Hi,\\n\\nriverbed 2.0 is out. Three changes matter most if you build streaming pipelines in Python:\\n\\n- **New connector API.** Write a source or sink in one class.\\n- **Inspect the pipeline graph from Python.** See how your stages connect without leaving your code.\\n- **Exactly-once preview for Kafka sinks.** This is a preview, so try it on non-critical pipelines first and tell us what you find.\\n\\n**[Upgrade to 2.0 and try the connector quickstart](https://example.com/riverbed/2.0/connector-quickstart)**\\n\\nThanks for building with riverbed.\\n\\nThe Tessera Labs team\\n\\n---\\nTessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.\\n\", \"segment_id\": \"seg-python-stream-devs\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-11-001-04\", \"campaign_id\": \"camp-2026-11-001\", \"segment_id\": \"seg-python-stream-devs\", \"subject_lines\": [\"riverbed 2.0: write a connector in one class\", \"Inspect your pipeline graph from Python (riverbed 2.0)\", \"riverbed 2.0 is out: connector API, graph inspection, exactly-once preview\"], \"body_chars\": 703, \"compliance_status\": \"unchecked\", \"stored_at\": \"2026-10-07T03:59:26+00:00\"}",
+        "status": "success",
+        "stepId": "60fed368-b2e7-4b14-8106-5f2aafda9e4f",
+        "toolName": "submit_draft"
+      },
+      {
+        "createdAt": "2026-10-07T03:59:30.37Z",
+        "durationMs": 399,
+        "id": "dd9457bd-5738-47cb-92b7-2a12b5460c11",
+        "input": "{\"draft_id\": \"draft-camp-2026-11-001-04\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-11-001-04\", \"passed\": true, \"checks\": {\"on_brand_voice\": {\"type\": \"noul\", \"noul\": 0.9, \"verdict\": true, \"review\": false}, \"no_unapproved_claims\": {\"type\": \"noul\", \"noul\": 0.91, \"verdict\": true, \"review\": false}, \"has_clear_cta\": {\"type\": \"noul\", \"noul\": 0.95, \"verdict\": true, \"review\": false}, \"has_labs_disclaimer\": {\"type\": \"noul\", \"noul\": 0.99, \"verdict\": true, \"review\": false}}, \"flagged\": [], \"review_required\": [], \"disclaimer_text_found_verbatim\": true, \"required_disclaimer\": \"Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.\", \"voice_rules\": [\"Lead with what the developer can do now, not with adjectives\", \"One idea per sentence; no exclamation marks; no emoji in subject lines\", \"Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant\", \"Prefer code and concrete nouns to superlatives\", \"Always include exactly one clear call to action\"], \"banned_claims\": [\"production-ready\", \"enterprise-grade\", \"officially supported\", \"SLA\", \"guaranteed\", \"100%\", \"best-in-class\", \"unlimited\", \"naming a competitor product\", \"unpublished benchmark numbers\"], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "79287d15-0df4-44b2-9ff0-6fae164f640a",
+        "toolName": "check_brand_compliance"
+      },
+      {
+        "createdAt": "2026-10-07T03:59:33.275Z",
+        "durationMs": 285,
+        "id": "8776e511-ac9c-4133-9f36-ff71774a2301",
+        "input": "{\"draft_id\": \"draft-camp-2026-11-001-04\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-11-001-04\", \"persona\": \"Noor the Streaming Developer\", \"ranked\": [{\"line\": \"Inspect your pipeline graph from Python (riverbed 2.0)\", \"clarity\": {\"type\": \"score\", \"score\": 4.1, \"level\": 4, \"confidence\": 0.87, \"probabilities\": {\"1\": 0.0, \"2\": 0.01, \"3\": 0.01, \"4\": 0.85, \"5\": 0.13}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 3.95, \"level\": 4, \"confidence\": 0.86, \"probabilities\": {\"1\": 0.0, \"2\": 0.01, \"3\": 0.09, \"4\": 0.84, \"5\": 0.06}, \"review\": false}, \"spam_risk\": {\"type\": \"score\", \"score\": 1.33, \"level\": 1, \"confidence\": 0.72, \"probabilities\": {\"1\": 0.7, \"2\": 0.28, \"3\": 0.02, \"4\": 0.0, \"5\": 0.0}, \"review\": false}, \"composite\": 6.72}, {\"line\": \"riverbed 2.0: write a connector in one class\", \"clarity\": {\"type\": \"score\", \"score\": 3.8, \"level\": 4, \"confidence\": 0.77, \"probabilities\": {\"1\": 0.0, \"2\": 0.07, \"3\": 0.08, \"4\": 0.8, \"5\": 0.04}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 3.89, \"level\": 4, \"confidence\": 0.78, \"probabilities\": {\"1\": 0.0, \"2\": 0.02, \"3\": 0.13, \"4\": 0.77, \"5\": 0.08}, \"review\": false}, \"spam_risk\": {\"type\": \"score\", \"score\": 1.18, \"level\": 1, \"confidence\": 0.85, \"probabilities\": {\"1\": 0.87, \"2\": 0.11, \"3\": 0.02, \"4\": 0.0, \"5\": 0.0}, \"review\": false}, \"composite\": 6.51}, {\"line\": \"riverbed 2.0 is out: connector API, graph inspection, exactly-once preview\", \"clarity\": {\"type\": \"score\", \"score\": 4.33, \"level\": 4, \"confidence\": 0.68, \"probabilities\": {\"1\": 0.0, \"2\": 0.0, \"3\": 0.01, \"4\": 0.63, \"5\": 0.36}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 4.1, \"level\": 4, \"confidence\": 0.71, \"probabilities\": {\"1\": 0.0, \"2\": 0.01, \"3\": 0.1, \"4\": 0.67, \"5\": 0.22}, \"review\": false}, \"spam_risk\": {\"type\": \"score\", \"score\": 2.44, \"level\": 2, \"confidence\": 0.6, \"probabilities\": {\"1\": 0.02, \"2\": 0.55, \"3\": 0.41, \"4\": 0.02, \"5\": 0.0}, \"review\": false}, \"composite\": 5.99}], \"pick\": \"Inspect your pipeline graph from Python (riverbed 2.0)\", \"review_required\": [], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "04d13efd-52a6-4d1e-8dfd-ba7d1de5101b",
+        "toolName": "score_subject_lines"
+      }
+    ]
+  },
+  "claude": {
+    "session_id": "23ea8277-154c-4dd7-8104-f6e3a0c3f40d",
+    "total_cost_usd": 0.205811,
+    "duration_ms": 44392,
+    "duration_api_ms": 32630,
+    "num_turns": 13,
+    "result": "I've stopped before scheduling. Two things need your input first.\n\n**Where the launch stands**\n- Brief `brief-013` is classified as a launch with urgency 2/5.\n- The segment is `seg-python-stream-devs`, 3,700 recipients.\n- The draft is `draft-camp-2026-11-001-04`. It passes brand compliance on all four checks.\n- My first draft (`-03`) failed because it paraphrased the Labs disclaimer. The second uses the required text verbatim.\n- The scorer picked \"Inspect your pipeline graph from Python (riverbed 2.0)\" with a composite of 6.72. Nothing was flagged for review.\n\n**Before I schedule**\n1. **The CTA link is a placeholder.** The brief gives CTA text but no URL, so I used `https://example.com/riverbed/2.0/connector-quickstart`. That can't go to 3,700 people. Please send the real quickstart URL. I'll resubmit and re-run the compliance check, since the body changes.\n2. **The classifier says this brief needs legal review.** It returned `needs_legal_review: true` at 0.65. It didn't set `review_required`, so it isn't formally uncertain, but it's a real signal. The likely trigger is the exactly-once preview claim for Kafka sinks. Has legal looked at this, or should I schedule anyway?\n\nOnce I have the URL and your go-ahead on legal, I'll do the following:\n- Resubmit the draft and re-check compliance.\n- Schedule to `seg-python-stream-devs` at `2026-11-04T09:00:00Z`.\n- Log the campaign.\n\nI haven't scheduled anything or written to the campaign log.",
+    "modelUsage": {
+      "claude-sonnet-5-5": {
+        "inputTokens": 16,
+        "outputTokens": 2983,
+        "cacheReadInputTokens": 204025,
+        "cacheCreationInputTokens": 33786,
+        "webSearchRequests": 0,
+        "costUSD": 0.205811,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 705,
+        "canonicalModel": "claude-sonnet-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "stop_reason": "end_turn",
+    "is_error": false,
+    "terminal_reason": "completed"
+  }
+}

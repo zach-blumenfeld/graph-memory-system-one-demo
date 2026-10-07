@@ -1,0 +1,338 @@
+{
+  "object": "database",
+  "id": "db-audience-segments",
+  "title": [
+    {
+      "type": "text",
+      "plain_text": "Audience segments",
+      "text": {
+        "content": "Audience segments"
+      }
+    }
+  ],
+  "properties": {
+    "Name": {
+      "type": "title"
+    },
+    "Product": {
+      "type": "select"
+    },
+    "Persona": {
+      "type": "relation"
+    },
+    "Size": {
+      "type": "number"
+    },
+    "Description": {
+      "type": "rich_text"
+    }
+  },
+  "pages": [
+    {
+      "object": "page",
+      "id": "seg-python-stream-devs",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "Python streaming developers",
+              "text": {
+                "content": "Python streaming developers"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "riverbed"
+          }
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-stream-dev"
+            }
+          ]
+        },
+        "Size": {
+          "type": "number",
+          "number": 3700
+        },
+        "Description": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Developers who installed riverbed or starred the repo in the last 6 months",
+              "text": {
+                "content": "Developers who installed riverbed or starred the repo in the last 6 months"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "seg-pipeline-operators",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "Pipeline operators",
+              "text": {
+                "content": "Pipeline operators"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "tidewatch"
+          }
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-platform-lead"
+            }
+          ]
+        },
+        "Size": {
+          "type": "number",
+          "number": 1300
+        },
+        "Description": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "People who run riverbed pipelines in a shared environment and asked about monitoring",
+              "text": {
+                "content": "People who run riverbed pipelines in a shared environment and asked about monitoring"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "seg-mooring-early-adopters",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "mooring early adopters",
+              "text": {
+                "content": "mooring early adopters"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "mooring"
+          }
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-data-engineer"
+            }
+          ]
+        },
+        "Size": {
+          "type": "number",
+          "number": 650
+        },
+        "Description": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "People who registered a schema in mooring during the 2.0 beta",
+              "text": {
+                "content": "People who registered a schema in mooring during the 2.0 beta"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "seg-ci-builders",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "CI builders",
+              "text": {
+                "content": "CI builders"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "ballast"
+          }
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-platform-lead"
+            }
+          ]
+        },
+        "Size": {
+          "type": "number",
+          "number": 900
+        },
+        "Description": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Developers who added a Tessera Labs GitHub Action to a repo",
+              "text": {
+                "content": "Developers who added a Tessera Labs GitHub Action to a repo"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "seg-connector-maintainers",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "Connector maintainers",
+              "text": {
+                "content": "Connector maintainers"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "riverbed"
+          }
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-platform-lead"
+            }
+          ]
+        },
+        "Size": {
+          "type": "number",
+          "number": 280
+        },
+        "Description": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Maintainers and contributors of riverbed connectors",
+              "text": {
+                "content": "Maintainers and contributors of riverbed connectors"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "seg-labs-newsletter",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "Tessera Labs newsletter",
+              "text": {
+                "content": "Tessera Labs newsletter"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "all"
+          }
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-community-organiser"
+            }
+          ]
+        },
+        "Size": {
+          "type": "number",
+          "number": 8400
+        },
+        "Description": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Everyone subscribed to the monthly Tessera Labs digest",
+              "text": {
+                "content": "Everyone subscribed to the monthly Tessera Labs digest"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

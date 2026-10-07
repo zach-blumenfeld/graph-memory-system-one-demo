@@ -1,0 +1,266 @@
+{
+  "run": {
+    "id": "run-04",
+    "kind": "clean",
+    "brief": "brief-004",
+    "product": "ballast",
+    "segment": "seg-ci-builders"
+  },
+  "exported_at": "2026-10-07T03:39:24+00:00",
+  "conversation": {
+    "createdAt": "2026-10-07T03:37:41.933Z",
+    "id": "6c7dbe23-4b04-4ab7-87f5-645de7f07fc0",
+    "metadata": {
+      "briefId": "brief-004",
+      "claudeSessionId": "bac95f8c-f3f1-4793-9ba7-9c87ab38baee",
+      "model": "default",
+      "product": "ballast",
+      "runId": "run-04",
+      "runKind": "clean",
+      "segmentId": "seg-ci-builders"
+    },
+    "updatedAt": "2026-10-07T03:39:20.101Z",
+    "userId": "",
+    "workspaceId": "3708ea1d-9fa7-4484-a771-d70c2e8b1151"
+  },
+  "messages": [
+    {
+      "content": "The ballast 0.4 launch email is scheduled to the CI builders segment for 2026-10-17 at 09:00 UTC and logged in Notion.\n\n**What went out**\n\n- Segment: CI builders, 900 recipients, platform-lead persona.\n- Subject line, chosen by the scored ranking: \"ballast 0.4: fail the build when p99 breaks your latency budget\".\n- Body covers the three key messages from the brief, one CTA to add the action to one workflow and open an issue, and the Labs disclaimer verbatim.\n\n**Decisions on review_required items**\n\n- **Legal review** flagged as uncertain by the classifier, leaning no. I decided no review. The brief has no pricing, competitor, regulatory, or guarantee language, and the 50x replay figure is one of the brief's own key messages. I kept the copy strictly to those messages.\n- **Subject-line scores** flagged five low-confidence sub-scores. The ranking was stable across two scoring runs with a clear margin, and the uncertainty ranges on the winner could not reorder it, so I took the ranked pick.\n\n**Compliance** failed once on the first draft because I paraphrased the Labs disclaimer. The second draft used the exact required text and passed all four checks. Nothing was scheduled until that pass.\n\nThe Notion campaign log entry records the schedule, both draft ids, and the reasoning above.",
+      "createdAt": "2026-10-07T03:39:20.101Z",
+      "id": "c8e2e227-2602-4a1e-916a-f2b5992c1c09",
+      "metadata": {},
+      "role": "assistant",
+      "tokenCount": 324
+    },
+    {
+      "content": "New brief in Notion: brief-004, \"ballast 0.4: latency budgets in CI\".\nLaunch the email blast to the CI builders, scheduled for 2026-10-17 09:00 UTC.\n\nHouse rules for every campaign: nothing is scheduled until the draft has passed brand compliance;\nthe subject line is chosen by the scored ranking, not by taste; when a decision tool returns a\nnon-empty review_required list, say what you decided and why; finish by logging the campaign in\nNotion with a one-paragraph summary of what you did and the decisions made.",
+      "createdAt": "2026-10-07T03:37:43.884Z",
+      "id": "ed5e91fc-3ff2-439c-8bd8-da1fb103a246",
+      "metadata": {},
+      "role": "user",
+      "tokenCount": 128
+    }
+  ],
+  "trace": {
+    "conversationId": "6c7dbe23-4b04-4ab7-87f5-645de7f07fc0",
+    "steps": [
+      {
+        "actionTaken": "get_campaign_brief",
+        "createdAt": "2026-10-07T03:37:50.583Z",
+        "id": "75defced-7791-47f8-b226-7b39eb89b364",
+        "reasoning": "Fetch the campaign brief from Notion. Why now: the brief brief-004 is the source of truth for the campaign",
+        "result": "brief brief-004: ballast 0.4: latency budgets in CI (ballast, seg-ci-builders)"
+      },
+      {
+        "actionTaken": "classify_brief",
+        "createdAt": "2026-10-07T03:37:51.705Z",
+        "id": "fe9638ea-aff1-4720-a1c0-df3ec4b1cf32",
+        "reasoning": "Classify the brief with the System One model (type, urgency, legal review). Why now: the campaign type, urgency and legal exposure decide how the rest of the launch is handled",
+        "result": "launch (p=1.00), urgency 2/5, legal review p=0.36, review_required=1"
+      },
+      {
+        "actionTaken": "get_audience_segments",
+        "createdAt": "2026-10-07T03:37:52.64Z",
+        "id": "9236fb27-130d-43e6-8d31-c600a3b1443b",
+        "reasoning": "List the audience segments for the product. Why now: the send must target a segment that exists for ballast",
+        "result": "2 segments for ballast"
+      },
+      {
+        "actionTaken": "submit_draft",
+        "createdAt": "2026-10-07T03:38:10.478Z",
+        "id": "2349a71c-5506-4b63-a7ec-b00f90243ee8",
+        "reasoning": "Store the email draft (three subject lines and a body). Why now: the draft has to exist in the system before it can be checked, scored or scheduled",
+        "result": "stored draft-camp-2026-10-004-01 (1167 chars, 3 subject lines)"
+      },
+      {
+        "actionTaken": "check_brand_compliance",
+        "createdAt": "2026-10-07T03:38:16.227Z",
+        "id": "d29606e8-4dbc-4ef8-98c8-96d622012e53",
+        "reasoning": "Check the draft against the brand guide with the System One model. Why now: nothing may be scheduled until the draft passes the brand check",
+        "result": "FAILED; flagged=['has_labs_disclaimer']; review_required=[]"
+      },
+      {
+        "actionTaken": "score_subject_lines",
+        "createdAt": "2026-10-07T03:38:17.839Z",
+        "id": "32ee998e-8106-45d8-b6c4-8a980f644f80",
+        "reasoning": "Score the subject lines for the persona with the System One model. Why now: the subject line is chosen by calibrated score, not by taste",
+        "result": "pick: 'ballast 0.4: fail the build when p99 breaks your latency budget' (composite 6.27); review_required=5"
+      },
+      {
+        "actionTaken": "submit_draft",
+        "createdAt": "2026-10-07T03:38:32.897Z",
+        "id": "b0f3cfa5-669f-44f7-9626-3256309aebe6",
+        "reasoning": "Store the email draft (three subject lines and a body). Why now: the draft has to exist in the system before it can be checked, scored or scheduled",
+        "result": "stored draft-camp-2026-10-004-02 (1193 chars, 3 subject lines)"
+      },
+      {
+        "actionTaken": "check_brand_compliance",
+        "createdAt": "2026-10-07T03:38:42.433Z",
+        "id": "06aa6f36-850d-470a-9bf3-afc0aba8916b",
+        "reasoning": "Check the draft against the brand guide with the System One model. Why now: nothing may be scheduled until the draft passes the brand check",
+        "result": "passed; flagged=[]; review_required=[]"
+      },
+      {
+        "actionTaken": "score_subject_lines",
+        "createdAt": "2026-10-07T03:38:43.678Z",
+        "id": "27bb1a93-e075-4c0d-849c-68fafc176112",
+        "reasoning": "Score the subject lines for the persona with the System One model. Why now: the subject line is chosen by calibrated score, not by taste",
+        "result": "pick: 'ballast 0.4: fail the build when p99 breaks your latency budget' (composite 6.09); review_required=5"
+      },
+      {
+        "actionTaken": "schedule_send",
+        "createdAt": "2026-10-07T03:38:54.929Z",
+        "id": "4fd54a52-63f6-4856-9387-395ed68fe5fc",
+        "reasoning": "Schedule the send for the compliant draft. Why now: the draft passed compliance and has a scored subject line, so it can go on the calendar",
+        "result": "send-9e360ebc at 2026-10-17T09:00:00Z to seg-ci-builders"
+      },
+      {
+        "actionTaken": "log_campaign",
+        "createdAt": "2026-10-07T03:39:07.07Z",
+        "id": "008c84ec-f933-432d-920e-42a85714da2f",
+        "reasoning": "Log the campaign outcome in Notion. Why now: the team tracks every campaign in the Notion log, scheduled or not",
+        "result": "log-0004 scheduled=True"
+      }
+    ],
+    "toolCalls": [
+      {
+        "createdAt": "2026-10-07T03:37:50.964Z",
+        "durationMs": 2,
+        "id": "a40810e5-7aa6-4d4e-948f-6f5bac52c367",
+        "input": "{\"brief_id\": \"brief-004\"}",
+        "output": "{\"brief_id\": \"brief-004\", \"campaign_id\": \"camp-2026-10-004\", \"title\": \"ballast 0.4: latency budgets in CI\", \"product\": \"ballast\", \"segment_id\": \"seg-ci-builders\", \"persona_id\": \"persona-platform-lead\", \"channel\": \"Email\", \"goal\": \"Introduce the latency-budget feature to CI builders and invite them to add it to a workflow.\", \"key_messages\": [\"Fail the build when p99 latency exceeds a budget you set\", \"Replays recorded traffic at up to 50x\", \"Reports latency per pipeline stage\"], \"cta\": \"Add the ballast action to one workflow and open an issue with results\", \"send_window\": \"2026-10-17\", \"notes\": \"Small, technical list. Be concrete about what the action checks.\"}",
+        "status": "success",
+        "stepId": "75defced-7791-47f8-b226-7b39eb89b364",
+        "toolName": "get_campaign_brief"
+      },
+      {
+        "createdAt": "2026-10-07T03:37:52.085Z",
+        "durationMs": 330,
+        "id": "58ada26a-112d-46e3-a919-e28a163f000b",
+        "input": "{\"brief_id\": \"brief-004\"}",
+        "output": "{\"brief_id\": \"brief-004\", \"campaign_type\": {\"type\": \"choice\", \"choice\": \"launch\", \"confidence\": 0.99, \"probabilities\": {\"nurture\": 0.0, \"event\": 0.0, \"update\": 0.0, \"launch\": 1.0}, \"review\": false}, \"urgency\": {\"type\": \"score\", \"score\": 2.1799999999999997, \"level\": 2, \"confidence\": 0.82, \"probabilities\": {\"1\": 0.02, \"2\": 0.8, \"3\": 0.16, \"4\": 0.02, \"5\": 0.0}, \"review\": false}, \"needs_legal_review\": {\"type\": \"noul\", \"noul\": 0.36, \"verdict\": false, \"review\": true}, \"review_required\": [{\"question\": \"needs_legal_review\", \"type\": \"noul\", \"reason\": \"within 0.15 of 0.5\", \"value\": 0.36}], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "fe9638ea-aff1-4720-a1c0-df3ec4b1cf32",
+        "toolName": "classify_brief"
+      },
+      {
+        "createdAt": "2026-10-07T03:37:53.02Z",
+        "durationMs": 0,
+        "id": "c2b74e48-dc63-4bcd-a63b-e50f9b95fd8c",
+        "input": "{\"product\": \"ballast\"}",
+        "output": "{\"product\": \"ballast\", \"segments\": [{\"segment_id\": \"seg-ci-builders\", \"name\": \"CI builders\", \"product\": \"ballast\", \"persona_id\": \"persona-platform-lead\", \"size\": 900, \"description\": \"Developers who added a Tessera Labs GitHub Action to a repo\"}, {\"segment_id\": \"seg-labs-newsletter\", \"name\": \"Tessera Labs newsletter\", \"product\": \"all\", \"persona_id\": \"persona-community-organiser\", \"size\": 8400, \"description\": \"Everyone subscribed to the monthly Tessera Labs digest\"}]}",
+        "status": "success",
+        "stepId": "9236fb27-130d-43e6-8d31-c600a3b1443b",
+        "toolName": "get_audience_segments"
+      },
+      {
+        "createdAt": "2026-10-07T03:38:11.041Z",
+        "durationMs": 1,
+        "id": "63795d5b-93f0-409d-af47-9d5f6132bc4c",
+        "input": "{\"campaign_id\": \"camp-2026-10-004\", \"subject_lines\": [\"ballast 0.4: fail the build when p99 breaks your latency budget\", \"Latency budgets in CI: ballast 0.4 is out\", \"Your pipeline now has a p99 line it can't cross\"], \"body_md\": \"Hi,\\n\\nYou already run a Tessera Labs action in CI. ballast 0.4 adds one more check to that pipeline: a latency budget.\\n\\n**What the action checks**\\n\\n- You set a p99 latency budget in your workflow file. If the p99 exceeds it, the build fails.\\n- ballast replays recorded traffic against the build, at up to 50x real-time, so the check finishes inside a normal CI run.\\n- The report breaks latency down per pipeline stage, so you can see which stage ate the budget instead of just a red X.\\n\\nThat is the whole feature. No dashboards, no new service to run. The action reads a budget, replays traffic, and passes or fails.\\n\\n**Try it on one workflow**\\n\\nAdd the ballast action to a single workflow, let it run for a few days, and open an issue with what you saw: budgets that were too tight, stages that surprised you, replays that didn't match production.\\n\\n[Add the ballast action to one workflow and open an issue with results](https://github.com/tessera-labs/ballast)\\n\\nThanks for building with us,\\nThe Tessera Labs team\\n\\n---\\n\\n*ballast is a Tessera Labs project. Labs projects are experimental, may change without notice, and are not covered by a Tessera support agreement.*\", \"segment_id\": \"seg-ci-builders\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-004-01\", \"campaign_id\": \"camp-2026-10-004\", \"segment_id\": \"seg-ci-builders\", \"subject_lines\": [\"ballast 0.4: fail the build when p99 breaks your latency budget\", \"Latency budgets in CI: ballast 0.4 is out\", \"Your pipeline now has a p99 line it can't cross\"], \"body_chars\": 1167, \"compliance_status\": \"unchecked\", \"stored_at\": \"2026-10-07T03:38:09+00:00\"}",
+        "status": "success",
+        "stepId": "2349a71c-5506-4b63-a7ec-b00f90243ee8",
+        "toolName": "submit_draft"
+      },
+      {
+        "createdAt": "2026-10-07T03:38:16.781Z",
+        "durationMs": 310,
+        "id": "c2f906f9-353c-4b55-848b-3f64e78cee4d",
+        "input": "{\"draft_id\": \"draft-camp-2026-10-004-01\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-004-01\", \"passed\": false, \"checks\": {\"on_brand_voice\": {\"type\": \"noul\", \"noul\": 0.69, \"verdict\": true, \"review\": false}, \"no_unapproved_claims\": {\"type\": \"noul\", \"noul\": 0.82, \"verdict\": true, \"review\": false}, \"has_clear_cta\": {\"type\": \"noul\", \"noul\": 0.81, \"verdict\": true, \"review\": false}, \"has_labs_disclaimer\": {\"type\": \"noul\", \"noul\": 0.31, \"verdict\": false, \"review\": false}}, \"flagged\": [\"has_labs_disclaimer\"], \"review_required\": [], \"disclaimer_text_found_verbatim\": false, \"required_disclaimer\": \"Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.\", \"voice_rules\": [\"Lead with what the developer can do now, not with adjectives\", \"One idea per sentence; no exclamation marks; no emoji in subject lines\", \"Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant\", \"Prefer code and concrete nouns to superlatives\", \"Always include exactly one clear call to action\"], \"banned_claims\": [\"production-ready\", \"enterprise-grade\", \"officially supported\", \"SLA\", \"guaranteed\", \"100%\", \"best-in-class\", \"unlimited\", \"naming a competitor product\", \"unpublished benchmark numbers\"], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "d29606e8-4dbc-4ef8-98c8-96d622012e53",
+        "toolName": "check_brand_compliance"
+      },
+      {
+        "createdAt": "2026-10-07T03:38:18.443Z",
+        "durationMs": 405,
+        "id": "11f4c569-e080-4af0-bc3b-541494a2ad90",
+        "input": "{\"draft_id\": \"draft-camp-2026-10-004-01\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-004-01\", \"persona\": \"Teo the Platform Lead\", \"ranked\": [{\"line\": \"ballast 0.4: fail the build when p99 breaks your latency budget\", \"clarity\": {\"type\": \"score\", \"score\": 4.42, \"level\": 5, \"confidence\": 0.52, \"probabilities\": {\"1\": 0.0, \"2\": 0.03, \"3\": 0.02, \"4\": 0.45, \"5\": 0.5}, \"review\": true}, \"curiosity\": {\"type\": \"score\", \"score\": 4.1899999999999995, \"level\": 4, \"confidence\": 0.77, \"probabilities\": {\"1\": 0.0, \"2\": 0.01, \"3\": 0.03, \"4\": 0.73, \"5\": 0.23}, \"review\": false}, \"spam_risk\": {\"type\": \"score\", \"score\": 2.34, \"level\": 2, \"confidence\": 0.49, \"probabilities\": {\"1\": 0.13, \"2\": 0.47, \"3\": 0.32, \"4\": 0.08, \"5\": 0.0}, \"review\": true}, \"composite\": 6.27}, {\"line\": \"Latency budgets in CI: ballast 0.4 is out\", \"clarity\": {\"type\": \"score\", \"score\": 4.01, \"level\": 4, \"confidence\": 0.91, \"probabilities\": {\"1\": 0.0, \"2\": 0.0, \"3\": 0.04, \"4\": 0.9, \"5\": 0.06}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 3.49, \"level\": 4, \"confidence\": 0.56, \"probabilities\": {\"1\": 0.0, \"2\": 0.05, \"3\": 0.42, \"4\": 0.52, \"5\": 0.01}, \"review\": true}, \"spam_risk\": {\"type\": \"score\", \"score\": 1.97, \"level\": 2, \"confidence\": 0.76, \"probabilities\": {\"1\": 0.16, \"2\": 0.72, \"3\": 0.12, \"4\": 0.0, \"5\": 0.0}, \"review\": false}, \"composite\": 5.53}, {\"line\": \"Your pipeline now has a p99 line it can't cross\", \"clarity\": {\"type\": \"score\", \"score\": 3.02, \"level\": 3, \"confidence\": 0.5, \"probabilities\": {\"1\": 0.0, \"2\": 0.28, \"3\": 0.43, \"4\": 0.26, \"5\": 0.03}, \"review\": true}, \"curiosity\": {\"type\": \"score\", \"score\": 3.6, \"level\": 4, \"confidence\": 0.64, \"probabilities\": {\"1\": 0.0, \"2\": 0.07, \"3\": 0.26, \"4\": 0.65, \"5\": 0.02}, \"review\": false}, \"spam_risk\": {\"type\": \"score\", \"score\": 2.6799999999999997, \"level\": 3, \"confidence\": 0.53, \"probabilities\": {\"1\": 0.04, \"2\": 0.37, \"3\": 0.48, \"4\": 0.11, \"5\": 0.0}, \"review\": true}, \"composite\": 3.94}], \"pick\": \"ballast 0.4: fail the build when p99 breaks your latency budget\", \"review_required\": [{\"question\": \"line_1_clarity\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.52}, {\"question\": \"line_1_spam_risk\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.49}, {\"question\": \"line_2_curiosity\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.56}, {\"question\": \"line_3_clarity\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.5}, {\"question\": \"line_3_spam_risk\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.53}], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "32ee998e-8106-45d8-b6c4-8a980f644f80",
+        "toolName": "score_subject_lines"
+      },
+      {
+        "createdAt": "2026-10-07T03:38:33.445Z",
+        "durationMs": 0,
+        "id": "4d375a5d-6734-4238-bd5f-e8a647378b53",
+        "input": "{\"campaign_id\": \"camp-2026-10-004\", \"subject_lines\": [\"ballast 0.4: fail the build when p99 breaks your latency budget\", \"Latency budgets in CI: ballast 0.4 is out\", \"Your pipeline now has a p99 line it can't cross\"], \"body_md\": \"Hi,\\n\\nYou already run a Tessera Labs action in CI. ballast 0.4 adds one more check to that pipeline: a latency budget.\\n\\n**What the action checks**\\n\\n- You set a p99 latency budget in your workflow file. If the p99 exceeds it, the build fails.\\n- ballast replays recorded traffic against the build, at up to 50x real-time, so the check finishes inside a normal CI run.\\n- The report breaks latency down per pipeline stage, so you can see which stage ate the budget instead of just a red X.\\n\\nThat is the whole feature. No dashboards, no new service to run. The action reads a budget, replays traffic, and passes or fails.\\n\\n**Try it on one workflow**\\n\\nAdd the ballast action to a single workflow, let it run for a few days, and open an issue with what you saw: budgets that were too tight, stages that surprised you, replays that didn't match production.\\n\\n[Add the ballast action to one workflow and open an issue with results](https://github.com/tessera-labs/ballast)\\n\\nThanks for building with us,\\nThe Tessera Labs team\\n\\n---\\n\\n*ballast is a Tessera Labs project. Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.*\", \"segment_id\": \"seg-ci-builders\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-004-02\", \"campaign_id\": \"camp-2026-10-004\", \"segment_id\": \"seg-ci-builders\", \"subject_lines\": [\"ballast 0.4: fail the build when p99 breaks your latency budget\", \"Latency budgets in CI: ballast 0.4 is out\", \"Your pipeline now has a p99 line it can't cross\"], \"body_chars\": 1193, \"compliance_status\": \"unchecked\", \"stored_at\": \"2026-10-07T03:38:32+00:00\"}",
+        "status": "success",
+        "stepId": "b0f3cfa5-669f-44f7-9626-3256309aebe6",
+        "toolName": "submit_draft"
+      },
+      {
+        "createdAt": "2026-10-07T03:38:42.823Z",
+        "durationMs": 361,
+        "id": "580aaf38-7132-458e-bc79-97b26812d6a6",
+        "input": "{\"draft_id\": \"draft-camp-2026-10-004-02\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-004-02\", \"passed\": true, \"checks\": {\"on_brand_voice\": {\"type\": \"noul\", \"noul\": 0.87, \"verdict\": true, \"review\": false}, \"no_unapproved_claims\": {\"type\": \"noul\", \"noul\": 0.82, \"verdict\": true, \"review\": false}, \"has_clear_cta\": {\"type\": \"noul\", \"noul\": 0.88, \"verdict\": true, \"review\": false}, \"has_labs_disclaimer\": {\"type\": \"noul\", \"noul\": 0.99, \"verdict\": true, \"review\": false}}, \"flagged\": [], \"review_required\": [], \"disclaimer_text_found_verbatim\": true, \"required_disclaimer\": \"Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.\", \"voice_rules\": [\"Lead with what the developer can do now, not with adjectives\", \"One idea per sentence; no exclamation marks; no emoji in subject lines\", \"Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant\", \"Prefer code and concrete nouns to superlatives\", \"Always include exactly one clear call to action\"], \"banned_claims\": [\"production-ready\", \"enterprise-grade\", \"officially supported\", \"SLA\", \"guaranteed\", \"100%\", \"best-in-class\", \"unlimited\", \"naming a competitor product\", \"unpublished benchmark numbers\"], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "06aa6f36-850d-470a-9bf3-afc0aba8916b",
+        "toolName": "check_brand_compliance"
+      },
+      {
+        "createdAt": "2026-10-07T03:38:44.159Z",
+        "durationMs": 290,
+        "id": "107b29e0-7992-4922-aa6f-c1b39a79e079",
+        "input": "{\"draft_id\": \"draft-camp-2026-10-004-02\"}",
+        "output": "{\"draft_id\": \"draft-camp-2026-10-004-02\", \"persona\": \"Teo the Platform Lead\", \"ranked\": [{\"line\": \"ballast 0.4: fail the build when p99 breaks your latency budget\", \"clarity\": {\"type\": \"score\", \"score\": 4.42, \"level\": 5, \"confidence\": 0.51, \"probabilities\": {\"1\": 0.0, \"2\": 0.03, \"3\": 0.02, \"4\": 0.46, \"5\": 0.49}, \"review\": true}, \"curiosity\": {\"type\": \"score\", \"score\": 4.12, \"level\": 4, \"confidence\": 0.81, \"probabilities\": {\"1\": 0.0, \"2\": 0.01, \"3\": 0.04, \"4\": 0.78, \"5\": 0.17}, \"review\": false}, \"spam_risk\": {\"type\": \"score\", \"score\": 2.45, \"level\": 2, \"confidence\": 0.45, \"probabilities\": {\"1\": 0.1, \"2\": 0.44, \"3\": 0.36, \"4\": 0.1, \"5\": 0.0}, \"review\": true}, \"composite\": 6.09}, {\"line\": \"Latency budgets in CI: ballast 0.4 is out\", \"clarity\": {\"type\": \"score\", \"score\": 4.029999999999999, \"level\": 4, \"confidence\": 0.89, \"probabilities\": {\"1\": 0.0, \"2\": 0.0, \"3\": 0.04, \"4\": 0.88, \"5\": 0.08}, \"review\": false}, \"curiosity\": {\"type\": \"score\", \"score\": 3.48, \"level\": 4, \"confidence\": 0.55, \"probabilities\": {\"1\": 0.0, \"2\": 0.06, \"3\": 0.4, \"4\": 0.53, \"5\": 0.01}, \"review\": true}, \"spam_risk\": {\"type\": \"score\", \"score\": 1.98, \"level\": 2, \"confidence\": 0.78, \"probabilities\": {\"1\": 0.15, \"2\": 0.74, \"3\": 0.11, \"4\": 0.0, \"5\": 0.0}, \"review\": false}, \"composite\": 5.53}, {\"line\": \"Your pipeline now has a p99 line it can't cross\", \"clarity\": {\"type\": \"score\", \"score\": 3.06, \"level\": 3, \"confidence\": 0.49, \"probabilities\": {\"1\": 0.0, \"2\": 0.27, \"3\": 0.41, \"4\": 0.29, \"5\": 0.03}, \"review\": true}, \"curiosity\": {\"type\": \"score\", \"score\": 3.58, \"level\": 4, \"confidence\": 0.63, \"probabilities\": {\"1\": 0.01, \"2\": 0.08, \"3\": 0.27, \"4\": 0.63, \"5\": 0.01}, \"review\": false}, \"spam_risk\": {\"type\": \"score\", \"score\": 2.73, \"level\": 3, \"confidence\": 0.57, \"probabilities\": {\"1\": 0.04, \"2\": 0.32, \"3\": 0.52, \"4\": 0.12, \"5\": 0.0}, \"review\": true}, \"composite\": 3.91}], \"pick\": \"ballast 0.4: fail the build when p99 breaks your latency budget\", \"review_required\": [{\"question\": \"line_1_clarity\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.51}, {\"question\": \"line_1_spam_risk\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.45}, {\"question\": \"line_2_curiosity\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.55}, {\"question\": \"line_3_clarity\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.49}, {\"question\": \"line_3_spam_risk\", \"type\": \"score\", \"reason\": \"confidence below 0.6\", \"value\": 0.57}], \"decision_model\": \"jev-1.13.0\"}",
+        "status": "success",
+        "stepId": "27bb1a93-e075-4c0d-849c-68fafc176112",
+        "toolName": "score_subject_lines"
+      },
+      {
+        "createdAt": "2026-10-07T03:38:55.316Z",
+        "durationMs": 1,
+        "id": "16bfe6c1-1cef-4cbb-b81e-f4d0af3ad828",
+        "input": "{\"campaign_id\": \"camp-2026-10-004\", \"draft_id\": \"draft-camp-2026-10-004-02\", \"segment_id\": \"seg-ci-builders\", \"subject_line\": \"ballast 0.4: fail the build when p99 breaks your latency budget\", \"send_at\": \"2026-10-17T09:00:00Z\"}",
+        "output": "{\"schedule_id\": \"send-9e360ebc\", \"campaign_id\": \"camp-2026-10-004\", \"draft_id\": \"draft-camp-2026-10-004-02\", \"segment_id\": \"seg-ci-builders\", \"subject_line\": \"ballast 0.4: fail the build when p99 breaks your latency budget\", \"send_at\": \"2026-10-17T09:00:00Z\", \"status\": \"scheduled\"}",
+        "status": "success",
+        "stepId": "4fd54a52-63f6-4856-9387-395ed68fe5fc",
+        "toolName": "schedule_send"
+      },
+      {
+        "createdAt": "2026-10-07T03:39:07.625Z",
+        "durationMs": 3,
+        "id": "0dde398a-ca61-4341-ba32-f78c08c5d594",
+        "input": "{\"campaign_id\": \"camp-2026-10-004\", \"draft_id\": \"draft-camp-2026-10-004-02\", \"summary\": \"Launch email for ballast 0.4 (latency budgets in CI) scheduled to the CI builders segment (seg-ci-builders, 900 recipients) for 2026-10-17T09:00:00Z, schedule send-9e360ebc, subject \\\"ballast 0.4: fail the build when p99 breaks your latency budget\\\". Classifier (jev-1.13.0) rated the brief a launch (0.99) at urgency 2 and flagged needs_legal_review for review (0.36, within 0.15 of 0.5); I decided no legal review because the brief carries no pricing, competitor, regulatory or guarantee language and the only numeric claim (replay at up to 50x) is one of the brief's own key messages, so the draft was kept strictly to those messages. First draft (draft-camp-2026-10-004-01) failed brand compliance solely on has_labs_disclaimer because the disclaimer was paraphrased; resubmitted as draft-02 with the required disclaimer verbatim and it passed all four checks (voice 0.87, claims 0.82, CTA 0.88, disclaimer 0.99) with no review items. Subject-line scoring flagged five sub-scores with confidence below 0.6 but ranked the chosen line first in both runs (composite 6.09 vs 5.53 vs 3.91), and its uncertainty ranges (clarity 4-5, spam risk 2-3) could not change the order, so I followed the ranked pick per house rules. Nothing was scheduled before compliance passed.\"}",
+        "output": "{\"log_id\": \"log-0004\", \"campaign_id\": \"camp-2026-10-004\", \"draft_id\": \"draft-camp-2026-10-004-02\", \"scheduled\": true, \"logged_at\": \"2026-10-07T03:39:06+00:00\"}",
+        "status": "success",
+        "stepId": "008c84ec-f933-432d-920e-42a85714da2f",
+        "toolName": "log_campaign"
+      }
+    ]
+  },
+  "claude": {
+    "session_id": "bac95f8c-f3f1-4793-9ba7-9c87ab38baee",
+    "total_cost_usd": 0.43223874999999995,
+    "duration_ms": 97404,
+    "duration_api_ms": 81260,
+    "num_turns": 12,
+    "result": "The ballast 0.4 launch email is scheduled to the CI builders segment for 2026-10-17 at 09:00 UTC and logged in Notion.\n\n**What went out**\n\n- Segment: CI builders, 900 recipients, platform-lead persona.\n- Subject line, chosen by the scored ranking: \"ballast 0.4: fail the build when p99 breaks your latency budget\".\n- Body covers the three key messages from the brief, one CTA to add the action to one workflow and open an issue, and the Labs disclaimer verbatim.\n\n**Decisions on review_required items**\n\n- **Legal review** flagged as uncertain by the classifier, leaning no. I decided no review. The brief has no pricing, competitor, regulatory, or guarantee language, and the 50x replay figure is one of the brief's own key messages. I kept the copy strictly to those messages.\n- **Subject-line scores** flagged five low-confidence sub-scores. The ranking was stable across two scoring runs with a clear margin, and the uncertainty ranges on the winner could not reorder it, so I took the ranked pick.\n\n**Compliance** failed once on the first draft because I paraphrased the Labs disclaimer. The second draft used the exact required text and passed all four checks. Nothing was scheduled until that pass.\n\nThe Notion campaign log entry records the schedule, both draft ids, and the reasoning above.",
+    "modelUsage": {
+      "claude-fable-5-1": {
+        "inputTokens": 226,
+        "outputTokens": 4108,
+        "cacheReadInputTokens": 85755,
+        "cacheCreationInputTokens": 10157,
+        "webSearchRequests": 0,
+        "costUSD": 0.43223874999999995,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 1007,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "stop_reason": "end_turn",
+    "is_error": false,
+    "terminal_reason": "completed"
+  }
+}

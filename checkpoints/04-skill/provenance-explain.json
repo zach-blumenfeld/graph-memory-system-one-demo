@@ -1,0 +1,1446 @@
+{
+  "claims": [
+    {
+      "claimId": "c-011",
+      "component": "domain_model",
+      "groundedIn": [
+        {
+          "id": "5a4cd682-b861-4b33-820b-ebb36b26c26e",
+          "kind": "entity",
+          "summary": "Pipeline operators"
+        }
+      ],
+      "text": "Pipeline operators are people who run riverbed pipelines in a shared environment and have asked about monitoring."
+    },
+    {
+      "claimId": "c-012",
+      "component": "domain_model",
+      "groundedIn": [
+        {
+          "id": "0b08ee87-93c4-483a-961a-2a2facbb7daf",
+          "kind": "entity",
+          "summary": "brand compliance"
+        },
+        {
+          "id": "e89745ec-8968-4c04-af72-915e270a8733",
+          "kind": "decision",
+          "summary": "check_brand_compliance"
+        }
+      ],
+      "text": "Brand compliance is the gate that determines whether a campaign draft meets required standards before scheduling."
+    },
+    {
+      "claimId": "c-013",
+      "component": "exemplar",
+      "groundedIn": [
+        {
+          "id": "36839105-9fcc-4a84-a6ee-d2f3c29e4ae7",
+          "kind": "decision",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "03d52b64-7f83-41fb-ad2e-82e559edde66",
+          "kind": "decision",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "9535fc32-9c42-405c-aee1-9cd378a0baef",
+          "kind": "message",
+          "summary": "The tidewatch 0.9 launch email is scheduled and logged.\n\n**What was sent where**\n\n| Item | Value |\n|---|---|\n| Segment | Pipeline operators, 1,300 recipients |\n| Send time | 2026-10-16 09:00 UTC |\n| Subject | Per-topic lag alerts for riverbed, now in tidewatch 0.9 |\n| Draft | draft-camp-2026-10-003-02 |\n| Schedule ID | send-b5932c43 |\n| Notion log | log-0003 |\n\n**Decisions made along the way**\n\n- **Classification raised nothing.** The brief classified as a launch with full confidence, urgency 2, no legal review, and an empty review list.\n- **First draft failed compliance.** The Labs disclaimer was paraphrased instead of verbatim, and the call-to-action check sat at 0.53 with a review flag because I had split the ask into a reply request and a separate link. I rewrote it with the exact disclaimer and the brief's CTA as a single bolded link. The revised draft passed all four checks with no review items.\n- **Subject line chosen by ranking.** On the final draft the scorer picked the per-topic lag alerts line on composite score, well ahead of the other two. It flagged the runner-up's curiosity score for review at 0.54 confidence. I kept the scored pick, since the uncertainty was on a line already trailing by enough that a one-level swing could not overtake it.\n- **Scheduling happened only after the pass.** The first draft was never submitted for sending.\n\nOne thing worth a glance before the 16th: the third subject line mentioned \"30 seconds\", which is close to the banned unpublished benchmark category. It was not chosen and compliance did not object, but I would avoid that phrasing in future drafts."
+        }
+      ],
+      "text": "In the tidewatch 0.9 launch, the ranked subject about per-topic lag alerts was retained after review of a losing line, and the compliant draft was scheduled only after the revised compliance pass."
+    },
+    {
+      "claimId": "c-014",
+      "component": "exemplar",
+      "groundedIn": [
+        {
+          "id": "d29606e8-4dbc-4ef8-98c8-96d622012e53",
+          "kind": "decision",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "06aa6f36-850d-470a-9bf3-afc0aba8916b",
+          "kind": "decision",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "c8e2e227-2602-4a1e-916a-f2b5992c1c09",
+          "kind": "message",
+          "summary": "The ballast 0.4 launch email is scheduled to the CI builders segment for 2026-10-17 at 09:00 UTC and logged in Notion.\n\n**What went out**\n\n- Segment: CI builders, 900 recipients, platform-lead persona.\n- Subject line, chosen by the scored ranking: \"ballast 0.4: fail the build when p99 breaks your latency budget\".\n- Body covers the three key messages from the brief, one CTA to add the action to one workflow and open an issue, and the Labs disclaimer verbatim.\n\n**Decisions on review_required items**\n\n- **Legal review** flagged as uncertain by the classifier, leaning no. I decided no review. The brief has no pricing, competitor, regulatory, or guarantee language, and the 50x replay figure is one of the brief's own key messages. I kept the copy strictly to those messages.\n- **Subject-line scores** flagged five low-confidence sub-scores. The ranking was stable across two scoring runs with a clear margin, and the uncertainty ranges on the winner could not reorder it, so I took the ranked pick.\n\n**Compliance** failed once on the first draft because I paraphrased the Labs disclaimer. The second draft used the exact required text and passed all four checks. Nothing was scheduled until that pass.\n\nThe Notion campaign log entry records the schedule, both draft ids, and the reasoning above."
+        }
+      ],
+      "text": "In the ballast 0.4 launch, the exact disclaimer and a single CTA were used after the first compliance failure, then the ranked subject was scheduled and the decisions were logged."
+    },
+    {
+      "claimId": "c-015",
+      "component": "success_criteria",
+      "groundedIn": [
+        {
+          "id": "c34f153c-0df6-4054-8677-4f3a2b79ea4f",
+          "kind": "tool_call",
+          "summary": "get_audience_segments"
+        },
+        {
+          "id": "06aa6f36-850d-470a-9bf3-afc0aba8916b",
+          "kind": "decision",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "3fcc7483-1c45-4c97-b554-8a2041164667",
+          "kind": "decision",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "871749f0-f79c-4a3e-932a-33700dd633a9",
+          "kind": "decision",
+          "summary": "schedule_send"
+        },
+        {
+          "id": "34f7cf2d-dad4-4633-8786-6fdfa2be38ce",
+          "kind": "decision",
+          "summary": "log_campaign"
+        }
+      ],
+      "text": "A successful launch has a verified audience, a stored draft that passes all required compliance checks, a subject chosen by scored ranking, an explicitly resolved review list, a scheduled send, and a Notion campaign log."
+    },
+    {
+      "claimId": "c-016",
+      "component": "anti_pattern",
+      "groundedIn": [
+        {
+          "id": "d55d78e9-d40e-4c28-9dc6-e03102c12080",
+          "kind": "decision",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "9bd0ed3e-7ae4-4a6a-98cd-ea44f9adc456",
+          "kind": "decision",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "d29606e8-4dbc-4ef8-98c8-96d622012e53",
+          "kind": "decision",
+          "summary": "check_brand_compliance"
+        }
+      ],
+      "text": "Do not advance a draft toward scheduling after a failed compliance check; revise the flagged content and run compliance again."
+    }
+  ],
+  "skillId": "sk-run-ce7b8546-bede-4794-925c-32ad0efb15ae",
+  "steps": [
+    {
+      "completionCriterion": "the get_campaign_brief call returns success \u2014 brief brief-001: riverbed 1.8: checkpointed state for every pipeline (riverbed, seg-python-stream-devs)",
+      "groundedIn": [
+        {
+          "id": "a1f38690-aa92-4060-990f-87b0bddc8616",
+          "kind": "Entity",
+          "summary": "riverbed"
+        },
+        {
+          "id": "c922ec9c-6ca1-45b1-b4ce-1627c3474377",
+          "kind": "Entity",
+          "summary": "tidewatch"
+        },
+        {
+          "id": "3ee30fe4-7f99-47e0-a6a8-b58c729fa854",
+          "kind": "Entity",
+          "summary": "mooring"
+        },
+        {
+          "id": "3cba16ab-e521-42b9-b7e9-a177ba41bb0a",
+          "kind": "Entity",
+          "summary": "ballast"
+        },
+        {
+          "id": "21688638-f6a3-4a68-bb99-c924e18ac80e",
+          "kind": "Entity",
+          "summary": "Python streaming developers"
+        },
+        {
+          "id": "5a4cd682-b861-4b33-820b-ebb36b26c26e",
+          "kind": "Entity",
+          "summary": "Pipeline operators"
+        },
+        {
+          "id": "cf5db460-d91b-4459-b932-45c3f0816836",
+          "kind": "Entity",
+          "summary": "mooring early adopters"
+        },
+        {
+          "id": "9c3e1bd4-5529-451f-98ff-c5e7f2a49827",
+          "kind": "Entity",
+          "summary": "riverbed 1.8: checkpointed state for every pipeline"
+        },
+        {
+          "id": "1ca94682-6742-413c-a7c9-9f9bed1c9791",
+          "kind": "Entity",
+          "summary": "mooring 2.1: compatibility checks for Protobuf"
+        },
+        {
+          "id": "551d2ce7-2d53-4b20-a989-97ebb2673957",
+          "kind": "Entity",
+          "summary": "tidewatch 0.9"
+        },
+        {
+          "id": "a87ed560-9d6d-40d1-a098-86cb4d085524",
+          "kind": "Entity",
+          "summary": "ballast 0.4: latency budgets in CI"
+        },
+        {
+          "id": "f3398dd0-d759-4a5a-913e-e0316af55e87",
+          "kind": "AgentStep",
+          "summary": "get_campaign_brief"
+        },
+        {
+          "id": "2175ac37-85e8-476e-85c9-4644d015e454",
+          "kind": "ToolCall",
+          "summary": "get_campaign_brief"
+        },
+        {
+          "id": "826cfc10-d998-4b93-9bd1-9b36f48738db",
+          "kind": "Entity",
+          "summary": "campaign"
+        },
+        {
+          "id": "ad54b50f-af74-40ea-af27-a16824708fa1",
+          "kind": "Entity",
+          "summary": "Notion"
+        },
+        {
+          "id": "edb11783-6155-45b6-9671-42522a6453b1",
+          "kind": "Entity",
+          "summary": "checkpointed state for every pipeline"
+        },
+        {
+          "id": "1b29348e-00bf-4243-ae8e-9cb5bb54cf2b",
+          "kind": "AgentStep",
+          "summary": "get_campaign_brief"
+        },
+        {
+          "id": "10999af7-77ad-4015-92c7-c1ae012e6e2b",
+          "kind": "ToolCall",
+          "summary": "get_campaign_brief"
+        },
+        {
+          "id": "c9760b4a-f137-4c15-b71f-1f7c94440e75",
+          "kind": "AgentStep",
+          "summary": "get_campaign_brief"
+        },
+        {
+          "id": "cc4e7b03-1379-4f36-a5c4-2ff76f12f9a9",
+          "kind": "ToolCall",
+          "summary": "get_campaign_brief"
+        },
+        {
+          "id": "7a894214-a9b5-4a49-ba9a-9a855a02990b",
+          "kind": "Entity",
+          "summary": "Protobuf"
+        },
+        {
+          "id": "75defced-7791-47f8-b226-7b39eb89b364",
+          "kind": "AgentStep",
+          "summary": "get_campaign_brief"
+        },
+        {
+          "id": "a40810e5-7aa6-4d4e-948f-6f5bac52c367",
+          "kind": "ToolCall",
+          "summary": "get_campaign_brief"
+        },
+        {
+          "id": "ea564a05-55fc-4021-aceb-0c43d73da50c",
+          "kind": "AgentStep",
+          "summary": "get_campaign_brief"
+        },
+        {
+          "id": "b080d243-a1d3-44e8-a636-479edddd08d6",
+          "kind": "ToolCall",
+          "summary": "get_campaign_brief"
+        },
+        {
+          "id": "8a523195-7b9d-459c-953c-3554a221dd1c",
+          "kind": "AgentStep",
+          "summary": "get_campaign_brief"
+        },
+        {
+          "id": "ec80e663-c3da-4bec-a136-d9200abaa87d",
+          "kind": "ToolCall",
+          "summary": "get_campaign_brief"
+        },
+        {
+          "id": "3766e450-b861-4b43-b559-31aaef962777",
+          "kind": "Entity",
+          "summary": "latency budgets"
+        },
+        {
+          "id": "cf1f21b0-8154-4bd4-a5b6-273783d5effa",
+          "kind": "Entity",
+          "summary": "brief-004"
+        },
+        {
+          "id": "d045a015-a42a-403b-85e7-531ff7cda9af",
+          "kind": "Entity",
+          "summary": "seg-ci-builders"
+        },
+        {
+          "id": "6abf4d85-74d9-442a-8182-0e97d8ae9382",
+          "kind": "AgentStep",
+          "summary": "get_campaign_brief"
+        },
+        {
+          "id": "c71b5b29-6d5d-4e2c-a68b-b8d01c0b907c",
+          "kind": "ToolCall",
+          "summary": "get_campaign_brief"
+        },
+        {
+          "id": "22f093f0-410a-4fff-a4d1-6bcf41937714",
+          "kind": "Entity",
+          "summary": "brief-005"
+        },
+        {
+          "id": "62841b99-e96d-4907-a643-51d5948a0157",
+          "kind": "AgentStep",
+          "summary": "get_campaign_brief"
+        },
+        {
+          "id": "6cfad236-635d-419a-876a-f245d54a56b2",
+          "kind": "ToolCall",
+          "summary": "get_campaign_brief"
+        },
+        {
+          "id": "9ac4e836-7122-4281-9023-3a8b0c317122",
+          "kind": "Entity",
+          "summary": "brief-006"
+        },
+        {
+          "id": "dc3ee3c5-ca34-4f75-8249-821e09e88f25",
+          "kind": "Entity",
+          "summary": "seg-connector-maintainers"
+        },
+        {
+          "id": "9c66821a-0163-42de-961f-a563356d3ce4",
+          "kind": "Entity",
+          "summary": "brief-007"
+        },
+        {
+          "id": "31098299-bc5c-431a-ae0f-da4867eb4aef",
+          "kind": "Entity",
+          "summary": "Datadog"
+        },
+        {
+          "id": "e6fd3e2a-fc22-4d3e-9ac5-3653227fb214",
+          "kind": "Entity",
+          "summary": "Grafana"
+        }
+      ],
+      "kind": "script",
+      "name": "get_campaign_brief",
+      "stepId": "step-001",
+      "tool": "get_campaign_brief"
+    },
+    {
+      "completionCriterion": "the get_audience_segments call returns success \u2014 3 segments for riverbed",
+      "groundedIn": [
+        {
+          "id": "a1f38690-aa92-4060-990f-87b0bddc8616",
+          "kind": "Entity",
+          "summary": "riverbed"
+        },
+        {
+          "id": "c922ec9c-6ca1-45b1-b4ce-1627c3474377",
+          "kind": "Entity",
+          "summary": "tidewatch"
+        },
+        {
+          "id": "3ee30fe4-7f99-47e0-a6a8-b58c729fa854",
+          "kind": "Entity",
+          "summary": "mooring"
+        },
+        {
+          "id": "3cba16ab-e521-42b9-b7e9-a177ba41bb0a",
+          "kind": "Entity",
+          "summary": "ballast"
+        },
+        {
+          "id": "1365f129-867e-425c-8b15-f3c2436d5d2a",
+          "kind": "AgentStep",
+          "summary": "get_audience_segments"
+        },
+        {
+          "id": "c34f153c-0df6-4054-8677-4f3a2b79ea4f",
+          "kind": "ToolCall",
+          "summary": "get_audience_segments"
+        },
+        {
+          "id": "eceae7e6-c8eb-47ec-b295-78212c7e260f",
+          "kind": "Entity",
+          "summary": "segment"
+        },
+        {
+          "id": "2574b564-f425-4817-9d57-92147b619e24",
+          "kind": "Entity",
+          "summary": "audience"
+        },
+        {
+          "id": "6d06e44b-6859-45d6-840a-4434c0c14ee7",
+          "kind": "Entity",
+          "summary": "product"
+        },
+        {
+          "id": "887fc15e-5abb-40fc-a5c8-0b6673e90a41",
+          "kind": "AgentStep",
+          "summary": "get_audience_segments"
+        },
+        {
+          "id": "64b13cc9-404c-4530-8500-53b8ddcc6383",
+          "kind": "ToolCall",
+          "summary": "get_audience_segments"
+        },
+        {
+          "id": "66162d08-d46c-481c-ab07-a35e075abea7",
+          "kind": "AgentStep",
+          "summary": "get_audience_segments"
+        },
+        {
+          "id": "47ed64e7-0ea9-4c1b-acd9-628eff75a376",
+          "kind": "ToolCall",
+          "summary": "get_audience_segments"
+        },
+        {
+          "id": "9236fb27-130d-43e6-8d31-c600a3b1443b",
+          "kind": "AgentStep",
+          "summary": "get_audience_segments"
+        },
+        {
+          "id": "c2b74e48-dc63-4bcd-a63b-e50f9b95fd8c",
+          "kind": "ToolCall",
+          "summary": "get_audience_segments"
+        },
+        {
+          "id": "ddab2311-1c0b-425e-a2dc-862823684869",
+          "kind": "AgentStep",
+          "summary": "get_audience_segments"
+        },
+        {
+          "id": "4ec4fa23-8b70-410d-acc4-86e4f7d580d9",
+          "kind": "ToolCall",
+          "summary": "get_audience_segments"
+        },
+        {
+          "id": "21ec7f91-bb8b-4d9d-9a1b-4bde05ac4035",
+          "kind": "AgentStep",
+          "summary": "get_audience_segments"
+        },
+        {
+          "id": "a1742202-2046-497d-b72d-bb417c735b4d",
+          "kind": "ToolCall",
+          "summary": "get_audience_segments"
+        },
+        {
+          "id": "e0dcefa8-5be0-4a59-9c39-485dae12ab27",
+          "kind": "AgentStep",
+          "summary": "get_audience_segments"
+        },
+        {
+          "id": "a3fe7f49-2911-4508-b6db-b45f241784e3",
+          "kind": "ToolCall",
+          "summary": "get_audience_segments"
+        },
+        {
+          "id": "7e1b0bee-ebf0-4937-b529-e44eaeddb2a7",
+          "kind": "Entity",
+          "summary": "send"
+        },
+        {
+          "id": "08aae9cb-a96d-4ae5-bdea-0f23828ed166",
+          "kind": "AgentStep",
+          "summary": "get_audience_segments"
+        },
+        {
+          "id": "4c31ecce-4bf5-472e-8b83-827c4484806b",
+          "kind": "ToolCall",
+          "summary": "get_audience_segments"
+        }
+      ],
+      "kind": "script",
+      "name": "get_audience_segments",
+      "stepId": "step-002",
+      "tool": "get_audience_segments"
+    },
+    {
+      "completionCriterion": "the classify_brief call returns success \u2014 launch (p=1.00), urgency 2/5, legal review p=0.17, review_required=1",
+      "groundedIn": [
+        {
+          "id": "b704f044-32cc-4434-9366-c49853e7dc6f",
+          "kind": "AgentStep",
+          "summary": "classify_brief"
+        },
+        {
+          "id": "317edb77-5980-4a8e-9af2-c7bf3d38d50d",
+          "kind": "ToolCall",
+          "summary": "classify_brief"
+        },
+        {
+          "id": "826cfc10-d998-4b93-9bd1-9b36f48738db",
+          "kind": "Entity",
+          "summary": "campaign"
+        },
+        {
+          "id": "e14f393d-c370-429d-8cd2-aa00b832cb11",
+          "kind": "Entity",
+          "summary": "Launch"
+        },
+        {
+          "id": "31d4c833-1959-439e-b6ed-056c034c2df1",
+          "kind": "Entity",
+          "summary": "brief"
+        },
+        {
+          "id": "39e23f29-4a20-4af2-aef0-0dd4d40bc385",
+          "kind": "AgentStep",
+          "summary": "classify_brief"
+        },
+        {
+          "id": "c921dbeb-d168-45bc-b11a-53f19ac8e7a8",
+          "kind": "ToolCall",
+          "summary": "classify_brief"
+        },
+        {
+          "id": "2c37b877-650c-4453-a0ac-a3aafc118c8a",
+          "kind": "Entity",
+          "summary": "System One"
+        },
+        {
+          "id": "06d3ded1-24e0-40b1-91c6-8fec3d51f1ad",
+          "kind": "AgentStep",
+          "summary": "classify_brief"
+        },
+        {
+          "id": "b2b518c2-1061-4c5c-ba05-7ce3abe9f322",
+          "kind": "ToolCall",
+          "summary": "classify_brief"
+        },
+        {
+          "id": "fe9638ea-aff1-4720-a1c0-df3ec4b1cf32",
+          "kind": "AgentStep",
+          "summary": "classify_brief"
+        },
+        {
+          "id": "58ada26a-112d-46e3-a919-e28a163f000b",
+          "kind": "ToolCall",
+          "summary": "classify_brief"
+        },
+        {
+          "id": "df1a06eb-ddcf-4af5-907d-21f673c6fe46",
+          "kind": "AgentStep",
+          "summary": "classify_brief"
+        },
+        {
+          "id": "4c918950-4974-473d-bfb3-95f0df4845d1",
+          "kind": "ToolCall",
+          "summary": "classify_brief"
+        },
+        {
+          "id": "65ba1e90-8c59-4d3e-92f2-e02eddfbceb1",
+          "kind": "AgentStep",
+          "summary": "classify_brief"
+        },
+        {
+          "id": "722a3f99-90ef-41e7-b2b0-2f48a09b44b6",
+          "kind": "ToolCall",
+          "summary": "classify_brief"
+        },
+        {
+          "id": "d4538875-bca3-4124-999e-837e64a3ce6e",
+          "kind": "AgentStep",
+          "summary": "classify_brief"
+        },
+        {
+          "id": "a32b67df-5aa6-4bd2-b8a4-694e07a21f8d",
+          "kind": "ToolCall",
+          "summary": "classify_brief"
+        },
+        {
+          "id": "2527afe9-b5b2-413d-a755-0219f11eed09",
+          "kind": "AgentStep",
+          "summary": "classify_brief"
+        },
+        {
+          "id": "ecff68d9-ba8a-470c-a09a-9e42a85b2fe4",
+          "kind": "ToolCall",
+          "summary": "classify_brief"
+        }
+      ],
+      "kind": "script",
+      "name": "classify_brief",
+      "stepId": "step-003",
+      "tool": "classify_brief"
+    },
+    {
+      "completionCriterion": "the submit_draft call returns success \u2014 stored draft-camp-2026-10-001-01 (979 chars, 3 subject lines)",
+      "groundedIn": [
+        {
+          "id": "79c2d3d2-9af4-4e81-bc3a-5d05c19a9a13",
+          "kind": "AgentStep",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "39a8bb72-9a11-4014-b052-071f6f3b5aee",
+          "kind": "ToolCall",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "fe12cf22-936a-4e17-9670-dc9152fcbd34",
+          "kind": "AgentStep",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "84ac5043-5561-4242-94be-3329cd027382",
+          "kind": "ToolCall",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "b4e63c0d-ffd4-4658-8eb9-ebd9406e5cc1",
+          "kind": "Entity",
+          "summary": "email draft"
+        },
+        {
+          "id": "bc89d4ae-4627-4bd5-bf74-595b993d35ce",
+          "kind": "AgentStep",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "ddc00aaa-d71d-4107-a9eb-6f72c96d315d",
+          "kind": "ToolCall",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "71dff7ae-a82b-4176-9229-99a0d7df9311",
+          "kind": "AgentStep",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "689e5d04-ed79-48a5-8630-bee6746ed859",
+          "kind": "ToolCall",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "6be7f509-36d8-45c6-bd7d-c6f9cfb0d4b0",
+          "kind": "AgentStep",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "fc25077e-c322-4a73-830b-90077b7b6205",
+          "kind": "ToolCall",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "07cbeb4b-35aa-4a60-844b-576d88c3da17",
+          "kind": "AgentStep",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "dbd10f18-9161-4b76-a30e-9e6aa64e2525",
+          "kind": "ToolCall",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "2349a71c-5506-4b63-a7ec-b00f90243ee8",
+          "kind": "AgentStep",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "63795d5b-93f0-409d-af47-9d5f6132bc4c",
+          "kind": "ToolCall",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "b0f3cfa5-669f-44f7-9626-3256309aebe6",
+          "kind": "AgentStep",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "4d375a5d-6734-4238-bd5f-e8a647378b53",
+          "kind": "ToolCall",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "3806d8c0-4906-4c5b-b3d2-5bfc88044c31",
+          "kind": "AgentStep",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "771abda7-2d8b-4ffb-844f-5946a58b6336",
+          "kind": "ToolCall",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "51a13b5f-5030-421b-a973-b824d3472ff9",
+          "kind": "AgentStep",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "c765f0c0-71b0-4418-841c-0f0e29133a17",
+          "kind": "ToolCall",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "fc5ed982-490f-4fea-9f4f-890ae9ff39fb",
+          "kind": "AgentStep",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "b716801c-c987-43fb-b501-776f143f066f",
+          "kind": "ToolCall",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "eb554926-4e82-4d84-b1d7-e43c1381bd7d",
+          "kind": "AgentStep",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "d4a3f9df-ad5d-45ea-873e-19ad1b94195c",
+          "kind": "ToolCall",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "e16de58a-ae82-4feb-83e6-ef6e692003f6",
+          "kind": "AgentStep",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "358ed2c5-cf5d-48a6-8220-a03d3b1cfd6b",
+          "kind": "ToolCall",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "d6a66b3a-57c1-4637-9a63-2ca27794b480",
+          "kind": "AgentStep",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "112c0896-776f-4dce-a1ae-ea498b06b90c",
+          "kind": "ToolCall",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "4a279d06-15da-47b5-8409-3dc2dbf3a296",
+          "kind": "AgentStep",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "0f95eb0c-f7e4-44f5-b167-6e9c7b41f84b",
+          "kind": "ToolCall",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "3bee4561-acf9-47e6-9def-bf33125b5e2e",
+          "kind": "AgentStep",
+          "summary": "submit_draft"
+        },
+        {
+          "id": "2db64055-96ac-43be-b3e3-d5f06ced93c0",
+          "kind": "ToolCall",
+          "summary": "submit_draft"
+        }
+      ],
+      "kind": "script",
+      "name": "submit_draft",
+      "stepId": "step-004",
+      "tool": "submit_draft"
+    },
+    {
+      "completionCriterion": "the check_brand_compliance call returns success \u2014 FAILED; flagged=['has_clear_cta', 'has_labs_disclaimer']; review_required=[]",
+      "groundedIn": [
+        {
+          "id": "cf805d1f-9c84-4008-aa12-d6027bb9536f",
+          "kind": "Entity",
+          "summary": "Tessera Labs email voice"
+        },
+        {
+          "id": "d55d78e9-d40e-4c28-9dc6-e03102c12080",
+          "kind": "AgentStep",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "aece343d-5c87-4205-b457-e6d7dd806a51",
+          "kind": "ToolCall",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "47564931-b47c-4af0-891a-02834d1186e0",
+          "kind": "AgentStep",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "29cc5c84-5627-4369-ac8f-16eab6ebc14d",
+          "kind": "ToolCall",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "b4e63c0d-ffd4-4658-8eb9-ebd9406e5cc1",
+          "kind": "Entity",
+          "summary": "email draft"
+        },
+        {
+          "id": "a804b43b-c68c-412e-b94c-6b7b67185275",
+          "kind": "Entity",
+          "summary": "brand guide"
+        },
+        {
+          "id": "ed44fa56-7ad4-4de4-a773-0544925a4fbf",
+          "kind": "AgentStep",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "95bf1756-4832-4d1f-90f7-aff404411130",
+          "kind": "ToolCall",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "2c37b877-650c-4453-a0ac-a3aafc118c8a",
+          "kind": "Entity",
+          "summary": "System One"
+        },
+        {
+          "id": "85d726cc-2a40-4bb8-a52f-2a382259d186",
+          "kind": "AgentStep",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "04deabda-efa0-46e1-9468-83b1742587d1",
+          "kind": "ToolCall",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "9bd0ed3e-7ae4-4a6a-98cd-ea44f9adc456",
+          "kind": "AgentStep",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "60022583-fbf3-4bbe-b689-88945de54697",
+          "kind": "ToolCall",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "03d52b64-7f83-41fb-ad2e-82e559edde66",
+          "kind": "AgentStep",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "2fccb0f1-7e48-4ff4-bff0-ca31ae199841",
+          "kind": "ToolCall",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "d29606e8-4dbc-4ef8-98c8-96d622012e53",
+          "kind": "AgentStep",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "c2f906f9-353c-4b55-848b-3f64e78cee4d",
+          "kind": "ToolCall",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "06aa6f36-850d-470a-9bf3-afc0aba8916b",
+          "kind": "AgentStep",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "580aaf38-7132-458e-bc79-97b26812d6a6",
+          "kind": "ToolCall",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "0ac72591-05a8-405d-8d95-1929636f4108",
+          "kind": "AgentStep",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "a7026e19-af58-47bb-9c3c-f2b33313ec7f",
+          "kind": "ToolCall",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "e89745ec-8968-4c04-af72-915e270a8733",
+          "kind": "AgentStep",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "47935aad-b25e-4c4a-a992-65ccf996efb3",
+          "kind": "ToolCall",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "a79124e5-7c78-4be5-a64c-850ba4d59063",
+          "kind": "AgentStep",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "f0794e07-7bb7-4af2-8a7f-102498aa407f",
+          "kind": "ToolCall",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "d0f1721d-ec76-4b94-91ea-7e3ed0eb4e1c",
+          "kind": "AgentStep",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "bfc05be2-1298-498b-86de-9f5b74291140",
+          "kind": "ToolCall",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "8257bef8-25d4-4d08-b475-5ac23d64710a",
+          "kind": "AgentStep",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "e4382f4d-16e4-4239-9c36-070646446302",
+          "kind": "ToolCall",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "ab470373-7edf-469f-b9ea-dda1a2f998a4",
+          "kind": "AgentStep",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "5dfaef5e-5aa3-4193-b35f-13b4aa2d2ae8",
+          "kind": "ToolCall",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "343e787a-f5dc-4954-a378-bb7b74ff241a",
+          "kind": "AgentStep",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "c37ac3b3-0f19-4e24-9bbb-604c82a05ea7",
+          "kind": "ToolCall",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "4b9ed640-222c-4421-b72c-574fa9c728af",
+          "kind": "AgentStep",
+          "summary": "check_brand_compliance"
+        },
+        {
+          "id": "0f7fe02a-2f00-4a76-8f96-5c53d6bb98dd",
+          "kind": "ToolCall",
+          "summary": "check_brand_compliance"
+        }
+      ],
+      "kind": "script",
+      "name": "check_brand_compliance",
+      "stepId": "step-005",
+      "tool": "check_brand_compliance"
+    },
+    {
+      "completionCriterion": "the score_subject_lines call returns success \u2014 pick: 'Restarted workers now resume where they stopped (riverbed 1.8)' (composite 7.66); review_required=3",
+      "groundedIn": [
+        {
+          "id": "a1f38690-aa92-4060-990f-87b0bddc8616",
+          "kind": "Entity",
+          "summary": "riverbed"
+        },
+        {
+          "id": "c922ec9c-6ca1-45b1-b4ce-1627c3474377",
+          "kind": "Entity",
+          "summary": "tidewatch"
+        },
+        {
+          "id": "551d2ce7-2d53-4b20-a989-97ebb2673957",
+          "kind": "Entity",
+          "summary": "tidewatch 0.9"
+        },
+        {
+          "id": "806a09b1-6db5-4726-bf8d-389fcf1e31a3",
+          "kind": "AgentStep",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "a7329c13-820c-4f02-8377-3f90798d20af",
+          "kind": "ToolCall",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "86a2aa4f-1d1f-4f7e-9fc6-09d05e74b877",
+          "kind": "AgentStep",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "1fbccf7e-75b8-4cff-a7d7-637cdbc6fbc4",
+          "kind": "ToolCall",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "c3f9fbeb-88ba-4b92-8fda-12a8818b457d",
+          "kind": "AgentStep",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "907cca4b-bb82-4060-8cc8-374154f4f801",
+          "kind": "ToolCall",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "c82c97b7-4564-440b-8755-60bd805e65c3",
+          "kind": "Entity",
+          "summary": "Restarted workers now resume where they stopped (riverbed 1.8)"
+        },
+        {
+          "id": "a90b8ee4-f6d7-40b3-8629-f7465f690015",
+          "kind": "Entity",
+          "summary": "Restarted workers now resume where they stopped"
+        },
+        {
+          "id": "2c37b877-650c-4453-a0ac-a3aafc118c8a",
+          "kind": "Entity",
+          "summary": "System One"
+        },
+        {
+          "id": "8e7ec78a-1eff-40b0-82bd-e513d3d5fba3",
+          "kind": "Entity",
+          "summary": "workers"
+        },
+        {
+          "id": "314d3a5d-8f71-4032-ba25-fd6eba1e5a46",
+          "kind": "Entity",
+          "summary": "persona"
+        },
+        {
+          "id": "8fd901c4-86b4-47e5-956e-2674e923dadc",
+          "kind": "AgentStep",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "01b9265b-0bc1-4171-a9eb-9faf7991bdeb",
+          "kind": "ToolCall",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "7a894214-a9b5-4a49-ba9a-9a855a02990b",
+          "kind": "Entity",
+          "summary": "Protobuf"
+        },
+        {
+          "id": "36839105-9fcc-4a84-a6ee-d2f3c29e4ae7",
+          "kind": "AgentStep",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "4e942377-bf94-4008-889b-e7b9cb289134",
+          "kind": "ToolCall",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "dc6e8a5d-ae1d-4316-ad05-2f6543fb07d1",
+          "kind": "Entity",
+          "summary": "Why now"
+        },
+        {
+          "id": "961d1a2e-a41b-4c77-810d-4c1c84cb1d0c",
+          "kind": "AgentStep",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "3071bfe9-36d3-4856-9eea-d1393293dfd9",
+          "kind": "ToolCall",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "5ca032f2-3c45-478a-9026-06338063594b",
+          "kind": "Entity",
+          "summary": "Avro"
+        },
+        {
+          "id": "b602a552-a028-4fcf-9742-630a8726b498",
+          "kind": "Entity",
+          "summary": "Protobuf schemas"
+        },
+        {
+          "id": "32ee998e-8106-45d8-b6c4-8a980f644f80",
+          "kind": "AgentStep",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "11f4c569-e080-4af0-bc3b-541494a2ad90",
+          "kind": "ToolCall",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "27bb1a93-e075-4c0d-849c-68fafc176112",
+          "kind": "AgentStep",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "107b29e0-7992-4922-aa6f-c1b39a79e079",
+          "kind": "ToolCall",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "a97a78da-ddaa-4d6c-b9c3-7dc77461a7aa",
+          "kind": "AgentStep",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "b46b6326-6789-410f-8f28-9d05812dbe54",
+          "kind": "ToolCall",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "3a7399c6-5ebe-4a2c-a1b5-c7f7d6338c20",
+          "kind": "AgentStep",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "b6026cae-97c8-4f41-b86f-891cfe88ab33",
+          "kind": "ToolCall",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "3766e450-b861-4b43-b559-31aaef962777",
+          "kind": "Entity",
+          "summary": "latency budgets"
+        },
+        {
+          "id": "b36ef59c-afca-43c4-9d08-f6c95ac9f785",
+          "kind": "AgentStep",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "3669aca0-0c8f-450f-bfd1-69d8d455df9c",
+          "kind": "ToolCall",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "3fcc7483-1c45-4c97-b554-8a2041164667",
+          "kind": "AgentStep",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "7bdad557-cf1a-4f8e-b592-cf2163fca795",
+          "kind": "ToolCall",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "fa0bebe4-c83b-4a5d-bff6-ec2337297ec7",
+          "kind": "Entity",
+          "summary": "ballast 0.4: fail the build when p99 breaks your latency budget"
+        },
+        {
+          "id": "151cac7b-83f5-441a-a47e-ec413ea5e54b",
+          "kind": "Entity",
+          "summary": "p99"
+        },
+        {
+          "id": "c9211f66-4dbf-42f0-8647-ed2e948534f0",
+          "kind": "AgentStep",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "309e20cc-342d-4f34-bf5b-334fe0aa58b4",
+          "kind": "ToolCall",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "6600439f-d858-406a-9998-e882c49c7961",
+          "kind": "AgentStep",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "e0845a25-b5ab-447b-afe5-92c664385eb4",
+          "kind": "ToolCall",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "62cf750f-25f1-41f9-9eb6-32b3d212930a",
+          "kind": "AgentStep",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "329ef99c-9b45-4705-a564-6dc788b0e8c5",
+          "kind": "ToolCall",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "e1786905-2382-4042-b302-251adb4f8682",
+          "kind": "AgentStep",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "a4425242-086b-4a0f-afaa-444ea20b76f9",
+          "kind": "ToolCall",
+          "summary": "score_subject_lines"
+        },
+        {
+          "id": "f1c77e8a-02c6-486e-bd9c-15046636c8bc",
+          "kind": "Entity",
+          "summary": "Riverbed benchmark write-up"
+        },
+        {
+          "id": "f3b84428-0a23-40bf-b063-2cab87e90022",
+          "kind": "Entity",
+          "summary": "tidewatch exporters"
+        }
+      ],
+      "kind": "script",
+      "name": "score_subject_lines",
+      "stepId": "step-006",
+      "tool": "score_subject_lines"
+    },
+    {
+      "completionCriterion": "the schedule_send call returns success \u2014 send-ea4acab5 at 2026-10-14T09:00:00Z to seg-python-stream-devs",
+      "groundedIn": [
+        {
+          "id": "21688638-f6a3-4a68-bb99-c924e18ac80e",
+          "kind": "Entity",
+          "summary": "Python streaming developers"
+        },
+        {
+          "id": "5a4cd682-b861-4b33-820b-ebb36b26c26e",
+          "kind": "Entity",
+          "summary": "Pipeline operators"
+        },
+        {
+          "id": "acc32edb-1cd4-4786-861c-9590b324af33",
+          "kind": "AgentStep",
+          "summary": "schedule_send"
+        },
+        {
+          "id": "1daa0ccd-f3ef-45f4-beac-6994eaa79b9d",
+          "kind": "ToolCall",
+          "summary": "schedule_send"
+        },
+        {
+          "id": "b4e63c0d-ffd4-4658-8eb9-ebd9406e5cc1",
+          "kind": "Entity",
+          "summary": "email draft"
+        },
+        {
+          "id": "221fbb36-9d74-4661-af8e-f2ffed8d0e89",
+          "kind": "AgentStep",
+          "summary": "schedule_send"
+        },
+        {
+          "id": "627a4f6c-a1b1-41f0-8009-7dcb7f80034b",
+          "kind": "ToolCall",
+          "summary": "schedule_send"
+        },
+        {
+          "id": "3ad544a6-b638-4256-86e2-d1682326957f",
+          "kind": "AgentStep",
+          "summary": "schedule_send"
+        },
+        {
+          "id": "a7fcbc3a-0b30-4811-b02d-9f95318f2d96",
+          "kind": "ToolCall",
+          "summary": "schedule_send"
+        },
+        {
+          "id": "4fd54a52-63f6-4856-9387-395ed68fe5fc",
+          "kind": "AgentStep",
+          "summary": "schedule_send"
+        },
+        {
+          "id": "16bfe6c1-1cef-4cbb-b81e-f4d0af3ad828",
+          "kind": "ToolCall",
+          "summary": "schedule_send"
+        },
+        {
+          "id": "3809a6fd-bdd7-473d-911c-590910ff5fb2",
+          "kind": "AgentStep",
+          "summary": "schedule_send"
+        },
+        {
+          "id": "0d4ff854-ec91-4bdb-adf6-9369b144bd3e",
+          "kind": "ToolCall",
+          "summary": "schedule_send"
+        },
+        {
+          "id": "d045a015-a42a-403b-85e7-531ff7cda9af",
+          "kind": "Entity",
+          "summary": "seg-ci-builders"
+        },
+        {
+          "id": "871749f0-f79c-4a3e-932a-33700dd633a9",
+          "kind": "AgentStep",
+          "summary": "schedule_send"
+        },
+        {
+          "id": "125e8f19-1c4d-440c-9cb1-ee490529172b",
+          "kind": "ToolCall",
+          "summary": "schedule_send"
+        },
+        {
+          "id": "b8bac927-eda4-4d3c-9d73-148e15b1d489",
+          "kind": "AgentStep",
+          "summary": "schedule_send"
+        },
+        {
+          "id": "3f3d711c-24a9-49ef-bcb8-c86e8922562e",
+          "kind": "ToolCall",
+          "summary": "schedule_send"
+        },
+        {
+          "id": "26b4b2f0-3ec9-4ed9-9476-3b0c2b7f48cf",
+          "kind": "AgentStep",
+          "summary": "schedule_send"
+        },
+        {
+          "id": "9c677213-378d-4bc9-a39f-d167ca5cf22a",
+          "kind": "ToolCall",
+          "summary": "schedule_send"
+        },
+        {
+          "id": "dc3ee3c5-ca34-4f75-8249-821e09e88f25",
+          "kind": "Entity",
+          "summary": "seg-connector-maintainers"
+        },
+        {
+          "id": "a26ebec2-aa8c-4309-9827-af37838aed0f",
+          "kind": "Entity",
+          "summary": "send-55fe969e"
+        },
+        {
+          "id": "1fd3f672-4c82-4611-8df4-2e00154cffe2",
+          "kind": "Entity",
+          "summary": "send-70464e96"
+        },
+        {
+          "id": "cc31fce8-558b-434a-ba8c-4b07a81e8a12",
+          "kind": "Entity",
+          "summary": "send-8f75a4e5"
+        }
+      ],
+      "kind": "script",
+      "name": "schedule_send",
+      "stepId": "step-007",
+      "tool": "schedule_send"
+    },
+    {
+      "completionCriterion": "the log_campaign call returns success \u2014 log-0001 scheduled=True",
+      "groundedIn": [
+        {
+          "id": "826cfc10-d998-4b93-9bd1-9b36f48738db",
+          "kind": "Entity",
+          "summary": "campaign"
+        },
+        {
+          "id": "ad54b50f-af74-40ea-af27-a16824708fa1",
+          "kind": "Entity",
+          "summary": "Notion"
+        },
+        {
+          "id": "26fb1cc0-c12a-42a7-bd16-fd19c83a320e",
+          "kind": "AgentStep",
+          "summary": "log_campaign"
+        },
+        {
+          "id": "2d580cca-7cab-47cd-9cb1-2dda87b16ae7",
+          "kind": "ToolCall",
+          "summary": "log_campaign"
+        },
+        {
+          "id": "dc9024a9-cef8-4833-854b-ac65285b9765",
+          "kind": "AgentStep",
+          "summary": "log_campaign"
+        },
+        {
+          "id": "ec424572-4e84-4562-86ad-4b0630825da9",
+          "kind": "ToolCall",
+          "summary": "log_campaign"
+        },
+        {
+          "id": "09ffeadb-8950-404c-bad2-e3a0fc4b6837",
+          "kind": "AgentStep",
+          "summary": "log_campaign"
+        },
+        {
+          "id": "0051b68e-fffc-4be6-aeb8-f5f4fbef7e8e",
+          "kind": "ToolCall",
+          "summary": "log_campaign"
+        },
+        {
+          "id": "008c84ec-f933-432d-920e-42a85714da2f",
+          "kind": "AgentStep",
+          "summary": "log_campaign"
+        },
+        {
+          "id": "0dde398a-ca61-4341-ba32-f78c08c5d594",
+          "kind": "ToolCall",
+          "summary": "log_campaign"
+        },
+        {
+          "id": "645399eb-78f6-47b4-8e5d-e037f3136e0e",
+          "kind": "AgentStep",
+          "summary": "log_campaign"
+        },
+        {
+          "id": "4c649887-4125-4fc3-a1f9-b63783095ff9",
+          "kind": "ToolCall",
+          "summary": "log_campaign"
+        },
+        {
+          "id": "34f7cf2d-dad4-4633-8786-6fdfa2be38ce",
+          "kind": "AgentStep",
+          "summary": "log_campaign"
+        },
+        {
+          "id": "8b9d1139-61a9-4e70-81d6-07e34d80b252",
+          "kind": "ToolCall",
+          "summary": "log_campaign"
+        },
+        {
+          "id": "11bfffc1-b74d-4ac8-aaac-1bcfa9cb6780",
+          "kind": "Entity",
+          "summary": "log-0004"
+        },
+        {
+          "id": "6585cdd2-2bd9-4367-a2eb-90badf12615a",
+          "kind": "AgentStep",
+          "summary": "log_campaign"
+        },
+        {
+          "id": "506161a2-88e5-45dc-a028-eda070332b97",
+          "kind": "ToolCall",
+          "summary": "log_campaign"
+        },
+        {
+          "id": "2ebb284c-54ad-4c39-9daf-c0103c3e6e1b",
+          "kind": "AgentStep",
+          "summary": "log_campaign"
+        },
+        {
+          "id": "7fd56499-7798-4ef3-b33f-e0177add5872",
+          "kind": "ToolCall",
+          "summary": "log_campaign"
+        },
+        {
+          "id": "65bb5a2b-1e33-4784-95c4-373e75ab7a56",
+          "kind": "Entity",
+          "summary": "log-0005"
+        },
+        {
+          "id": "6260a804-4ce9-41b1-b348-c3a9603b0c50",
+          "kind": "Entity",
+          "summary": "log-0006"
+        },
+        {
+          "id": "98a3592f-5532-4656-8f01-73a81a1dec8d",
+          "kind": "Entity",
+          "summary": "log-0007"
+        }
+      ],
+      "kind": "script",
+      "name": "log_campaign",
+      "stepId": "step-008",
+      "tool": "log_campaign"
+    }
+  ]
+}
