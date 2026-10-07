@@ -75,6 +75,11 @@ def record_all(*, model: str | None = None, log=print) -> None:
         record_one(r["id"], model=model, log=log)
 
 
+def _is_help(action: str | None) -> bool:
+    first = (action or "").split(";")[0].strip()
+    return first.endswith("--help")
+
+
 def trace_rows(trace_id: str) -> list[dict[str, Any]]:
     return cypher("""
         MATCH (t:ReasoningTrace {id: $id})-[:HAS_STEP]->(s:ReasoningStep)
@@ -104,7 +109,8 @@ def show_trace(run_id: str, log=print) -> None:
         raise SystemExit(f"no exported trace for {run_id}")
     d = json.loads(p.read_text())
     log(f"{run_id} [{d['run']['kind']}] {d['run']['brief']}  {d['run']['wall_s']}s  ${d['run']['cost_usd']}")
-    for i, s in enumerate(d["steps"], 1):
+    steps = [s for s in d["steps"] if not _is_help(s.get("action")) and not (s["is_decision"] and not s.get("question"))]
+    for i, s in enumerate(steps, 1):
         if s["is_decision"]:
             log(f"  {i:2d}. DECISION {s['question']}: {s['answer']}   (options: {s['options']})")
         else:
@@ -153,7 +159,8 @@ def export_source(log=print) -> None:
         lines += [f"## {r['run_id']} ({r['kind']}, {r['brief']})", "", "Prompt:", ""]
         user = [m for m in d["messages"] if m["role"] == "user"]
         lines += ["> " + user[0]["content"].replace("\n", "\n> ") if user else "> (missing)", ""]
-        for i, s in enumerate(d["steps"], 1):
+        steps = [s for s in d["steps"] if not _is_help(s.get("action")) and not (s["is_decision"] and not s.get("question"))]
+        for i, s in enumerate(steps, 1):
             if s["is_decision"]:
                 lines.append(f"{i}. **Judgment** `{s['question']}` → **{s['answer']}** (options: {s['options']}). Why: {s['why']}")
             else:

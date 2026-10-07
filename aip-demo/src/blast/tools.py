@@ -47,7 +47,7 @@ def segments(product: str) -> dict[str, Any]:
 def product(name: str) -> dict[str, Any]:
     p = Fixture().product(name)
     claims = p["Approved claims"] if isinstance(p["Approved claims"], list) else [p["Approved claims"]]
-    return {"name": p["Name"], "tagline": p["Tagline"], "version": p["Version"], "approved_claims": claims}
+    return {"name": p["Name"], "tagline": p["Tagline"], "version": p["Version"], "docs_url": p["Docs"], "repo_url": p["Repo"], "approved_claims": claims}
 
 
 def brand() -> dict[str, Any]:
@@ -67,6 +67,13 @@ def submit_draft(campaign_id: str, subject_lines: list[str], body_md: str, segme
            "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "compliance": None}
     _draft_path(draft_id).write_text(json.dumps(rec, indent=2))
     return {"draft_id": draft_id, "campaign_id": campaign_id, "segment_id": segment_id, "subject_lines": subject_lines, "body_chars": len(body_md)}
+
+
+def _cta_for_campaign(campaign_id: str) -> str:
+    for b in Fixture().briefs():
+        if b["Campaign ID"] == campaign_id:
+            return str(b["CTA"])
+    return ""
 
 
 def _load_draft(draft_id: str) -> dict[str, Any]:
@@ -91,8 +98,12 @@ def check(draft_id: str) -> dict[str, Any]:
         failures.append({"check": "no_banned_claims", "detail": "banned phrases present: " + ", ".join(hits)})
     if "!" in body:
         failures.append({"check": "no_exclamation_marks", "detail": "the body contains an exclamation mark"})
-    if not re.search(r"\[[^\]]+\]\([^)]+\)|https?://", body):
-        failures.append({"check": "has_call_to_action", "detail": "no link or call to action found in the body"})
+    cta = _cta_for_campaign(d["campaign_id"])
+    cta_words = [w for w in re.findall(r"[a-z0-9.-]+", cta.lower()) if len(w) > 3][:4]
+    has_link = bool(re.search(r"\[[^\]]+\]\([^)]+\)|https?://", body))
+    has_cta_text = bool(cta_words) and sum(w in body.lower() for w in cta_words) >= max(1, len(cta_words) - 1)
+    if not (has_link or has_cta_text):
+        failures.append({"check": "has_call_to_action", "detail": f"the body carries neither a link nor the brief's call to action ({cta!r})"})
     for s in d["subject_lines"]:
         if len(s) > 60:
             failures.append({"check": "subject_length", "detail": f"over 60 characters: {s!r}"})
