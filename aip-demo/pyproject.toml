@@ -1,0 +1,26 @@
+[project]
+name = "blast"
+version = "0.1.0"
+description = "Email-blast demo: Notion -> neo4j-agent-memory (bolt), Claude Code traces, AIP skill"
+requires-python = ">=3.12"
+dependencies = [
+    "neo4j-agent-memory==0.6.0",
+    "neo4j>=5.20",
+    "typer>=0.12",
+    "pyyaml>=6",
+    "httpx>=0.27",
+]
+
+[project.scripts]
+blast = "blast.cli:app"
+blast-hook = "blast.hooks:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/blast"]
+
+[dependency-groups]
+dev = ["pytest>=8"]

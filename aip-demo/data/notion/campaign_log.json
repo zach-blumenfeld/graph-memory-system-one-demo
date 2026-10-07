@@ -1,0 +1,34 @@
+{
+  "object": "database",
+  "id": "db-campaign-log",
+  "title": [
+    {
+      "type": "text",
+      "plain_text": "Campaign log",
+      "text": {
+        "content": "Campaign log"
+      }
+    }
+  ],
+  "properties": {
+    "Name": {
+      "type": "title"
+    },
+    "Campaign ID": {
+      "type": "rich_text"
+    },
+    "Draft ID": {
+      "type": "rich_text"
+    },
+    "Summary": {
+      "type": "rich_text"
+    },
+    "Logged at": {
+      "type": "date"
+    },
+    "Scheduled": {
+      "type": "checkbox"
+    }
+  },
+  "pages": []
+}

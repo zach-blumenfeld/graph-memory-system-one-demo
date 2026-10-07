@@ -1,0 +1,18 @@
+{
+  "runs": [
+    {
+      "run_id": "run-01",
+      "kind": "launch",
+      "brief": "brief-001",
+      "session_id": "378cecb7-5f04-494b-be67-346a422fc437",
+      "trace_id": "0ed32939-3cc8-4079-9143-95f94224095b",
+      "model": "default",
+      "rc": 0,
+      "wall_s": 367,
+      "cost_usd": 0.8638247499999999,
+      "turns": 17,
+      "steps": 14,
+      "final": "The blast for brief-001 is drafted, checked, scheduled and logged. One item needs a human before the send date.\n\n**What went out**\n\n| Item | Value |\n|---|---|\n| Draft | draft-camp-2026-10-001-01 |\n| Segment | Python streaming developers, 3,700 recipients |\n| Send | 2026-10-14 at 09:00 UTC, send-062156 |\n| Subject | riverbed 1.8: workers resume from a checkpoint |\n| Compliance | Passed on the first check |\n| Log | log-0001 |\n\nThe body is at `/tmp/blast/brief-001-body.md`. It leads with what the reader can now do, shows the upgrade command as code, mentions the checkpoint-inspection CLI command, ends with a single call to action, and carries the Labs disclaimer word for word.\n\n**Open item.** The brief asked me to link the quickstart and changelog but gave no URLs, and the product record has none either. Rather than invent addresses, I left two marked placeholders, QUICKSTART_URL and CHANGELOG_URL, in the body. Someone needs to fill them before 14 October. This is recorded in the campaign log.\n\n**Judgment calls**, each logged with `blast decide`:\n\n- **Email type and urgency.** A release launch at normal urgency. Nothing in the brief is a hotfix or security notice.\n- **Legal review.** Not needed. No pricing, partner, legal content or competitor comparison.\n- **Segment.** The brief named the Python streaming developers segment directly and said developers only, which also ruled out the newsletter list.\n- **Dropped an unapproved promise.** The key message \"no changes to existing pipelines\" is a compatibility promise that is not on riverbed's approved claims list. I kept the factual install step and left the promise out. The product team can add it to the list if they want it said.\n- **Kept the CLI command mention.** It is a feature fact from the brief, not a number or promise, and it is the concrete detail this persona wants. The brief gave no command name, so I described what it does rather than fabricating syntax.\n- **Left out the benchmark.** The 120k events per second claim is approved but is not a key message, and the brief asked for a short email.\n- **Subject line.** I chose the one that names the release and states what the reader gets. The second option described the product rather than the reader's gain. The third was the most curious but hid the version number, which a developer scanning for upgrade news wants to see.\n\nOne tool denial to note: the sandbox refused a shell loop I used to count subject-line characters, so I counted them by hand. All three are under the 60-character limit."
+    }
+  ]
+}

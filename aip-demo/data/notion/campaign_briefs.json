@@ -1,0 +1,1808 @@
+{
+  "object": "database",
+  "id": "db-campaign-briefs",
+  "title": [
+    {
+      "type": "text",
+      "plain_text": "Campaign briefs",
+      "text": {
+        "content": "Campaign briefs"
+      }
+    }
+  ],
+  "properties": {
+    "Name": {
+      "type": "title"
+    },
+    "Campaign ID": {
+      "type": "rich_text"
+    },
+    "Product": {
+      "type": "select"
+    },
+    "Segment": {
+      "type": "relation"
+    },
+    "Persona": {
+      "type": "relation"
+    },
+    "Channel": {
+      "type": "select"
+    },
+    "Goal": {
+      "type": "rich_text"
+    },
+    "Key messages": {
+      "type": "rich_text"
+    },
+    "CTA": {
+      "type": "rich_text"
+    },
+    "Send window": {
+      "type": "date"
+    },
+    "Notes": {
+      "type": "rich_text"
+    },
+    "Status": {
+      "type": "select"
+    }
+  },
+  "pages": [
+    {
+      "object": "page",
+      "id": "brief-001",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "riverbed 1.8: checkpointed state for every pipeline",
+              "text": {
+                "content": "riverbed 1.8: checkpointed state for every pipeline"
+              }
+            }
+          ]
+        },
+        "Campaign ID": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "camp-2026-10-001",
+              "text": {
+                "content": "camp-2026-10-001"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "riverbed"
+          }
+        },
+        "Segment": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "seg-python-stream-devs"
+            }
+          ]
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-stream-dev"
+            }
+          ]
+        },
+        "Channel": {
+          "type": "select",
+          "select": {
+            "name": "Email"
+          }
+        },
+        "Goal": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Announce the 1.8 release, whose headline is checkpointed pipeline state, and drive upgrades.",
+              "text": {
+                "content": "Announce the 1.8 release, whose headline is checkpointed pipeline state, and drive upgrades."
+              }
+            }
+          ]
+        },
+        "Key messages": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Pipeline state is checkpointed, so a restarted worker resumes where it stopped",
+              "text": {
+                "content": "Pipeline state is checkpointed, so a restarted worker resumes where it stopped"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "One pip install, no changes to existing pipelines",
+              "text": {
+                "content": "One pip install, no changes to existing pipelines"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "New CLI command to inspect a checkpoint",
+              "text": {
+                "content": "New CLI command to inspect a checkpoint"
+              }
+            }
+          ]
+        },
+        "CTA": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Upgrade with pip install -U riverbed and open the checkpoint quickstart",
+              "text": {
+                "content": "Upgrade with pip install -U riverbed and open the checkpoint quickstart"
+              }
+            }
+          ]
+        },
+        "Send window": {
+          "type": "date",
+          "date": {
+            "start": "2026-10-14"
+          }
+        },
+        "Notes": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Keep it short, developers only. Link the quickstart and the changelog.",
+              "text": {
+                "content": "Keep it short, developers only. Link the quickstart and the changelog."
+              }
+            }
+          ]
+        },
+        "Status": {
+          "type": "select",
+          "select": {
+            "name": "Ready"
+          }
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "brief-002",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "mooring 2.1: compatibility checks for Protobuf",
+              "text": {
+                "content": "mooring 2.1: compatibility checks for Protobuf"
+              }
+            }
+          ]
+        },
+        "Campaign ID": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "camp-2026-10-002",
+              "text": {
+                "content": "camp-2026-10-002"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "mooring"
+          }
+        },
+        "Segment": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "seg-mooring-early-adopters"
+            }
+          ]
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-data-engineer"
+            }
+          ]
+        },
+        "Channel": {
+          "type": "select",
+          "select": {
+            "name": "Email"
+          }
+        },
+        "Goal": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Launch mooring 2.1 to the early adopter list and get them to try Protobuf compatibility checks.",
+              "text": {
+                "content": "Launch mooring 2.1 to the early adopter list and get them to try Protobuf compatibility checks."
+              }
+            }
+          ]
+        },
+        "Key messages": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Protobuf schemas now get the same compatibility checks as Avro",
+              "text": {
+                "content": "Protobuf schemas now get the same compatibility checks as Avro"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Single binary, starts in under a second",
+              "text": {
+                "content": "Single binary, starts in under a second"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Published benchmark: 4,000 schema lookups per second on a laptop",
+              "text": {
+                "content": "Published benchmark: 4,000 schema lookups per second on a laptop"
+              }
+            }
+          ]
+        },
+        "CTA": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Read the 2.1 release notes and run the quickstart",
+              "text": {
+                "content": "Read the 2.1 release notes and run the quickstart"
+              }
+            }
+          ]
+        },
+        "Send window": {
+          "type": "date",
+          "date": {
+            "start": "2026-10-15"
+          }
+        },
+        "Notes": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Cite the published benchmark page for the number. No forward-looking claims.",
+              "text": {
+                "content": "Cite the published benchmark page for the number. No forward-looking claims."
+              }
+            }
+          ]
+        },
+        "Status": {
+          "type": "select",
+          "select": {
+            "name": "Ready"
+          }
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "brief-003",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "tidewatch 0.9",
+              "text": {
+                "content": "tidewatch 0.9"
+              }
+            }
+          ]
+        },
+        "Campaign ID": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "camp-2026-10-003",
+              "text": {
+                "content": "camp-2026-10-003"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "tidewatch"
+          }
+        },
+        "Segment": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "seg-pipeline-operators"
+            }
+          ]
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-platform-lead"
+            }
+          ]
+        },
+        "Channel": {
+          "type": "select",
+          "select": {
+            "name": "Email"
+          }
+        },
+        "Goal": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Announce the 0.9 release of the dashboard and get operators to run it once.",
+              "text": {
+                "content": "Announce the 0.9 release of the dashboard and get operators to run it once."
+              }
+            }
+          ]
+        },
+        "Key messages": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "One command attaches the dashboard to a running riverbed pipeline",
+              "text": {
+                "content": "One command attaches the dashboard to a running riverbed pipeline"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Per-topic lag alerts",
+              "text": {
+                "content": "Per-topic lag alerts"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "30 days of metrics in an embedded store, nothing else to run",
+              "text": {
+                "content": "30 days of metrics in an embedded store, nothing else to run"
+              }
+            }
+          ]
+        },
+        "CTA": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Run tidewatch attach and share a screenshot",
+              "text": {
+                "content": "Run tidewatch attach and share a screenshot"
+              }
+            }
+          ]
+        },
+        "Send window": {
+          "type": "date",
+          "date": {
+            "start": "2026-10-16"
+          }
+        },
+        "Notes": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Operator tone. Mention that it is a Labs project.",
+              "text": {
+                "content": "Operator tone. Mention that it is a Labs project."
+              }
+            }
+          ]
+        },
+        "Status": {
+          "type": "select",
+          "select": {
+            "name": "Ready"
+          }
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "brief-004",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "ballast 0.4: latency budgets in CI",
+              "text": {
+                "content": "ballast 0.4: latency budgets in CI"
+              }
+            }
+          ]
+        },
+        "Campaign ID": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "camp-2026-10-004",
+              "text": {
+                "content": "camp-2026-10-004"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "ballast"
+          }
+        },
+        "Segment": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "seg-ci-builders"
+            }
+          ]
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-platform-lead"
+            }
+          ]
+        },
+        "Channel": {
+          "type": "select",
+          "select": {
+            "name": "Email"
+          }
+        },
+        "Goal": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Introduce the latency-budget feature to CI builders and invite them to add it to a workflow.",
+              "text": {
+                "content": "Introduce the latency-budget feature to CI builders and invite them to add it to a workflow."
+              }
+            }
+          ]
+        },
+        "Key messages": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Fail the build when p99 latency exceeds a budget you set",
+              "text": {
+                "content": "Fail the build when p99 latency exceeds a budget you set"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Replays recorded traffic at up to 50x",
+              "text": {
+                "content": "Replays recorded traffic at up to 50x"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Reports latency per pipeline stage",
+              "text": {
+                "content": "Reports latency per pipeline stage"
+              }
+            }
+          ]
+        },
+        "CTA": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Add the ballast action to one workflow and open an issue with results",
+              "text": {
+                "content": "Add the ballast action to one workflow and open an issue with results"
+              }
+            }
+          ]
+        },
+        "Send window": {
+          "type": "date",
+          "date": {
+            "start": "2026-10-17"
+          }
+        },
+        "Notes": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Small, technical list. Be concrete about what the action checks.",
+              "text": {
+                "content": "Small, technical list. Be concrete about what the action checks."
+              }
+            }
+          ]
+        },
+        "Status": {
+          "type": "select",
+          "select": {
+            "name": "Ready"
+          }
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "brief-005",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "Hosted tidewatch preview for pipeline operators",
+              "text": {
+                "content": "Hosted tidewatch preview for pipeline operators"
+              }
+            }
+          ]
+        },
+        "Campaign ID": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "camp-2026-10-005",
+              "text": {
+                "content": "camp-2026-10-005"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "tidewatch"
+          }
+        },
+        "Segment": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "seg-pipeline-operators"
+            }
+          ]
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-platform-lead"
+            }
+          ]
+        },
+        "Channel": {
+          "type": "select",
+          "select": {
+            "name": "Email"
+          }
+        },
+        "Goal": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Tell operators that a hosted preview of the dashboard exists so they can try it without running anything.",
+              "text": {
+                "content": "Tell operators that a hosted preview of the dashboard exists so they can try it without running anything."
+              }
+            }
+          ]
+        },
+        "Key messages": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Same dashboard, hosted, zero infrastructure to try it",
+              "text": {
+                "content": "Same dashboard, hosted, zero infrastructure to try it"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Point it at a staging pipeline in five minutes",
+              "text": {
+                "content": "Point it at a staging pipeline in five minutes"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Bring your own metrics store if you prefer",
+              "text": {
+                "content": "Bring your own metrics store if you prefer"
+              }
+            }
+          ]
+        },
+        "CTA": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Request early access to the hosted preview",
+              "text": {
+                "content": "Request early access to the hosted preview"
+              }
+            }
+          ]
+        },
+        "Send window": {
+          "type": "date",
+          "date": {
+            "start": "2026-10-20"
+          }
+        },
+        "Notes": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Early access, no SLA language, no pricing. Labs disclaimer required.",
+              "text": {
+                "content": "Early access, no SLA language, no pricing. Labs disclaimer required."
+              }
+            }
+          ]
+        },
+        "Status": {
+          "type": "select",
+          "select": {
+            "name": "Ready"
+          }
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "brief-006",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "riverbed benchmark write-up published",
+              "text": {
+                "content": "riverbed benchmark write-up published"
+              }
+            }
+          ]
+        },
+        "Campaign ID": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "camp-2026-10-006",
+              "text": {
+                "content": "camp-2026-10-006"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "riverbed"
+          }
+        },
+        "Segment": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "seg-connector-maintainers"
+            }
+          ]
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-platform-lead"
+            }
+          ]
+        },
+        "Channel": {
+          "type": "select",
+          "select": {
+            "name": "Email"
+          }
+        },
+        "Goal": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Announce the published benchmark write-up and the reproducible harness.",
+              "text": {
+                "content": "Announce the published benchmark write-up and the reproducible harness."
+              }
+            }
+          ]
+        },
+        "Key messages": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Write-up: how the 120k events per second per core number was measured",
+              "text": {
+                "content": "Write-up: how the 120k events per second per core number was measured"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Harness and raw results in the benchmarks repo",
+              "text": {
+                "content": "Harness and raw results in the benchmarks repo"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Reproduce it on your own hardware",
+              "text": {
+                "content": "Reproduce it on your own hardware"
+              }
+            }
+          ]
+        },
+        "CTA": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Read the write-up and reproduce the benchmark",
+              "text": {
+                "content": "Read the write-up and reproduce the benchmark"
+              }
+            }
+          ]
+        },
+        "Send window": {
+          "type": "date",
+          "date": {
+            "start": "2026-10-21"
+          }
+        },
+        "Notes": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Technical tone is fine. Link the benchmarks repo.",
+              "text": {
+                "content": "Technical tone is fine. Link the benchmarks repo."
+              }
+            }
+          ]
+        },
+        "Status": {
+          "type": "select",
+          "select": {
+            "name": "Ready"
+          }
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "brief-007",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "tidewatch: Grafana and Datadog exporters",
+              "text": {
+                "content": "tidewatch: Grafana and Datadog exporters"
+              }
+            }
+          ]
+        },
+        "Campaign ID": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "camp-2026-10-007",
+              "text": {
+                "content": "camp-2026-10-007"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "tidewatch"
+          }
+        },
+        "Segment": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "seg-pipeline-operators"
+            }
+          ]
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-platform-lead"
+            }
+          ]
+        },
+        "Channel": {
+          "type": "select",
+          "select": {
+            "name": "Email"
+          }
+        },
+        "Goal": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Announce new exporters so operators on an existing monitoring stack can keep it.",
+              "text": {
+                "content": "Announce new exporters so operators on an existing monitoring stack can keep it."
+              }
+            }
+          ]
+        },
+        "Key messages": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Export tidewatch metrics to the stack you already run",
+              "text": {
+                "content": "Export tidewatch metrics to the stack you already run"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Same alerts, different dashboard",
+              "text": {
+                "content": "Same alerts, different dashboard"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Exporters are community-contributed and open",
+              "text": {
+                "content": "Exporters are community-contributed and open"
+              }
+            }
+          ]
+        },
+        "CTA": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Enable an exporter and tell us what is missing",
+              "text": {
+                "content": "Enable an exporter and tell us what is missing"
+              }
+            }
+          ]
+        },
+        "Send window": {
+          "type": "date",
+          "date": {
+            "start": "2026-10-22"
+          }
+        },
+        "Notes": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Thank the contributors by project, not by name.",
+              "text": {
+                "content": "Thank the contributors by project, not by name."
+              }
+            }
+          ]
+        },
+        "Status": {
+          "type": "select",
+          "select": {
+            "name": "Ready"
+          }
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "brief-008",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "ballast: GitLab CI and Buildkite support",
+              "text": {
+                "content": "ballast: GitLab CI and Buildkite support"
+              }
+            }
+          ]
+        },
+        "Campaign ID": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "camp-2026-10-008",
+              "text": {
+                "content": "camp-2026-10-008"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "ballast"
+          }
+        },
+        "Segment": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "seg-ci-builders"
+            }
+          ]
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-platform-lead"
+            }
+          ]
+        },
+        "Channel": {
+          "type": "select",
+          "select": {
+            "name": "Email"
+          }
+        },
+        "Goal": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Announce that ballast now runs on GitLab CI and Buildkite too.",
+              "text": {
+                "content": "Announce that ballast now runs on GitLab CI and Buildkite too."
+              }
+            }
+          ]
+        },
+        "Key messages": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Same latency budgets on GitHub Actions, GitLab CI and Buildkite",
+              "text": {
+                "content": "Same latency budgets on GitHub Actions, GitLab CI and Buildkite"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "One config file, any runner",
+              "text": {
+                "content": "One config file, any runner"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "CI recipes for each included",
+              "text": {
+                "content": "CI recipes for each included"
+              }
+            }
+          ]
+        },
+        "CTA": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Add ballast to your CI",
+              "text": {
+                "content": "Add ballast to your CI"
+              }
+            }
+          ]
+        },
+        "Send window": {
+          "type": "date",
+          "date": {
+            "start": "2026-10-23"
+          }
+        },
+        "Notes": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Short. Link the CI recipes.",
+              "text": {
+                "content": "Short. Link the CI recipes."
+              }
+            }
+          ]
+        },
+        "Status": {
+          "type": "select",
+          "select": {
+            "name": "Ready"
+          }
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "brief-009",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "riverbed 1.8.1 hotfix: checkpoint retry bug",
+              "text": {
+                "content": "riverbed 1.8.1 hotfix: checkpoint retry bug"
+              }
+            }
+          ]
+        },
+        "Campaign ID": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "camp-2026-10-009",
+              "text": {
+                "content": "camp-2026-10-009"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "riverbed"
+          }
+        },
+        "Segment": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "seg-python-stream-devs"
+            }
+          ]
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-stream-dev"
+            }
+          ]
+        },
+        "Channel": {
+          "type": "select",
+          "select": {
+            "name": "Email"
+          }
+        },
+        "Goal": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Get everyone on 1.8.0 to upgrade to 1.8.1 today because of a retry bug in checkpoint writes.",
+              "text": {
+                "content": "Get everyone on 1.8.0 to upgrade to 1.8.1 today because of a retry bug in checkpoint writes."
+              }
+            }
+          ]
+        },
+        "Key messages": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "1.8.0 can write a checkpoint twice under retry; 1.8.1 fixes it",
+              "text": {
+                "content": "1.8.0 can write a checkpoint twice under retry; 1.8.1 fixes it"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Upgrade is a drop-in pip install",
+              "text": {
+                "content": "Upgrade is a drop-in pip install"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "No data loss, no config change",
+              "text": {
+                "content": "No data loss, no config change"
+              }
+            }
+          ]
+        },
+        "CTA": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "pip install -U riverbed today",
+              "text": {
+                "content": "pip install -U riverbed today"
+              }
+            }
+          ]
+        },
+        "Send window": {
+          "type": "date",
+          "date": {
+            "start": "2026-10-07"
+          }
+        },
+        "Notes": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "URGENT. Leadership wants this out this morning.",
+              "text": {
+                "content": "URGENT. Leadership wants this out this morning."
+              }
+            }
+          ]
+        },
+        "Status": {
+          "type": "select",
+          "select": {
+            "name": "Ready"
+          }
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "brief-010",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "mooring at the Streams conference: live demo and office hours",
+              "text": {
+                "content": "mooring at the Streams conference: live demo and office hours"
+              }
+            }
+          ]
+        },
+        "Campaign ID": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "camp-2026-10-010",
+              "text": {
+                "content": "camp-2026-10-010"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "mooring"
+          }
+        },
+        "Segment": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "seg-mooring-early-adopters"
+            }
+          ]
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-data-engineer"
+            }
+          ]
+        },
+        "Channel": {
+          "type": "select",
+          "select": {
+            "name": "Email"
+          }
+        },
+        "Goal": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Announce the mooring demo at the conference and the office-hours slot, and get sign-ups.",
+              "text": {
+                "content": "Announce the mooring demo at the conference and the office-hours slot, and get sign-ups."
+              }
+            }
+          ]
+        },
+        "Key messages": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Live demo of schema evolution with compatibility checks",
+              "text": {
+                "content": "Live demo of schema evolution with compatibility checks"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Office hours for teams migrating registries",
+              "text": {
+                "content": "Office hours for teams migrating registries"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Bring your own schemas",
+              "text": {
+                "content": "Bring your own schemas"
+              }
+            }
+          ]
+        },
+        "CTA": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Sign up for office hours",
+              "text": {
+                "content": "Sign up for office hours"
+              }
+            }
+          ]
+        },
+        "Send window": {
+          "type": "date",
+          "date": {
+            "start": "2026-10-08"
+          }
+        },
+        "Notes": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "The conference is in two days; the organiser asked for the mail yesterday.",
+              "text": {
+                "content": "The conference is in two days; the organiser asked for the mail yesterday."
+              }
+            }
+          ]
+        },
+        "Status": {
+          "type": "select",
+          "select": {
+            "name": "Ready"
+          }
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "brief-011",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "Stream processing without the batch ceiling",
+              "text": {
+                "content": "Stream processing without the batch ceiling"
+              }
+            }
+          ]
+        },
+        "Campaign ID": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "camp-2026-10-011",
+              "text": {
+                "content": "camp-2026-10-011"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "riverbed"
+          }
+        },
+        "Segment": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "seg-labs-newsletter"
+            }
+          ]
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-community-organiser"
+            }
+          ]
+        },
+        "Channel": {
+          "type": "select",
+          "select": {
+            "name": "Email"
+          }
+        },
+        "Goal": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "A thought piece that also mentions the 1.8 release. Position streaming-first pipelines against batch-only ones. Some stakeholders want it to read as an announcement, others as an essay; the brief leaves that open.",
+              "text": {
+                "content": "A thought piece that also mentions the 1.8 release. Position streaming-first pipelines against batch-only ones. Some stakeholders want it to read as an announcement, others as an essay; the brief leaves that open."
+              }
+            }
+          ]
+        },
+        "Key messages": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Batch gives you throughput; streaming gives you freshness",
+              "text": {
+                "content": "Batch gives you throughput; streaming gives you freshness"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Checkpointed state makes streaming as safe to restart as batch",
+              "text": {
+                "content": "Checkpointed state makes streaming as safe to restart as batch"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Our internal tests show riverbed beats the leading batch framework on end-to-end latency (numbers not yet published)",
+              "text": {
+                "content": "Our internal tests show riverbed beats the leading batch framework on end-to-end latency (numbers not yet published)"
+              }
+            }
+          ]
+        },
+        "CTA": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Read the essay; try 1.8 if you want",
+              "text": {
+                "content": "Read the essay; try 1.8 if you want"
+              }
+            }
+          ]
+        },
+        "Send window": {
+          "type": "date",
+          "date": {
+            "start": "2026-10-28"
+          }
+        },
+        "Notes": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Marketing wants the comparison to be punchy and name the alternatives. Legal has not seen the unpublished numbers. Deadline is soft.",
+              "text": {
+                "content": "Marketing wants the comparison to be punchy and name the alternatives. Legal has not seen the unpublished numbers. Deadline is soft."
+              }
+            }
+          ]
+        },
+        "Status": {
+          "type": "select",
+          "select": {
+            "name": "Ready"
+          }
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "brief-012",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "Tessera Labs monthly digest: three tutorials on streaming",
+              "text": {
+                "content": "Tessera Labs monthly digest: three tutorials on streaming"
+              }
+            }
+          ]
+        },
+        "Campaign ID": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "camp-2026-10-012",
+              "text": {
+                "content": "camp-2026-10-012"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "riverbed"
+          }
+        },
+        "Segment": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "seg-labs-newsletter"
+            }
+          ]
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-community-organiser"
+            }
+          ]
+        },
+        "Channel": {
+          "type": "select",
+          "select": {
+            "name": "Email"
+          }
+        },
+        "Goal": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Monthly nurture digest. Three tutorials, no release. The newsletter team schedules and sends it; we only draft, check and log.",
+              "text": {
+                "content": "Monthly nurture digest. Three tutorials, no release. The newsletter team schedules and sends it; we only draft, check and log."
+              }
+            }
+          ]
+        },
+        "Key messages": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Tutorial: your first riverbed pipeline",
+              "text": {
+                "content": "Tutorial: your first riverbed pipeline"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Tutorial: inspecting checkpoints",
+              "text": {
+                "content": "Tutorial: inspecting checkpoints"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Tutorial: schema evolution with mooring",
+              "text": {
+                "content": "Tutorial: schema evolution with mooring"
+              }
+            }
+          ]
+        },
+        "CTA": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Pick a tutorial and try it this week",
+              "text": {
+                "content": "Pick a tutorial and try it this week"
+              }
+            }
+          ]
+        },
+        "Send window": {
+          "type": "date",
+          "date": {
+            "start": "2026-10-31"
+          }
+        },
+        "Notes": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Nurture, not a launch. No scheduling from our side.",
+              "text": {
+                "content": "Nurture, not a launch. No scheduling from our side."
+              }
+            }
+          ]
+        },
+        "Status": {
+          "type": "select",
+          "select": {
+            "name": "Ready"
+          }
+        }
+      }
+    },
+    {
+      "object": "page",
+      "id": "brief-013",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "riverbed 2.0 release",
+              "text": {
+                "content": "riverbed 2.0 release"
+              }
+            }
+          ]
+        },
+        "Campaign ID": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "camp-2026-11-001",
+              "text": {
+                "content": "camp-2026-11-001"
+              }
+            }
+          ]
+        },
+        "Product": {
+          "type": "select",
+          "select": {
+            "name": "riverbed"
+          }
+        },
+        "Segment": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "seg-python-stream-devs"
+            }
+          ]
+        },
+        "Persona": {
+          "type": "relation",
+          "relation": [
+            {
+              "id": "persona-stream-dev"
+            }
+          ]
+        },
+        "Channel": {
+          "type": "select",
+          "select": {
+            "name": "Email"
+          }
+        },
+        "Goal": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Announce 2.0: a new connector API, pipeline graphs you can inspect from Python, and the exactly-once preview.",
+              "text": {
+                "content": "Announce 2.0: a new connector API, pipeline graphs you can inspect from Python, and the exactly-once preview."
+              }
+            }
+          ]
+        },
+        "Key messages": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "New connector API: write a source or sink in one class",
+              "text": {
+                "content": "New connector API: write a source or sink in one class"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Inspect the pipeline graph from Python",
+              "text": {
+                "content": "Inspect the pipeline graph from Python"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Exactly-once preview for Kafka sinks",
+              "text": {
+                "content": "Exactly-once preview for Kafka sinks"
+              }
+            }
+          ]
+        },
+        "CTA": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Upgrade to 2.0 and try the connector quickstart",
+              "text": {
+                "content": "Upgrade to 2.0 and try the connector quickstart"
+              }
+            }
+          ]
+        },
+        "Send window": {
+          "type": "date",
+          "date": {
+            "start": "2026-11-04"
+          }
+        },
+        "Notes": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "This is the brief for the live demo. Developer tone, Labs disclaimer.",
+              "text": {
+                "content": "This is the brief for the live demo. Developer tone, Labs disclaimer."
+              }
+            }
+          ]
+        },
+        "Status": {
+          "type": "select",
+          "select": {
+            "name": "Ready"
+          }
+        }
+      }
+    }
+  ]
+}

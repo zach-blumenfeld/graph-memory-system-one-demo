@@ -1,0 +1,33 @@
+# Step 2: four headless Claude Code runs. No skill, no MCP: the agent has Bash (for `blast ...`),
+# Read and Write, the SOP page in memory, and the brief. It works out the procedure itself.
+defaults:
+  preamble: |
+    You are the marketing agent at Tessera Labs. Start by reading the team's page on how an email
+    blast is done: run `blast sop`. The `blast` command is your only way to touch Notion, drafts,
+    scheduling and the log (`blast --help` lists it). Write the email body to a file and submit it
+    with `blast draft`. Finish with a short summary of what you did and the judgment calls you made.
+runs:
+  - id: run-01
+    kind: launch
+    brief: brief-001
+    prompt: |
+      New brief in Notion: brief-001, "riverbed 1.8: checkpointed state for every pipeline".
+      Do the email blast for it: Python streaming developers, send window per the brief, 09:00 UTC.
+  - id: run-02
+    kind: launch
+    brief: brief-003
+    prompt: |
+      New brief in Notion: brief-003, "tidewatch 0.9". Do the email blast for it to the pipeline
+      operators, 2026-10-16 09:00 UTC.
+  - id: run-03
+    kind: digest
+    brief: brief-012
+    prompt: |
+      Brief brief-012 is this month's Tessera Labs digest. Do the email blast work for it for the
+      newsletter segment.
+  - id: run-04
+    kind: hotfix
+    brief: brief-009
+    prompt: |
+      URGENT. Brief brief-009 ("riverbed 1.8.1 hotfix") has to go to the Python streaming developers
+      this morning, 2026-10-07 10:00 UTC. Do the email blast for it now.

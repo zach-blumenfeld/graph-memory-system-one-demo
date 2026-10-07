@@ -1,0 +1,166 @@
+{
+  "object": "database",
+  "id": "db-brand-guide",
+  "title": [
+    {
+      "type": "text",
+      "plain_text": "Brand guide",
+      "text": {
+        "content": "Brand guide"
+      }
+    }
+  ],
+  "properties": {
+    "Name": {
+      "type": "title"
+    },
+    "Voice rules": {
+      "type": "rich_text"
+    },
+    "Banned claims": {
+      "type": "multi_select"
+    },
+    "Required disclaimer": {
+      "type": "rich_text"
+    },
+    "Subject line rules": {
+      "type": "rich_text"
+    }
+  },
+  "pages": [
+    {
+      "object": "page",
+      "id": "brand-tessera-labs",
+      "created_time": "2026-09-28T09:00:00.000Z",
+      "last_edited_time": "2026-10-06T09:00:00.000Z",
+      "archived": false,
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "Tessera Labs email voice",
+              "text": {
+                "content": "Tessera Labs email voice"
+              }
+            }
+          ]
+        },
+        "Voice rules": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Lead with what the developer can do now, not with adjectives",
+              "text": {
+                "content": "Lead with what the developer can do now, not with adjectives"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "One idea per sentence; no exclamation marks; no emoji in subject lines",
+              "text": {
+                "content": "One idea per sentence; no exclamation marks; no emoji in subject lines"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant",
+              "text": {
+                "content": "Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Prefer code and concrete nouns to superlatives",
+              "text": {
+                "content": "Prefer code and concrete nouns to superlatives"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "Always include exactly one clear call to action",
+              "text": {
+                "content": "Always include exactly one clear call to action"
+              }
+            }
+          ]
+        },
+        "Banned claims": {
+          "type": "multi_select",
+          "multi_select": [
+            {
+              "name": "production-ready"
+            },
+            {
+              "name": "enterprise-grade"
+            },
+            {
+              "name": "officially supported"
+            },
+            {
+              "name": "SLA"
+            },
+            {
+              "name": "guaranteed"
+            },
+            {
+              "name": "100%"
+            },
+            {
+              "name": "best-in-class"
+            },
+            {
+              "name": "unlimited"
+            },
+            {
+              "name": "naming a competitor product"
+            },
+            {
+              "name": "unpublished benchmark numbers"
+            }
+          ]
+        },
+        "Required disclaimer": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.",
+              "text": {
+                "content": "Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice."
+              }
+            }
+          ]
+        },
+        "Subject line rules": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Under 60 characters",
+              "text": {
+                "content": "Under 60 characters"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "No ALL CAPS words",
+              "text": {
+                "content": "No ALL CAPS words"
+              }
+            },
+            {
+              "type": "text",
+              "plain_text": "No 'free', 'act now', 'last chance'",
+              "text": {
+                "content": "No 'free', 'act now', 'last chance'"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
