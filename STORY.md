@@ -83,6 +83,83 @@ failed the brand check, because the agent had never read the brand guide and did
 required disclaimer. The check told it exactly what was missing. The second draft passed. Twelve
 out of twelve.
 
+### How this works
+
+Three pieces, all in this repo, all picked up automatically when you run `claude` in it.
+
+**The tools.** `.mcp.json` registers one MCP server, `pmm-tools` (`src/pmm/mcp_server.py`). It
+gives Claude the eight tools and nothing else. Five read or write the Notion fixture; three ask
+Jev. Every tool takes and returns a typed object, so the input and output of every call have a
+fixed shape.
+
+**The recorder inside the tools.** When Claude calls a tool, the server does the work, then
+writes two nodes to the graph through the `neo4j-agent-memory` SDK: an `AgentStep` (the tool's
+one-line purpose plus "why now") and a `ToolCall` (tool name, the exact input, the exact output,
+success or failure, milliseconds). This is the only place tool calls are recorded, so the record
+is complete and typed by construction. The server never fails a tool because of a recording
+problem; errors go to `.run/recorder.log`.
+
+**The hooks for the conversation.** `.claude/settings.json` wires three Claude Code hooks to
+`pmm-hook` (`src/pmm/hooks.py`). When you submit a prompt, the hook creates a conversation in
+NAMS (or reuses the session's) and stores your message. When Claude finishes, the hook stores
+its final answer. The conversation id is kept in `.run/sessions/<claude session id>.json` so the
+server and the hooks, which are separate processes, write to the same conversation.
+
+So one run produces, in the graph: one `Conversation`, two `Message`s (your prompt, Claude's
+answer), and one `AgentStep` + `ToolCall` pair per tool call, in order. NAMS then reads all of
+that and links the entities it mentions, which is how the conversation ends up connected to the
+campaign node from step 1.
+
+**To show it live.** Open `claude` in the repo and paste:
+
+```
+New brief in Notion: brief-001, "riverbed 1.8: checkpointed state for every pipeline".
+Launch the email blast for it to the Python streaming developers segment, scheduled for 2026-10-14 09:00 UTC.
+```
+
+About 90 seconds. Watch the tool calls go by: brief, segments, classify, draft, compliance
+(fails on the disclaimer), draft again, compliance (passes), scoring, schedule, log. In a second
+terminal, `tail -f .run/recorder.log` shows each step landing in NAMS as it happens. The skill
+from step 3 is installed in `.claude/skills/`, so for a pure step-2 feel start Claude with
+`claude --disallowedTools Skill`.
+
+Then show the run in the query view. This is one run: the conversation, its two messages, its
+eleven steps and tool calls, and the links back to the campaign from step 1:
+
+```cypher
+MATCH (conv:Conversation) WHERE conv.metadata CONTAINS '"runId":"run-01"'
+MATCH p = (conv)-[:HAS_STEP]->(s:AgentStep)-[:USED_TOOL]->(t:ToolCall)
+OPTIONAL MATCH m = (conv)-[:HAS_MESSAGE]->(:Message)
+OPTIONAL MATCH c = (t)-[:MENTIONS]->(e:Campaign) WHERE e.sourceStage IS NULL
+RETURN p, m, c
+```
+
+For a live run, replace `run-01` with the `runId` of the conversation you just created (the
+sessions file in `.run/sessions/` has it), or drop the first line's filter and add
+`ORDER BY conv.createdAt DESC LIMIT 1`. As a table, the same run in order:
+
+```cypher
+MATCH (conv:Conversation) WHERE conv.metadata CONTAINS '"runId":"run-01"'
+MATCH (conv)-[:HAS_STEP]->(s:AgentStep)-[:USED_TOOL]->(t:ToolCall)
+RETURN t.toolName AS tool, t.status AS status, t.durationMs AS ms, left(s.reasoning, 80) AS why
+ORDER BY s.createdAt
+```
+
+The three Jev-backed tools are the ones with a few hundred milliseconds; the rest are near zero.
+
+**The twelve overnight runs** were the same thing without a person: `uv run pmm record --all`
+reads `prompts/runs.yaml` and runs each prompt through `claude -p` with the MCP server, no
+built-in tools, no permission prompts, then exports each conversation to
+`checkpoints/03-traces/`. `uv run pmm record run-05` does one.
+
+**To set this up elsewhere.** Clone the repo, `uv sync`, fill `.env` (NAMS key and workspace id,
+TypeSafe key, Aura credentials), run `uv run pmm doctor`. That is all: `.mcp.json` and
+`.claude/settings.json` are committed, so any `claude` session started in the directory gets the
+tools and the hooks. For your own agent instead of this demo, the pattern is the same two
+pieces: record tool calls inside the tool server with the SDK's `reasoning.add_step` and
+`reasoning.record_tool_call`, and record the conversation with `short_term.add_message` from
+wherever your agent sees messages.
+
 ## 3. Twelve runs become one skill
 
 We point NAMS, the hosted memory service, at the eight normal runs and ask it to distill a skill.
