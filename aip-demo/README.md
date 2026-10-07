@@ -2,7 +2,7 @@
 
 `Distilling Agent Knowledge into System One Workflows with Graph Memory`
 
-`<QR code linking to this doc here>`
+<img src="img/qr-aip-demo.png" width="150" alt="QR code to AIP Example">
 
 We are going over three things in this example:
 
