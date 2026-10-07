@@ -123,8 +123,9 @@ label.
 
 ### How memory hooks up to Claude Code
 
-Two directions, both through the `neo4j-agent-memory` Python SDK over bolt. No MCP. One client,
-built once ([`src/blast/memory.py`](src/blast/memory.py)):
+The `neo4j-agent-memory` package is one client with three stores: `short_term` (conversations
+and messages), `long_term` (entities, facts, relationships) and `reasoning` (traces, steps, tool
+calls). It writes to a Neo4j you point it at. Setup ([`src/blast/memory.py`](src/blast/memory.py)):
 
 ```python
 from neo4j_agent_memory import MemoryClient, MemorySettings
@@ -134,71 +135,103 @@ settings = MemorySettings(
     extraction={"enable_spacy": False, "enable_gliner": False, "enable_llm_fallback": False},
 )
 async with MemoryClient(settings) as memory:
-    ...   # memory.short_term / memory.long_term / memory.reasoning
+    ...
 ```
 
-**Reading.** The agent reads memory through `blast`. `blast sop` is one query against the graph
-([`tools.py`](src/blast/tools.py)):
+Extraction is off because the Notion import already gives us typed entities; left on, the package
+would extract more entities from every message and tool result. Embeddings are off too (every
+write passes `generate_embedding=False`), so no embedding provider is needed.
 
-```python
-rows = cypher("MATCH (p:Playbook) RETURN p.name AS name, p.text AS text LIMIT 1")
-```
+#### Writing to memory
 
-The import that put it there was `memory.long_term.add_entity(name, "Playbook", description=...,
-attributes={"text": sop_text})`, and the same for every campaign, product, claim, segment,
-persona and brand guide ([`importer.py`](src/blast/importer.py)).
+Four methods do all the writing in this demo. Each one creates nodes in the graph:
 
-**Writing.** `.claude/settings.json` registers three hooks. Claude Code runs the command at each
-event and pipes the event's JSON (session id, prompt, tool name, tool input and output, last
-message) to it on stdin:
+| SDK call | creates |
+|---|---|
+| `memory.short_term.add_message(session_id, role, content)` | `(:Conversation {session_id})-[:HAS_MESSAGE]->(:Message {role, content})`; the conversation is created on first use |
+| `memory.reasoning.start_trace(session_id, task)` | `(:ReasoningTrace {session_id, task})`; returns the trace with its `id` |
+| `memory.reasoning.add_step(trace_id, thought=, action=, observation=)` | `(:ReasoningTrace)-[:HAS_STEP]->(:ReasoningStep {thought, action, observation, step_number})`; returns the step |
+| `memory.reasoning.record_tool_call(step_id, tool_name, arguments, result=, status=)` | `(:ReasoningStep)-[:USES_TOOL]->(:ToolCall {tool_name, arguments, result, status})` |
+| `memory.reasoning.complete_trace(trace_id, outcome=, success=)` | sets `completed_at`, `outcome`, `success` on the trace |
 
-```json
-"hooks": {
-  "UserPromptSubmit": [{ "hooks": [{ "type": "command", "command": "uv run blast-hook user-prompt-submit" }] }],
-  "PostToolUse":      [{ "matcher": "Bash", "hooks": [{ "type": "command", "command": "uv run blast-hook post-tool-use" }] }],
-  "Stop":             [{ "hooks": [{ "type": "command", "command": "uv run blast-hook stop" }] }]
-}
-```
+The Notion import used one more, `memory.long_term.add_entity(name, type, description=,
+attributes=)`, which creates `(:Entity:<Type> {name, description, ...})`; the type becomes a
+label, so `"Campaign"` gives `(:Entity:Campaign)`.
 
-`blast-hook` ([`hooks.py`](src/blast/hooks.py)) turns each event into SDK calls. The Claude
-session id is the memory session id, so one `Conversation` and one `ReasoningTrace` per session.
+Who calls them: three Claude Code hooks in `.claude/settings.json`, which run `blast-hook` with
+the event's JSON on stdin at each point in a session ([`src/blast/hooks.py`](src/blast/hooks.py)).
+The Claude session id is used as the memory `session_id`, so one conversation and one trace per
+session.
 
-Prompt submitted: start the trace, store the message.
+When you submit a prompt:
 
 ```python
 trace = await memory.reasoning.start_trace(session_id, task=prompt[:200])
 await memory.short_term.add_message(session_id, "user", prompt)
-# -> (:ReasoningTrace)   (:Conversation)-[:HAS_MESSAGE]->(:Message {role:'user'})
 ```
 
-A `blast` command ran (PostToolUse, Bash only; other commands are ignored): one step, one tool call.
+After every `blast` command Claude runs (the `PostToolUse` hook, matcher `Bash`; other commands
+are ignored):
 
 ```python
-step = await memory.reasoning.add_step(trace_id, thought="blast check", action="blast check draft-…-01",
+step = await memory.reasoning.add_step(trace.id, thought="blast check",
+                                       action="blast check draft-camp-2026-10-001-01",
                                        observation=json.dumps(result)[:500])
 await memory.reasoning.record_tool_call(step.id, "blast check", {"args": args}, result=result,
-                                        status=ToolCallStatus.FAILURE if "error" in result else ToolCallStatus.SUCCESS)
-# -> (:ReasoningTrace)-[:HAS_STEP]->(:ReasoningStep)-[:USES_TOOL]->(:ToolCall {tool_name, arguments, result, status})
+                                        status=ToolCallStatus.SUCCESS)   # or FAILURE if the result carries an error
 ```
 
-A `blast decide` ran: the same two calls, then the step is marked as a judgment so it can be
-queried as one.
+When the command was `blast decide`, the step is additionally labelled so judgment calls can be
+queried on their own. The package has no field for this, so it is one Cypher statement with the
+driver:
 
 ```python
 cypher("MATCH (s:ReasoningStep {id: $id}) SET s:Decision, s.question = $q, s.options = $o, s.answer = $a, s.why = $w", ...)
 ```
 
-Claude finished: store the answer, close the trace.
+When Claude finishes:
 
 ```python
 await memory.short_term.add_message(session_id, "assistant", last_message)
-await memory.reasoning.complete_trace(trace_id, outcome="completed", success=True)
+await memory.reasoning.complete_trace(trace.id, outcome="completed", success=True)
 ```
 
-That is the whole integration: four SDK methods and one `SET`. Any `claude` session started in
-this folder is recorded; `BLAST_RECORD=0` switches it off; the hooks never fail the session, and
-problems go to `.run/recorder.log`. Full detail and how to do the same for your own agent and
-tools: [docs/recording.md](docs/recording.md).
+#### Reading from memory
+
+The package offers two kinds of read. The SDK methods: `memory.get_context(query, session_id=)`
+assembles a text block from all three stores for a prompt; `memory.long_term.search_entities`,
+`memory.short_term.search_messages` and `memory.reasoning.search_steps` are vector searches;
+`memory.long_term.get_entity_by_name`, `memory.short_term.get_conversation`,
+`memory.reasoning.get_trace_with_steps` and `list_traces` fetch by key. And since it is a Neo4j
+database, plain Cypher.
+
+This demo reads with Cypher, for two reasons: embeddings are off, so the vector searches are not
+available, and the reads we need are exact lookups where a query says exactly what we mean.
+
+The agent reading the team's page, `blast sop` ([`src/blast/tools.py`](src/blast/tools.py)):
+
+```python
+rows = cypher("MATCH (p:Playbook) RETURN p.name AS name, p.text AS text LIMIT 1")
+```
+
+Reading a run back out for the trace export and for distillation ([`src/blast/record.py`](src/blast/record.py)):
+
+```python
+cypher("""
+  MATCH (t:ReasoningTrace {id: $id})-[:HAS_STEP]->(s:ReasoningStep)
+  OPTIONAL MATCH (s)-[:USES_TOOL]->(c:ToolCall)
+  RETURN s.thought, s.action, s:Decision AS is_decision, s.question, s.answer, s.why,
+         c.tool_name, c.arguments, c.result, c.status
+  ORDER BY s.step_number""", id=trace_id)
+```
+
+With embeddings on, the agent could instead call `memory.get_context("how do we run an email
+blast", session_id=...)` and get the SOP, relevant entities and past steps in one string. That is
+the package's intended read path; we kept the demo on exact queries to keep the graph legible.
+
+Any `claude` session started in this folder is recorded; `BLAST_RECORD=0` switches it off. The
+hooks never fail the session; problems go to `.run/recorder.log`. The hook plumbing itself and
+how to do this for your own agent: [docs/recording.md](docs/recording.md).
 
 To watch one use the below
 
