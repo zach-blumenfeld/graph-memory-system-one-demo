@@ -30,15 +30,16 @@ MATCH (p:Playbook) RETURN p.name, p.text
 
 ## Beat 2: what the agent did (memory db)
 
-One run, in order: the conversation, and the trace of every `blast` call with its result. Judgment
-calls carry the extra label `Decision`.
+One run as a connected subgraph: the conversation and its two messages, the trace, every step
+with its tool call. Judgment calls carry the extra `Decision` label; colour by label and they
+stand out. Change `LIMIT 1` to `LIMIT 4` for all four runs side by side.
 
 ```cypher
-MATCH (t:ReasoningTrace)
-WITH t ORDER BY t.started_at LIMIT 1
-MATCH (t)-[:HAS_STEP]->(s:ReasoningStep)-[:USES_TOOL]->(tc:ToolCall)
-OPTIONAL MATCH (c:Conversation {session_id: t.session_id})-[:HAS_MESSAGE]->(m:Message)
-RETURN t, s, tc, c, m
+MATCH (c:Conversation)-[:HAS_TRACE]->(t:ReasoningTrace)
+WITH c, t ORDER BY t.started_at LIMIT 1
+MATCH p1 = (c)-[:HAS_MESSAGE]->(:Message)
+MATCH p2 = (t)-[:HAS_STEP]->(:ReasoningStep)-[:USES_TOOL]->(:ToolCall)
+RETURN c, t, p1, p2
 ```
 
 The same run as a table, which reads better on stage:

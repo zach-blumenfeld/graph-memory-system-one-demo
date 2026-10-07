@@ -247,7 +247,21 @@ The recording of the four runs we made:
 blast traces show run-01      # also run-02 (launch), run-03 (digest), run-04 (urgent hotfix)
 ```
 
-`<image: a trace in Browser, or the table from queries.md beat 2>`
+The same run in the memory graph:
+
+One run as a connected subgraph: the conversation and its two messages, the trace, every step
+with its tool call. Judgment calls carry the extra `Decision` label; colour by label and they
+stand out. Change `LIMIT 1` to `LIMIT 4` for all four runs side by side.
+
+```cypher
+MATCH (c:Conversation)-[:HAS_TRACE]->(t:ReasoningTrace)
+WITH c, t ORDER BY t.started_at LIMIT 1
+MATCH p1 = (c)-[:HAS_MESSAGE]->(:Message)
+MATCH p2 = (t)-[:HAS_STEP]->(:ReasoningStep)-[:USES_TOOL]->(:ToolCall)
+RETURN c, t, p1, p2
+```
+
+`<image: the run in Browser>`
 
 What to notice:
 

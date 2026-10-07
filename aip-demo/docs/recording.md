@@ -41,6 +41,8 @@ agent logs with `blast decide`, which is the point: those are what become decisi
 Hooks never fail the session: an error is written to `.run/recorder.log` and the hook exits 0.
 `BLAST_RECORD=0` switches recording off.
 
+The package keeps a session's `Conversation` and its `ReasoningTrace` as separate nodes that only share a `session_id`; the prompt hook adds one `(:Conversation)-[:HAS_TRACE]->(:ReasoningTrace)` edge so a run is a single connected subgraph.
+
 So one run produces, in the graph: `(:Conversation)-[:HAS_MESSAGE]->(:Message)` twice, and
 `(:ReasoningTrace)-[:HAS_STEP]->(:ReasoningStep)-[:USES_TOOL]->(:ToolCall)` once per `blast`
 call in order, with some steps also labelled `Decision`. That is the memory SDK's own schema;

@@ -102,6 +102,12 @@ async def handle(event: str, payload: dict[str, Any]) -> None:
             if prompt.strip():
                 await m.short_term.add_message(session_id, "user", prompt, extract_entities=False, extract_relations=False, generate_embedding=False)
                 data["messages"] += 1
+        # The package keeps conversations and traces apart (they only share session_id); one edge
+        # joins them so a run is one connected subgraph in Browser.
+        from blast.memory import cypher
+
+        cypher("MATCH (c:Conversation {session_id: $sid}), (t:ReasoningTrace {id: $tid}) MERGE (c)-[:HAS_TRACE]->(t)",
+               sid=session_id, tid=data["trace_id"])
         write_session(session_id, data)
         return
 
