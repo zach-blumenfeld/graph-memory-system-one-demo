@@ -1,5 +1,8 @@
 # Distilling agent knowledge into System One workflows with graph memory
 
+> **Current demo: [`aip-demo/`](aip-demo/STORY.md).** The open-source path: memory SDK over bolt, Claude Code working from a Notion SOP with a small `blast` CLI, traces compiled into an AIP skill, run on the aip server with Jev answering the decisions. What follows below is the earlier NAMS-based version, kept as a fallback; its distilled skill now lives in `nams-demo/launch-email-blast/` (copy it to `.claude/skills/` to run that version, and remove it again before running `aip-demo`, or the agent picks up the wrong skill).
+
+
 A product-marketing agent (Claude Code) runs a "launch email blast" workflow against a simulated
 Notion workspace through eight typed MCP tools. Every tool call is recorded by the open-source
 [`neo4j-agent-memory`](https://github.com/neo4j-labs/agent-memory) SDK into a Neo4j Agent Memory

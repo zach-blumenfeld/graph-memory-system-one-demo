@@ -7,3 +7,5 @@ __pycache__/
 reports/*.tmp
 .idea/
 .pytest_cache/
+drafts/
+.aip/

@@ -64,7 +64,7 @@ ORDER BY times DESC
 
 ## Beat 3: the distilled skill
 
-Not a query: `launch-email-blast/SKILL.md` is the artifact, and `launch-email-blast/source/` holds
+Not a query: `skills/launch-email-blast/SKILL.md` is the artifact, and `skills/launch-email-blast/source/` holds
 the SOP and the traces it was compiled from, plus `README.md` listing what was kept and dropped.
 
 ## Beat 4: the skill as a graph (aip db)

@@ -1,4 +1,4 @@
-# aip-demo plan (built 2026-10-07 for the talk that night)
+# aip-demo plan (built 2026-10-07 for the talk that night; all seven items done, see STORY.md and REHEARSAL.md)
 
 The email-blast workflow, done the open-source way: agent-memory SDK over bolt (no NAMS, no MCP),
 Claude Code doing the job from a Notion SOP, traces distilled into an AIP skill, run on the aip
@@ -26,7 +26,7 @@ Two databases. Memory: Aura `1e78d87c` (this folder's `.env`). AIP catalog and r
    (brief-012), urgent hotfix (brief-009). `blast record --all`, headless `claude -p`, no skill,
    no MCP, only Bash/Read. Export to `checkpoints/traces/`.
 5. **Distill** — `blast traces export --source` writes `source/sop.md` + `source/traces.md`.
-   Claude Code with the `aip` authoring skill compiles `./launch-email-blast/` from `source/`.
+   Claude Code with the `aip` authoring skill compiles `./skills/launch-email-blast/` from `source/`.
    `aip validate`, `aip run --interactive` once locally. Scripts under `scripts/` are the
    `blast` commands.
 6. **Serve + run** — `aip server --inspector`, retire `billing-support`, `aip publish

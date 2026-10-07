@@ -1,16 +1,46 @@
 {
   "permissions": {
-    "allow": ["Bash(blast:*)", "Bash(uv run blast:*)", "Read", "Write"]
+    "allow": [
+      "Bash",
+      "Read",
+      "Write",
+      "Skill"
+    ]
   },
   "hooks": {
     "UserPromptSubmit": [
-      { "hooks": [ { "type": "command", "command": "uv run --project \"$CLAUDE_PROJECT_DIR\" blast-hook user-prompt-submit", "timeout": 30 } ] }
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --project \"$CLAUDE_PROJECT_DIR\" blast-hook user-prompt-submit",
+            "timeout": 30
+          }
+        ]
+      }
     ],
     "PostToolUse": [
-      { "matcher": "Bash", "hooks": [ { "type": "command", "command": "uv run --project \"$CLAUDE_PROJECT_DIR\" blast-hook post-tool-use", "timeout": 30 } ] }
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --project \"$CLAUDE_PROJECT_DIR\" blast-hook post-tool-use",
+            "timeout": 30
+          }
+        ]
+      }
     ],
     "Stop": [
-      { "hooks": [ { "type": "command", "command": "uv run --project \"$CLAUDE_PROJECT_DIR\" blast-hook stop", "timeout": 60 } ] }
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --project \"$CLAUDE_PROJECT_DIR\" blast-hook stop",
+            "timeout": 60
+          }
+        ]
+      }
     ]
   }
 }
