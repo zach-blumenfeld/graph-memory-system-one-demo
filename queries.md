@@ -23,7 +23,9 @@ The whole long-term layer, as paths so Browser draws it:
 
 ```cypher
 MATCH p = (c:Entity {type:'Campaign'})-[:PROMOTES|TARGETS|USES_CHANNEL|CONSTRAINED_BY]->(:Entity)
-OPTIONAL MATCH q = (:Entity {type:'Product'})-[:ASSERTS]->(:Entity {type:'Claim'})
+WHERE c.sourceStage IS NULL
+OPTIONAL MATCH q = (:Entity {type:'Product'})-[:ASSERTS]->(cl:Entity {type:'Claim'})
+WHERE cl.sourceStage IS NULL
 OPTIONAL MATCH r = (:Entity {type:'Persona'})-[:REPRESENTS]->(:Entity {type:'AudienceSegment'})
 RETURN p, q, r
 ```

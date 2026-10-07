@@ -15,6 +15,42 @@ campaign is constrained by the brand guide.
 
 The agent can now look things up instead of guessing.
 
+### How this works
+
+The import is two commands and four files.
+
+1. `tools/make_fixture.py` invents the Notion workspace and writes it to `data/notion/`, one
+   JSON file per Notion database, each page shaped the way the Notion API returns it.
+2. `ontology/pmm.json` names the seven kinds of thing the team cares about (Campaign, Product,
+   Claim, Persona, AudienceSegment, Channel, BrandGuideline) and how they connect.
+   `uv run pmm ontology apply` sends it to NAMS. From then on everything in the workspace is
+   typed against those seven classes, including entities NAMS extracts on its own later.
+3. `src/pmm/notion_import.py` reads the fixture, turns every page into an entity and every
+   Notion relation into an edge, and writes them through the NAMS REST API (`POST /v1/entities`,
+   `POST /v1/relationships/bulk`). `uv run pmm notion import` runs it; it is safe to run twice.
+4. `uv run pmm verify stage1` counts what landed: 42 entities, 88 relationships.
+
+To do this with a real Notion workspace, replace step 1. Pull the databases with the Notion API
+(`POST /v1/databases/{id}/query` returns pages in exactly the shape the fixture mimics) and drop
+the JSON into `data/notion/`. Nothing else changes: `src/pmm/fixture.py` already reads Notion's
+property objects, and the importer maps them to the ontology. Rename a class or an edge in
+`ontology/pmm.json` and in `plan_entities` / `plan_relationships` if your Notion schema differs.
+
+To see it, in Neo4j Browser or the NAMS query view:
+
+```cypher
+MATCH p = (c:Entity {type:'Campaign'})-[:PROMOTES|TARGETS|USES_CHANNEL|CONSTRAINED_BY]->(:Entity)
+WHERE c.sourceStage IS NULL
+OPTIONAL MATCH q = (:Entity {type:'Product'})-[:ASSERTS]->(cl:Entity {type:'Claim'})
+WHERE cl.sourceStage IS NULL
+OPTIONAL MATCH r = (:Entity {type:'Persona'})-[:REPRESENTS]->(:Entity {type:'AudienceSegment'})
+RETURN p, q, r
+```
+
+Colour nodes by `type` and caption by `name`. You get 13 campaigns around 4 products, 6
+segments, 4 personas, 13 claims, one channel and one brand guide. The `sourceStage IS NULL`
+filter shows only what was imported; drop it after step 2 to see everything the agent's runs added.
+
 ## 2. The agent does the job twelve times, and we record everything
 
 We give Claude Code a brief: "launch the riverbed 1.8 email to Python developers on October 14."
