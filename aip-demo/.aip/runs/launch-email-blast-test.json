@@ -1,0 +1,450 @@
+{
+  "skill_dir": "launch-email-blast",
+  "after": "write",
+  "suggested": {
+    "brief_id": "brief-003",
+    "send_at": "",
+    "brief": {
+      "brief_id": "brief-003",
+      "campaign_id": "camp-2026-10-003",
+      "title": "tidewatch 0.9",
+      "product": "tidewatch",
+      "segment_ids": [
+        "seg-pipeline-operators"
+      ],
+      "persona_ids": [
+        "persona-platform-lead"
+      ],
+      "goal": "Announce the 0.9 release of the dashboard and get operators to run it once.",
+      "key_messages": [
+        "One command attaches the dashboard to a running riverbed pipeline",
+        "Per-topic lag alerts",
+        "30 days of metrics in an embedded store, nothing else to run"
+      ],
+      "cta": "Run tidewatch attach and share a screenshot",
+      "send_window": "2026-10-16",
+      "notes": "Operator tone. Mention that it is a Labs project."
+    },
+    "campaign_id": "camp-2026-10-003",
+    "product": {
+      "name": "tidewatch",
+      "tagline": "See every pipeline, lag and retry in one place",
+      "version": "0.9.0",
+      "docs_url": "https://tessera-labs.example/tidewatch/",
+      "repo_url": "https://github.com/tessera-labs/tidewatch",
+      "approved_claims": [
+        "Collects lag, throughput and error metrics from any riverbed pipeline with no code changes",
+        "Alerts on consumer lag with per-topic thresholds",
+        "Stores 30 days of metrics in an embedded time-series store"
+      ]
+    },
+    "brand": {
+      "voice_rules": [
+        "Lead with what the developer can do now, not with adjectives",
+        "One idea per sentence; no exclamation marks; no emoji in subject lines",
+        "Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant",
+        "Prefer code and concrete nouns to superlatives",
+        "Always include exactly one clear call to action"
+      ],
+      "banned_claims": [
+        "production-ready",
+        "enterprise-grade",
+        "officially supported",
+        "SLA",
+        "guaranteed",
+        "100%",
+        "best-in-class",
+        "unlimited",
+        "naming a competitor product",
+        "unpublished benchmark numbers"
+      ],
+      "required_disclaimer": "Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.",
+      "subject_line_rules": [
+        "Under 60 characters",
+        "No ALL CAPS words",
+        "No 'free', 'act now', 'last chance'"
+      ]
+    },
+    "segment": {
+      "segment_id": "seg-pipeline-operators",
+      "name": "Pipeline operators",
+      "size": 1300,
+      "description": "People who run riverbed pipelines in a shared environment and asked about monitoring",
+      "persona": [
+        {
+          "id": "persona-platform-lead",
+          "name": "Teo the Platform Lead",
+          "preferred_tone": "measured, evidence-led, specific",
+          "turn_offs": "lock-in, unverifiable numbers, hype"
+        }
+      ]
+    },
+    "persona": {
+      "id": "persona-platform-lead",
+      "name": "Teo the Platform Lead",
+      "preferred_tone": "measured, evidence-led, specific",
+      "turn_offs": "lock-in, unverifiable numbers, hype"
+    },
+    "segment_rule": "the brief names this segment",
+    "email_kind": "launch",
+    "urgency": 0,
+    "legal_review": false
+  },
+  "history": [
+    {
+      "step": "load",
+      "kind": "execution",
+      "input": {
+        "brief_id": "brief-003",
+        "send_at": ""
+      },
+      "result": {
+        "brief": {
+          "brief_id": "brief-003",
+          "campaign_id": "camp-2026-10-003",
+          "title": "tidewatch 0.9",
+          "product": "tidewatch",
+          "segment_ids": [
+            "seg-pipeline-operators"
+          ],
+          "persona_ids": [
+            "persona-platform-lead"
+          ],
+          "goal": "Announce the 0.9 release of the dashboard and get operators to run it once.",
+          "key_messages": [
+            "One command attaches the dashboard to a running riverbed pipeline",
+            "Per-topic lag alerts",
+            "30 days of metrics in an embedded store, nothing else to run"
+          ],
+          "cta": "Run tidewatch attach and share a screenshot",
+          "send_window": "2026-10-16",
+          "notes": "Operator tone. Mention that it is a Labs project."
+        },
+        "campaign_id": "camp-2026-10-003",
+        "product": {
+          "name": "tidewatch",
+          "tagline": "See every pipeline, lag and retry in one place",
+          "version": "0.9.0",
+          "docs_url": "https://tessera-labs.example/tidewatch/",
+          "repo_url": "https://github.com/tessera-labs/tidewatch",
+          "approved_claims": [
+            "Collects lag, throughput and error metrics from any riverbed pipeline with no code changes",
+            "Alerts on consumer lag with per-topic thresholds",
+            "Stores 30 days of metrics in an embedded time-series store"
+          ]
+        },
+        "brand": {
+          "voice_rules": [
+            "Lead with what the developer can do now, not with adjectives",
+            "One idea per sentence; no exclamation marks; no emoji in subject lines",
+            "Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant",
+            "Prefer code and concrete nouns to superlatives",
+            "Always include exactly one clear call to action"
+          ],
+          "banned_claims": [
+            "production-ready",
+            "enterprise-grade",
+            "officially supported",
+            "SLA",
+            "guaranteed",
+            "100%",
+            "best-in-class",
+            "unlimited",
+            "naming a competitor product",
+            "unpublished benchmark numbers"
+          ],
+          "required_disclaimer": "Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.",
+          "subject_line_rules": [
+            "Under 60 characters",
+            "No ALL CAPS words",
+            "No 'free', 'act now', 'last chance'"
+          ]
+        },
+        "segment": {
+          "segment_id": "seg-pipeline-operators",
+          "name": "Pipeline operators",
+          "size": 1300,
+          "description": "People who run riverbed pipelines in a shared environment and asked about monitoring",
+          "persona": [
+            {
+              "id": "persona-platform-lead",
+              "name": "Teo the Platform Lead",
+              "preferred_tone": "measured, evidence-led, specific",
+              "turn_offs": "lock-in, unverifiable numbers, hype"
+            }
+          ]
+        },
+        "persona": {
+          "id": "persona-platform-lead",
+          "name": "Teo the Platform Lead",
+          "preferred_tone": "measured, evidence-led, specific",
+          "turn_offs": "lock-in, unverifiable numbers, hype"
+        },
+        "segment_rule": "the brief names this segment"
+      }
+    },
+    {
+      "step": "classify",
+      "kind": "decision",
+      "input": {
+        "brief_id": "brief-003",
+        "send_at": "",
+        "brief": {
+          "brief_id": "brief-003",
+          "campaign_id": "camp-2026-10-003",
+          "title": "tidewatch 0.9",
+          "product": "tidewatch",
+          "segment_ids": [
+            "seg-pipeline-operators"
+          ],
+          "persona_ids": [
+            "persona-platform-lead"
+          ],
+          "goal": "Announce the 0.9 release of the dashboard and get operators to run it once.",
+          "key_messages": [
+            "One command attaches the dashboard to a running riverbed pipeline",
+            "Per-topic lag alerts",
+            "30 days of metrics in an embedded store, nothing else to run"
+          ],
+          "cta": "Run tidewatch attach and share a screenshot",
+          "send_window": "2026-10-16",
+          "notes": "Operator tone. Mention that it is a Labs project."
+        },
+        "campaign_id": "camp-2026-10-003",
+        "product": {
+          "name": "tidewatch",
+          "tagline": "See every pipeline, lag and retry in one place",
+          "version": "0.9.0",
+          "docs_url": "https://tessera-labs.example/tidewatch/",
+          "repo_url": "https://github.com/tessera-labs/tidewatch",
+          "approved_claims": [
+            "Collects lag, throughput and error metrics from any riverbed pipeline with no code changes",
+            "Alerts on consumer lag with per-topic thresholds",
+            "Stores 30 days of metrics in an embedded time-series store"
+          ]
+        },
+        "brand": {
+          "voice_rules": [
+            "Lead with what the developer can do now, not with adjectives",
+            "One idea per sentence; no exclamation marks; no emoji in subject lines",
+            "Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant",
+            "Prefer code and concrete nouns to superlatives",
+            "Always include exactly one clear call to action"
+          ],
+          "banned_claims": [
+            "production-ready",
+            "enterprise-grade",
+            "officially supported",
+            "SLA",
+            "guaranteed",
+            "100%",
+            "best-in-class",
+            "unlimited",
+            "naming a competitor product",
+            "unpublished benchmark numbers"
+          ],
+          "required_disclaimer": "Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.",
+          "subject_line_rules": [
+            "Under 60 characters",
+            "No ALL CAPS words",
+            "No 'free', 'act now', 'last chance'"
+          ]
+        },
+        "segment": {
+          "segment_id": "seg-pipeline-operators",
+          "name": "Pipeline operators",
+          "size": 1300,
+          "description": "People who run riverbed pipelines in a shared environment and asked about monitoring",
+          "persona": [
+            {
+              "id": "persona-platform-lead",
+              "name": "Teo the Platform Lead",
+              "preferred_tone": "measured, evidence-led, specific",
+              "turn_offs": "lock-in, unverifiable numbers, hype"
+            }
+          ]
+        },
+        "persona": {
+          "id": "persona-platform-lead",
+          "name": "Teo the Platform Lead",
+          "preferred_tone": "measured, evidence-led, specific",
+          "turn_offs": "lock-in, unverifiable numbers, hype"
+        },
+        "segment_rule": "the brief names this segment"
+      },
+      "result": {
+        "model": "jev-1.13.0",
+        "usage": {
+          "input_tokens": 2435,
+          "output_tokens": 78
+        },
+        "answers": {
+          "email_kind": {
+            "type": "choice",
+            "choice": "launch",
+            "confidence": 1.0,
+            "probabilities": {
+              "event": 0.0,
+              "launch": 1.0,
+              "digest": 0.0,
+              "update": 0.0
+            }
+          },
+          "urgency": {
+            "type": "score",
+            "score": 0.0,
+            "confidence": 1.0,
+            "legend": {
+              "0": "Normal - a launch, update, digest or event with a send window; nothing says it must go today.",
+              "1": "Urgent - a hotfix or security notice, or the brief asks for a same-day send (today, this morning, now)."
+            },
+            "probabilities": {
+              "0": 1.0,
+              "1": 0.0
+            }
+          },
+          "legal_review": {
+            "type": "noul",
+            "noul": 0.12
+          }
+        }
+      }
+    },
+    {
+      "step": "by-legal",
+      "kind": "router",
+      "input": {
+        "legal_review": false
+      },
+      "result": {
+        "to": "write"
+      }
+    },
+    {
+      "step": "write",
+      "kind": "client_task",
+      "input": {
+        "brief_id": "brief-003",
+        "send_at": "",
+        "brief": {
+          "brief_id": "brief-003",
+          "campaign_id": "camp-2026-10-003",
+          "title": "tidewatch 0.9",
+          "product": "tidewatch",
+          "segment_ids": [
+            "seg-pipeline-operators"
+          ],
+          "persona_ids": [
+            "persona-platform-lead"
+          ],
+          "goal": "Announce the 0.9 release of the dashboard and get operators to run it once.",
+          "key_messages": [
+            "One command attaches the dashboard to a running riverbed pipeline",
+            "Per-topic lag alerts",
+            "30 days of metrics in an embedded store, nothing else to run"
+          ],
+          "cta": "Run tidewatch attach and share a screenshot",
+          "send_window": "2026-10-16",
+          "notes": "Operator tone. Mention that it is a Labs project."
+        },
+        "campaign_id": "camp-2026-10-003",
+        "product": {
+          "name": "tidewatch",
+          "tagline": "See every pipeline, lag and retry in one place",
+          "version": "0.9.0",
+          "docs_url": "https://tessera-labs.example/tidewatch/",
+          "repo_url": "https://github.com/tessera-labs/tidewatch",
+          "approved_claims": [
+            "Collects lag, throughput and error metrics from any riverbed pipeline with no code changes",
+            "Alerts on consumer lag with per-topic thresholds",
+            "Stores 30 days of metrics in an embedded time-series store"
+          ]
+        },
+        "brand": {
+          "voice_rules": [
+            "Lead with what the developer can do now, not with adjectives",
+            "One idea per sentence; no exclamation marks; no emoji in subject lines",
+            "Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant",
+            "Prefer code and concrete nouns to superlatives",
+            "Always include exactly one clear call to action"
+          ],
+          "banned_claims": [
+            "production-ready",
+            "enterprise-grade",
+            "officially supported",
+            "SLA",
+            "guaranteed",
+            "100%",
+            "best-in-class",
+            "unlimited",
+            "naming a competitor product",
+            "unpublished benchmark numbers"
+          ],
+          "required_disclaimer": "Tessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.",
+          "subject_line_rules": [
+            "Under 60 characters",
+            "No ALL CAPS words",
+            "No 'free', 'act now', 'last chance'"
+          ]
+        },
+        "segment": {
+          "segment_id": "seg-pipeline-operators",
+          "name": "Pipeline operators",
+          "size": 1300,
+          "description": "People who run riverbed pipelines in a shared environment and asked about monitoring",
+          "persona": [
+            {
+              "id": "persona-platform-lead",
+              "name": "Teo the Platform Lead",
+              "preferred_tone": "measured, evidence-led, specific",
+              "turn_offs": "lock-in, unverifiable numbers, hype"
+            }
+          ]
+        },
+        "persona": {
+          "id": "persona-platform-lead",
+          "name": "Teo the Platform Lead",
+          "preferred_tone": "measured, evidence-led, specific",
+          "turn_offs": "lock-in, unverifiable numbers, hype"
+        },
+        "segment_rule": "the brief names this segment",
+        "email_kind": "launch",
+        "urgency": 0,
+        "legal_review": false
+      },
+      "result": {
+        "task": "You are executing a single step in a graph shaped workflow pertaining to \"Run a Tessera Labs email blast end to end from a campaign brief id - read the brief, product claims, segment persona and brand guide with the blast CLI, classify the email (launch, update, digest, event), urgency and legal sensitivity, write three subject lines and a markdown body against the approved claims list, store and compliance-check the draft with one fix-up pass, pick the subject line, schedule it for the send window (09:00 UTC default, same day when urgent) and log the campaign and every judgment call. Use for any campaign brief, launch email, release announcement, hotfix notice, newsletter digest or nurture email that needs drafting, checking, scheduling or logging. Digests are drafted and logged but never scheduled; legal-sensitive briefs stop for a human.\".\n`currentState` holds the state for this specific step.\nIf needed, the historic state of past steps is contained in `history`.\nAssets, if present, are fixed reference material for this step.\n\n# Write the email: three subject lines and a markdown body\n\nBrief **tidewatch 0.9** (brief-003, campaign camp-2026-10-003), classified as a **launch** email.\n\n- Goal: Announce the 0.9 release of the dashboard and get operators to run it once.\n- Key messages: ['One command attaches the dashboard to a running riverbed pipeline', 'Per-topic lag alerts', '30 days of metrics in an embedded store, nothing else to run']\n- Call to action: Run tidewatch attach and share a screenshot\n- Notes from the brief: Operator tone. Mention that it is a Labs project.\n- Send window: 2026-10-16\n\n## Audience\n\nSegment **Pipeline operators** (seg-pipeline-operators, 1300 recipients): People who run riverbed pipelines in a shared environment and asked about monitoring\nPersona **Teo the Platform Lead**. Preferred tone: measured, evidence-led, specific. Turn-offs: lock-in, unverifiable numbers, hype.\nWrite in the tone the persona wants; the turn-offs are the words and moves to avoid.\n\n## Product tidewatch 0.9.0: See every pipeline, lag and retry in one place\n\nApproved claims (the only things the email may claim about the product):\n['Collects lag, throughput and error metrics from any riverbed pipeline with no code changes', 'Alerts on consumer lag with per-topic thresholds', 'Stores 30 days of metrics in an embedded time-series store']\n\nDocs: https://tessera-labs.example/tidewatch/  Repo: https://github.com/tessera-labs/tidewatch\n\n## Brand guide\n\nVoice rules: ['Lead with what the developer can do now, not with adjectives', 'One idea per sentence; no exclamation marks; no emoji in subject lines', \"Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant\", 'Prefer code and concrete nouns to superlatives', 'Always include exactly one clear call to action']\nBanned words and claims: ['production-ready', 'enterprise-grade', 'officially supported', 'SLA', 'guaranteed', '100%', 'best-in-class', 'unlimited', 'naming a competitor product', 'unpublished benchmark numbers']\nSubject line rules: ['Under 60 characters', 'No ALL CAPS words', \"No 'free', 'act now', 'last chance'\"]\nRequired disclaimer, to appear in the body word for word:\nTessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.\n\n## Rules\n\n1. Only say what is on the approved claims list. Check each key message against it. A number, a comparison, or a\n   promise about product behaviour (\"no data loss\", \"no changes to existing pipelines\", \"nothing else to run\") that is\n   not on the list is left out, or replaced by the closest approved claim quoted word for word. A factual instruction\n   (an install or attach command that is the call to action) and a plain feature fact from the brief (a new CLI command\n   exists) are not claims; keep them, but do not invent syntax, names or numbers the brief does not give.\n2. The body covers the key messages that survived rule 1, says it is a Tessera Labs project where relevant, and ends\n   with exactly one call to action, the brief's. If the brief gives no channel or link for the CTA, use reply-to or the\n   product docs URL; never invent a URL. Where the brief asks for a link it does not give, put a marked placeholder\n   such as QUICKSTART_URL and record it in claims_notes.\n3. Lead with what the reader can do now. One idea per sentence. No exclamation marks, no emoji, no superlatives.\n   Prefer code blocks and concrete nouns. Keep it short.\n4. The disclaimer appears verbatim, usually as the last paragraph.\n5. Three subject lines, each under 60 characters, no all-caps words, none of the banned or spam words (\"free\",\n   \"act now\", \"last chance\"). Make them different: one that names the release and what the reader can now do, one\n   that leads with a specific feature, one more curious. None may read as a teaser or as urgency pressure.\n\nFor worked examples of claims rulings and a body that passed, load `references/examples.md`.\n\nReturn JSON with:\n\n- `subjects`: a list of exactly three subject line strings, in order (the next step chooses first, second or third).\n- `body`: the full email body in markdown, as one string.\n- `claims_notes`: one short paragraph, for the campaign log, saying for each key message whether it was included as\n  written, rephrased to an approved claim, or left out, and why; plus any placeholders or open items a human must\n  resolve before the send.\n",
+        "references": [
+          {
+            "uri": "launch-email-blast/references/examples.md",
+            "description": "Claims rulings from four recorded runs, a body that passed first time, subject line picks, and what the compliance check tests. Load when a key message is not on the approved list or you are unsure what shape the body should take."
+          }
+        ]
+      }
+    }
+  ],
+  "pause": {
+    "kind": "client_task",
+    "step": "write",
+    "task": "You are executing a single step in a graph shaped workflow pertaining to \"Run a Tessera Labs email blast end to end from a campaign brief id - read the brief, product claims, segment persona and brand guide with the blast CLI, classify the email (launch, update, digest, event), urgency and legal sensitivity, write three subject lines and a markdown body against the approved claims list, store and compliance-check the draft with one fix-up pass, pick the subject line, schedule it for the send window (09:00 UTC default, same day when urgent) and log the campaign and every judgment call. Use for any campaign brief, launch email, release announcement, hotfix notice, newsletter digest or nurture email that needs drafting, checking, scheduling or logging. Digests are drafted and logged but never scheduled; legal-sensitive briefs stop for a human.\".\n`currentState` holds the state for this specific step.\nIf needed, the historic state of past steps is contained in `history`.\nAssets, if present, are fixed reference material for this step.\n\n# Write the email: three subject lines and a markdown body\n\nBrief **tidewatch 0.9** (brief-003, campaign camp-2026-10-003), classified as a **launch** email.\n\n- Goal: Announce the 0.9 release of the dashboard and get operators to run it once.\n- Key messages: ['One command attaches the dashboard to a running riverbed pipeline', 'Per-topic lag alerts', '30 days of metrics in an embedded store, nothing else to run']\n- Call to action: Run tidewatch attach and share a screenshot\n- Notes from the brief: Operator tone. Mention that it is a Labs project.\n- Send window: 2026-10-16\n\n## Audience\n\nSegment **Pipeline operators** (seg-pipeline-operators, 1300 recipients): People who run riverbed pipelines in a shared environment and asked about monitoring\nPersona **Teo the Platform Lead**. Preferred tone: measured, evidence-led, specific. Turn-offs: lock-in, unverifiable numbers, hype.\nWrite in the tone the persona wants; the turn-offs are the words and moves to avoid.\n\n## Product tidewatch 0.9.0: See every pipeline, lag and retry in one place\n\nApproved claims (the only things the email may claim about the product):\n['Collects lag, throughput and error metrics from any riverbed pipeline with no code changes', 'Alerts on consumer lag with per-topic thresholds', 'Stores 30 days of metrics in an embedded time-series store']\n\nDocs: https://tessera-labs.example/tidewatch/  Repo: https://github.com/tessera-labs/tidewatch\n\n## Brand guide\n\nVoice rules: ['Lead with what the developer can do now, not with adjectives', 'One idea per sentence; no exclamation marks; no emoji in subject lines', \"Say 'Tessera Labs project', 'experimental', 'community-supported' where relevant\", 'Prefer code and concrete nouns to superlatives', 'Always include exactly one clear call to action']\nBanned words and claims: ['production-ready', 'enterprise-grade', 'officially supported', 'SLA', 'guaranteed', '100%', 'best-in-class', 'unlimited', 'naming a competitor product', 'unpublished benchmark numbers']\nSubject line rules: ['Under 60 characters', 'No ALL CAPS words', \"No 'free', 'act now', 'last chance'\"]\nRequired disclaimer, to appear in the body word for word:\nTessera Labs projects are experimental and community-supported. They are not covered by support contracts and may change without notice.\n\n## Rules\n\n1. Only say what is on the approved claims list. Check each key message against it. A number, a comparison, or a\n   promise about product behaviour (\"no data loss\", \"no changes to existing pipelines\", \"nothing else to run\") that is\n   not on the list is left out, or replaced by the closest approved claim quoted word for word. A factual instruction\n   (an install or attach command that is the call to action) and a plain feature fact from the brief (a new CLI command\n   exists) are not claims; keep them, but do not invent syntax, names or numbers the brief does not give.\n2. The body covers the key messages that survived rule 1, says it is a Tessera Labs project where relevant, and ends\n   with exactly one call to action, the brief's. If the brief gives no channel or link for the CTA, use reply-to or the\n   product docs URL; never invent a URL. Where the brief asks for a link it does not give, put a marked placeholder\n   such as QUICKSTART_URL and record it in claims_notes.\n3. Lead with what the reader can do now. One idea per sentence. No exclamation marks, no emoji, no superlatives.\n   Prefer code blocks and concrete nouns. Keep it short.\n4. The disclaimer appears verbatim, usually as the last paragraph.\n5. Three subject lines, each under 60 characters, no all-caps words, none of the banned or spam words (\"free\",\n   \"act now\", \"last chance\"). Make them different: one that names the release and what the reader can now do, one\n   that leads with a specific feature, one more curious. None may read as a teaser or as urgency pressure.\n\nFor worked examples of claims rulings and a body that passed, load `references/examples.md`.\n\nReturn JSON with:\n\n- `subjects`: a list of exactly three subject line strings, in order (the next step chooses first, second or third).\n- `body`: the full email body in markdown, as one string.\n- `claims_notes`: one short paragraph, for the campaign log, saying for each key message whether it was included as\n  written, rephrased to an approved claim, or left out, and why; plus any placeholders or open items a human must\n  resolve before the send.\n",
+    "references": [
+      {
+        "uri": "launch-email-blast/references/examples.md",
+        "description": "Claims rulings from four recorded runs, a body that passed first time, subject line picks, and what the compliance check tests. Load when a key message is not on the approved list or you are unsure what shape the body should take."
+      }
+    ],
+    "expects": {
+      "campaign_id": "string",
+      "segment": "object",
+      "subjects": "list[*]",
+      "body": "string",
+      "claims_notes": "string"
+    }
+  },
+  "thresholds": {},
+  "created": 1791356225.698453,
+  "server": null,
+  "name": null,
+  "revision": null,
+  "run_id": null
+}
