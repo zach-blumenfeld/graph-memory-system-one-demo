@@ -78,3 +78,4 @@ If the live run misbehaves: `aip run launch-email-blast --input checkpoints/star
 | aip server down | `aip server --inspector` in a spare terminal, wait 5 s |
 | Jev unreachable | the run pauses at each decision and asks you; answer it, say why |
 | Browser slow | the queries are small; if a query hangs, re-run it, Aura Free cold-starts |
+| inspector page is blank | open the browser console; if it is `Cannot read properties of null (reading 'slice')`, a catalog name has no live revision (every revision retired). Republish or pin a revision of that name, or delete it from the aip db. The example `billing-support` was removed for this reason |
