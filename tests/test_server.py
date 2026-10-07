@@ -89,7 +89,7 @@ async def test_input_validation(drafts_dir):
     with pytest.raises(ToolError, match="Unknown brief_id"):
         await srv.call_tool("get_campaign_brief", {"brief_id": "nope"})
     with pytest.raises(ToolError, match="exactly 3"):
-        await srv.call_tool("submit_draft", {"campaign_id": "camp-x", "subject_lines": ["a"], "body_md": BODY, "segment_id": "seg-python-agent-devs"})
+        await srv.call_tool("submit_draft", {"campaign_id": "camp-x", "subject_lines": ["a"], "body_md": BODY, "segment_id": "seg-python-stream-devs"})
     assert [r.status for r in rec.records] == ["failure", "failure"]
 
 
