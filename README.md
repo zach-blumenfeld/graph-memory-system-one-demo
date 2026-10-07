@@ -2,12 +2,11 @@
 
 Two versions of the same demo, a product-marketing agent that learns an email-blast procedure.
 
-- **[`aip-demo/`](aip-demo/WALKTHROUGH.md)**: the one for the talk (`WALKTHROUGH.md` is the follow-along; `STORY.md` the narrative; `REHEARSAL.md` what to type). Notion workspace into graph memory with
+- **[`aip-demo/`](aip-demo/README.md)**: the one for the talk, written as a follow-along walkthrough. Notion workspace into graph memory with
   the open-source `neo4j-agent-memory` SDK; Claude Code does the job from a Notion SOP with a small
   `blast` command and no MCP; the recorded traces are compiled into an AIP skill; the aip server runs
-  it with TypeSafe's Jev answering the decisions. Start with `aip-demo/STORY.md`, then
-  `aip-demo/REHEARSAL.md`.
-- **[`nams-demo/`](nams-demo/README.md)**: the earlier version, kept as a fallback. Hosted NAMS does
+  it with TypeSafe's Jev answering the decisions. Start with `aip-demo/README.md`.
+- **[`nams-demo/`](nams-demo/README.md)**:  Hosted NAMS does
   the distillation, the tools are an MCP server with Jev inside them.
 
 Each folder has its own `.env`, `Makefile` and docs. Everything about Tessera Labs, the company in
