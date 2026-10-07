@@ -2,7 +2,7 @@
 
 Two versions of the same demo, a product-marketing agent that learns an email-blast procedure.
 
-- **[`aip-demo/`](aip-demo/STORY.md)**: the one for the talk. Notion workspace into graph memory with
+- **[`aip-demo/`](aip-demo/WALKTHROUGH.md)**: the one for the talk (`WALKTHROUGH.md` is the follow-along; `STORY.md` the narrative; `REHEARSAL.md` what to type). Notion workspace into graph memory with
   the open-source `neo4j-agent-memory` SDK; Claude Code does the job from a Notion SOP with a small
   `blast` command and no MCP; the recorded traces are compiled into an AIP skill; the aip server runs
   it with TypeSafe's Jev answering the decisions. Start with `aip-demo/STORY.md`, then
