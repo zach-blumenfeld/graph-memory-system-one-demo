@@ -83,6 +83,28 @@ review at 0.11. The agent never saw those questions.
 
 Show: the live run, then the inspector history and `queries.md` beat 5.
 
+## Token usage, measured
+
+From Claude Code's own accounting (`modelUsage` in the JSON result of each headless session).
+"Cache read" is context re-sent from the prompt cache each turn; "output" is what the model wrote.
+
+| session | turns | new input | output | cache read | cache write | total tokens | cost |
+|---|---|---|---|---|---|---|---|
+| free-form run-01 (launch) | 17 | 290 | 7,685 | 139,819 | 22,086 | 169,880 | $0.86 |
+| free-form run-02 (launch) | 21 | 322 | 6,544 | 155,492 | 15,067 | 177,425 | $0.67 |
+| free-form run-03 (digest) | 14 | 258 | 4,706 | 108,423 | 11,921 | 125,308 | $0.50 |
+| free-form run-04 (hotfix) | 22 | 386 | 6,744 | 187,661 | 14,946 | 209,737 | $0.69 |
+| skill run, default model | 20 | 484 | 7,912 | 600,023 | 41,155 | 649,574 | $1.37 |
+| skill run, Sonnet | 15 | 28 | 4,583 | 405,240 | 35,173 | 445,024 | $0.27 |
+| compiling the skill (one-off) | 56 | 708 | 46,243 | 2,642,879 | 154,303 | 2,844,133 | $6.07 |
+
+Honest reading: the skill run is three to five times faster and moves every judgment call off the
+language model, but it does not use fewer tokens. The agent's own output is about the same (it
+still writes the email), and the client loop carries the whole run state through its context on
+every turn, so cache reads are three to four times higher. What the skill buys is time, consistency
+and calibrated decisions, not token count. Sonnet makes it cheap anyway. Trimming the state the
+server hands back at each pause is the obvious next optimisation.
+
 ## What the title means
 
 Agent knowledge: the four recorded runs. Distilling: compiling the SOP and the traces into the
