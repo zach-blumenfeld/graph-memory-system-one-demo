@@ -1,0 +1,42 @@
+# Step 4: five headless Claude Code runs. No skill, no MCP: the agent has Bash (for `loan ...`),
+# Read and Write, the credit team's page in memory, and one application id. It works out the
+# procedure itself. run-05 repeats run-01's application so the two paths can be compared.
+defaults:
+  preamble: |
+    You are the credit analyst at Lantern Mutual. Start by reading the team's page: run `loan sop`.
+    The `loan` command is your only way to reach the bank's systems (`loan --help` lists it).
+    Write the rationale to a file and submit it with `loan rationale submit`, check it with
+    `loan check`, and record the decision with `loan record` (use `--revision freeform` and your
+    own confidence between 0 and 1). Log every judgment call with `loan decide`. Finish with a
+    short summary.
+runs:
+  - id: run-01
+    kind: hero
+    application: APP-1001
+    prompt: |
+      New application APP-1001: Harrow Street Bakery, $400,000 term loan for a second location.
+      Assess it and record the decision.
+  - id: run-02
+    kind: clean
+    application: APP-1002
+    prompt: |
+      New application APP-1002: Ridgeline Dental Partners, $250,000 equipment loan.
+      Assess it and record the decision.
+  - id: run-03
+    kind: decline
+    application: APP-1003
+    prompt: |
+      New application APP-1003: Corvid Print Co., $150,000 working capital line.
+      Assess it and record the decision.
+  - id: run-04
+    kind: gray
+    application: APP-1004
+    prompt: |
+      New application APP-1004: Mossbank Climbing Gym, $600,000 term loan for a second gym.
+      Assess it and record the decision.
+  - id: run-05
+    kind: hero-again
+    application: APP-1001
+    prompt: |
+      New application APP-1001: Harrow Street Bakery, $400,000 term loan for a second location.
+      Assess it and record the decision.

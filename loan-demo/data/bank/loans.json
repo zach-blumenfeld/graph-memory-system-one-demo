@@ -1,0 +1,1301 @@
+{
+  "system": "Loan and credit",
+  "as_of": "2026-10-13",
+  "records": {
+    "Facility": [
+      {
+        "id": "FAC-01",
+        "business_id": "BUS-01",
+        "product": "equipment loan",
+        "principal": 120000,
+        "rate": 0.0725,
+        "term_months": 60,
+        "opened": "2023-03-15",
+        "status": "open",
+        "monthly_payment": 2390.32
+      },
+      {
+        "id": "FAC-02",
+        "business_id": "BUS-04",
+        "product": "term loan",
+        "principal": 200000,
+        "rate": 0.075,
+        "term_months": 84,
+        "opened": "2022-06-15",
+        "status": "open",
+        "monthly_payment": 3067.66
+      },
+      {
+        "id": "FAC-03",
+        "business_id": "BUS-05",
+        "product": "term loan",
+        "principal": 300000,
+        "rate": 0.08,
+        "term_months": 60,
+        "opened": "2024-02-15",
+        "status": "open",
+        "monthly_payment": 6082.92
+      },
+      {
+        "id": "FAC-04",
+        "business_id": "BUS-06",
+        "product": "equipment loan",
+        "principal": 250000,
+        "rate": 0.0775,
+        "term_months": 60,
+        "opened": "2024-01-15",
+        "status": "open",
+        "monthly_payment": 5039.24
+      },
+      {
+        "id": "FAC-05",
+        "business_id": "BUS-07",
+        "product": "term loan",
+        "principal": 950000,
+        "rate": 0.07,
+        "term_months": 120,
+        "opened": "2023-09-15",
+        "status": "open",
+        "monthly_payment": 11030.31
+      },
+      {
+        "id": "FAC-06",
+        "business_id": "BUS-03",
+        "product": "term loan",
+        "principal": 60000,
+        "rate": 0.095,
+        "term_months": 48,
+        "opened": "2024-05-15",
+        "status": "open",
+        "monthly_payment": 1507.39
+      },
+      {
+        "id": "FAC-07",
+        "business_id": "BUS-01",
+        "product": "term loan",
+        "principal": 50000,
+        "rate": 0.069,
+        "term_months": 36,
+        "opened": "2021-01-15",
+        "status": "closed",
+        "monthly_payment": 1541.57
+      }
+    ],
+    "Payment": [
+      {
+        "id": "PAY-01-2024-10",
+        "facility_id": "FAC-01",
+        "due": "2024-10-15",
+        "paid_on": "2024-10-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2024-11",
+        "facility_id": "FAC-01",
+        "due": "2024-11-15",
+        "paid_on": "2024-11-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2024-12",
+        "facility_id": "FAC-01",
+        "due": "2024-12-15",
+        "paid_on": "2024-12-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2025-01",
+        "facility_id": "FAC-01",
+        "due": "2025-01-15",
+        "paid_on": "2025-01-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2025-02",
+        "facility_id": "FAC-01",
+        "due": "2025-02-15",
+        "paid_on": "2025-02-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2025-03",
+        "facility_id": "FAC-01",
+        "due": "2025-03-15",
+        "paid_on": "2025-03-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2025-04",
+        "facility_id": "FAC-01",
+        "due": "2025-04-15",
+        "paid_on": "2025-04-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2025-05",
+        "facility_id": "FAC-01",
+        "due": "2025-05-15",
+        "paid_on": "2025-05-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2025-06",
+        "facility_id": "FAC-01",
+        "due": "2025-06-15",
+        "paid_on": "2025-06-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2025-07",
+        "facility_id": "FAC-01",
+        "due": "2025-07-15",
+        "paid_on": "2025-07-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2025-08",
+        "facility_id": "FAC-01",
+        "due": "2025-08-15",
+        "paid_on": "2025-08-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2025-09",
+        "facility_id": "FAC-01",
+        "due": "2025-09-15",
+        "paid_on": "2025-09-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2025-10",
+        "facility_id": "FAC-01",
+        "due": "2025-10-15",
+        "paid_on": "2025-10-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2025-11",
+        "facility_id": "FAC-01",
+        "due": "2025-11-15",
+        "paid_on": "2025-11-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2025-12",
+        "facility_id": "FAC-01",
+        "due": "2025-12-15",
+        "paid_on": "2025-12-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2026-01",
+        "facility_id": "FAC-01",
+        "due": "2026-01-15",
+        "paid_on": "2026-01-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2026-02",
+        "facility_id": "FAC-01",
+        "due": "2026-02-15",
+        "paid_on": "2026-02-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2026-03",
+        "facility_id": "FAC-01",
+        "due": "2026-03-15",
+        "paid_on": "2026-03-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2026-04",
+        "facility_id": "FAC-01",
+        "due": "2026-04-15",
+        "paid_on": "2026-04-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2026-05",
+        "facility_id": "FAC-01",
+        "due": "2026-05-15",
+        "paid_on": "2026-05-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2026-06",
+        "facility_id": "FAC-01",
+        "due": "2026-06-15",
+        "paid_on": "2026-06-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2026-07",
+        "facility_id": "FAC-01",
+        "due": "2026-07-15",
+        "paid_on": "2026-07-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2026-08",
+        "facility_id": "FAC-01",
+        "due": "2026-08-15",
+        "paid_on": "2026-08-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-01-2026-09",
+        "facility_id": "FAC-01",
+        "due": "2026-09-15",
+        "paid_on": "2026-09-15",
+        "amount": 2390.32,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2024-10",
+        "facility_id": "FAC-02",
+        "due": "2024-10-15",
+        "paid_on": "2024-10-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2024-11",
+        "facility_id": "FAC-02",
+        "due": "2024-11-15",
+        "paid_on": "2024-11-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2024-12",
+        "facility_id": "FAC-02",
+        "due": "2024-12-15",
+        "paid_on": "2024-12-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2025-01",
+        "facility_id": "FAC-02",
+        "due": "2025-01-15",
+        "paid_on": "2025-01-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2025-02",
+        "facility_id": "FAC-02",
+        "due": "2025-02-15",
+        "paid_on": "2025-02-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2025-03",
+        "facility_id": "FAC-02",
+        "due": "2025-03-15",
+        "paid_on": "2025-03-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2025-04",
+        "facility_id": "FAC-02",
+        "due": "2025-04-15",
+        "paid_on": "2025-04-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2025-05",
+        "facility_id": "FAC-02",
+        "due": "2025-05-15",
+        "paid_on": "2025-05-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2025-06",
+        "facility_id": "FAC-02",
+        "due": "2025-06-15",
+        "paid_on": "2025-06-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2025-07",
+        "facility_id": "FAC-02",
+        "due": "2025-07-15",
+        "paid_on": "2025-07-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2025-08",
+        "facility_id": "FAC-02",
+        "due": "2025-08-15",
+        "paid_on": "2025-08-22",
+        "amount": 3067.66,
+        "status": "late"
+      },
+      {
+        "id": "PAY-02-2025-09",
+        "facility_id": "FAC-02",
+        "due": "2025-09-15",
+        "paid_on": "2025-09-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2025-10",
+        "facility_id": "FAC-02",
+        "due": "2025-10-15",
+        "paid_on": "2025-10-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2025-11",
+        "facility_id": "FAC-02",
+        "due": "2025-11-15",
+        "paid_on": "2025-11-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2025-12",
+        "facility_id": "FAC-02",
+        "due": "2025-12-15",
+        "paid_on": "2025-12-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2026-01",
+        "facility_id": "FAC-02",
+        "due": "2026-01-15",
+        "paid_on": "2026-01-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2026-02",
+        "facility_id": "FAC-02",
+        "due": "2026-02-15",
+        "paid_on": "2026-02-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2026-03",
+        "facility_id": "FAC-02",
+        "due": "2026-03-15",
+        "paid_on": "2026-03-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2026-04",
+        "facility_id": "FAC-02",
+        "due": "2026-04-15",
+        "paid_on": "2026-04-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2026-05",
+        "facility_id": "FAC-02",
+        "due": "2026-05-15",
+        "paid_on": "2026-05-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2026-06",
+        "facility_id": "FAC-02",
+        "due": "2026-06-15",
+        "paid_on": "2026-06-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2026-07",
+        "facility_id": "FAC-02",
+        "due": "2026-07-15",
+        "paid_on": "2026-07-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2026-08",
+        "facility_id": "FAC-02",
+        "due": "2026-08-15",
+        "paid_on": "2026-08-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-02-2026-09",
+        "facility_id": "FAC-02",
+        "due": "2026-09-15",
+        "paid_on": "2026-09-15",
+        "amount": 3067.66,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2024-10",
+        "facility_id": "FAC-03",
+        "due": "2024-10-15",
+        "paid_on": "2024-10-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2024-11",
+        "facility_id": "FAC-03",
+        "due": "2024-11-15",
+        "paid_on": "2024-11-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2024-12",
+        "facility_id": "FAC-03",
+        "due": "2024-12-15",
+        "paid_on": "2024-12-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2025-01",
+        "facility_id": "FAC-03",
+        "due": "2025-01-15",
+        "paid_on": "2025-01-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2025-02",
+        "facility_id": "FAC-03",
+        "due": "2025-02-15",
+        "paid_on": "2025-02-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2025-03",
+        "facility_id": "FAC-03",
+        "due": "2025-03-15",
+        "paid_on": "2025-03-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2025-04",
+        "facility_id": "FAC-03",
+        "due": "2025-04-15",
+        "paid_on": "2025-04-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2025-05",
+        "facility_id": "FAC-03",
+        "due": "2025-05-15",
+        "paid_on": "2025-05-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2025-06",
+        "facility_id": "FAC-03",
+        "due": "2025-06-15",
+        "paid_on": "2025-06-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2025-07",
+        "facility_id": "FAC-03",
+        "due": "2025-07-15",
+        "paid_on": "2025-07-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2025-08",
+        "facility_id": "FAC-03",
+        "due": "2025-08-15",
+        "paid_on": "2025-08-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2025-09",
+        "facility_id": "FAC-03",
+        "due": "2025-09-15",
+        "paid_on": "2025-09-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2025-10",
+        "facility_id": "FAC-03",
+        "due": "2025-10-15",
+        "paid_on": "2025-10-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2025-11",
+        "facility_id": "FAC-03",
+        "due": "2025-11-15",
+        "paid_on": "2025-11-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2025-12",
+        "facility_id": "FAC-03",
+        "due": "2025-12-15",
+        "paid_on": "2025-12-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2026-01",
+        "facility_id": "FAC-03",
+        "due": "2026-01-15",
+        "paid_on": "2026-01-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2026-02",
+        "facility_id": "FAC-03",
+        "due": "2026-02-15",
+        "paid_on": "2026-02-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2026-03",
+        "facility_id": "FAC-03",
+        "due": "2026-03-15",
+        "paid_on": "2026-03-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2026-04",
+        "facility_id": "FAC-03",
+        "due": "2026-04-15",
+        "paid_on": "2026-04-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2026-05",
+        "facility_id": "FAC-03",
+        "due": "2026-05-15",
+        "paid_on": "2026-05-15",
+        "amount": 6082.92,
+        "status": "current"
+      },
+      {
+        "id": "PAY-03-2026-06",
+        "facility_id": "FAC-03",
+        "due": "2026-06-15",
+        "paid_on": "2026-06-25",
+        "amount": 6082.92,
+        "status": "late"
+      },
+      {
+        "id": "PAY-03-2026-07",
+        "facility_id": "FAC-03",
+        "due": "2026-07-15",
+        "paid_on": null,
+        "amount": 6082.92,
+        "status": "missed"
+      },
+      {
+        "id": "PAY-03-2026-08",
+        "facility_id": "FAC-03",
+        "due": "2026-08-15",
+        "paid_on": null,
+        "amount": 6082.92,
+        "status": "missed"
+      },
+      {
+        "id": "PAY-03-2026-09",
+        "facility_id": "FAC-03",
+        "due": "2026-09-15",
+        "paid_on": null,
+        "amount": 6082.92,
+        "status": "missed"
+      },
+      {
+        "id": "PAY-04-2024-10",
+        "facility_id": "FAC-04",
+        "due": "2024-10-15",
+        "paid_on": "2024-10-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2024-11",
+        "facility_id": "FAC-04",
+        "due": "2024-11-15",
+        "paid_on": "2024-11-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2024-12",
+        "facility_id": "FAC-04",
+        "due": "2024-12-15",
+        "paid_on": "2024-12-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2025-01",
+        "facility_id": "FAC-04",
+        "due": "2025-01-15",
+        "paid_on": "2025-01-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2025-02",
+        "facility_id": "FAC-04",
+        "due": "2025-02-15",
+        "paid_on": "2025-02-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2025-03",
+        "facility_id": "FAC-04",
+        "due": "2025-03-15",
+        "paid_on": "2025-03-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2025-04",
+        "facility_id": "FAC-04",
+        "due": "2025-04-15",
+        "paid_on": "2025-04-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2025-05",
+        "facility_id": "FAC-04",
+        "due": "2025-05-15",
+        "paid_on": "2025-05-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2025-06",
+        "facility_id": "FAC-04",
+        "due": "2025-06-15",
+        "paid_on": "2025-06-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2025-07",
+        "facility_id": "FAC-04",
+        "due": "2025-07-15",
+        "paid_on": "2025-07-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2025-08",
+        "facility_id": "FAC-04",
+        "due": "2025-08-15",
+        "paid_on": "2025-08-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2025-09",
+        "facility_id": "FAC-04",
+        "due": "2025-09-15",
+        "paid_on": "2025-09-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2025-10",
+        "facility_id": "FAC-04",
+        "due": "2025-10-15",
+        "paid_on": "2025-10-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2025-11",
+        "facility_id": "FAC-04",
+        "due": "2025-11-15",
+        "paid_on": "2025-11-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2025-12",
+        "facility_id": "FAC-04",
+        "due": "2025-12-15",
+        "paid_on": "2025-12-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2026-01",
+        "facility_id": "FAC-04",
+        "due": "2026-01-15",
+        "paid_on": "2026-01-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2026-02",
+        "facility_id": "FAC-04",
+        "due": "2026-02-15",
+        "paid_on": "2026-02-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2026-03",
+        "facility_id": "FAC-04",
+        "due": "2026-03-15",
+        "paid_on": "2026-03-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2026-04",
+        "facility_id": "FAC-04",
+        "due": "2026-04-15",
+        "paid_on": "2026-04-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2026-05",
+        "facility_id": "FAC-04",
+        "due": "2026-05-15",
+        "paid_on": "2026-05-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2026-06",
+        "facility_id": "FAC-04",
+        "due": "2026-06-15",
+        "paid_on": "2026-06-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2026-07",
+        "facility_id": "FAC-04",
+        "due": "2026-07-15",
+        "paid_on": "2026-07-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2026-08",
+        "facility_id": "FAC-04",
+        "due": "2026-08-15",
+        "paid_on": "2026-08-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-04-2026-09",
+        "facility_id": "FAC-04",
+        "due": "2026-09-15",
+        "paid_on": "2026-09-15",
+        "amount": 5039.24,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2024-10",
+        "facility_id": "FAC-05",
+        "due": "2024-10-15",
+        "paid_on": "2024-10-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2024-11",
+        "facility_id": "FAC-05",
+        "due": "2024-11-15",
+        "paid_on": "2024-11-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2024-12",
+        "facility_id": "FAC-05",
+        "due": "2024-12-15",
+        "paid_on": "2024-12-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2025-01",
+        "facility_id": "FAC-05",
+        "due": "2025-01-15",
+        "paid_on": "2025-01-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2025-02",
+        "facility_id": "FAC-05",
+        "due": "2025-02-15",
+        "paid_on": "2025-02-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2025-03",
+        "facility_id": "FAC-05",
+        "due": "2025-03-15",
+        "paid_on": "2025-03-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2025-04",
+        "facility_id": "FAC-05",
+        "due": "2025-04-15",
+        "paid_on": "2025-04-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2025-05",
+        "facility_id": "FAC-05",
+        "due": "2025-05-15",
+        "paid_on": "2025-05-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2025-06",
+        "facility_id": "FAC-05",
+        "due": "2025-06-15",
+        "paid_on": "2025-06-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2025-07",
+        "facility_id": "FAC-05",
+        "due": "2025-07-15",
+        "paid_on": "2025-07-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2025-08",
+        "facility_id": "FAC-05",
+        "due": "2025-08-15",
+        "paid_on": "2025-08-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2025-09",
+        "facility_id": "FAC-05",
+        "due": "2025-09-15",
+        "paid_on": "2025-09-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2025-10",
+        "facility_id": "FAC-05",
+        "due": "2025-10-15",
+        "paid_on": "2025-10-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2025-11",
+        "facility_id": "FAC-05",
+        "due": "2025-11-15",
+        "paid_on": "2025-11-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2025-12",
+        "facility_id": "FAC-05",
+        "due": "2025-12-15",
+        "paid_on": "2025-12-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2026-01",
+        "facility_id": "FAC-05",
+        "due": "2026-01-15",
+        "paid_on": "2026-01-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2026-02",
+        "facility_id": "FAC-05",
+        "due": "2026-02-15",
+        "paid_on": "2026-02-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2026-03",
+        "facility_id": "FAC-05",
+        "due": "2026-03-15",
+        "paid_on": "2026-03-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2026-04",
+        "facility_id": "FAC-05",
+        "due": "2026-04-15",
+        "paid_on": "2026-04-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2026-05",
+        "facility_id": "FAC-05",
+        "due": "2026-05-15",
+        "paid_on": "2026-05-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2026-06",
+        "facility_id": "FAC-05",
+        "due": "2026-06-15",
+        "paid_on": "2026-06-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2026-07",
+        "facility_id": "FAC-05",
+        "due": "2026-07-15",
+        "paid_on": "2026-07-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2026-08",
+        "facility_id": "FAC-05",
+        "due": "2026-08-15",
+        "paid_on": "2026-08-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-05-2026-09",
+        "facility_id": "FAC-05",
+        "due": "2026-09-15",
+        "paid_on": "2026-09-15",
+        "amount": 11030.31,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2024-10",
+        "facility_id": "FAC-06",
+        "due": "2024-10-15",
+        "paid_on": "2024-10-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2024-11",
+        "facility_id": "FAC-06",
+        "due": "2024-11-15",
+        "paid_on": "2024-11-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2024-12",
+        "facility_id": "FAC-06",
+        "due": "2024-12-15",
+        "paid_on": "2024-12-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2025-01",
+        "facility_id": "FAC-06",
+        "due": "2025-01-15",
+        "paid_on": "2025-01-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2025-02",
+        "facility_id": "FAC-06",
+        "due": "2025-02-15",
+        "paid_on": "2025-02-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2025-03",
+        "facility_id": "FAC-06",
+        "due": "2025-03-15",
+        "paid_on": "2025-03-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2025-04",
+        "facility_id": "FAC-06",
+        "due": "2025-04-15",
+        "paid_on": "2025-04-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2025-05",
+        "facility_id": "FAC-06",
+        "due": "2025-05-15",
+        "paid_on": "2025-05-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2025-06",
+        "facility_id": "FAC-06",
+        "due": "2025-06-15",
+        "paid_on": "2025-06-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2025-07",
+        "facility_id": "FAC-06",
+        "due": "2025-07-15",
+        "paid_on": "2025-07-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2025-08",
+        "facility_id": "FAC-06",
+        "due": "2025-08-15",
+        "paid_on": "2025-08-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2025-09",
+        "facility_id": "FAC-06",
+        "due": "2025-09-15",
+        "paid_on": "2025-09-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2025-10",
+        "facility_id": "FAC-06",
+        "due": "2025-10-15",
+        "paid_on": "2025-10-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2025-11",
+        "facility_id": "FAC-06",
+        "due": "2025-11-15",
+        "paid_on": "2025-11-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2025-12",
+        "facility_id": "FAC-06",
+        "due": "2025-12-15",
+        "paid_on": "2025-12-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2026-01",
+        "facility_id": "FAC-06",
+        "due": "2026-01-15",
+        "paid_on": "2026-01-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2026-02",
+        "facility_id": "FAC-06",
+        "due": "2026-02-15",
+        "paid_on": "2026-02-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2026-03",
+        "facility_id": "FAC-06",
+        "due": "2026-03-15",
+        "paid_on": "2026-03-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2026-04",
+        "facility_id": "FAC-06",
+        "due": "2026-04-15",
+        "paid_on": "2026-04-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2026-05",
+        "facility_id": "FAC-06",
+        "due": "2026-05-15",
+        "paid_on": "2026-05-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2026-06",
+        "facility_id": "FAC-06",
+        "due": "2026-06-15",
+        "paid_on": "2026-06-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2026-07",
+        "facility_id": "FAC-06",
+        "due": "2026-07-15",
+        "paid_on": "2026-07-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2026-08",
+        "facility_id": "FAC-06",
+        "due": "2026-08-15",
+        "paid_on": "2026-08-15",
+        "amount": 1507.39,
+        "status": "current"
+      },
+      {
+        "id": "PAY-06-2026-09",
+        "facility_id": "FAC-06",
+        "due": "2026-09-15",
+        "paid_on": "2026-09-15",
+        "amount": 1507.39,
+        "status": "current"
+      }
+    ],
+    "Application": [
+      {
+        "id": "APP-1001",
+        "business_id": "BUS-01",
+        "product": "term loan",
+        "amount": 400000,
+        "term_months": 84,
+        "rate": 0.085,
+        "purpose": "Second location: fit-out and ovens for a second bakery on Lantern Row, with a wholesale kitchen at the back.",
+        "submitted": "2026-10-06",
+        "requested_by": "Priya Raghunathan",
+        "monthly_payment": 6334.59
+      },
+      {
+        "id": "APP-1002",
+        "business_id": "BUS-02",
+        "product": "equipment loan",
+        "amount": 250000,
+        "term_months": 60,
+        "rate": 0.079,
+        "purpose": "Equipment: two digital imaging units and a sterilisation suite for the third chair.",
+        "submitted": "2026-10-02",
+        "requested_by": "Anneliese Okafor",
+        "monthly_payment": 5057.14
+      },
+      {
+        "id": "APP-1003",
+        "business_id": "BUS-03",
+        "product": "working capital line",
+        "amount": 150000,
+        "term_months": 36,
+        "rate": 0.095,
+        "purpose": "Working capital: paper stock and payroll through the seasonal trough.",
+        "submitted": "2026-10-05",
+        "requested_by": "Declan Hurst",
+        "monthly_payment": 4804.94
+      },
+      {
+        "id": "APP-1004",
+        "business_id": "BUS-04",
+        "product": "term loan",
+        "amount": 600000,
+        "term_months": 120,
+        "rate": 0.085,
+        "purpose": "Fit-out of a second gym in the Mossbank Mill lease: walls, matting, changing rooms.",
+        "submitted": "2026-10-07",
+        "requested_by": "Ingrid Vossberg",
+        "monthly_payment": 7439.14
+      },
+      {
+        "id": "APP-1005",
+        "business_id": "BUS-06",
+        "product": "vehicle loan",
+        "amount": 200000,
+        "term_months": 60,
+        "rate": 0.075,
+        "purpose": "Vehicles: three fitted service vans for the new county maintenance contract.",
+        "submitted": "2026-10-09",
+        "requested_by": "Maureen Pell",
+        "monthly_payment": 4007.59
+      }
+    ]
+  }
+}

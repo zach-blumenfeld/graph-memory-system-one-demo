@@ -1,0 +1,109 @@
+{
+  "system": "CRM",
+  "as_of": "2026-10-13",
+  "records": {
+    "RelationshipManager": [
+      {
+        "id": "RM-01",
+        "name": "Dana Whitlock"
+      },
+      {
+        "id": "RM-02",
+        "name": "Omar Farsi"
+      }
+    ],
+    "Coverage": [
+      {
+        "rm_id": "RM-01",
+        "business_id": "BUS-01",
+        "since": "2021-01-01"
+      },
+      {
+        "rm_id": "RM-01",
+        "business_id": "BUS-04",
+        "since": "2021-01-01"
+      },
+      {
+        "rm_id": "RM-01",
+        "business_id": "BUS-05",
+        "since": "2022-03-01"
+      },
+      {
+        "rm_id": "RM-02",
+        "business_id": "BUS-02",
+        "since": "2019-03-01"
+      },
+      {
+        "rm_id": "RM-02",
+        "business_id": "BUS-03",
+        "since": "2023-05-01"
+      },
+      {
+        "rm_id": "RM-02",
+        "business_id": "BUS-06",
+        "since": "2023-07-01"
+      },
+      {
+        "rm_id": "RM-02",
+        "business_id": "BUS-07",
+        "since": "2021-09-01"
+      }
+    ],
+    "Note": [
+      {
+        "id": "NOTE-01",
+        "business_id": "BUS-01",
+        "date": "2026-09-18",
+        "text": "Site visit to Harrow Street. The second location on Lantern Row has signed heads of terms; Priya wants to open before the spring. Tom will run the second site day to day. Wholesale now a third of sales."
+      },
+      {
+        "id": "NOTE-02",
+        "business_id": "BUS-01",
+        "date": "2026-04-02",
+        "text": "Annual review. Priya (58) is thinking about succession in five years; Tom would take over. Strong wholesale pipeline with three cafes signed this quarter."
+      },
+      {
+        "id": "NOTE-03",
+        "business_id": "BUS-02",
+        "date": "2026-08-30",
+        "text": "The practice added a third chair in July; the waiting list is six weeks. Equipment quotes attached to the application."
+      },
+      {
+        "id": "NOTE-04",
+        "business_id": "BUS-03",
+        "date": "2026-07-01",
+        "text": "The fraud team placed a block on the operating account in June after counterfeit cheque deposits. KYC refresh requested twice; no response from the director."
+      },
+      {
+        "id": "NOTE-05",
+        "business_id": "BUS-04",
+        "date": "2026-09-25",
+        "text": "Mossbank Mill lease signed 2026-09-20, ten years with a break at five. Founder memberships pre-sold: 412 at the visit, target 600 before opening. Original gym at capacity on weekday evenings."
+      },
+      {
+        "id": "NOTE-06",
+        "business_id": "BUS-04",
+        "date": "2025-11-05",
+        "text": "Membership growth steady through the year. One payment on the fit-out loan went in a week late in August while the card terminal was replaced; nothing since."
+      },
+      {
+        "id": "NOTE-07",
+        "business_id": "BUS-05",
+        "date": "2026-08-20",
+        "text": "Alder Logistics missed the July and August payments. Tom Alder says two large customers are paying late. Collections engaged; no arrangement agreed yet."
+      },
+      {
+        "id": "NOTE-08",
+        "business_id": "BUS-06",
+        "date": "2026-09-30",
+        "text": "Maureen Pell wants three fitted vans for the new county maintenance contract; the current fleet is two vans at end of life. Contract runs three years."
+      },
+      {
+        "id": "NOTE-09",
+        "business_id": "BUS-07",
+        "date": "2026-06-15",
+        "text": "Wrenfield Mechanical on plan; Maureen Pell holds a minority stake and sits on the board. KYC refresh scheduled for Q4."
+      }
+    ]
+  }
+}

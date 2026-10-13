@@ -1,0 +1,142 @@
+{
+  "system": "Ownership",
+  "as_of": "2026-10-13",
+  "records": {
+    "Person": [
+      {
+        "id": "PER-01",
+        "name": "Priya Raghunathan",
+        "dob": "1968-04-12",
+        "role": "owner-director"
+      },
+      {
+        "id": "PER-02",
+        "name": "Tom Alder",
+        "dob": "1975-09-03",
+        "role": "owner-director"
+      },
+      {
+        "id": "PER-03",
+        "name": "Anneliese Okafor",
+        "dob": "1980-02-27",
+        "role": "partner"
+      },
+      {
+        "id": "PER-04",
+        "name": "Marcus Tiller",
+        "dob": "1977-11-15",
+        "role": "partner"
+      },
+      {
+        "id": "PER-05",
+        "name": "Declan Hurst",
+        "dob": "1985-06-30",
+        "role": "owner-director"
+      },
+      {
+        "id": "PER-06",
+        "name": "Ingrid Vossberg",
+        "dob": "1983-01-19",
+        "role": "owner-director"
+      },
+      {
+        "id": "PER-07",
+        "name": "Ben Achterberg",
+        "dob": "1990-08-08",
+        "role": "owner"
+      },
+      {
+        "id": "PER-08",
+        "name": "Ilse Brandvold",
+        "dob": "1971-12-02",
+        "role": "owner"
+      },
+      {
+        "id": "PER-09",
+        "name": "Maureen Pell",
+        "dob": "1966-03-25",
+        "role": "owner-director"
+      },
+      {
+        "id": "PER-10",
+        "name": "Gavin Wrenfield",
+        "dob": "1979-07-07",
+        "role": "owner-director"
+      }
+    ],
+    "Ownership": [
+      {
+        "person_id": "PER-01",
+        "business_id": "BUS-01",
+        "pct": 55,
+        "since": "2016-03-01"
+      },
+      {
+        "person_id": "PER-02",
+        "business_id": "BUS-01",
+        "pct": 45,
+        "since": "2016-03-01"
+      },
+      {
+        "person_id": "PER-03",
+        "business_id": "BUS-02",
+        "pct": 50,
+        "since": "2015-06-01"
+      },
+      {
+        "person_id": "PER-04",
+        "business_id": "BUS-02",
+        "pct": 50,
+        "since": "2015-06-01"
+      },
+      {
+        "person_id": "PER-05",
+        "business_id": "BUS-03",
+        "pct": 100,
+        "since": "2018-02-01"
+      },
+      {
+        "person_id": "PER-06",
+        "business_id": "BUS-04",
+        "pct": 70,
+        "since": "2018-09-01"
+      },
+      {
+        "person_id": "PER-07",
+        "business_id": "BUS-04",
+        "pct": 30,
+        "since": "2020-01-01"
+      },
+      {
+        "person_id": "PER-02",
+        "business_id": "BUS-05",
+        "pct": 60,
+        "since": "2019-04-01"
+      },
+      {
+        "person_id": "PER-08",
+        "business_id": "BUS-05",
+        "pct": 40,
+        "since": "2019-04-01"
+      },
+      {
+        "person_id": "PER-09",
+        "business_id": "BUS-06",
+        "pct": 100,
+        "since": "2011-05-01"
+      },
+      {
+        "person_id": "PER-10",
+        "business_id": "BUS-07",
+        "pct": 70,
+        "since": "2012-01-01"
+      },
+      {
+        "person_id": "PER-09",
+        "business_id": "BUS-07",
+        "pct": 30,
+        "since": "2019-06-01"
+      }
+    ]
+  }
+}
