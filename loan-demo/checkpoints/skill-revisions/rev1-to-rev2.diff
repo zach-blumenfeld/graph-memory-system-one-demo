@@ -1,0 +1,112 @@
+diff -ru rev1-63c33c7be679ea32/SKILL.md rev2-1c4e170b79c08bb1/SKILL.md
+--- rev1-63c33c7be679ea32/SKILL.md	2026-10-13 19:12:11
++++ rev2-1c4e170b79c08bb1/SKILL.md	2026-10-13 19:28:47
+@@ -4,7 +4,7 @@
+ metadata:
+   aip-version: "0.5a1"
+   author: lantern-mutual-credit
+-  version: "1"
++  version: "2"
+ ---
+ 
+ # AIP runtime — format 0.5a1
+@@ -39,7 +39,7 @@
+   characteristic before the decision model judges risk tier, connected exposure and outcome, and it is only
+   asked when the policy leaves a judgment. The agent writes the one generative piece, the rationale, which
+   must state the outcome first and cite every figure to a record; when you decline someone you owe them a
+-  reason. One fix pass after a failed check, no loops. A decline on a customer of five years or more goes to a
++  reason. One fix pass after a failed check, no loops. Connected exposure over $250,000 (R7) and a decline on a customer of five years or more go to a
+   human before filing. Every decision is auditable: filed with the rules it applied, the records it cited,
+   its confidence, the procedure revision, and every judgment call logged.
+ 
+@@ -162,7 +162,7 @@
+ 
+   - name: precedents
+     kind: execution
+-    description: Look up filed decisions on the same product and band with loan precedents; settle the outcome for the automatic bands, set confidence and needs_human (a decline under G1), and build the evidence digest for the rationale.
++    description: Look up filed decisions on the same product and band with loan precedents; settle the outcome for the automatic bands, set confidence and needs_human (R7 fired, or a decline under G1), and build the evidence digest for the rationale.
+     inputs:
+       - name: application_id
+         type: string
+@@ -182,7 +182,7 @@
+ 
+   - name: by-confidence
+     kind: router
+-    description: A decline on a customer of five years or more ends the run unfiled for a human; everything else goes to the write-up. (An answer under its threshold has already paused for a review; that is the other way a human enters.)
++    description: Connected exposure over the cap (R7 fired) or a decline on a customer of five years or more ends the run unfiled for a human; everything else goes to the write-up. (An answer under its threshold has already paused for a review; that is the other way a human enters.)
+     branch_on: needs_human
+     branches:
+       "true": end
+@@ -310,7 +310,7 @@
+         description: approve | counter | decline.
+       - name: needs_human
+         type: boolean
+-        description: True when a decline on a customer of five years or more stopped before filing.
++        description: True when the run stopped before filing for a human - R7 (connected exposure over the cap) fired, or a decline on a customer of five years or more.
+       - name: decision_id
+         type: string
+         description: The filed Decision's key (DEC-APP-NNNN-NN); empty when nothing was filed.
+@@ -325,7 +325,7 @@
+   - Naming a person, or mentioning an owner's age, date of birth, sex, gender, ethnicity, race, religion, national origin, nationality, marital status, disability or pregnancy anywhere in the file; describe the business, not the people.
+   - Passing a withheld note, a date of birth or a person's name into the assessment by editing the state; the judgment step cannot see protected characteristics.
+   - Looping on fixes after a failed check; one fix pass, then a human.
+-  - Filing a decline on a customer of five years or more without a human seeing it first, or filing anything before the check has passed.
++  - Filing a decline on a customer of five years or more, or any decision where connected exposure is over the cap (R7), without a human seeing it first; or filing anything before the check has passed.
+   - Countering at a smaller amount to address a risk that lives at a connected business rather than in the applicant's capacity.
+   - Treating precedents as binding; follow or depart, but say which and why.
+ ```
+diff -ru rev1-63c33c7be679ea32/scripts/precedents.py rev2-1c4e170b79c08bb1/scripts/precedents.py
+--- rev1-63c33c7be679ea32/scripts/precedents.py	2026-10-13 19:12:11
++++ rev2-1c4e170b79c08bb1/scripts/precedents.py	2026-10-13 19:28:47
+@@ -12,7 +12,8 @@
+ - confidence 1.0 when the hard rules decided; otherwise 0.6, the `outcome` threshold the decision model
+   cleared (the state carries collapsed answers, not probabilities).
+ - needs_human: a decline on a customer of five years or more (G1 in `guidance`) goes to a human before
+-  it is filed. The run then ends unfiled with a note saying what the human must do.
++  it is filed; and, since revision 2, any fired rule whose effect is "human" (R7, connected exposure over
++  $250,000) does too, whatever the judgment said. The run then ends unfiled with a note for the human.
+ """
+ from loanlib import collect_cites, loan, read_state, write
+ 
+@@ -46,12 +47,21 @@
+ 
+ # --- G1: a decline on a long-standing customer goes to a human before filing
+ g1 = next((g for g in state.get("guidance", []) if g.get("rule") == "G1"), None)
+-needs_human = outcome == "decline" and g1 is not None
++# --- revision 2: a hard rule whose effect is "human" (R7, connected exposure over the cap) always goes
++#     to a person, whatever the judgment said
++human_rules = [f for f in state.get("fired", []) if f.get("effect") == "human"]
++needs_human = (outcome == "decline" and g1 is not None) or bool(human_rules)
+ 
+ fig = state.get("figures", {})
+ fired = state.get("fired", [])
+ fired_txt = ", ".join(f"{f['rule']} {f.get('name')} ({f.get('value')} vs {f.get('threshold')})" for f in fired) or "none"
+-if needs_human:
++if human_rules:
++    rules_txt = "; ".join(f"{f['rule']} {f.get('name')} ({f.get('value')} vs {f.get('threshold')})" for f in human_rules)
++    note = (f"NOT FILED: {app_id} goes to a human because {rules_txt} fired - the policy says connected exposure over the cap is "
++            f"never decided by the procedure alone. The assessment so far: outcome {outcome} ({source}), fired {fired_txt}. A human must "
++            f"read the figures and the fired rules in this run, decide approve, counter or decline, then file by hand with a rationale that "
++            f"cites the records.")
++elif needs_human:
+     note = (f"NOT FILED: {app_id} is a decline ({'hard rules' if source == 'hard rules' else 'assessed'}; fired: {fired_txt}) on a "
+             f"customer of {g1.get('value')} years, at or over the {g1.get('threshold')}-year guidance line (G1). A human must review "
+             f"the decline before anything is filed: read the figures and fired rules in this run, decide approve, counter or decline, "
+diff -ru rev1-63c33c7be679ea32/source/README.md rev2-1c4e170b79c08bb1/source/README.md
+--- rev1-63c33c7be679ea32/source/README.md	2026-10-13 19:12:11
++++ rev2-1c4e170b79c08bb1/source/README.md	2026-10-13 19:28:47
+@@ -183,3 +183,14 @@
+ - Not run here, by request: the other applications through the skill (the plan runs them through the
+   server), fresh-agent sessions, and the review band end to end with the decision model (its path was
+   exercised with injected answers only).
++
++## Revision 2 (2026-10-13): the compliance officer's edit
++
++The compliance system gained one rule, R7 `connected_exposure_cap`: connected exposure (the principal of
++every open facility at businesses an owner holds 25% or more of) over $250,000 always goes to a human.
++It was added to `compliance.json` and `policy.md` and imported with `loan import --rules-only`; the
++bank's policy engine (`loan policy`) now reports it with effect `human`. Revision 1 of this procedure
++would see R7 in `fired` and still file. Revision 2 changes one thing: `precedents.py` sets
++`needs_human` when any fired rule has effect `human`, so `by-confidence` ends the run unfiled with a
++note for the human. The judgment step still runs first (the policy band is review), so the human
++reads the typed answers alongside the figures. Frontmatter `version` is "2"; nothing else moved.

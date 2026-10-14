@@ -553,6 +553,7 @@ tools/make_fixture.py   regenerates data/bank/ (deterministic)
 prompts/                runs.yaml (the five recorded runs), author.md (the compile prompt)
 skills/assess-business-loan/   the procedure: SKILL.md, scripts/, assets/, source/
 checkpoints/            01-import.json, 02-runs.json, traces/, 03-publish.json, 04-live-runs.md, 05-haiku-runs.md, start-app-*.json
+checkpoints/skill-revisions/   both published revisions as the server has them (rev1-…, rev2-…) and rev1-to-rev2.diff
 queries.md              the numbered Browser queries referenced above, tested
 docs/                   import.md, recording.md, compile.md, STORY.md
 ```
