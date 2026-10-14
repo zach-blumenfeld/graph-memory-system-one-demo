@@ -87,6 +87,21 @@ ORDER BY s.step_number
 ```
 
 ```cypher
+// [memory] - 3c - all five recorded runs side by side as chains, steps in order (virtual NEXT edges; nothing written)
+// five chains of 22, 20, 20, 21 and 16 steps: same job, different lengths. Caption `action` to read the loan calls
+MATCH (t:ReasoningTrace)
+WITH t ORDER BY t.started_at LIMIT 5
+MATCH (t)-[:HAS_STEP]->(s:ReasoningStep)
+WITH t, s ORDER BY s.step_number
+WITH t, collect(s) AS steps
+UNWIND range(0, size(steps)-2) AS i
+CALL apoc.create.vRelationship(steps[i], 'NEXT', {}, steps[i+1]) YIELD rel
+WITH t, steps, collect(rel) AS rels
+CALL apoc.create.vRelationship(t, 'FIRST', {}, steps[0]) YIELD rel AS first
+RETURN t, steps, rels, first
+```
+
+```cypher
 // [memory] - 4 - every judgment call across the five runs, grouped by question: the decision points of the procedure
 MATCH (d:Decision:ReasoningStep) WHERE d.question IS NOT NULL
 RETURN d.question AS question, collect(d.answer) AS answers, count(*) AS times
