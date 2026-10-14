@@ -110,7 +110,7 @@ WITH t, collect(s) AS steps
 RETURN substring(toString(t.started_at), 0, 16) AS run,
        size(steps) AS steps,
        [i IN range(0, size(steps)-1) WHERE steps[i].action STARTS WITH 'loan ownership' | i+1][0] AS ownership_at_step,
-       size([s IN steps WHERE s.action STARTS WITH 'loan rationale submit']) AS rationale_attempts,
+       size([s IN steps WHERE s.action STARTS WITH 'loan rationale submit' AND NOT s.action CONTAINS '--help']) AS rationale_attempts,
        size([s IN steps WHERE s:Decision]) AS judgment_calls,
        [s IN steps WHERE s:Decision | s.question][0] AS first_judgment_asked
 ORDER BY t.started_at
