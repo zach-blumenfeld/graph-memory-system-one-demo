@@ -1,21 +1,26 @@
-# Show me how you decided. Now do it a hundred times.
+# A business-loan assessment on graph memory, distilled into a procedure
 
-`A business-loan assessment: five bank systems in graph memory, an agent's decisions recorded as traces, the traces distilled into a procedure you can read, run, record and change.`
+A worked example, with some light experimentation at the end. Five bank systems go into one graph;
+an agent assesses loan applications over that graph and every step is recorded; the recordings are
+distilled into a procedure that can be read, run, recorded and changed; and the same procedure is
+then driven by a much smaller model to see what, if anything, is lost. It is the same three ideas as
+the [email example](../aip-demo/README.md), on a problem where the explanation matters as much as
+the answer:
 
-The same three things as the [email-blast example](../aip-demo/README.md), on a problem where the
-explanation matters as much as the answer:
-
-1. Graph memory for agents: five systems in one graph, so a fact that lives in none of them alone
+1. Graph memory for agents. Five systems in one graph, so a fact that lives in none of them alone
    (an owner's other business is behind on a loan with the same bank) is one query away.
-2. Skill distillation into a graph-shaped procedure (AIP), where the evidence gathering is code, the
-   judgment is a typed question with a confidence, and the written rationale is the only thing the
+2. Skill distillation into a graph-shaped procedure (AIP). The evidence gathering is code, the
+   judgment is a typed question with a probability, and the written rationale is the only thing the
    model writes.
 3. Every decision filed back into the graph with the rules it applied, the records it cited, its
-   confidence and the procedure revision that produced it. "How did you decide this one" is a query.
+   confidence and the procedure revision that produced it. "How did you decide this one" becomes a
+   query.
 
 Everything about the bank, the applicants, the people and the policy is invented. No regulation is
-named here; the three points that matter are said plainly: when you decline someone you owe them a
-reason, the judgment step cannot see protected characteristics, and every decision is auditable.
+named; three points are taken as given because they are what any lender would say: when you decline
+someone you owe them a reason, the judgment step should not see protected characteristics, and every
+decision should be auditable. The numbers at the end come from one build with one run per prompt, so
+they show direction, not decimals.
 
 ## Prerequisites
 
@@ -32,23 +37,29 @@ reason, the judgment step cannot see protected characteristics, and every decisi
 - In `loan-demo/`: `cp .env.example .env` (memory database credentials, TypeSafe key), `make sync`
   (`uv sync` and `uv tool install --editable .`, so `loan` is on PATH), `loan doctor`
 
-## The story
+## The problem
 
 A small business applies to Lantern Mutual, a made-up bank, for a loan to open a second location.
 Inside the bank someone pulls data from five systems, stitches it together by hand, and forms a
-judgment nobody can fully reconstruct later.
+judgment that nobody can fully reconstruct later. The interesting facts are usually the ones that
+sit across systems: the ownership register says who owns what, the loan book says which facilities
+are late, and only by joining the two do you see that one of the applicant's owners is also the
+majority owner of a business that is ninety days behind with the same bank.
 
-Act one: an agent does that job over a graph that connects the five systems, finds the fact that
-lives in no single system, writes a recommendation with its evidence, and every step is recorded.
-Then the same job four more times: the same work, in different orders, with differently worded
-judgments.
+The example runs in three stages, each of which can be inspected on its own:
 
-Act two: the recorded runs are distilled into a procedure. The evidence gathering is code and runs
-the same way every time; the judgment is three typed questions answered with a probability; the
-rationale is written by the model against the evidence and checked before anything is filed; the
-decision lands in the graph as a precedent for the next one. Then the bank changes one rule, publishes
-revision 2, and runs the same application again. The point is not speed. The point is that you can
-say exactly what was done, show it for every run, and change it on purpose.
+1. An agent does the job over a graph that connects the five systems, writes a recommendation with
+   its evidence, and every step is recorded. Then the same job four more times, and the runs are
+   compared.
+2. The recorded runs are distilled into a procedure. The evidence gathering becomes code that runs
+   the same way every time; the judgment becomes three typed questions answered with a probability;
+   the rationale is still written by the model, against the evidence, and checked before anything is
+   filed; the filed decision becomes a precedent for the next one.
+3. The procedure is run on a server, a rule is changed and revision 2 is published, and the whole
+   thing is driven once more by a smaller model.
+
+The point is not that any of this is faster, though some of it turned out to be. The point is that
+at each stage you can say exactly what was done, show it for every run, and change it on purpose.
 
 ## The five systems
 
@@ -58,7 +69,7 @@ say exactly what was done, show it for every run, and change it on purpose.
 |---|---|---|
 | Core banking | `core_banking.json` | 7 businesses, 10 accounts, 24 months of cash flow per account |
 | Loan and credit | `loans.json` | 7 facilities, 144 payments (each current, late or missed), 5 applications |
-| Compliance | `compliance.json` | 7 KYC records, the policy as `Rule` rows (R1–R6, G1; R7 arrives in the edit beat), 1 fraud event |
+| Compliance | `compliance.json` | 7 KYC records, the policy as `Rule` rows (R1–R6, G1; R7 is added later, in [Changing a rule](#changing-a-rule)), 1 fraud event |
 | Ownership | `ownership.json` | 10 people (with a date of birth, on purpose), 12 ownership stakes with percentages |
 | CRM | `crm.json` | 2 relationship managers, their coverage, 9 notes |
 
@@ -77,11 +88,11 @@ The applicants:
 
 | application | business | ask | what the policy says |
 |---|---|---|---|
-| APP-1001 | Harrow Street Bakery, 6-year customer, coverage 1.6 | $400K term loan, second location | review: the 45% owner also holds 60% of Alder Logistics, whose $300K facility is 90 days late (R5). On its own the bakery is clean. The hero case. |
+| APP-1001 | Harrow Street Bakery, 6-year customer, coverage 1.6 | $400K term loan, second location | review: the 45% owner also holds 60% of Alder Logistics, whose $300K facility is 90 days late (R5). On its own the bakery is clean. |
 | APP-1002 | Ridgeline Dental Partners, coverage 1.9 | $250K equipment loan | auto approve: nothing fires |
 | APP-1003 | Corvid Print Co. | $150K working capital line | auto decline: KYC overdue (R1), a fraud event four months ago (R2) |
-| APP-1004 | Mossbank Climbing Gym, 7-year customer | $600K term loan, second gym | review: coverage 1.15, inside the judgment band (R3); a signed lease and pre-sold memberships in the CRM notes. The gray case. |
-| APP-1005 | Pell & Daughters Plumbing, 3-year customer, coverage 1.4 | $200K vehicle loan | auto approve; the owner also holds 30% of a business whose facility is current; exposure $1.4M, close to the cap. Held back for the live run. |
+| APP-1004 | Mossbank Climbing Gym, 7-year customer | $600K term loan, second gym | review: coverage 1.15, inside the judgment band (R3); a signed lease and pre-sold memberships in the CRM notes. |
+| APP-1005 | Pell & Daughters Plumbing, 3-year customer, coverage 1.4 | $200K vehicle loan | auto approve; the owner also holds 30% of a business whose facility is current; exposure $1.4M, close to the cap. Not used in the recordings, so the procedure meets it cold. |
 
 `loan verify fixture` checks all of that from the JSON. `make fixture` regenerates the files; the
 generator is deterministic.
@@ -99,7 +110,7 @@ written with the driver so Browser shows real edge types: `OWNS {pct}`, `HOLDS`,
 `HAS_FACILITY`, `HAS_PAYMENT`, `APPLIED`, `KYC`, `HAD`, `SUBJECT_TO`, `COVERS`, `HAS_NOTE`,
 `FOLLOWS`. Decision nodes are not imported; the agent files them later.
 
-The applicant's world, two hops out (`queries.md` beat 1):
+The applicant's world, two hops out (`queries.md`, query 1):
 
 ```cypher
 MATCH (a:Application {key: 'APP-1001'})<-[:APPLIED]-(b:Business)
@@ -111,7 +122,7 @@ OPTIONAL MATCH p5 = (b)<-[:OWNS]-(:Person)-[:OWNS]->(:Business)-[:HAS_FACILITY]-
 RETURN a, b, p1, p2, p3, p4, p5
 ```
 
-And the fact that lives in no single system (beat 2): the application, its business, an owner, the
+And the fact that lives in no single system (query 2): the application, its business, an owner, the
 owner's other business, that business's facility, and the facility's missed payments.
 
 ```cypher
@@ -121,9 +132,9 @@ RETURN path
 ```
 
 How the import works, file by file: [docs/import.md](docs/import.md). `loan import --rules-only`
-updates the policy rules in place; it is how the edit beat lands.
+updates the policy rules in place; it is how the rule change further down lands in the graph.
 
-## Act one: the agent assesses, and is recorded
+## Stage 1: the agent does the job, and is recorded
 
 Claude Code gets one application and one instruction: start by reading the team's page (`loan sop`).
 No skill. It has the `loan` command for the things an agent cannot do by hand:
@@ -162,7 +173,7 @@ precedents); wrote a rationale that bounced off the check twice (no cite markers
 interest rate the first time, the outcome not in the first paragraph the second) and passed the
 third; filed `DEC-APP-1001-01` as refer with confidence 0.7.
 
-One run in the graph, as a connected subgraph (beat 3; `LIMIT 5` for all five):
+One run in the graph, as a connected subgraph (query 3; `LIMIT 5` for all five):
 
 ```cypher
 MATCH (c:Conversation)-[ht:HAS_TRACE]->(t:ReasoningTrace)
@@ -172,7 +183,7 @@ MATCH p2 = (t)-[:HAS_STEP]->(:ReasoningStep)-[:USES_TOOL]->(:ToolCall)
 RETURN c, ht, t, p1, p2
 ```
 
-What to notice across the five:
+What stands out across the five, reading the traces side by side:
 
 - **Every run walked the ownership graph.** The team's page says to, and the agent did, every time.
   What differed was when: run-01 pulled policy, cash flow, facilities and KYC first and ownership
@@ -186,11 +197,11 @@ What to notice across the five:
 - **The check earned its keep.** Run-01 bounced twice (no cite markers and an uncited interest
   rate, then the outcome missing from the first paragraph); the others passed first time.
 - **The outcomes.** Refer (0.7), approve (0.92), decline (0.95), approve (0.75), refer (0.7). The
-  two runs on the same application agreed; the gray case was approved by a model that said it was
-  75% sure.
+  two runs on the same application agreed. The coverage-band case (APP-1004) was approved by a
+  model that said it was 75% sure, a number it chose for itself.
 
-The judgment calls grouped across runs (beat 4): these are the decision points of the procedure,
-found by doing the job.
+The judgment calls grouped across runs (query 4) are, in effect, the decision points of the
+procedure, found by doing the job rather than by designing one up front:
 
 ```cypher
 MATCH (d:Decision:ReasoningStep) WHERE d.question IS NOT NULL
@@ -198,7 +209,7 @@ RETURN d.question AS question, collect(d.answer) AS answers, count(*) AS times
 ORDER BY times DESC
 ```
 
-## Act two: distill the runs into a procedure
+## Stage 2: distil the runs into a procedure
 
 `loan traces export` reads the five runs back out of memory and writes `source/sop.md`,
 `source/policy.md` and `source/traces.md`. One prompt (`prompts/author.md`) and the `aip` authoring
@@ -218,17 +229,17 @@ policy or a trace, and lists what was dropped on purpose.
 | 8 | check | script | `loan rationale submit` and `loan check`; one fix pass (a second client task and a recheck), no loops |
 | 9 | record | script | `loan record` with the outcome, confidence and this skill's revision; `loan decide` for the typed judgments |
 
-Two steps are worth a look. `gather`, because it is what the free-form runs did in five orders, and
-is now code that runs the same way every time. And `assess`, because the typed answers with a
-probability are where the consistency comes from, and because its declared inputs are the whole
-list of what the judgment may see.
+Two steps are worth a closer look. `gather`, because it is what the free-form runs did in five
+orders, and is now code that runs the same way every time. And `assess`, because the typed answers
+with a probability are where the consistency comes from, and because its declared inputs are the
+whole list of what the judgment may see.
 
 The decisions are answered by a System One model, TypeSafe's Jev ([System One](https://docs.typesafe.ai/concepts/system-one)):
 a fixed question about an input, a typed value with a calibrated probability, and a threshold under
 which a human is asked. AIP is the [Agent Instruction Protocol](https://github.com/zach-blumenfeld/aip/tree/aip-0.5a0),
 format 0.5a1, with a server that walks the graph and a client that only sees the pauses.
 
-Publish it and look at it as a graph (beat 5, in the aip database):
+Publish it and look at it as a graph (query 5, in the aip database):
 
 ```
 aip server --inspector                     # http://localhost:8000/inspector/
@@ -246,7 +257,7 @@ The same graph in the inspector:
 
 ![](img/aip-inspector-skill.jpg)
 
-## Run it through the server
+## Stage 3: run it through the server
 
 ```
 make fresh                        # forget earlier local runs and rationales
@@ -263,20 +274,22 @@ records every step against the revision that ran. What happened
   judgment step was skipped. One pause each, the rationale; the check passed first time. The two
   filed decisions have the same outcome, the same fired rules (none) and the same 21 cited keys,
   and the second carries a `PRECEDENT_FOR` edge from the first.
-- **APP-1004, the gray case.** Eleven steps: the policy returned review, so Jev was asked. It
-  answered above every threshold (risk tier medium at 0.89; connected exposure not material; approve
-  at 0.73), so the run did not pause for a human. The plan expected it to; the model was sure, the
-  evidence it saw supports approve, and the run is kept as it happened. The confidence filed is the
-  threshold cleared (0.6); the probabilities are on the `Answer` nodes.
-- **APP-1001, the hero case.** The policy returned review (R5). Jev was sure the connected exposure
-  is material (0.97) and leaned decline (0.82), but its risk-tier answer fell under the 0.6
-  threshold, so the run paused for a review and the agent answered it. Decline on a six-year customer
-  is G1, so the run ended unfiled with a note for a human.
+- **APP-1004, the coverage-band case.** Eleven steps: the policy returned review, so Jev was asked.
+  It answered above every threshold (risk tier medium at 0.89; connected exposure not material;
+  approve at 0.73), so the run did not pause for a human. The expectation going in was that it
+  would; the model was sure, the evidence it saw supports approve, and the run is kept as it
+  happened. The confidence filed is the threshold cleared (0.6); the probabilities are on the
+  `Answer` nodes.
+- **APP-1001, the connected-delinquency case.** The policy returned review (R5). Jev was sure the
+  connected exposure is material (0.97) and leaned decline (0.82), but its risk-tier answer fell
+  under the 0.6 threshold, so the run paused for a review and the agent answered it. Decline on a
+  six-year customer is G1, so the run ended unfiled with a note for a human.
 
-The run in the aip database (beat 6), `Run → StepRun → Answer → Question`, and what the `assess`
+The run in the aip database (query 6), `Run → StepRun → Answer → Question`, and what the `assess`
 step received, stored on every run (6b): the figures, the fired rules, the ownership summary as
-shares, tenure, KYC status, the filtered notes. No date of birth, no name. Stronger than "we told the
-model to ignore those things": it could not see them, and you can prove it for every decision.
+shares, tenure, KYC status, the filtered notes. No date of birth, no name. This is stronger than
+"the model was told to ignore those things": it could not see them, and that can be shown for every
+decision.
 
 ```cypher
 MATCH (r:Run {name: 'assess-business-loan'})-[:STEP_RUN]->(sr:StepRun {step: 'assess'})
@@ -284,8 +297,8 @@ RETURN r.id AS run, r.revision AS revision, sr.input AS input_the_model_saw, sr.
 ORDER BY r.started_at DESC LIMIT 3
 ```
 
-And the decision trace in memory (beat 7): `Decision → CITES → the evidence`, `APPLIED_POLICY → the
-rules`, `PRECEDENT_FOR` from the decision before it.
+And the decision trace in memory (query 7): `Decision → CITES → the evidence`, `APPLIED_POLICY →
+the rules`, `PRECEDENT_FOR` from the decision before it.
 
 ```cypher
 MATCH (d:Decision:Filed)-[:ABOUT]->(a:Application {key: 'APP-1005'})
@@ -297,7 +310,7 @@ OPTIONAL MATCH p4 = (d)<-[:PRECEDENT_FOR]-(:Decision)
 RETURN d, p1, p2, p3, p4
 ```
 
-## Change it on purpose
+## Changing a rule
 
 A compliance officer adds one rule: R7, connected exposure over $250,000 always goes to a human.
 It goes into `compliance.json` and `policy.md`, and into the graph with `loan import --rules-only`,
@@ -308,7 +321,7 @@ person. `aip validate`, `aip publish`, revision 2.
 
 APP-1001 again: R5 and R7 fire, Jev is asked, the risk tier pauses for a review again, and the run
 ends for a human with a note that names R7. The run record carries revision 2. The two runs on the
-same application sit side by side in the aip database (beat 8):
+same application sit side by side in the aip database (query 8):
 
 ```cypher
 MATCH (r:Run {name: 'assess-business-loan'})-[:STEP_RUN]->(sr:StepRun)
@@ -331,28 +344,58 @@ history view with the revision each ran against:
 
 ![](img/aip-inspector-history.jpg)
 
-That is the beat to leave with: the procedure is a thing you can read, run, record and change, not a
-prompt somebody tuned. R7 also catches APP-1005 (its owner's other business carries a $950K
-facility), so from revision 2 that applicant goes to a human too; a rule has consequences, and the
-graph shows exactly which.
+This is the property the whole example turns on: the procedure is a thing you can read, run, record
+and change, not a prompt somebody tuned. A rule has consequences, and the graph shows exactly which.
+R7 also catches APP-1005 (its owner's other business carries a $950K facility), so from revision 2
+that applicant goes to a human too, which may or may not be what the compliance officer intended.
 
-## What you get, shown not said
+## Swapping the driving model
 
-| free-form agent (act one) | procedure (act two) | where to look |
+A small experiment, run the day after. The procedure's scripts are Python and its decision step is
+Jev, so the only place a Claude model sits in a server run is the Claude Code session that drives
+the `aip-runtime` skill: it finds the skill, starts the run, writes the rationale at the pause,
+answers any review pause, and resumes. If the procedure really carries the work, that session should
+not need a large model.
+
+The same three prompts were run with `--model claude-haiku-5-5` on that session and nothing else
+changed (revision 2, R7 in the graph, Jev on the decision step), plus one Fable session on APP-1005
+for a same-day baseline, since the earlier APP-1005 runs predate R7. Details and Jev's answers per
+run: [checkpoints/05-haiku-runs.md](checkpoints/05-haiku-runs.md).
+
+| application | model | wall | API time | cost | turns | output tokens | pauses | ended |
+|---|---|---|---|---|---|---|---|---|
+| APP-1005 | Haiku 5.5 | 83 s | 20 s | $0.013 | 9 | 3.5K | 2 (review) | unfiled, R7 |
+| APP-1005 | Fable 5.1 | 114 s | 68 s | $0.94 | 9 | 3.1K | 2 (review) | unfiled, R7 |
+| APP-1004 | Haiku 5.5 | 164 s | 53 s | $0.021 | 13 | 10.2K | 1 (rationale) | DEC-APP-1004-03 |
+| APP-1004 | Fable 5.1 (day before) | 195 s | 104 s | $1.63 | 17 | 8.9K | 1 (rationale) | DEC-APP-1004-02 |
+| APP-1001 | Haiku 5.5 | 106 s | 35 s | $0.014 | 12 | 5.3K | 1 (review) | unfiled, R7 |
+| APP-1001 | Fable 5.1 (day before) | 115 s | 64 s | $1.15 | 13 | 4.9K | 1 (review) | unfiled, R7 |
+
+Haiku's APP-1004 decision equals Fable's: approve, 0.6, R3, the same 35 cited keys, check passed
+first time, `PRECEDENT_FOR` from the Fable decision. Its APP-1001 and APP-1005 runs took the same
+steps, paused at the same answers and ended the same way. One wobble: the APP-1001 session resumed
+a finished run a second time, which the server accepted and the result ignored. On this evidence
+the procedure carries the quality and the driving model is swappable, with the usual caveat that
+it is three runs. The cost column is Claude Code's list-price estimate, so the gap is a pricing
+fact rather than a measure of effort.
+
+## Side by side
+
+| free-form agent (stage 1) | procedure (stages 2 and 3) | where to look |
 |---|---|---|
-| ownership walked in a different place each run | `gather` walks `OWNS` two hops every run; it is a script | beat 6, the same steps every run |
-| evidence chosen differently each run | one gather step, node keys on every figure | the `CITES` edges, beat 7 |
+| ownership walked in a different place each run | `gather` walks `OWNS` two hops every run; it is a script | query 6, the same steps every run |
+| evidence chosen differently each run | one gather step, node keys on every figure | the `CITES` edges, query 7 |
 | judgment worded differently each run, confidence self-reported | typed answers with probabilities; under threshold, a human | the `Answer` nodes, the APP-1001 review pause |
-| a rationale could state a number with nothing behind it | the check rejects any cite or figure not in the evidence | run-01's two bounces; the skill runs passing first time |
-| a different path each time, no record of which | the same path, every run recorded against the revision that ran it | beat 8 |
-| change the behaviour by editing a prompt and hoping | change one rule and one script, validate, publish revision 2; old runs still point at revision 1 | the edit beat |
+| a rationale could state a number with nothing behind it | the check rejects any cite or figure not in the evidence | run-01's two bounces; the procedure runs passing first time |
+| a different path each time, no record of which | the same path, every run recorded against the revision that ran it | query 8 |
+| change the behaviour by editing a prompt and hoping | change one rule and one script, validate, publish revision 2; old runs still point at revision 1 | [Changing a rule](#changing-a-rule) |
 | nothing learned for next time | `record` files the decision; `precedents` reads it | `PRECEDENT_FOR` on the second APP-1005 run |
 | lives in one agent's prompt | one `SKILL.md`: server with Jev, or a plain agent walk | `aip run ./skills/assess-business-loan` |
 
 What is measured and shown: how many runs, which steps each took, where a human was asked, that two
 runs on the same applicant match, and what each run cost ([Metrics](#metrics)).
 
-## The deltas, in short
+## What changed, in numbers
 
 Three configurations, same five applications, same bank data. "Fable alone" is Claude Code with the
 `loan` command and the team's page, no procedure. "Fable + procedure" and "Haiku + procedure" are
@@ -409,17 +452,19 @@ authored from: the five recordings.
 
 ## Metrics
 
-Everything below is what the harness recorded during one build on 2026-10-13: the `usage` and
-`duration_ms` fields of each headless `claude -p --output-format json` session, kept in
-`checkpoints/02-runs.json` and `checkpoints/04-live-runs.md`. One build, one run of each prompt, no
-repeats; read them as an order of magnitude, not a benchmark.
+Everything below is what the harness recorded during one build on 2026-10-13 (the Haiku runs on
+2026-10-14): the `usage` and `duration_ms` fields of each headless
+`claude -p --output-format json` session, kept in `checkpoints/02-runs.json`,
+`checkpoints/04-live-runs.md` and `checkpoints/05-haiku-runs.md`. One build, one run of each
+prompt, no repeats; read them as an order of magnitude, not a benchmark.
 
-**Models.** Every Claude Code session (the five recordings, the authoring, the five server-run
-sessions) ran on `claude-fable-5-1`, the default model, with no `--model` flag. Decision steps on
-the server were answered by TypeSafe's `jev-latest`. The policy engine, the check and the gather
-step are plain Python with no model in them.
+**Models.** Every Claude Code session in the build (the five recordings, the authoring, the five
+server-run sessions) ran on `claude-fable-5-1`, the default model, with no `--model` flag; the
+model swap above used `claude-haiku-5-5`. Decision steps on the server were answered by TypeSafe's
+`jev-latest`. The policy engine, the check and the gather step are plain Python with no model in
+them.
 
-**Act one: free-form recordings** (Claude Code with the `loan` command, no skill, hooks recording).
+**Free-form recordings** (Claude Code with the `loan` command, no skill, hooks recording).
 
 | run | application | wall | API time | cost | turns | output tokens | cache-read tokens | rationale attempts |
 |---|---|---|---|---|---|---|---|---|
@@ -433,12 +478,12 @@ Five decisions in 37 minutes for $5.14. Fresh input tokens are 300 to 600 per ru
 cache reads and output. Wall time is about twice API time; the rest is the hooks and the `loan`
 subprocesses.
 
-**Act two: authoring the skill** (one headless session over `prompts/author.md` and the exported
+**Authoring the procedure** (one headless session over `prompts/author.md` and the exported
 source): 20 minutes, 76 turns, $9.70, 73K output tokens, 4.3M cache-read tokens. The most expensive
 step in the build.
 
-**Server runs of the published skill** (a Claude Code session with the `aip-runtime` skill driving
-the server; the server runs the scripts and asks Jev).
+**Server runs of the published procedure** (a Claude Code session with the `aip-runtime` skill
+driving the server; the server runs the scripts and asks Jev).
 
 | run | application | revision | wall | API time | cost | turns | pauses | check first pass | ended |
 |---|---|---|---|---|---|---|---|---|---|
@@ -454,26 +499,7 @@ not cheaper ($1.31 against $1.03): the Claude session is still there answering t
 were not measured separately. A plain `aip run` with no Claude session in the loop would cost only
 the Jev calls; that was not timed.
 
-**Swap the driving model.** The same three prompts on 2026-10-14 with `--model claude-haiku-5-5` on
-the Claude Code session, everything else unchanged (revision 2, R7 in the graph, Jev on the
-decision step), plus one Fable session on APP-1005 for a same-day baseline. Details and Jev's
-answers in [checkpoints/05-haiku-runs.md](checkpoints/05-haiku-runs.md).
-
-| application | model | wall | API time | cost | turns | output tokens | pauses | ended |
-|---|---|---|---|---|---|---|---|---|
-| APP-1005 | Haiku 5.5 | 83 s | 20 s | $0.013 | 9 | 3.5K | 2 (review) | unfiled, R7 |
-| APP-1005 | Fable 5.1 | 114 s | 68 s | $0.94 | 9 | 3.1K | 2 (review) | unfiled, R7 |
-| APP-1004 | Haiku 5.5 | 164 s | 53 s | $0.021 | 13 | 10.2K | 1 (rationale) | DEC-APP-1004-03 |
-| APP-1004 | Fable 5.1 (10-13) | 195 s | 104 s | $1.63 | 17 | 8.9K | 1 (rationale) | DEC-APP-1004-02 |
-| APP-1001 | Haiku 5.5 | 106 s | 35 s | $0.014 | 12 | 5.3K | 1 (review) | unfiled, R7 |
-| APP-1001 | Fable 5.1 (10-13) | 115 s | 64 s | $1.15 | 13 | 4.9K | 1 (review) | unfiled, R7 |
-
-Haiku's APP-1004 decision equals Fable's: approve, 0.6, R3, the same 35 cited keys, check passed
-first time, `PRECEDENT_FOR` from the Fable decision. Its APP-1001 and APP-1005 runs took the same
-steps, paused at the same answers and ended the same way. One wobble: the APP-1001 session resumed
-a finished run a second time, which the server accepted and the result ignored. The procedure
-carries the quality; the driving model is swappable. The cost column is Claude Code's list-price
-estimate, so the gap is a pricing fact.
+The Haiku sessions are in [Swapping the driving model](#swapping-the-driving-model).
 
 **Agreement.** There is no labelled set, so accuracy means agreement with the policy and between
 runs.
@@ -486,11 +512,11 @@ runs.
   run-01: the same four judgment calls, the same outcome, the same confidence.
 - The two procedure runs on APP-1005 match: same outcome, same fired rules, the same 21 cited keys.
 - The procedure agreed with the free-form agent on APP-1004 (approve) and on APP-1001 (both ended
-  with a human deciding, by different routes: refer in act one, G1 and then R7 on the server).
+  with a human deciding, by different routes: refer in stage 1, G1 and then R7 on the server).
 - The check: seven submissions for five free-form rationales, all of the retries in run-01. Every
   procedure rationale passed first time.
-- What moves: Jev's risk-tier confidence on APP-1001 was 0.40 on one run and 0.27 on the next. The
-  review pause is real, the probabilities are not stable.
+- What moves: Jev's risk-tier confidence on APP-1001 was 0.40 on one run, 0.27 on the next and
+  0.25 on the Haiku run. The review pause is real; the probabilities are not stable.
 
 ## Files
 
@@ -500,8 +526,8 @@ src/loan/               policy.py (the rules as code), tools.py (the loan comman
 tools/make_fixture.py   regenerates data/bank/ (deterministic)
 prompts/                runs.yaml (the five recorded runs), author.md (the compile prompt)
 skills/assess-business-loan/   the procedure: SKILL.md, scripts/, assets/, source/
-checkpoints/            01-import.json, 02-runs.json, traces/, 03-publish.json, 04-live-runs.md, start-app-*.json
-queries.md              one Browser query per beat, tested
+checkpoints/            01-import.json, 02-runs.json, traces/, 03-publish.json, 04-live-runs.md, 05-haiku-runs.md, start-app-*.json
+queries.md              the numbered Browser queries referenced above, tested
 docs/                   import.md, recording.md, compile.md, STORY.md
 ```
 

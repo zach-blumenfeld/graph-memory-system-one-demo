@@ -1,4 +1,4 @@
-# Browser queries, in demo order
+# Browser queries, in reading order
 
 Paste each block into Neo4j Browser. The first comment line says which database: `memory` is the
 agent-memory instance (`.env` in this folder), `aip` is the aip server's instance

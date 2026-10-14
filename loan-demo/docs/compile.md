@@ -81,4 +81,4 @@ Two things worth knowing from `source/README.md`:
 - **Confidence.** The state the scripts see carries the decision model's collapsed answers, not its
   probabilities, so the filed `confidence` is 1.0 when the hard rules decided and the cleared
   threshold (0.6) when the decision model did. The exact probabilities are on the `Answer` nodes in
-  the aip database (`queries.md` beat 6).
+  the aip database (`queries.md` query 6).

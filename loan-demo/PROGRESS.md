@@ -296,3 +296,12 @@ Added a speakable summary before Metrics: performance (wall, model time, turns, 
 accuracy and trust, governance and traceability, each as Fable alone / Fable + procedure / Haiku +
 procedure, with the two deltas (Fable→Fable with the procedure; Fable alone→Haiku with the procedure)
 and a "what this does not show" paragraph. Not committed.
+
+## 2026-10-14 — README rewritten as a worked example
+
+Per request: no "acts", "beats", "hero/gray case" or demo framing. Plain descriptive title, neutral voice,
+light touch (hedging, "what this does not show", contrast-and-example), stages 1–3 plus "Changing a rule",
+a new "Swapping the driving model" section holding the Haiku table (moved out of Metrics), "Side by side",
+"What changed, in numbers", Metrics, Files. `queries.md` retitled "in reading order"; README refers to
+"query N". docs/import.md and docs/compile.md references fixed. PLAN.md, PROGRESS.md and checkpoints left
+as the build log. Not committed.
