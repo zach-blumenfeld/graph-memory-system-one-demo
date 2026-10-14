@@ -1,0 +1,74 @@
+{
+  "runs": [
+    {
+      "run_id": "run-01",
+      "kind": "hero",
+      "application": "APP-1001",
+      "session_id": "0d984709-d5c0-4cb7-b083-8ed07ffe1887",
+      "trace_id": "1ab8aeab-7853-484e-a255-56f43dda8936",
+      "model": "default",
+      "rc": 0,
+      "wall_s": 635,
+      "cost_usd": 1.4325982500000003,
+      "turns": 31,
+      "steps": 22,
+      "final": "APP-1001 is assessed and filed. Decision recorded as DEC-APP-1001-01 with outcome **refer**, confidence 0.7, revision freeform.\n\n**What the systems showed**\n\n- **Policy outcome: review.** One rule fired, R5 connected delinquency. Tom Alder holds 45% of the bakery and 60% of Alder Logistics, whose $300,000 term loan with us has missed three consecutive payments and is 90 days late.\n- **The bakery itself is clean.** Coverage is 1.6 against a 1.25 floor. All 24 payments on its equipment loan were on time, a prior term loan was repaid, KYC is current, no fraud events, and it has banked with us for six years.\n- **No precedents** exist for a term loan in the review band. This decision is the first.\n\n**The judgment**\n\nI rated the business medium risk and the connected exposure material. The connected owner will run the funded second site day to day, so his other business's default is a direct contagion channel, and the systems hold no explanation of the arrears. Approving in full would treat that as immaterial. Declining is not supported by any figure in the file. A counter would not address the risk, which is contagion rather than capacity. Per the SOP, when unsure, refer. The rationale recommends approving the full amount if the relationship manager obtains a satisfactory account of the Alder Logistics arrears, with a counter as fallback.\n\n**Process notes**\n\n- Four judgment calls logged with `loan decide`: risk tier, materiality, outcome, precedents.\n- The rationale needed three submissions to pass the check. The fixes were square-bracket cite markers, removing the interest rate as an uncited figure, and opening the file with the outcome paragraph. The final version is RAT-APP-1001-03 and passed cleanly.\n- One CRM note records an owner's age. It was excluded from the rationale per the protected-characteristics rule.\n\nThe referred case now awaits a human reviewer."
+    },
+    {
+      "run_id": "run-02",
+      "kind": "clean",
+      "application": "APP-1002",
+      "session_id": "9b8b71cc-3f19-4b14-8282-255a3835ef1a",
+      "trace_id": "49971ba3-b54c-4fcf-bb85-2900e6e001f3",
+      "model": "default",
+      "rc": 0,
+      "wall_s": 373,
+      "cost_usd": 0.7363514999999999,
+      "turns": 22,
+      "steps": 20,
+      "final": "APP-1002 is approved and filed as decision DEC-APP-1002-01.\n\n**Outcome.** Ridgeline Dental Partners LLP gets the full equipment loan as asked, over 60 months. The policy check returned auto-approve with no rules fired, so the outcome needed no judgment.\n\n**Why it cleared.**\n\n| Check | Result |\n|---|---|\n| Coverage ratio | 1.90 against a 1.25 floor |\n| Existing facilities | none |\n| Connected exposure and delinquency | none, both owners hold no other businesses |\n| KYC | current, last reviewed 2026-05-20, no fraud events |\n| Tenure | 7.6 years |\n| Precedents in this band | none |\n\nThe purpose matches the relationship manager's note that the practice added a third chair in July and carries a six-week waiting list. Guidance G1 for long-standing customers was noted but applies only to declines.\n\n**What was filed.**\n- Four judgment calls logged with `loan decide`: risk tier low, no connected exposure to weigh, no precedents exist, and approve as asked rather than counter or refer.\n- Rationale written to rationale-APP-1002.md in the loan-demo directory and submitted as RAT-APP-1002-01.\n- The check passed on the first run with no failures.\n- Decision recorded with outcome approve, confidence 0.92, revision freeform.\n\nConfidence is below certain only because no precedent yet exists for equipment loans in the auto-approve band. This decision now stands as the first one."
+    },
+    {
+      "run_id": "run-03",
+      "kind": "decline",
+      "application": "APP-1003",
+      "session_id": "6571b5a9-6779-41c1-82bd-5deb97c9de1f",
+      "trace_id": "4a3fff67-35e5-450c-adba-8ec464df0657",
+      "model": "default",
+      "rc": 0,
+      "wall_s": 360,
+      "cost_usd": 0.73296925,
+      "turns": 22,
+      "steps": 20,
+      "final": "APP-1003 is declined and filed as decision DEC-APP-1003-01.\n\n**What the systems showed**\n\n| Item | Finding |\n|---|---|\n| Policy outcome | auto_decline, rules R1 and R2 fired |\n| KYC | Overdue, last reviewed 2024-07-02, beneficial owners unverified |\n| Fraud | Counterfeit cheque deposits 2026-06-10, 4.1 months ago, operating account blocked |\n| Coverage | 1.30, above the 1.25 floor |\n| Existing facility | Term loan, 24 on-time payments, 0 days late |\n| Connected exposure | None, sole owner holds no other business |\n| Tenure | 3.4 years, so no mandatory human referral on a decline |\n| Precedents | None in this product and band |\n\n**What I did**\n\n- Ran the SOP, application, policy, KYC, facilities, cash flow, ownership, and precedent lookups.\n- Logged four judgment calls with `loan decide`: decline rather than refer, hard rules stand despite strong cash flow, no counter-offer since the fired rules do not depend on amount or term, and citing the CRM note only for the business's KYC and fraud facts.\n- Wrote the rationale to `rationales/APP-1003.md`, submitted it as RAT-APP-1003-01, and it passed `loan check` with no failures on the first run.\n- Recorded the decline with confidence 0.95 and revision freeform.\n\n**For the customer** the rationale states that a future application can be considered once the KYC refresh is complete and the fraud event is outside the twelve-month window. On today's figures the business's cash flow would cover the proposed payments."
+    },
+    {
+      "run_id": "run-04",
+      "kind": "gray",
+      "application": "APP-1004",
+      "session_id": "29d67012-c334-408d-ae8c-23d008ea5597",
+      "trace_id": "3d29fa77-546c-4bba-be9d-5b77b8cbacf1",
+      "model": "default",
+      "rc": 0,
+      "wall_s": 494,
+      "cost_usd": 1.2379789999999997,
+      "turns": 25,
+      "steps": 21,
+      "final": "APP-1004 is assessed and filed. Decision: approve the full $600,000 over 120 months, recorded as DEC-APP-1004-01 with confidence 0.75.\n\n**What the systems showed**\n\n| Check | Result |\n|---|---|\n| Coverage (R3) | 1.15, below the 1.25 floor, so policy said review |\n| Exposure | 800,000 total, all the business's own, cap not fired |\n| Connected delinquency | None. Neither owner holds another business |\n| KYC and fraud | Current, reviewed 2026-01-22, no fraud events |\n| Tenure | 7.3 years |\n\n**Why approve rather than counter or refer**\n\n- Coverage is in the judgment band, not below 1.00. It is computed on the existing gym alone and gives no credit to the second site the loan funds.\n- The relationship manager recorded 412 founder memberships pre-sold against a 600 target, and the original gym at capacity on weekday evenings.\n- The existing term loan has 24 payments on file, 23 on the due date. The one late payment in August 2025 was seven days and attributed to a card terminal swap.\n- The twelve-month net inflow average is above the twenty-four-month average, so the business is growing.\n- The existing loan matures during the life of the new one, after which only the new payment remains.\n- A counter would lift coverage to the floor but leave a fixed-scope fit-out underfunded. A decline is not supported by any figure.\n\n**Judgment calls logged** with `loan decide`: risk tier (medium), connected exposure (not material), whether the refer precedent DEC-APP-1001-01 applies (no, its reason was connected arrears, absent here), the August 2025 late payment (isolated), the five-year lease break against a ten-year term (note for the RM, not decisive), and the outcome itself.\n\n**Process**: the rationale is at `loan-demo/rationale-APP-1004.md`, submitted as RAT-APP-1004-01. It passed `loan check` on the first and second run with no failures, then was recorded with revision freeform.\n\n**One open item for the relationship manager**: confirm who holds the five-year break in the Mossbank Mill lease. This is flagged in the rationale and does not change the decision."
+    },
+    {
+      "run_id": "run-05",
+      "kind": "hero-again",
+      "application": "APP-1001",
+      "session_id": "f3ade5a2-7340-4a77-81d2-f6ab3c9d962a",
+      "trace_id": "b7e282c1-a8d4-4718-8c3b-e3ce343118c6",
+      "model": "default",
+      "rc": 0,
+      "wall_s": 351,
+      "cost_usd": 1.0032787500000002,
+      "turns": 20,
+      "steps": 16,
+      "final": "**APP-1001 is recorded as refer with confidence 0.7, decision DEC-APP-1001-02.** The rationale passed the check on the first submission.\n\n**What the systems show.** Harrow Street Bakery is clean on its own. Coverage is 1.6 against the 1.25 floor, KYC is current with no fraud events, tenure is six years, the open equipment loan has never been late, and an earlier term loan was repaid in full. Exposure including the new amount stays under the cap.\n\n**Why it is not an approval.** The policy fired one rule, connected delinquency. Tom Alder, who holds 45 percent of the bakery, holds 60 percent of Alder Logistics. That business has a term loan with us that is 90 days late with three consecutive missed payments, and the relationship manager's note says Tom will run the new site day to day. Nothing in the systems explains the arrears, so I referred rather than assumed an explanation.\n\n**Recommendation in the file.** Approve the full amount once the arrears are explained and either cured or on a repayment plan, with a condition that the bakery does not guarantee or fund the logistics business. A counter would not address the risk, and a decline is unsupported by the bakery's record.\n\n**Judgment calls logged** with `loan decide`:\n- Risk tier: medium, low on its own numbers, lifted by the connected arrears.\n- Connected exposure: material, because the arrears are recent and worsening and the owner under pressure carries the new project.\n- Outcome: refer over approve, counter, or decline.\n- Precedents: followed the earlier refer on this same application; the climbing-gym approval does not transfer because its fired rule was the coverage floor, not a connected delinquency.\n\n**One thing to flag.** The annual-review CRM note records an owner's age. I excluded it from the rationale and cited only the site-visit note. The check also confirmed no protected characteristics in the file.\n\nFiles: rationale at `.run/rationale-APP-1001.md`, submitted as RAT-APP-1001-04."
+    }
+  ]
+}
