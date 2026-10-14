@@ -39,6 +39,33 @@ RETURN p.name AS owner, o1.pct AS pct_of_applicant, o.name AS other_business, o2
 ```
 
 ```cypher
+// [memory] - 2c - the same path, with a virtual System node showing which source file each node came from
+// (APOC virtual nodes: nothing is written; the labels map one to one onto the five files)
+MATCH path = (a:Application {key: 'APP-1001'})<-[:APPLIED]-(:Business)<-[:OWNS]-(:Person)-[:OWNS]->(:Business)
+             -[:HAS_FACILITY]->(:Facility)-[:HAS_PAYMENT]->(:Payment {status: 'missed'})
+WITH collect(path) AS paths
+UNWIND paths AS p
+UNWIND nodes(p) AS n
+WITH paths, collect(DISTINCT n) AS ns
+UNWIND ns AS n
+WITH paths, n,
+     CASE WHEN n:Business OR n:Account OR n:Month THEN 'Core banking (core_banking.json)'
+          WHEN n:Facility OR n:Payment OR n:Application THEN 'Loan and credit (loans.json)'
+          WHEN n:KycRecord OR n:Rule OR n:FraudEvent THEN 'Compliance (compliance.json)'
+          WHEN n:Person THEN 'Ownership (ownership.json)'
+          WHEN n:RelationshipManager OR n:Note THEN 'CRM (crm.json)' END AS system
+WITH paths, system, collect(n) AS members
+CALL apoc.create.vNode(['System'], {name: system}) YIELD node AS s
+UNWIND members AS m
+CALL apoc.create.vRelationship(m, 'FROM_SYSTEM', {}, s) YIELD rel
+RETURN paths, s, rel
+```
+
+Three systems on this path: the application, facility and payments from the loan book, the two
+businesses from core banking, the person from the ownership register. Set the caption to `name`
+and the `System` nodes read as the file names.
+
+```cypher
 // [memory] - 3 - one recorded run as a connected subgraph: conversation, messages, trace, steps, tool calls
 // (judgment calls carry the Decision label and stand out). LIMIT 5 for all five runs side by side.
 MATCH (c:Conversation)-[ht:HAS_TRACE]->(t:ReasoningTrace)

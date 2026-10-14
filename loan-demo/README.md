@@ -135,6 +135,11 @@ RETURN path
 
 ![Browser, query 2: the connected delinquency, application to missed payments (screenshot to add)](img/browser-q2-connected-delinquency.png)
 
+Query 2c in `queries.md` draws the same path with a virtual `System` node per source file, so the
+picture also says where each node came from: the application, facility and payments from the loan
+book, the businesses from core banking, the person from the ownership register. Nothing is written;
+the labels map one to one onto the five files.
+
 How the import works, file by file: [docs/import.md](docs/import.md). `loan import --rules-only`
 updates the policy rules in place; it is how the rule change further down lands in the graph.
 
