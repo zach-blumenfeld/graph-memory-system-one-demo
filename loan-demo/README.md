@@ -349,8 +349,93 @@ graph shows exactly which.
 | nothing learned for next time | `record` files the decision; `precedents` reads it | `PRECEDENT_FOR` on the second APP-1005 run |
 | lives in one agent's prompt | one `SKILL.md`: server with Jev, or a plain agent walk | `aip run ./skills/assess-business-loan` |
 
-No speed claim is made. What is measured and shown: how many runs, which steps each took, where a
-human was asked, and that two runs on the same applicant match.
+What is measured and shown: how many runs, which steps each took, where a human was asked, that two
+runs on the same applicant match, and what each run cost ([Metrics](#metrics)).
+
+## Metrics
+
+Everything below is what the harness recorded during one build on 2026-10-13: the `usage` and
+`duration_ms` fields of each headless `claude -p --output-format json` session, kept in
+`checkpoints/02-runs.json` and `checkpoints/04-live-runs.md`. One build, one run of each prompt, no
+repeats; read them as an order of magnitude, not a benchmark.
+
+**Models.** Every Claude Code session (the five recordings, the authoring, the five server-run
+sessions) ran on `claude-fable-5-1`, the default model, with no `--model` flag. Decision steps on
+the server were answered by TypeSafe's `jev-latest`. The policy engine, the check and the gather
+step are plain Python with no model in them.
+
+**Act one: free-form recordings** (Claude Code with the `loan` command, no skill, hooks recording).
+
+| run | application | wall | API time | cost | turns | output tokens | cache-read tokens | rationale attempts |
+|---|---|---|---|---|---|---|---|---|
+| run-01 | APP-1001 | 635 s | 245 s | $1.43 | 31 | 11.2K | 487K | 3 |
+| run-02 | APP-1002 | 373 s | 129 s | $0.74 | 22 | 5.9K | 160K | 1 |
+| run-03 | APP-1003 | 360 s | 121 s | $0.73 | 22 | 5.9K | 172K | 1 |
+| run-04 | APP-1004 | 494 s | 203 s | $1.24 | 25 | 10.9K | 334K | 1 |
+| run-05 | APP-1001 | 351 s | 109 s | $1.00 | 20 | 8.0K | 236K | 1 |
+
+Five decisions in 37 minutes for $5.14. Fresh input tokens are 300 to 600 per run; the spend is
+cache reads and output. Wall time is about twice API time; the rest is the hooks and the `loan`
+subprocesses.
+
+**Act two: authoring the skill** (one headless session over `prompts/author.md` and the exported
+source): 20 minutes, 76 turns, $9.70, 73K output tokens, 4.3M cache-read tokens. The most expensive
+step in the build.
+
+**Server runs of the published skill** (a Claude Code session with the `aip-runtime` skill driving
+the server; the server runs the scripts and asks Jev).
+
+| run | application | revision | wall | API time | cost | turns | pauses | check first pass | ended |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | APP-1005 | 1 | 174 s | 64 s | $0.96 | 10 | 1 (rationale) | yes | DEC-APP-1005-01 |
+| 2 | APP-1005 | 1 | 209 s | 115 s | $1.47 | 13 | 1 (rationale) | yes | DEC-APP-1005-02 |
+| 3 | APP-1004 | 1 | 195 s | 104 s | $1.63 | 17 | 1 (rationale) | yes | DEC-APP-1004-02 |
+| 4 | APP-1001 | 1 | 128 s | 80 s | $1.35 | 15 | 1 (review) | n/a | unfiled, G1 |
+| 5 | APP-1001 | 2 | 115 s | 64 s | $1.15 | 13 | 1 (review) | n/a | unfiled, R7 |
+
+Per decision the procedure is about 2.7 times faster on the wall clock (164 s against 443 s) and
+not cheaper ($1.31 against $1.03): the Claude session is still there answering the pauses, and the
+`aip-runtime` skill is a large cached prompt. The Jev calls and the script time inside the server
+were not measured separately. A plain `aip run` with no Claude session in the loop would cost only
+the Jev calls; that was not timed.
+
+**Swap the driving model.** The same three prompts on 2026-10-14 with `--model claude-haiku-5-5` on
+the Claude Code session, everything else unchanged (revision 2, R7 in the graph, Jev on the
+decision step), plus one Fable session on APP-1005 for a same-day baseline. Details and Jev's
+answers in [checkpoints/05-haiku-runs.md](checkpoints/05-haiku-runs.md).
+
+| application | model | wall | API time | cost | turns | output tokens | pauses | ended |
+|---|---|---|---|---|---|---|---|---|
+| APP-1005 | Haiku 5.5 | 83 s | 20 s | $0.013 | 9 | 3.5K | 2 (review) | unfiled, R7 |
+| APP-1005 | Fable 5.1 | 114 s | 68 s | $0.94 | 9 | 3.1K | 2 (review) | unfiled, R7 |
+| APP-1004 | Haiku 5.5 | 164 s | 53 s | $0.021 | 13 | 10.2K | 1 (rationale) | DEC-APP-1004-03 |
+| APP-1004 | Fable 5.1 (10-13) | 195 s | 104 s | $1.63 | 17 | 8.9K | 1 (rationale) | DEC-APP-1004-02 |
+| APP-1001 | Haiku 5.5 | 106 s | 35 s | $0.014 | 12 | 5.3K | 1 (review) | unfiled, R7 |
+| APP-1001 | Fable 5.1 (10-13) | 115 s | 64 s | $1.15 | 13 | 4.9K | 1 (review) | unfiled, R7 |
+
+Haiku's APP-1004 decision equals Fable's: approve, 0.6, R3, the same 35 cited keys, check passed
+first time, `PRECEDENT_FOR` from the Fable decision. Its APP-1001 and APP-1005 runs took the same
+steps, paused at the same answers and ended the same way. One wobble: the APP-1001 session resumed
+a finished run a second time, which the server accepted and the result ignored. The procedure
+carries the quality; the driving model is swappable. The cost column is Claude Code's list-price
+estimate, so the gap is a pricing fact.
+
+**Agreement.** There is no labelled set, so accuracy means agreement with the policy and between
+runs.
+
+- The policy engine is deterministic and verified against the expected outcome, fired rules and
+  coverage of all five applications, in the JSON fixture and in the graph (`loan verify fixture`,
+  `loan verify import`).
+- Every free-form outcome agrees with the policy: the two auto cases were filed approve and
+  decline; the two review cases went refer (APP-1001) and approve (APP-1004). Run-05 reproduced
+  run-01: the same four judgment calls, the same outcome, the same confidence.
+- The two procedure runs on APP-1005 match: same outcome, same fired rules, the same 21 cited keys.
+- The procedure agreed with the free-form agent on APP-1004 (approve) and on APP-1001 (both ended
+  with a human deciding, by different routes: refer in act one, G1 and then R7 on the server).
+- The check: seven submissions for five free-form rationales, all of the retries in run-01. Every
+  procedure rationale passed first time.
+- What moves: Jev's risk-tier confidence on APP-1001 was 0.40 on one run and 0.27 on the next. The
+  review pause is real, the probabilities are not stable.
 
 ## Files
 

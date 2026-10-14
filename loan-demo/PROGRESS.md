@@ -268,3 +268,24 @@ Not committed, per instructions. `.env` holds the memory credentials and the Typ
 The aip server on :8000 was left running as found; the memory database holds the import plus the five
 traces and eleven filed decisions (five free-form, DEC-APP-1002-02/03 from the authoring and verify runs,
 DEC-APP-1005-01/02, DEC-APP-1004-02).
+
+## 2026-10-14 — README metrics section
+
+Added `## Metrics` to README.md (between "What you get" and "Files"): models used (`claude-fable-5-1` for
+every Claude Code session, default model, no `--model` flag; TypeSafe `jev-latest` on the server), the five
+free-form recordings (wall, API time, cost, turns, output and cache-read tokens, rationale attempts), the
+authoring session, the five server runs, and an agreement paragraph in place of accuracy (no labelled set).
+Figures come from `.run/*.claude.json`, `.run/author.json`, `.run/live/*.json` via `checkpoints/02-runs.json`
+and `checkpoints/04-live-runs.md`. The "No speed claim is made" sentence now points at the section instead.
+Not committed.
+
+## 2026-10-14 — Haiku comparison on the server runs
+
+Four headless sessions (`.run/haiku/run.sh`, LOAN_RECORD=0, revision 2, R7 in the graph, nothing deleted or
+changed in aip): APP-1005, APP-1004, APP-1001 on `claude-haiku-5-5`, plus APP-1005 on `claude-fable-5-1` as
+a same-day R7-path baseline. Results in `checkpoints/05-haiku-runs.md` and a table in the README Metrics
+section. Haiku's APP-1004 decision (DEC-APP-1004-03) equals Fable's DEC-APP-1004-02 on outcome, rules and
+all 35 cites, check first pass; APP-1001 and APP-1005 took the same path and ended unfiled on R7 as Fable's.
+Haiku: half to three-quarters of the wall time, a third to a half of the API time, ~70× cheaper at list.
+Side effects: DEC-APP-1004-03 now in memory; four new runs in aip history (724a379fcecf48e5,
+689d4f1f068f4cb9, 06a7a1ad5b2140f2, c362515ab5924564). Not committed.
