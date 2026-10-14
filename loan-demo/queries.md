@@ -7,13 +7,13 @@ by label out of the box; set the caption to `name`.
 
 ```cypher
 // [memory] - 1 - the applicant's world: APP-1001 two hops out, the five systems colour-coded by label
-MATCH (a:Application {key: 'APP-1001'})<-[:APPLIED]-(b:Business)
+MATCH (a:Application {key: 'APP-1001'})<-[p:APPLIED]-(b:Business)
 MATCH p1 = (b)-[:HOLDS|HAS_FACILITY|KYC|HAD|HAS_NOTE]->()
 MATCH p2 = (b)<-[:OWNS]-(:Person)
 OPTIONAL MATCH p3 = (b)<-[:COVERS]-(:RelationshipManager)
 OPTIONAL MATCH p4 = (a)-[:SUBJECT_TO|FOLLOWS]->()
 OPTIONAL MATCH p5 = (b)<-[:OWNS]-(:Person)-[:OWNS]->(:Business)-[:HAS_FACILITY]->(:Facility)
-RETURN a, b, p1, p2, p3, p4, p5
+RETURN a, p, b, p1, p2, p3, p4, p5
 ```
 
 Core banking (`Account`), loans (`Facility`, `Application`), compliance (`KycRecord`, `Rule`),
