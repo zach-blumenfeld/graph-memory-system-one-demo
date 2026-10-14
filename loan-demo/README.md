@@ -122,7 +122,7 @@ OPTIONAL MATCH p5 = (b)<-[:OWNS]-(:Person)-[:OWNS]->(:Business)-[:HAS_FACILITY]-
 RETURN a, p, b, p1, p2, p3, p4, p5
 ```
 
-![Browser, query 1: the applicant's world, five systems colour-coded by label (screenshot to add)](img/browser-q1-applicant-world.png)
+![Browser, query 1: the applicant's world, five systems colour-coded by label](img/browser-q1-applicant-world.png)
 
 And the fact that lives in no single system (query 2): the application, its business, an owner, the
 owner's other business, that business's facility, and the facility's missed payments.
@@ -133,7 +133,7 @@ MATCH path = (a:Application {key: 'APP-1001'})<-[:APPLIED]-(:Business)<-[:OWNS]-
 RETURN path
 ```
 
-![Browser, query 2: the connected delinquency, application to missed payments (screenshot to add)](img/browser-q2-connected-delinquency.png)
+![Browser, query 2: the connected delinquency, application to missed payments](img/browser-q2-connected-delinquency.png)
 
 Query 2c in `queries.md` draws the same path with a virtual `System` node per source file, so the
 picture also says where each node came from: the application, facility and payments from the loan
@@ -192,7 +192,7 @@ MATCH p2 = (t)-[:HAS_STEP]->(:ReasoningStep)-[:USES_TOOL]->(:ToolCall)
 RETURN c, ht, t, p1, p2
 ```
 
-![Browser, query 3: one recorded run as a subgraph (screenshot to add)](img/browser-q3-recorded-run.png)
+![Browser, query 3: one recorded run as a subgraph](img/browser-q3-recorded-run.png)
 
 What stands out across the five, reading the traces side by side:
 
@@ -308,7 +308,7 @@ RETURN r.id AS run, r.revision AS revision, sr.input AS input_the_model_saw, sr.
 ORDER BY r.started_at DESC LIMIT 3
 ```
 
-![Browser, query 6: one server run, Run to StepRun to Answer to Question (screenshot to add)](img/browser-q6-server-run.png)
+![Browser, query 6: one server run, Run to StepRun to Answer to Question](img/browser-q6-server-run.png)
 
 And the decision trace in memory (query 7): `Decision → CITES → the evidence`, `APPLIED_POLICY →
 the rules`, `PRECEDENT_FOR` from the decision before it.
@@ -323,7 +323,7 @@ OPTIONAL MATCH p4 = (d)<-[:PRECEDENT_FOR]-(:Decision)
 RETURN d, p1, p2, p3, p4
 ```
 
-![Browser, query 7: a filed decision with its evidence, rules and precedent (screenshot to add)](img/browser-q7-decision-trace.png)
+![Browser, query 7: a filed decision with its evidence, rules and precedent](img/browser-q7-decision-trace.png)
 
 ## Changing a rule
 
