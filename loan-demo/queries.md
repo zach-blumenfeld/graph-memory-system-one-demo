@@ -102,6 +102,21 @@ RETURN t, steps, rels, first
 ```
 
 ```cypher
+// [memory] - 3d - the five runs as one table: length, where ownership was walked, rationale attempts, judgment calls
+// same job five times: 22/20/20/21/16 steps, ownership at step 8/5/8/6/4, run-01 needed three rationale attempts
+MATCH (t:ReasoningTrace)-[:HAS_STEP]->(s:ReasoningStep)
+WITH t, s ORDER BY t.started_at, s.step_number
+WITH t, collect(s) AS steps
+RETURN substring(toString(t.started_at), 0, 16) AS run,
+       size(steps) AS steps,
+       [i IN range(0, size(steps)-1) WHERE steps[i].action STARTS WITH 'loan ownership' | i+1][0] AS ownership_at_step,
+       size([s IN steps WHERE s.action STARTS WITH 'loan rationale submit']) AS rationale_attempts,
+       size([s IN steps WHERE s:Decision]) AS judgment_calls,
+       [s IN steps WHERE s:Decision | s.question][0] AS first_judgment_asked
+ORDER BY t.started_at
+```
+
+```cypher
 // [memory] - 4 - every judgment call across the five runs, grouped by question: the decision points of the procedure
 MATCH (d:Decision:ReasoningStep) WHERE d.question IS NOT NULL
 RETURN d.question AS question, collect(d.answer) AS answers, count(*) AS times
