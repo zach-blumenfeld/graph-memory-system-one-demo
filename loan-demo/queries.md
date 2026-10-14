@@ -182,9 +182,10 @@ RETURN split(s.action, ' ')[2] AS attempt,
 ```
 
 ```cypher
-// [aip] - 5 - the skill as a graph: steps and the flow between them (13 steps, 17 edges; labels are the step kinds)
-MATCH (:Name {name: 'assess-business-loan'})-[:HAS_REVISION]->(s:Skill)-[:HAS_PROCEDURE]->(:Procedure)-[:HAS_STEP]->(st:Step)
-WITH s, st ORDER BY s.published_at DESC
+// [aip] - 5 - the skill as a graph, revision 1: steps and the flow between them (13 steps, 17 edges; labels are the step kinds)
+// revision 2 is 1c4e170b79c08bb1; without the revision filter both are drawn on top of each other
+MATCH (:Name {name: 'assess-business-loan'})-[:HAS_REVISION]->(s:Skill {revision: '63c33c7be679ea32'})
+      -[:HAS_PROCEDURE]->(:Procedure)-[:HAS_STEP]->(st:Step)
 OPTIONAL MATCH e = (st)-[:INPUTS_TO|BRANCH]->(:Step)
 RETURN st, e
 ```

@@ -269,8 +269,8 @@ aip publish ./skills/assess-business-loan
 ```
 
 ```cypher
-MATCH (:Name {name: 'assess-business-loan'})-[:HAS_REVISION]->(s:Skill)-[:HAS_PROCEDURE]->(:Procedure)-[:HAS_STEP]->(st:Step)
-WITH s, st ORDER BY s.published_at DESC
+MATCH (:Name {name: 'assess-business-loan'})-[:HAS_REVISION]->(s:Skill {revision: '63c33c7be679ea32'})
+      -[:HAS_PROCEDURE]->(:Procedure)-[:HAS_STEP]->(st:Step)
 OPTIONAL MATCH e = (st)-[:INPUTS_TO|BRANCH]->(:Step)
 RETURN st, e
 ```
