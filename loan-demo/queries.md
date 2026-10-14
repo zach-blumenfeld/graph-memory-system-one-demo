@@ -117,6 +117,22 @@ ORDER BY t.started_at
 ```
 
 ```cypher
+// [memory] - 3e - the same loan twice: the two recorded runs on APP-1001 as chains (virtual NEXT edges; nothing written)
+// run-01 took 22 steps and walked ownership eighth; run-05 took 16 and walked it fourth. Caption `action`
+MATCH (t:ReasoningTrace)
+WHERE t.metadata CONTAINS '"applicationId": "APP-1001"'
+WITH t ORDER BY t.started_at
+MATCH (t)-[:HAS_STEP]->(s:ReasoningStep)
+WITH t, s ORDER BY s.step_number
+WITH t, collect(s) AS steps
+UNWIND range(0, size(steps)-2) AS i
+CALL apoc.create.vRelationship(steps[i], 'NEXT', {}, steps[i+1]) YIELD rel
+WITH t, steps, collect(rel) AS rels
+CALL apoc.create.vRelationship(t, 'FIRST', {}, steps[0]) YIELD rel AS first
+RETURN t, steps, rels, first
+```
+
+```cypher
 // [memory] - 4 - every judgment call across the five runs, grouped by question: the decision points of the procedure
 MATCH (d:Decision:ReasoningStep) WHERE d.question IS NOT NULL
 RETURN d.question AS question, collect(d.answer) AS answers, count(*) AS times
