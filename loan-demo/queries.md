@@ -140,6 +140,19 @@ ORDER BY times DESC
 ```
 
 ```cypher
+// [memory] - 4b - the same loan twice: the judgment calls of the two APP-1001 runs side by side, as a table
+MATCH (t:ReasoningTrace)
+WHERE t.metadata CONTAINS '"applicationId": "APP-1001"'
+WITH t ORDER BY t.started_at
+WITH collect(t) AS ts
+UNWIND range(0, size(ts)-1) AS i
+WITH ts[i] AS t, 'run ' + toString(i+1) AS run
+MATCH (t)-[:HAS_STEP]->(d:Decision:ReasoningStep)
+RETURN run, d.step_number AS step, d.question AS question, d.answer AS answer
+ORDER BY run, step
+```
+
+```cypher
 // [aip] - 5 - the skill as a graph: steps and the flow between them (13 steps, 17 edges; labels are the step kinds)
 MATCH (:Name {name: 'assess-business-loan'})-[:HAS_REVISION]->(s:Skill)-[:HAS_PROCEDURE]->(:Procedure)-[:HAS_STEP]->(st:Step)
 WITH s, st ORDER BY s.published_at DESC
