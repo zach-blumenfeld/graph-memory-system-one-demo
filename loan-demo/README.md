@@ -352,6 +352,61 @@ graph shows exactly which.
 What is measured and shown: how many runs, which steps each took, where a human was asked, that two
 runs on the same applicant match, and what each run cost ([Metrics](#metrics)).
 
+## The deltas, in short
+
+Three configurations, same five applications, same bank data. "Fable alone" is Claude Code with the
+`loan` command and the team's page, no procedure. "Fable + procedure" and "Haiku + procedure" are
+the published skill on the aip server, driven by a Claude Code session on that model; the
+decision step is answered by Jev either way. Averages per run from the tables in
+[Metrics](#metrics); one build, a handful of runs, so read direction, not decimals.
+
+**1. Performance**
+
+| per run | Fable alone | Fable + procedure | Haiku + procedure |
+|---|---|---|---|
+| wall clock | 7.4 min | 2.7 min | 2.0 min |
+| model time | 2.7 min | 1.4 min | 0.6 min |
+| turns | 24 | 14 | 11 |
+| cost (list price) | $1.03 | $1.31 | $0.02 |
+
+Wall clock is the stopwatch from prompt to answer. Model time is the part spent waiting on the
+model; the rest is tools, scripts and the server doing the work. Fable to Fable: the procedure cuts
+wall time by about 2.7× and turns by about half, and does not save money, because the session is
+still a Fable session answering the pauses. Fable alone to Haiku with the procedure: wall time
+down 3.7×, model time down 4.5×, cost down about 60×. The procedure cost $9.70 and 20 minutes to
+author, once.
+
+**2. Accuracy and trust**
+
+| | Fable alone | Fable + procedure | Haiku + procedure |
+|---|---|---|---|
+| outcome agrees with the policy | 5 of 5 | 5 of 5 | 3 of 3 |
+| same applicant, same decision | yes (APP-1001 twice) | yes, to the cited key (APP-1005 twice) | yes, to the cited key (APP-1004 vs Fable) |
+| rationale passed the check first time | 3 of 5 (run-01 bounced twice) | every time | every time |
+| confidence | self-reported | Jev's probabilities, stored | Jev's probabilities, stored |
+| when the model is unsure | it says so, in prose | the run stops and asks a person | the run stops and asks a person |
+| what the model saw | names, notes, whatever it pulled | figures only; no name, no date of birth, provable per run | same |
+
+The procedure does not make the model smarter. It makes the answer the same every time, puts a
+number on how sure the judgment was, and stops when that number is low. Haiku, a far smaller
+model, produced the same decision as Fable on the case that filed, with the same 35 citations.
+
+**3. Governance and traceability**
+
+| | Fable alone | with the procedure (either model) |
+|---|---|---|
+| what is recorded | the conversation and every tool call, as it happened | every step, its input and its output, against the revision that ran |
+| the path taken | different each run | the same steps every run; ownership walked by a script, not by the model |
+| the rules | in a page the model reads | in code the model cannot skip |
+| changing behaviour | edit the page and hope | change one rule and one script, validate, publish revision 2; old runs still point at revision 1 |
+| human override | not captured as such | on the `Answer` node: what the model said, what the person said |
+| the filed decision | cites, applied rules, precedent | the same, plus the revision and the stored judgment |
+
+**What this does not show.** It is one build with one run per prompt, so the time and cost
+figures are an order of magnitude, not a benchmark. There is no human-labelled set, so accuracy
+means agreement with the policy and between runs. And the procedure only covers what it was
+authored from: the five recordings.
+
 ## Metrics
 
 Everything below is what the harness recorded during one build on 2026-10-13: the `usage` and

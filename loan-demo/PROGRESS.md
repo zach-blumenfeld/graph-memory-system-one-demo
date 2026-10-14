@@ -289,3 +289,10 @@ all 35 cites, check first pass; APP-1001 and APP-1005 took the same path and end
 Haiku: half to three-quarters of the wall time, a third to a half of the API time, ~70× cheaper at list.
 Side effects: DEC-APP-1004-03 now in memory; four new runs in aip history (724a379fcecf48e5,
 689d4f1f068f4cb9, 06a7a1ad5b2140f2, c362515ab5924564). Not committed.
+
+## 2026-10-14 — README "The deltas, in short"
+
+Added a speakable summary before Metrics: performance (wall, model time, turns, cost per run, averaged),
+accuracy and trust, governance and traceability, each as Fable alone / Fable + procedure / Haiku +
+procedure, with the two deltas (Fable→Fable with the procedure; Fable alone→Haiku with the procedure)
+and a "what this does not show" paragraph. Not committed.
