@@ -153,6 +153,22 @@ ORDER BY run, step
 ```
 
 ```cypher
+// [memory] - 4c - the same loan twice: the outcome judgment each run asked itself, its answer, and the confidence it filed (two rows)
+MATCH (t:ReasoningTrace)
+WHERE t.metadata CONTAINS '"applicationId": "APP-1001"'
+WITH t ORDER BY t.started_at
+WITH collect(t) AS ts
+UNWIND range(0, size(ts)-1) AS i
+WITH ts[i] AS t, 'run ' + toString(i+1) AS run
+MATCH (t)-[:HAS_STEP]->(d:Decision:ReasoningStep)
+WHERE d.question STARTS WITH 'Outcome'
+MATCH (t)-[:HAS_STEP]->(r:ReasoningStep) WHERE r.action STARTS WITH 'loan record'
+RETURN run, d.question AS the_question_it_asked_itself, d.answer AS its_answer,
+       [x IN split(r.action, ' ') WHERE x STARTS WITH '0.'][0] AS confidence_it_filed
+ORDER BY run
+```
+
+```cypher
 // [aip] - 5 - the skill as a graph: steps and the flow between them (13 steps, 17 edges; labels are the step kinds)
 MATCH (:Name {name: 'assess-business-loan'})-[:HAS_REVISION]->(s:Skill)-[:HAS_PROCEDURE]->(:Procedure)-[:HAS_STEP]->(st:Step)
 WITH s, st ORDER BY s.published_at DESC
