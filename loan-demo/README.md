@@ -196,9 +196,9 @@ RETURN c, ht, t, p1, p2
 
 What stands out across the five, reading the traces side by side:
 
-- **Every run walked the ownership graph.** The team's page says to, and the agent did, every time.
-  What differed was when: run-01 pulled policy, cash flow, facilities and KYC first and ownership
-  seventh; run-05, the same application, pulled ownership right after the policy.
+- **Every run looked up the owners' other businesses.** The team's page says to, and the agent did,
+  every time. What differed was when: run-01 pulled policy, cash flow, facilities and KYC first and
+  did the ownership lookup seventh; run-05, the same application, did it right after the policy.
 - **Wording.** Four runs asked what risk tier the business was, in three phrasings; run-03 never
   asked, the hard rules had decided. Run-04 logged seven judgments, run-01 four, including two
   nobody else asked (does one seven-day-late payment count against the applicant; does the
@@ -409,7 +409,7 @@ fact rather than a measure of effort.
 
 | free-form agent (stage 1) | procedure (stages 2 and 3) | where to look |
 |---|---|---|
-| ownership walked in a different place each run | `gather` walks `OWNS` two hops every run; it is a script | query 6, the same steps every run |
+| the owners' other businesses looked up at a different point in each run | `gather` walks `OWNS` two hops every run; it is a script | query 6, the same steps every run |
 | evidence chosen differently each run | one gather step, node keys on every figure | the `CITES` edges, query 7 |
 | judgment worded differently each run, confidence self-reported | typed answers with probabilities; under threshold, a human | the `Answer` nodes, the APP-1001 review pause |
 | a rationale could state a number with nothing behind it | the check rejects any cite or figure not in the evidence | run-01's two bounces; the procedure runs passing first time |
@@ -465,7 +465,7 @@ model, produced the same decision as Fable on the case that filed, with the same
 | | Fable alone | with the procedure (either model) |
 |---|---|---|
 | what is recorded | the conversation and every tool call, as it happened | every step, its input and its output, against the revision that ran |
-| the path taken | different each run | the same steps every run; ownership walked by a script, not by the model |
+| the path taken | different each run | the same steps every run; the ownership lookup is a script, not the model's choice |
 | the rules | in a page the model reads | in code the model cannot skip |
 | changing behaviour | edit the page and hope | change one rule and one script, validate, publish revision 2; old runs still point at revision 1 |
 | human override | not captured as such | on the `Answer` node: what the model said, what the person said |

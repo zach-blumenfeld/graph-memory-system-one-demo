@@ -102,8 +102,8 @@ RETURN t, steps, rels, first
 ```
 
 ```cypher
-// [memory] - 3d - the five runs as one table: length, where ownership was walked, rationale attempts, judgment calls
-// same job five times: 22/20/20/21/16 steps, ownership at step 8/5/8/6/4, run-01 needed three rationale attempts
+// [memory] - 3d - the five runs as one table: length, at which step the owners' other businesses were looked up, rationale attempts, judgment calls
+// same job five times: 22/20/20/21/16 steps, the ownership lookup at step 8/5/8/6/4, run-01 needed three rationale attempts
 MATCH (t:ReasoningTrace)-[:HAS_STEP]->(s:ReasoningStep)
 WITH t, s ORDER BY t.started_at, s.step_number
 WITH t, collect(s) AS steps
@@ -118,7 +118,7 @@ ORDER BY t.started_at
 
 ```cypher
 // [memory] - 3e - the same loan twice: the two recorded runs on APP-1001 as chains (virtual NEXT edges; nothing written)
-// run-01 took 22 steps and walked ownership eighth; run-05 took 16 and walked it fourth. Caption `action`
+// run-01 took 22 steps and looked up the owners' other businesses as its 8th step; run-05 took 16 and did it 4th. Caption `action`
 MATCH (t:ReasoningTrace)
 WHERE t.metadata CONTAINS '"applicationId": "APP-1001"'
 WITH t ORDER BY t.started_at
