@@ -169,6 +169,19 @@ ORDER BY run
 ```
 
 ```cypher
+// [memory] - 4d - run one's three attempts at the write-up and what the check rejected each time (three rows)
+MATCH (t:ReasoningTrace)
+WHERE t.metadata CONTAINS '"applicationId": "APP-1001"'
+WITH t ORDER BY t.started_at LIMIT 1
+MATCH (t)-[:HAS_STEP]->(s:ReasoningStep)
+WHERE s.action STARTS WITH 'loan check RAT'
+WITH s ORDER BY s.step_number
+RETURN split(s.action, ' ')[2] AS attempt,
+       s.observation CONTAINS '"passed": true' AS passed,
+       [p IN split(s.observation, '"detail": "')[1..] | split(p, '"')[0]] AS what_the_check_rejected
+```
+
+```cypher
 // [aip] - 5 - the skill as a graph: steps and the flow between them (13 steps, 17 edges; labels are the step kinds)
 MATCH (:Name {name: 'assess-business-loan'})-[:HAS_REVISION]->(s:Skill)-[:HAS_PROCEDURE]->(:Procedure)-[:HAS_STEP]->(st:Step)
 WITH s, st ORDER BY s.published_at DESC
