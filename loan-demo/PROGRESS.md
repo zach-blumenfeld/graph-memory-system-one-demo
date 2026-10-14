@@ -305,3 +305,10 @@ a new "Swapping the driving model" section holding the Haiku table (moved out of
 "What changed, in numbers", Metrics, Files. `queries.md` retitled "in reading order"; README refers to
 "query N". docs/import.md and docs/compile.md references fixed. PLAN.md, PROGRESS.md and checkpoints left
 as the build log. Not committed.
+
+## 2026-10-14 — docs/walkthrough.md
+
+Plain-language walk of the published procedure (revision 1) node by node, for a reader with no lending
+background: the five node kinds, the thirteen nodes in order, three runs as paths, and the one line
+revision 2 changed. Linked from the README (stage 2 and Files). Also: `aip get` during this session
+wrote an untracked `assess-business-loan/` copy into loan-demo/; removed. Not committed.

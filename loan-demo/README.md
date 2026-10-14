@@ -240,6 +240,8 @@ policy or a trace, and lists what was dropped on purpose.
 | 8 | check | script | `loan rationale submit` and `loan check`; one fix pass (a second client task and a recheck), no loops |
 | 9 | record | script | `loan record` with the outcome, confidence and this skill's revision; `loan decide` for the typed judgments |
 
+[docs/walkthrough.md](docs/walkthrough.md) is the graph top to bottom on one page, one line per node.
+
 Two steps are worth a closer look. `gather`, because it is what the free-form runs did in five
 orders, and is now code that runs the same way every time. And `assess`, because the typed answers
 with a probability are where the consistency comes from, and because its declared inputs are the
@@ -543,7 +545,7 @@ prompts/                runs.yaml (the five recorded runs), author.md (the compi
 skills/assess-business-loan/   the procedure: SKILL.md, scripts/, assets/, source/
 checkpoints/            01-import.json, 02-runs.json, traces/, 03-publish.json, 04-live-runs.md, 05-haiku-runs.md, start-app-*.json
 queries.md              the numbered Browser queries referenced above, tested
-docs/                   import.md, recording.md, compile.md, STORY.md
+docs/                   walkthrough.md (the procedure in plain terms), import.md, recording.md, compile.md, STORY.md
 ```
 
 `make sync doctor import record export author publish` is the pipeline from a clean memory database;
