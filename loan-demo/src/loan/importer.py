@@ -29,7 +29,9 @@ def _money(v: float) -> str:
     return f"${v:,.0f}"
 
 
-def plan(fx: Fixture) -> tuple[list[Entity], list[Edge]]:
+def plan(fx: Fixture, without: tuple[str, ...] = ()) -> tuple[list[Entity], list[Edge]]:
+    """`without` names rule ids left out of the import (the demo starts before R7 exists; `loan import --rules-only` adds it later)."""
+    rules = [r for r in fx.rules() if r["id"] not in without]
     ents: list[Entity] = []
     rels: list[Edge] = []
 
@@ -57,7 +59,7 @@ def plan(fx: Fixture) -> tuple[list[Entity], list[Edge]]:
                 due=p["due"], paid_on=p["paid_on"], amount=p["amount"], status=p["status"], facility_id=f["id"])
             rels.append((f["id"], "HAS_PAYMENT", p["id"], {}))
     ent(SOP_KEY, SOP_NAME, "Playbook", "The credit team's own page on how a business loan is assessed", text=SOP_FILE.read_text())
-    for r in fx.rules():
+    for r in rules:
         ent(r["id"], f"{r['id']} {r['name']}", "Rule", r["text"], rule_id=r["id"], rule_name=r["name"], kind=r["kind"], field=r["field"],
             threshold=r["threshold"], secondary_threshold=r.get("secondary_threshold"), text=r["text"])
     for a in fx.applications():
@@ -66,7 +68,7 @@ def plan(fx: Fixture) -> tuple[list[Entity], list[Edge]]:
             purpose=a["purpose"], submitted=a["submitted"], requested_by=a["requested_by"], business_id=a["business_id"])
         rels.append((a["business_id"], "APPLIED", a["id"], {}))
         rels.append((a["id"], "FOLLOWS", SOP_KEY, {}))
-        for r in fx.rules():
+        for r in rules:
             rels.append((a["id"], "SUBJECT_TO", r["id"], {}))
     for k in fx.records("KycRecord"):
         ent(k["id"], f"KYC {k['business_id']}", "KycRecord", f"KYC {k['status']} for {k['business_id']}, last review {k['last_review']}",
@@ -128,20 +130,20 @@ def _write_edges(rels: list[Edge]) -> int:
     return n
 
 
-def run_import(log=print) -> dict[str, Any]:
+def run_import(log=print, without: tuple[str, ...] = ()) -> dict[str, Any]:
     ensure_run_dirs()
     fx = Fixture()
-    ents, rels = plan(fx)
+    ents, rels = plan(fx, without)
     existing = cypher("MATCH (e:Entity) RETURN count(e) AS n")[0]["n"]
     if existing:
         raise SystemExit(f"the memory database already holds {existing} entities; run `loan reset --yes` first")
     cypher("CREATE INDEX entity_key IF NOT EXISTS FOR (e:Entity) ON (e.key)")
-    log(f"plan: {len(ents)} entities, {len(rels)} edges")
+    log(f"plan: {len(ents)} entities, {len(rels)} edges" + (f" (without rule {', '.join(without)})" if without else ""))
     mapping = asyncio.run(_create(ents, log))
     _set_keys(ents, mapping)
     n = _write_edges(rels)
     log(f"relationships: {n} typed edges written")
-    ck = {"stage": 2, "as_of": fx.as_of().isoformat(), "entities": mapping, "relationships": n}
+    ck = {"stage": 2, "as_of": fx.as_of().isoformat(), "entities": mapping, "relationships": n, "without": list(without)}
     CHECKPOINT.write_text(json.dumps(ck, indent=2) + "\n")
     return ck
 
@@ -179,12 +181,23 @@ MATCH (a:Application {key: 'APP-1001'})<-[:APPLIED]-(b)<-[:OWNS]-(p)-[:OWNS]->(o
 RETURN o.name AS business, f.key AS facility, count(pay) AS missed"""
 
 
+def _rules_left_out() -> set[str]:
+    """Rules `loan import --without-rule` skipped and `loan import --rules-only` has not added since (from the checkpoint)."""
+    if not CHECKPOINT.exists():
+        return set()
+    ck = json.loads(CHECKPOINT.read_text())
+    added = {k for r in ck.get("rules_reimported", []) for k in r["new"]}
+    return set(ck.get("without", [])) - added
+
+
 def verify(log=print) -> int:
     counts = {r["label"]: r["n"] for r in cypher("MATCH (e:Entity) UNWIND [l IN labels(e) WHERE l <> 'Entity'] AS label RETURN label, count(*) AS n")}
     rels = {r["t"]: r["n"] for r in cypher("MATCH (:Entity)-[r]->(:Entity) RETURN type(r) AS t, count(*) AS n")}
     log(f"nodes: {json.dumps(counts)}")
     log(f"edges: {json.dumps(rels)}")
-    failures = [f"{k}: want {v}, got {counts.get(k, 0)}" for k, v in WANT.items() if counts.get(k, 0) != v]
+    want = dict(WANT)
+    want["Rule"] -= len(_rules_left_out())
+    failures = [f"{k}: want {v}, got {counts.get(k, 0)}" for k, v in want.items() if counts.get(k, 0) != v]
     for t in EDGE_TYPES:
         if not rels.get(t):
             failures.append(f"no {t} edges")

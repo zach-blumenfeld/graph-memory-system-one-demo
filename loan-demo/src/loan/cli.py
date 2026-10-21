@@ -136,14 +136,15 @@ def decide(question: str = typer.Option(..., "--question"), options: str = typer
 
 # ------------------------------------------------------------------ pipeline
 @app.command("import")
-def import_cmd(rules_only: bool = typer.Option(False, "--rules-only", help="step 7: (re)import only the Rule nodes and SUBJECT_TO edges")) -> None:
+def import_cmd(rules_only: bool = typer.Option(False, "--rules-only", help="the rule change: (re)import only the Rule nodes and SUBJECT_TO edges"),
+               without_rule: list[str] = typer.Option([], "--without-rule", help="leave a rule out of the import (R7 is added later with --rules-only)")) -> None:
     """Step 2: write the five bank systems into memory."""
     from loan.importer import import_rules, run_import, verify
 
     if rules_only:
         import_rules(log=typer.echo)
         return
-    run_import(log=typer.echo)
+    run_import(log=typer.echo, without=tuple(without_rule))
     raise typer.Exit(verify(log=typer.echo))
 
 

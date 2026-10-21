@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""Look up precedents, settle the outcome for the automatic bands, set confidence and needs_human, and
-build the evidence digest the rationale is written from.
+"""Look up precedents, settle the outcome, set confidence and needs_human, and build the evidence
+digest the rationale is written from.
 
-stdin:  currentState after hard-rules (auto bands) or after assess (review band: risk_tier,
-        connected_exposure_material, outcome present)
-stdout: precedents, policy_band, outcome, confidence, judgment, needs_human, decision_id (""), note,
-        evidence_md, cite_keys
+stdin:  state after assess: application_id, policy_outcome, fired, guidance, figures, cites, policy_as_of,
+        application, ownership_summary, facilities, cashflow, kyc, crm_notes, crm_notes_dropped,
+        risk_tier, connected_exposure_material, assessed_outcome
+stdout: precedents, policy_band, outcome, confidence, judgment, needs_human, evidence_md, cite_keys
 
 Rules carried here (policy "How the outcome is formed", G1; SOP "Before you start" on precedents):
-- auto_approve -> approve, auto_decline -> decline; a decision-step outcome is kept as is.
-- confidence 1.0 when the hard rules decided; otherwise 0.6, the `outcome` threshold the decision model
-  cleared (the state carries collapsed answers, not probabilities).
-- needs_human: a decline on a customer of five years or more (G1 in `guidance`) goes to a human before
-  it is filed; and, since revision 2, any fired rule whose effect is "human" (R7, connected exposure over
-  $250,000) does too, whatever the judgment said. The run then ends unfiled with a note for the human.
+- auto_approve -> approve, auto_decline -> decline: the hard rules decide and are not argued with.
+  review -> the decision step's `assessed_outcome` is kept as is.
+- confidence 1.0 when the hard rules decided; otherwise 0.6, the `assessed_outcome` threshold the
+  decision model cleared (the state carries collapsed answers, not probabilities).
+- needs_human: a decline on a customer of five years or more (G1 in `guidance`), or any fired rule with
+  effect `human` (R7 from revision 2), goes to a human before it is filed. `record` then leaves the decision unfiled and says what the human must do.
 """
 from loanlib import collect_cites, loan, read_state, write
 
@@ -23,53 +23,41 @@ band = state["policy_outcome"]
 
 pre = loan("precedents", app_id)
 # Keep what the traces compared: outcome, rules, confidence, revision. The excerpt of a prior rationale
-# is dropped: it can carry names (freeform rationales did) and the judgment is already in `rules`.
+# is dropped: a freeform rationale can carry names, and the judgment is already in `rules`.
 precedents = [{k: p.get(k) for k in ("key", "application", "business", "outcome", "confidence", "skill_revision", "at", "rules")}
               for p in pre.get("precedents", [])]
 
 # --- outcome and confidence
+assessed = state.get("assessed_outcome")
+if assessed not in ("approve", "counter", "decline"):
+    raise SystemExit(f"the assess step left no outcome in the state (got {assessed!r})")
 if band == "auto_approve":
     outcome, confidence, source = "approve", 1.0, "hard rules"
 elif band == "auto_decline":
     outcome, confidence, source = "decline", 1.0, "hard rules"
 else:
-    outcome = state.get("outcome")
-    if outcome not in ("approve", "counter", "decline"):
-        raise SystemExit(f"policy said review but the state holds no outcome from the assess step (got {outcome!r})")
-    confidence, source = 0.6, "decision model"
+    outcome, confidence, source = assessed, 0.6, "decision model"
 
 judgment = {
     "source": source,
-    "risk_tier": state.get("risk_tier", "not asked: the hard rules decided"),
-    "connected_exposure_material": state.get("connected_exposure_material", "not asked: the hard rules decided"),
+    "risk_tier": state.get("risk_tier"),
+    "connected_exposure_material": bool(state.get("connected_exposure_material")),
+    "assessed_outcome": assessed,
     "outcome": outcome,
+    "assessment_agrees_with_policy": assessed == outcome,
 }
 
 # --- G1: a decline on a long-standing customer goes to a human before filing
 g1 = next((g for g in state.get("guidance", []) if g.get("rule") == "G1"), None)
-# --- revision 2: a hard rule whose effect is "human" (R7, connected exposure over the cap) always goes
-#     to a person, whatever the judgment said
+needs_human = outcome == "decline" and g1 is not None
+# --- revision 2: a fired rule with effect "human" (R7, the connected exposure cap) always goes to a human before filing
 human_rules = [f for f in state.get("fired", []) if f.get("effect") == "human"]
-needs_human = (outcome == "decline" and g1 is not None) or bool(human_rules)
+needs_human = needs_human or bool(human_rules)
 
+# --- the evidence digest: every figure with the keys it came from, for the rationale template
 fig = state.get("figures", {})
 fired = state.get("fired", [])
 fired_txt = ", ".join(f"{f['rule']} {f.get('name')} ({f.get('value')} vs {f.get('threshold')})" for f in fired) or "none"
-if human_rules:
-    rules_txt = "; ".join(f"{f['rule']} {f.get('name')} ({f.get('value')} vs {f.get('threshold')})" for f in human_rules)
-    note = (f"NOT FILED: {app_id} goes to a human because {rules_txt} fired - the policy says connected exposure over the cap is "
-            f"never decided by the procedure alone. The assessment so far: outcome {outcome} ({source}), fired {fired_txt}. A human must "
-            f"read the figures and the fired rules in this run, decide approve, counter or decline, then file by hand with a rationale that "
-            f"cites the records.")
-elif needs_human:
-    note = (f"NOT FILED: {app_id} is a decline ({'hard rules' if source == 'hard rules' else 'assessed'}; fired: {fired_txt}) on a "
-            f"customer of {g1.get('value')} years, at or over the {g1.get('threshold')}-year guidance line (G1). A human must review "
-            f"the decline before anything is filed: read the figures and fired rules in this run, decide approve, counter or decline, "
-            f"then rerun or file by hand with a rationale that cites the records.")
-else:
-    note = f"{app_id}: policy {band}, outcome {outcome} ({source}), confidence {confidence}; fired: {fired_txt}. Rationale not yet written."
-
-# --- the evidence digest: every figure with the keys it came from, for the rationale template
 app = state.get("application", {}).get("application", {})
 biz = state.get("application", {}).get("business", {})
 cites = state.get("cites", {})
@@ -109,9 +97,9 @@ lines += [
     f"- Exposure total {fig.get('exposure_total')} = own open facilities {fig.get('exposure_own')} + connected {fig.get('exposure_connected')} + "
     f"amount {fig.get('amount')}; cap 1500000{cite(cites.get('exposure', []))}",
     f"- Connected worst late days {fig.get('connected_worst_late_days')}; review at 60 or more{cite(cites.get('connected_delinquency', []))}",
-    f"- KYC status {fig.get('kyc_status')}, last review {kyc.get('kyc', {}).get('last_review')}, beneficial owners verified "
-    f"{kyc.get('kyc', {}).get('beneficial_owners_verified')}{cite(cites.get('kyc', []))}",
-    f"- Fraud events: " + ("; ".join(f"{e.get('key')} on {e.get('date')} ({e.get('months_ago')} months ago): {e.get('kind')}" for e in kyc.get("fraud_events", [])) or "none")
+    f"- KYC status {fig.get('kyc_status')}, last review {(kyc.get('kyc') or {}).get('last_review')}, beneficial owners verified "
+    f"{(kyc.get('kyc') or {}).get('beneficial_owners_verified')}{cite(cites.get('kyc', []))}",
+    "- Fraud events: " + ("; ".join(f"{e.get('key')} on {e.get('date')} ({e.get('months_ago')} months ago): {e.get('kind')}" for e in kyc.get("fraud_events", [])) or "none")
     + cite(cites.get("fraud", [])),
     "",
     "### Ownership (two hops out)",
@@ -131,11 +119,11 @@ if not state.get("facilities", {}).get("facilities"):
 lines += [
     "",
     "### Cash flow",
-    f"- Accounts: " + ("; ".join(f"{a['key']} {a['type']} balance {a['balance']} opened {a['opened']}" for a in cf.get("accounts", [])) or "none"),
-    f"- Last 12 months ({cf.get('last_12m', {}).get('from')} to {cf.get('last_12m', {}).get('to')}): avg inflow {cf.get('last_12m', {}).get('avg_inflow')}, "
-    f"avg outflow {cf.get('last_12m', {}).get('avg_outflow')}, avg net {cf.get('last_12m', {}).get('avg_net')}{cite(cf.get('cites', []))}",
-    f"- Last 24 months: avg inflow {cf.get('last_24m', {}).get('avg_inflow')}, avg outflow {cf.get('last_24m', {}).get('avg_outflow')}, "
-    f"avg net {cf.get('last_24m', {}).get('avg_net')}",
+    "- Accounts: " + ("; ".join(f"{a['key']} {a['type']} balance {a['balance']} opened {a['opened']}" for a in cf.get("accounts", [])) or "none"),
+    f"- Last 12 months ({(cf.get('last_12m') or {}).get('from')} to {(cf.get('last_12m') or {}).get('to')}): avg inflow {(cf.get('last_12m') or {}).get('avg_inflow')}, "
+    f"avg outflow {(cf.get('last_12m') or {}).get('avg_outflow')}, avg net {(cf.get('last_12m') or {}).get('avg_net')}{cite(cf.get('cites', []))}",
+    f"- Last 24 months: avg inflow {(cf.get('last_24m') or {}).get('avg_inflow')}, avg outflow {(cf.get('last_24m') or {}).get('avg_outflow')}, "
+    f"avg net {(cf.get('last_24m') or {}).get('avg_net')}",
     "",
     "### Relationship manager notes about the business (names removed; notes mentioning a personal characteristic withheld)",
 ]
@@ -157,21 +145,29 @@ if not precedents:
 lines += [
     "",
     "### Judgment",
-    f"- Source: {source}; risk tier: {judgment['risk_tier']}; connected exposure material: {judgment['connected_exposure_material']}; "
+    f"- Settled by: {source}; risk tier: {judgment['risk_tier']}; connected exposure material: {judgment['connected_exposure_material']}; "
     f"outcome: {outcome}; confidence {confidence}",
 ]
+if source == "hard rules":
+    lines.append(f"- The assessment's own reading of the outcome was {assessed}; the policy band {band} decides and is not argued with.")
+if outcome == "decline" and g1 is not None:
+    lines.append(f"- This decline is on a customer of {g1.get('value')} years (G1, at or over {g1.get('threshold')}): it goes to a human before filing. "
+                 "Write the rationale the human will review.")
+for f in human_rules:
+    lines.append(f"- {f['rule']} {f.get('name')} fired (value {f.get('value')}, threshold {f.get('threshold')}): the policy says this is never decided "
+                 "by the procedure alone, so it goes to a human before filing. Write the rationale the human will review.")
 
-cite_keys = sorted(set(collect_cites(state, precedents)) | {p["key"] for p in precedents})
+cite_keys = sorted(set(collect_cites(state.get("application"), state.get("ownership_summary"), state.get("facilities"),
+                                     state.get("cashflow"), state.get("kyc"), state.get("crm_notes"), state.get("fired"),
+                                     state.get("guidance"), cites, precedents)) | {p["key"] for p in precedents})
 
 write({
     "precedents": precedents,
-    "policy_band": pre.get("policy_band", band),
+    "policy_band": str(pre.get("policy_band") or band),
     "outcome": outcome,
-    "confidence": confidence,
+    "confidence": float(confidence),
     "judgment": judgment,
     "needs_human": bool(needs_human),
-    "decision_id": "",
-    "note": note,
     "evidence_md": "\n".join(lines),
     "cite_keys": cite_keys,
 })

@@ -26,5 +26,4 @@ The evidence, for reference:
 Fix only what the failures name and anything the same check would catch elsewhere. Keep the structure, the
 outcome, the cites that were accepted, and the precedent reasoning.
 
-Return JSON with `rationale` (the full revised markdown string). Carry `precedents_note` forward unchanged unless a
-fix changed the precedent reasoning.
+Return JSON with `rationale_fixed`: the full revised rationale as one markdown string.

@@ -10,9 +10,11 @@ rules, the traces give the real order of operations, the judgment points, and th
 Constraints for this skill:
 
 - Start input: `application_id` (string), e.g. `APP-1002`.
-- Scripts (`execution` steps) may call the `loan` command, which is on PATH where the server runs. It is the
-  only way to reach the bank's systems and the memory graph. Scripts run under the aip server's own Python
-  with the standard library only: no `loan` package import, call `loan` with `subprocess` and parse its JSON.
+- Scripts (`execution` steps) may call the `loan` command, which is on PATH on the machine that runs `aip`
+  (scripts run on the client, next to the data, never on the server; declare `loan` under `requires.tools`).
+  It is the only way to reach the bank's systems and the memory graph. Scripts run under the `aip` client's
+  own Python with the standard library only: no `loan` package import, call `loan` with `subprocess` and
+  parse its JSON.
   `loan application <id>`, `loan ownership <business>`, `loan facilities <business>`, `loan cashflow
   <business>`, `loan kyc <business>`, `loan policy <application>`, `loan precedents <application>` return
   JSON; `loan rationale submit --file F --application ID --outcome O` stores a write-up and returns its id;
@@ -46,8 +48,8 @@ Constraints for this skill:
      `needs_human` (boolean): true when the outcome is decline and G1 is in `guidance` (a decline on a
      customer of five years or more goes to a human before filing). Sets a `note` string.
   6. `by-confidence` (router on `needs_human`): `"true"` → end (the run ends unfiled with the note saying what
-     the human must do), `"false"` → rationale. (A decision answered under its threshold pauses on the
-     server for a review anyway; that is the other way a human enters.)
+     the human must do), `"false"` → rationale. (A decision answered under its threshold pauses for a
+     review anyway; that is the other way a human enters.)
   7. `rationale` (client_task, template `assets/rationale.md`): the one generative step. It must state the
      outcome in the first paragraph, mark every figure and fact with `[cite: KEY]` using the keys in the
      state (several keys may be comma-separated inside one marker), quote only figures that are in the state,
@@ -59,10 +61,11 @@ Constraints for this skill:
      (template `assets/fix.md`: fix exactly what the check named) and a `recheck` execution step reusing the
      same script that sets `stop` on a second failure. `fix`, `gate` and `recheck` count as sub-steps of check.
   9. `record` (execution): `loan record <rationale_id> --outcome <outcome> --confidence <confidence>
-     --revision <revision>`. The revision is read from this skill's own `SKILL.md` frontmatter
-     (`metadata.version`, resolve the file relative to the script: `../SKILL.md`); when the server runs the
-     skill the script's folder sits under `<cache>/<name>@<revision-hash>/<name>/scripts/`, so also pass the
-     hash as part of the revision when it is there (`"2 (a1b2c3...)"`), else just the version. Also logs the
+     --revision <revision>`. For a local folder run the revision is `metadata.version` from this skill's own
+     `SKILL.md` (resolve it relative to the script: `../SKILL.md`). For a published run `aip` fetches only
+     `scripts/` and `assets/` into `~/.aip/cache/<name>@<revision-hash>/`, so `../SKILL.md` does not exist;
+     then take the hash from the script folder's parent directory name (`<name>@<hash>`) and pass that as
+     the revision. Also logs the
      typed judgment calls with `loan decide` (risk tier, connected exposure material, outcome) so the SOP's
      "log every judgment call" holds. Produces `decision_id` and the final `note`.
   Then `end`: `application_id`, `outcome`, `needs_human`, `decision_id` (empty string when nothing was filed),
@@ -71,10 +74,12 @@ Constraints for this skill:
 - No regulation names anywhere. Say "when you decline someone you owe them a reason", "the judgment step
   cannot see protected characteristics", "every decision is auditable".
 - Validate with `aip validate ./skills/assess-business-loan` until clean. Then test it locally once with
-  `aip run ./skills/assess-business-loan --input checkpoints/start-app-1002.json --interactive`, answering
-  the client task yourself, and fix whatever breaks; the run must end with a filed decision (`decision_id`
-  starting `DEC-APP-1002`). `TYPESAFE_API_KEY` is in `.env` (load it with `set -a; . ./.env; set +a` before
-  `aip run`). Do not run other applications through the skill; the plan runs them through the server later.
+  `aip run ./skills/assess-business-loan --input checkpoints/start-app-1002.json`. There is no terminal, so
+  do not use `--interactive`: the run pauses to a run file at the client task; write the answer to a JSON
+  file and `aip resume <run_id> --input answer.json`. Fix whatever breaks; the run must end with a filed
+  decision (`decision_id` starting `DEC-APP-1002`). Decisions are answered by the decision model configured
+  on this machine (`aip config` shows it; `TYPESAFE_API_KEY` in `.env` is the same key). Do not run other
+  applications through the skill; the plan runs them through the server later.
 - Write `source/README.md` as the skill asks: provenance (which SOP paragraph, policy rule or trace pattern
   became which step and why that kind), the rules the scripts carry, and the log of what was deliberately
   dropped with rationale.

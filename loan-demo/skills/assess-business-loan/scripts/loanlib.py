@@ -1,12 +1,14 @@
-"""Shared helpers for the assess-business-loan scripts: call `loan`, scrub the state, log judgments.
+"""Shared helpers for the assess-business-loan scripts: call `loan`, scrub the state, log judgments,
+find this skill's revision, and hand the latest check result from `check`/`recheck` to `record`.
 
-Every script runs with cwd = this folder, one JSON object on stdin
-({"currentState": ..., "assets": ..., "expects": ...}) and one JSON object on stdout.
-Standard library only: `loan` is reached with subprocess, never imported.
+Every script runs from this folder with one JSON object on stdin ({"state": <the step's declared
+inputs>, "assets": ..., "expects": ...}) and writes one JSON object holding exactly its declared
+outputs to stdout. Standard library only: `loan` is reached with subprocess, never imported.
 """
 from __future__ import annotations
 
 import json
+import os
 import re
 import subprocess
 import sys
@@ -14,16 +16,23 @@ from pathlib import Path
 from typing import Any
 
 JSON = dict[str, Any]
+SKILL_NAME = "assess-business-loan"
 
 
+# ------------------------------------------------------------------ stdin / stdout contract
 def read_state() -> JSON:
-    return json.load(sys.stdin)["currentState"]
+    payload = json.load(sys.stdin)
+    state = payload.get("state")
+    if state is None:
+        state = payload.get("currentState", {})
+    return state
 
 
 def write(result: JSON) -> None:
     json.dump(result, sys.stdout)
 
 
+# ------------------------------------------------------------------ the loan CLI
 def loan(*args: str) -> Any:
     """Run `loan <args>` and parse its JSON. A non-zero exit fails the step with loan's message."""
     proc = subprocess.run(["loan", *args], capture_output=True, text=True)
@@ -38,7 +47,10 @@ def loan(*args: str) -> Any:
 
 
 def decide(question: str, options: list[str], answer: str, why: str) -> None:
-    """SOP "Judgment calls": log every judgment with `loan decide`. Options are comma-separated, so strip commas."""
+    """SOP "Judgment calls": log one judgment per call with `loan decide`.
+
+    `--options` is a plain comma-split string, so one question per call and no commas inside an option.
+    """
     opts = ",".join(o.replace(",", ";") for o in options)
     loan("decide", "--question", question, "--options", opts, "--answer", answer, "--why", why)
 
@@ -58,8 +70,7 @@ DROP_KEYS = {"dob", "date_of_birth", "birth_date", "birthdate", "requested_by"}
 def person_labels(application: JSON, ownership: JSON) -> dict[str, str]:
     """Map every person's name the tools returned to a role label: owners by position, the RM by role.
 
-    The labels are what the state carries instead of names: "owner 1" is the first owner in
-    `ownership_summary.owners`, so a redacted note still ties back to a share.
+    "owner 1" is the first owner in `ownership_summary.owners`, so a redacted note still ties back to a share.
     """
     labels: dict[str, str] = {}
     for i, o in enumerate(ownership.get("owners", []), start=1):
@@ -72,14 +83,15 @@ def person_labels(application: JSON, ownership: JSON) -> dict[str, str]:
     rm = (application.get("relationship_manager") or {}).get("name")
     if rm:
         labels[rm] = "the relationship manager"
-    if application.get("application", {}).get("requested_by"):
-        labels.setdefault(application["application"]["requested_by"], "a person")
+    requested_by = (application.get("application") or {}).get("requested_by")
+    if requested_by:
+        labels.setdefault(requested_by, "a person")
     return labels
 
 
 def _name_patterns(labels: dict[str, str]) -> list[tuple[re.Pattern[str], str]]:
-    """Full names first, then first names on their own. Surnames alone are left: they can be part of a
-    business name (an owner's surname in the name of the business they hold)."""
+    """Full names first, then first names on their own. Surnames alone are left: an owner's surname can be
+    part of the name of the business they hold (Alder / Alder Logistics)."""
     pats: list[tuple[re.Pattern[str], str]] = []
     for name, label in sorted(labels.items(), key=lambda kv: -len(kv[0])):
         pats.append((re.compile(r"\b" + re.escape(name) + r"\b"), label))
@@ -148,42 +160,40 @@ def filter_notes(notes: list[JSON], labels: dict[str, str]) -> tuple[list[JSON],
     return kept, dropped
 
 
-# ------------------------------------------------------------------ the skill's own revision
-def skill_version() -> str:
-    """`metadata.version` from this skill's SKILL.md frontmatter (../SKILL.md relative to this script)."""
-    path = Path(__file__).resolve().parent.parent / "SKILL.md"
-    try:
-        text = path.read_text()
-    except OSError:
-        return "unknown"
-    fm = text.split("---", 2)
-    head = fm[1] if len(fm) >= 3 else text
-    in_meta = False
-    for line in head.splitlines():
-        if re.match(r"^metadata:\s*$", line):
-            in_meta = True
-            continue
-        if in_meta and not line.startswith((" ", "\t")):
-            in_meta = False
-        m = re.match(r"^\s+version:\s*[\"']?([^\"'\n]+?)[\"']?\s*$", line)
-        if in_meta and m:
-            return m.group(1).strip()
-    return "unknown"
-
-
+# ------------------------------------------------------------------ this skill's revision
 def skill_revision() -> str:
-    """The version, plus the published revision hash when the server runs this skill from its cache
-    (`<cache>/<name>@<hash>/<name>/scripts/`): "1 (a1b2c3...)". Locally it is just the version."""
-    version = skill_version()
-    parents = Path(__file__).resolve().parents
-    if len(parents) > 2 and "@" in parents[2].name:
-        return f"{version} ({parents[2].name.split('@', 1)[1]})"
-    return version
+    """The revision `loan record` files.
+
+    Local folder run: `metadata.version` from `../SKILL.md` (relative to this script).
+    Published run: `aip` fetches only scripts/ and assets/ into `~/.aip/cache/<name>@<hash>/`, so there is
+    no SKILL.md; the hash after `@` in the script folder's parent directory name is the revision.
+    """
+    scripts_dir = Path(__file__).resolve().parent
+    skill_md = scripts_dir.parent / "SKILL.md"
+    if skill_md.exists():
+        text = skill_md.read_text()
+        parts = text.split("---", 2)
+        head = parts[1] if len(parts) >= 3 else text
+        in_meta = False
+        for line in head.splitlines():
+            if re.match(r"^metadata:\s*$", line):
+                in_meta = True
+                continue
+            if in_meta and line and not line.startswith((" ", "\t")):
+                in_meta = False
+            m = re.match(r"^\s+version:\s*[\"']?([^\"'\n]+?)[\"']?\s*$", line)
+            if in_meta and m:
+                return m.group(1).strip()
+        return "unknown"
+    parent = scripts_dir.parent.name
+    if "@" in parent:
+        return parent.split("@", 1)[1]
+    return "unknown"
 
 
 # ------------------------------------------------------------------ cite keys
 def collect_cites(*sources: Any) -> list[str]:
-    """Every node key under a `cites` field in the given objects, plus bare keys, de-duplicated and sorted."""
+    """Every node key under a `cites` field in the given objects, plus bare `key` values, de-duplicated."""
     keys: set[str] = set()
 
     def walk(x: Any) -> None:
@@ -206,3 +216,29 @@ def collect_cites(*sources: Any) -> list[str]:
     for s in sources:
         walk(s)
     return sorted(keys)
+
+
+# ------------------------------------------------------------------ check -> record handoff
+# The state only grows and every key has one producer, so `record` (reached from `check` directly or
+# through `fix` -> `recheck`) can only declare the first check's keys. The latest submission's id and
+# check result travel through a file in the run's working directory (AIP_WORKDIR), which the runtime
+# names as the place for a run's files. `record` reads it only when the first check did not pass.
+def handoff_path(application_id: str) -> Path:
+    root = Path(os.environ.get("AIP_WORKDIR") or os.getcwd())
+    return root / ".run" / SKILL_NAME / f"{application_id}.check.json"
+
+
+def write_handoff(application_id: str, record: JSON) -> None:
+    path = handoff_path(application_id)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(record, indent=2))
+
+
+def read_handoff(application_id: str) -> JSON | None:
+    path = handoff_path(application_id)
+    if not path.exists():
+        return None
+    try:
+        return json.loads(path.read_text())
+    except json.JSONDecodeError:
+        return None

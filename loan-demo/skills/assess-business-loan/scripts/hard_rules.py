@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Apply the lending policy with `loan policy`: the hard rules R1-R6 and guidance G1.
 
-stdin:  currentState with application_id (str) and ownership_summary (from gather)
+stdin:  state with application_id (str) and ownership_summary (from gather)
 stdout: policy_outcome (auto_approve | auto_decline | review), fired, guidance, figures, cites,
         connected (scrubbed), own_facilities, policy_as_of
 
@@ -33,5 +33,5 @@ write({
     "cites": policy.get("cites", {}),
     "connected": connected,
     "own_facilities": policy.get("own_facilities", []),
-    "policy_as_of": policy.get("as_of"),
+    "policy_as_of": str(policy.get("as_of") or ""),
 })

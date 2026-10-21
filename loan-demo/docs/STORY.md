@@ -199,7 +199,7 @@ Q&A backup.
 | 0:00 | The setup. One applicant, five systems, the question: show me how you decided. | one slide |
 | 0:30 | Act one. The agent works the application; the ownership traversal; the recommendation; its trace in memory. | canned recording, Browser live |
 | 2:30 | The pivot. Four more runs side by side; the Decision query. | Browser, canned |
-| 3:15 | The skill. Nine steps in the inspector; zoom on gather and assess. | inspector |
+| 3:15 | The skill. Nine steps in the console; zoom on gather and assess. | console |
 | 4:00 | Run it. Fifth applicant, typed answers, one pause, filed decision. | live, video fallback |
 | 5:00 | The trace. Decision → CITES → the connected facility → the rule. Several runs side by side. | Browser, live |
 | 5:30 | Edit it. One rule changed, revision 2 published, the gray applicant run again. | live, video fallback |

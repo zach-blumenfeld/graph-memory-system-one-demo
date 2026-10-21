@@ -1,19 +1,22 @@
 {
   "stage": 6,
-  "skill": "assess-business-loan",
-  "revisions": [
+  "server": "http://localhost:8000",
+  "published": [
     {
+      "name": "assess-business-loan",
+      "revision": "8ffe579680fbdf23",
       "version": "1",
-      "revision": "63c33c7be679ea32",
-      "published_at": "2026-10-13T23:11:58+00:00",
-      "server": "http://localhost:8000"
+      "format": "0.6a1",
+      "at": "2026-10-21T22:13:08Z",
+      "note": "before R7"
     },
     {
+      "name": "assess-business-loan",
+      "revision": "946cbe6ba6a55848",
       "version": "2",
-      "revision": "1c4e170b79c08bb1",
-      "published_at": "2026-10-13T23:28:18+00:00",
-      "server": "http://localhost:8000",
-      "change": "R7 connected_exposure_cap added to compliance.json and policy.md, imported with `loan import --rules-only`; precedents.py sets needs_human when a fired rule has effect human, so by-confidence ends the run for a person"
+      "format": "0.6a1",
+      "at": "2026-10-21T22:29:36Z",
+      "note": "after R7: precedents.py sets needs_human for a fired rule with effect human; record.py names it"
     }
   ]
 }

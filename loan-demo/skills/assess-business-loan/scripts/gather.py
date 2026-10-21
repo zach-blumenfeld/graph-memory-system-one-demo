@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Pull the five things the policy needs and strip what the judgment step must never see.
 
-stdin:  currentState with application_id (str)
+stdin:  state with application_id (str)
 stdout: application (scrubbed), business_id, ownership_summary, facilities, cashflow, kyc,
         tenure_years, kyc_status, crm_notes (filtered, names redacted), crm_notes_dropped, as_of
 
@@ -12,7 +12,7 @@ personal characteristic is dropped before the judgment step.
 """
 from concurrent.futures import ThreadPoolExecutor
 
-from loanlib import collect_cites, filter_notes, loan, person_labels, read_state, scrub, write
+from loanlib import filter_notes, loan, person_labels, read_state, scrub, write
 
 state = read_state()
 app_id = str(state["application_id"]).strip()
@@ -66,7 +66,7 @@ ownership_summary = {"business": business_id, "owners": owners, "connected_busin
                      "connected_exposure": connected_exposure, "connected_worst_late_days": connected_worst,
                      "min_pct": ownership.get("min_pct", 25.0), "text": " ".join(parts), "cites": ownership.get("cites", [])}
 
-# --- facilities: every figure keeps its key; the 24 payment rows collapse to counts plus the late ones
+# --- facilities: every figure keeps its key; the payment rows collapse to counts plus the late or missed ones
 fac_view = []
 for f in facilities.get("facilities", []):
     pays = f.get("payments", [])
@@ -89,7 +89,7 @@ app_view = scrub({k: v for k, v in application.items() if k not in ("owners", "c
 app_view["crm_notes"] = crm_notes
 app_view["cites"] = [c for c in application.get("cites", []) if not c.startswith("NOTE-") or any(n["key"] == c for n in crm_notes)]
 
-result = {
+write({
     "application": app_view,
     "business_id": business_id,
     "ownership_summary": scrub(ownership_summary, labels),
@@ -97,10 +97,8 @@ result = {
     "cashflow": scrub(cashflow_view, labels),
     "kyc": scrub(kyc, labels),
     "tenure_years": float(application["business"].get("tenure_years") or 0.0),
-    "kyc_status": str(kyc.get("kyc", {}).get("status", "unknown")),
+    "kyc_status": str((kyc.get("kyc") or {}).get("status", "unknown")),
     "crm_notes": crm_notes,
-    "crm_notes_dropped": dropped,
-    "as_of": application.get("as_of"),
-}
-result["gathered_cites"] = collect_cites(result)
-write(result)
+    "crm_notes_dropped": int(dropped),
+    "as_of": str(application.get("as_of") or ""),
+})

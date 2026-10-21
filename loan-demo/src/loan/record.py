@@ -155,11 +155,24 @@ def verify_traces(log=print) -> int:
     return 1 if failures else 0
 
 
+def _policy_as_imported() -> str:
+    """The policy prose minus any rule `loan import --without-rule` left out of the graph (R7 before the rule change),
+    so the authoring step sees the same policy the recorded runs did."""
+    text = POLICY_FILE.read_text()
+    ck = CHECKPOINTS / "01-import.json"
+    left_out = set(json.loads(ck.read_text()).get("without", [])) if ck.exists() else set()
+    added = {k for r in (json.loads(ck.read_text()).get("rules_reimported", []) if ck.exists() else []) for k in r["new"]}
+    for rule in left_out - added:
+        paras = text.split("\n\n")
+        text = "\n\n".join(p for p in paras if not p.startswith(f"**{rule},"))
+    return text
+
+
 def export_source(log=print) -> None:
     """source/sop.md, source/policy.md and source/traces.md: what the AIP authoring skill compiles from."""
     SOURCE.mkdir(parents=True, exist_ok=True)
     shutil.copy(SOP_FILE, SOURCE / "sop.md")
-    shutil.copy(POLICY_FILE, SOURCE / "policy.md")
+    (SOURCE / "policy.md").write_text(_policy_as_imported())
     ck = json.loads((CHECKPOINTS / "02-runs.json").read_text())
     lines = ["# Recorded runs: what the agent actually did", "",
              "Five Claude Code sessions assessed a business-loan application from the credit team's page with only the `loan` tools, no skill. "

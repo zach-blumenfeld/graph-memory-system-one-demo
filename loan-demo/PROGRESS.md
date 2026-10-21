@@ -312,3 +312,76 @@ Plain-language walk of the published procedure (revision 1) node by node, for a 
 background: the five node kinds, the thirteen nodes in order, three runs as paths, and the one line
 revision 2 changed. Linked from the README (stage 2 and Files). Also: `aip get` during this session
 wrote an untracked `assess-business-loan/` copy into loan-demo/; removed. Not committed.
+
+## 2026-10-14 — merged to main
+
+Branch `loan-demo` merged to `main` via PR #1 (954ab1f). Local checkout is on main. Everything in this
+log is on main. The demo run-sheet lives in `.run/demo-runsheet.md` (gitignored, local only).
+
+Where things stand: README is a worked example with the node-by-node table, metrics, the deltas
+and the Haiku comparison; queries.md has 1–8 plus 2c, 3c–3e, 4b–4d, 5 pinned to revision 1;
+both skill revisions under checkpoints/skill-revisions; five Browser screenshots in img/. Secrets
+scans clean, including the exact key values against all tracked files and full history. The aip
+server on :8000 is still running; the memory graph holds the import, five traces and the filed
+decisions through DEC-APP-1004-03 and DEC-APP-1002-04. Not pushed (this entry only).
+
+## 2026-10-21 — rebuild on aip 0.6a1 (branch `aip-0.6a1`), steps 2 to 5
+
+Why: aip, aip-spec and the console moved to 0.6a1 (decisions and scripts resolved on the client, a
+state contract with declared outputs and a `requires` block, the console as its own npm package,
+`NEXT`/`THEN`/`Data`/`FOLLOWED_BY` in the catalog graph). Both demos re-run end to end against the
+deployed server on :8000 (Aura catalog `5ad53f9b`, `~/.config/aip/server-0.6a0.toml`, ten skillbench
+skills already in it) and the console on :4280 from `~/dev/aip-inspector`.
+
+Done:
+- Memory is a local Docker Neo4j (`loan-demo-memory`, bolt 37687, APOC); `.env` Aura lines commented out,
+  `.env.example` carries the `docker run` line. aip-demo's memory is a second container on 27687.
+- TypeSafe key moved to the client: `aip config --decision-model` (the 0.6 server refuses a
+  `[decision_model]` table). `aip skill install claude-code` refreshed both skills to 0.6a1 (they were 0.5a1).
+- `loan import --without-rule R7` (new flag; `make import` uses it) so the build starts before the rule
+  change; `verify import` expects 7 rules until `make rule` (`loan import --rules-only`) adds R7.
+  `loan traces export` drops the R7 paragraph from `source/policy.md` while R7 is out of the graph.
+- Five recordings: 85 to 159 s each, 20 to 28 turns, $5.61 total; every rationale passed the check first
+  time; outcomes refer 0.7 / approve 0.9 / decline 0.95 / approve 0.7 / refer 0.75. `loan verify traces` OK.
+- `prompts/author.md` rewritten for 0.6: scripts run on the client (`requires.tools: [loan]`), the
+  record step reads the revision hash from the cache folder name when `../SKILL.md` is absent, the local
+  test uses pause-and-resume (no tty). Old 0.5a1 skill kept aside in the session scratchpad; `make author`
+  running in the background.
+- Screenshots retaken headlessly with Playwright (Chrome extension not connected): Browser queries 1, 2, 3
+  on the local memory; the console pages. Queries 6 (aip database, Aura) still need the user.
+- `queries.md` moved to the 0.6 schema (5, 5b, new 5c data flow, 6, 6c with resolver/model/reviewed).
+
+## 2026-10-21 — rebuild on aip 0.6a1, steps 5 to 8
+
+Done:
+- `make author` (70 turns, 26 min, $12.14): `skills/assess-business-loan/` for 0.6a1, 11 nodes. The format
+  removed two routers the prompt asked for (`by-rules`, `by-confidence`): one producer per key and every
+  consumed key on every path mean a skipped step's answers cannot reach a later step and a path that ends
+  early cannot share `decision_id` with one that does not. The author moved the behaviour: `assess` runs on
+  every band (policy overrides on the automatic bands), `record` is on every path and files nothing when a
+  human is needed. Documented in `source/README.md`, docs/compile.md and the README's stage 2.
+- Published revision 1 `8ffe579680fbdf23` (before R7). Runs through `claude` + aip-runtime (`.run/live/run.sh`):
+  APP-1005 ×2 (DEC-APP-1005-01/02, same 21 cites, PRECEDENT_FOR), APP-1004 (DEC-APP-1004-02, no review pause),
+  APP-1001 (risk tier 0.28 → review; G1 → unfiled). The connected-exposure noul on APP-1005 (0.77, 0.79) sat
+  inside its 0.3 margin around 0.5, so those runs paused for a review too: a noul threshold is a margin, not a
+  minimum confidence (`aip.model.steps.flag`).
+- Two sessions refused to run a second time on an application with a decision on file (the aip-runtime skill
+  says not to start a second run of the same task): APP-1005 run 2 and the Haiku APP-1004 run. Both were
+  re-prompted with one sentence saying a second, independent assessment was wanted. The Haiku first attempt
+  left run 5f4a8044a8e944b4 paused in the history.
+- `make rule` (R7 into the graph, 8 rules, 40 SUBJECT_TO), `precedents.py` and `record.py` honour a fired
+  rule with effect `human`, `SKILL.md` version "2", published `946cbe6ba6a55848`. APP-1001 on revision 2:
+  R5 + R7, review at 0.22, unfiled with the R7 note.
+- Haiku comparison (revision 2): APP-1005 unfiled R7 (Jev leaned decline 0.37, overridden to approve at the
+  review, as the Fable baseline did at 0.28), APP-1004 DEC-APP-1004-03 equal to Fable's -02 on all 35 cites,
+  APP-1001 unfiled R7. Fable baseline on APP-1005 under R7: 140 s.
+- `uv run pytest` 15 passed in 0.9 s (local Neo4j); `loan verify fixture|import|traces` OK.
+- README: stages 2 and 3, the rule change, the model swap, side by side, numbers, metrics rewritten; console
+  screenshots (skill, revision-2 run, history) and Browser screenshots 1, 2, 3, 7 retaken; query 6's Browser
+  screenshot (aip database on Aura) kept from the first build with a caption. `checkpoints/03-publish.json`,
+  `04-live-runs.md`, `05-haiku-runs.md` rewritten; `skill-revisions/` left as the 0.5a1 record.
+
+Where things stand: both demos rebuilt end to end on 0.6a1, on branch `aip-0.6a1`, committed. Still for the
+user: the two Aura-backed Browser screenshots (aip-demo `img/aip-skill-neo4j-browser.png`, loan-demo
+`img/browser-q6-server-run.png`), and whether to push the branch. The two Docker containers
+(`aip-demo-memory` on 27687, `loan-demo-memory` on 37687) are left running with the final graphs.

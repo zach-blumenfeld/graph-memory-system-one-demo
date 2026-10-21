@@ -182,23 +182,35 @@ RETURN split(s.action, ' ')[2] AS attempt,
 ```
 
 ```cypher
-// [aip] - 5 - the skill as a graph, revision 1: steps and the flow between them (13 steps, 17 edges; labels are the step kinds)
-// revision 2 is 1c4e170b79c08bb1; without the revision filter both are drawn on top of each other
-MATCH (:Name {name: 'assess-business-loan'})-[:HAS_REVISION]->(s:Skill {revision: '63c33c7be679ea32'})
+// [aip] - 5 - the skill as a graph, revision 1: steps and the control flow between them (labels are the step kinds; a router's THEN edge carries its value)
+// revision 2 is 946cbe6ba6a55848; without the revision filter both are drawn on top of each other
+MATCH (:Name {name: 'assess-business-loan'})-[:HAS_REVISION]->(s:Skill {revision: '8ffe579680fbdf23'})
       -[:HAS_PROCEDURE]->(:Procedure)-[:HAS_STEP]->(st:Step)
-OPTIONAL MATCH e = (st)-[:INPUTS_TO|BRANCH]->(:Step)
+OPTIONAL MATCH e = (st)-[:NEXT|THEN]->(:Step)
 RETURN st, e
 ```
 
-The whole published skill: name, every revision, procedure, steps, edges, declared inputs and questions:
+The whole published skill: name, every revision, procedure, steps, control flow and questions:
 
 ```cypher
 // [aip] - 5b - the whole skill, every revision
 MATCH (n:Name {name: 'assess-business-loan'})-[:HAS_REVISION]->(s:Skill)-[:HAS_PROCEDURE]->(p:Procedure)
 MATCH p1 = (p)-[:HAS_STEP]->(st:Step)
-OPTIONAL MATCH p2 = (st)-[:INPUTS_TO|BRANCH]->(:Step)
-OPTIONAL MATCH p3 = (st)-[:DECLARES_INPUT|ASKS]->()
+OPTIONAL MATCH p2 = (st)-[:NEXT|THEN]->(:Step)
+OPTIONAL MATCH p3 = (st)-[:ASKS]->(:Question)
 RETURN n, s, p, p1, p2, p3
+```
+
+The data flow of revision 1, the 0.6 state contract as a graph: one `Data` node per key, `PRODUCES` from the
+step that declares it (or the decision whose question answers it), `FEEDS` into every step that reads it,
+`SUPPLIES` from the procedure for the start input. `assess`'s incoming `FEEDS` edges are the whole list of
+what the judgment may see:
+
+```cypher
+// [aip] - 5c - the data flow, revision 1: follow application_id from the client to the result
+MATCH (:Name {name: 'assess-business-loan'})-[:HAS_REVISION]->(s:Skill {revision: '8ffe579680fbdf23'})-[:HAS_PROCEDURE]->(p:Procedure)
+MATCH dataFlow = (p)-[:SUPPLIES]->(:Data)-[:FEEDS|PRODUCES*]->()
+RETURN dataFlow
 ```
 
 ```cypher
@@ -206,7 +218,7 @@ RETURN n, s, p, p1, p2, p3
 MATCH (r:Run {name: 'assess-business-loan'})-[:OF_SKILL]->(s:Skill)
 WITH r, s ORDER BY r.started_at DESC LIMIT 1
 MATCH p1 = (r)-[:STEP_RUN]->(sr:StepRun)
-OPTIONAL MATCH p2 = (sr)-[:NEXT]->(:StepRun)
+OPTIONAL MATCH p2 = (sr)-[:FOLLOWED_BY]->(:StepRun)
 OPTIONAL MATCH p3 = (sr)-[:OF_STEP]->(:Step)
 OPTIONAL MATCH p4 = (sr)-[:ANSWERED]->(:Answer)-[:OF_QUESTION]->(:Question)
 RETURN r, s, p1, p2, p3, p4
@@ -221,9 +233,10 @@ ORDER BY r.started_at DESC LIMIT 3
 ```
 
 ```cypher
-// [aip] - 6c - every typed answer, and whether a human overrode it at a review pause
+// [aip] - 6c - every typed answer: who answered it (resolver), the model, what it said, what the run recorded, and whether a human overrode it at a review pause
 MATCH (r:Run {name: 'assess-business-loan'})-[:STEP_RUN]->(sr:StepRun {step: 'assess'})-[:ANSWERED]->(a:Answer)-[:OF_QUESTION]->(q:Question)
-RETURN r.id AS run, left(r.revision, 8) AS revision, q.name AS question, a.value AS model_said, a.accepted AS accepted, a.overridden AS overridden
+RETURN r.id AS run, left(r.revision, 8) AS revision, q.name AS question, a.resolver AS resolver, a.model AS model,
+       a.value AS model_said, a.accepted AS accepted, a.reviewed AS reviewed, a.overridden AS overridden
 ORDER BY r.started_at, q.name
 ```
 
