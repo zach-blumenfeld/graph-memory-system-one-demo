@@ -9,8 +9,9 @@ goes the same day; claims not on the approved list are dropped; legal-sensitive 
 Constraints for this skill:
 - Start input: `brief_id` (string) and `send_at` (string, ISO time; empty means "use the brief's send
   window at 09:00 UTC").
-- Scripts (`execution` steps) may call the `blast` command, which is on PATH where the server runs. It is
-  the only way to reach the Notion data, drafts, scheduling and the log. `blast brief <id>`,
+- Scripts (`execution` steps) may call the `blast` command, which is on PATH on the machine that runs
+  `aip` (scripts run on the client, next to the data, never on the server; declare `blast` under
+  `requires.tools`). It is the only way to reach the Notion data, drafts, scheduling and the log. `blast brief <id>`,
   `blast product <name>`, `blast segments <product>`, `blast brand` return JSON; `blast draft <campaign_id>
   --body-file F --subject S --subject S --subject S --segment SEG` stores a draft and returns its id;
   `blast check <draft_id>` returns `{passed, failures[]}`; `blast schedule <draft_id> --segment SEG --at T
@@ -26,8 +27,10 @@ Constraints for this skill:
 - Writing the email is a `client_task`: three subject lines and a markdown body, with the brand guide,
   approved claims and persona in the state. Keep the procedure to about ten steps.
 - Validate with `aip validate ./skills/launch-email-blast` until clean. Then test it locally once with
-  `aip run ./skills/launch-email-blast --input start.json` using `{"brief_id": "brief-003", "send_at": ""}`,
-  answering the client task yourself, and fix whatever breaks. `TYPESAFE_API_KEY` is in `.env` (load it
-  with `set -a; . ./.env; set +a` before `aip run`).
+  `aip run ./skills/launch-email-blast --input start.json` using `{"brief_id": "brief-003", "send_at": ""}`.
+  There is no terminal, so do not use `--interactive`: the run pauses to a run file at the client task;
+  write the answer to a JSON file and `aip resume <run_id> --input answer.json`. Fix whatever breaks.
+  Decisions are answered by the decision model configured on this machine (`aip config` shows it;
+  `TYPESAFE_API_KEY` in `.env` is the same key).
 - Write `source/README.md` as the skill asks: provenance and the log of what was deliberately dropped.
 Do not ask questions; decide and note the decision in `source/README.md`. Finish with a short summary.

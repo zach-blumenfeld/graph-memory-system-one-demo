@@ -25,17 +25,22 @@ The example is an agent that runs email marketing campaigns from data kept in No
 
 ## Prerequisites
 
--  [uv](https://docs.astral.sh/uv/) and [Claude Code](https://claude.com/claude-code)
-- Two Neo4j databases ([Aura](https://console.neo4j.io) Free is fine): one for agent memory, one
-  for the aip server's catalog and run history
-- `aip` and `aip-spec` installed, with the `aip` and `aip-runtime` skills in Claude Code:
-  `curl -sSfL https://raw.githubusercontent.com/zach-blumenfeld/aip/aip-0.5a0/install.sh | bash`
-  then `aip server --init` and fill in the Neo4j backend and the TypeSafe key, and
+- [uv](https://docs.astral.sh/uv/), [Docker](https://www.docker.com/), Node (for the console) and
+  [Claude Code](https://claude.com/claude-code)
+- Two Neo4j databases, kept separate: one for agent memory and one for the aip server's catalog and
+  run history. Memory here is a local Neo4j 5 in Docker with APOC (the `docker run` line is in
+  `.env.example`); [Aura](https://console.neo4j.io) Free works for either.
+- `aip` 0.6a1 and `aip-spec` 0.6a1 installed, with the `aip` and `aip-runtime` skills in Claude Code:
+  `curl -sSfL https://raw.githubusercontent.com/zach-blumenfeld/aip/main/install.sh | bash`
+  then `aip server --init` and fill in the Neo4j backend, `aip server` in its own terminal, and
   `aip config --server http://localhost:8000` so the client and the agent find the server
-- A [TypeSafe](https://typesafe.ai) API key (the aip server answers decisions with it; without it
-  every decision pauses and asks you)
+- A [TypeSafe](https://typesafe.ai) API key, set on the client: `aip config --decision-model KEY`.
+  Since aip 0.6 the server holds no model key; the `aip` client answers decision steps with it.
+  Without it every decision pauses and asks you.
+- The web console, [aip-console](https://github.com/zach-blumenfeld/aip-console):
+  `npx aip-console --server http://localhost:8000` serves it at http://localhost:4280/
 - In `aip-demo/`: `cp .env.example .env` (memory database credentials, TypeSafe key),
-  `uv sync`, `uv tool install --editable .` so `blast` is on PATH, `uv run blast doctor`
+  `make sync` (`uv sync` and `uv tool install --editable .` so `blast` is on PATH), `blast doctor`
 
 ## Use case and Notion data
 
@@ -276,11 +281,16 @@ RETURN c, ht, t, p1, p2
 
 What to notice:
 
-- **Wall time.** 5 to 8 minutes and 14 to 32 turns per run with the default model. Most of it is
-  the model thinking between calls, not the tools.
+- **Wall time.** 91 to 120 seconds and 17 to 19 turns per run with the default model
+  (`claude-fable-5-1`, 2026-10-21; the first build of this example, two weeks earlier, took 5 to 8
+  minutes and 14 to 32 turns on the same prompts). Nearly all of it is the model between calls, not
+  the tools: 87 to 116 seconds of each run is API time.
 - **Consistency.** All four runs did the same job, in four slightly different orders, with
-  differently worded judgment calls, and one of them spent several turns deciding what to do
-  about a missing URL. Every judgment is the language model's, every time.
+  differently worded judgment calls: 25 judgment calls across four runs and no two questions
+  phrased the same way. The fixture's send windows are now in the past, so every launch run also
+  had to decide, on its own, what to do about a brief whose send date had gone (one moved it to the
+  next 09:00 slot, one scheduled the requested time anyway). Every judgment is the language
+  model's, every time.
 - **The judgment calls themselves** are the valuable residue: what kind of email, how urgent,
   legal or not, which segment, which claims are allowed, which subject line. This query groups
   them across runs; these are the decision points of the procedure, found by doing the job:
@@ -323,7 +333,7 @@ is what AIP does.
 
 ### AIP and skill distillation
 
-We will use an experimental project [Agent Instruction Protocol (AIP)](https://github.com/zach-blumenfeld/aip/tree/aip-0.5a0) for the skill distillation process. 
+We will use an experimental project [Agent Instruction Protocol (AIP)](https://github.com/zach-blumenfeld/aip) for the skill distillation process. 
 
 [NAMS](https://memory.neo4jlabs.com/docs), the hosted Neo4j agent memory service, also distills
 skills from memory ([From agent memory to portable skills](https://neo4j.com/blog/genai/from-agent-memory-to-portable-skills/)), but it does not incorporate structured decisions, so we use the Agent Instruction Protocol (AIP)
@@ -340,79 +350,100 @@ In the paper we showed that compiling skills to the AIP format resulted in impro
 
 ![](img/aip-paper-results.png)
 
-We are on a later version than the paper (format 0.5a1) which includes:
+We are on a later version than the paper (format 0.6a1) which includes:
 
-1. a client-server runtime that executes the graph and enforces sequencing and typed
-I/O
+1. a client-server runtime that executes the graph and enforces sequencing and typed I/O:
+   the server holds the catalog and walks the graph, the `aip` client runs the scripts next to the
+   data and asks the decision model
 2. decision model steps with thresholds
+3. a state contract: every step declares the keys it reads and the keys it adds, so the validator
+   checks the data flow, and the server stores it as a graph beside the control flow
 
 ### Skill distillation in this worked example
 In this worked example we fed AIP the agent traces from the in memory graph to make the skill: [docs/compile.md](docs/compile.md). In short: the SOP
 page plus the four traces read back out of memory (`blast traces export`), one prompt, and the
-`aip` authoring skill, which chose a kind for every step, wrote the scripts and templates,
-validated, and tested once. `skills/launch-email-blast/source/README.md` maps every step back to
-the SOP or a trace.
+`aip` authoring skill, which chose a kind for every step, declared each step's inputs and outputs,
+wrote the scripts and templates, validated, and tested locally. `skills/launch-email-blast/source/README.md`
+maps every step back to the SOP or a trace.
 
 ### Loading the skill into the AIP server
 Now we load it into the aip server (why, in the next section); for now it lets us inspect the
 skill:
 
 ```
-aip server --inspector                     # http://localhost:8000/inspector/
+aip server                                        # its own terminal; reads ~/.config/aip/server.toml
+npx aip-console --server http://localhost:8000    # another terminal; http://localhost:4280/
 aip publish ./skills/launch-email-blast
 ```
 
-You can view skills in the inspector. 
+The console draws the step graph of every published skill, as control flow or as data flow:
 
-![](img/aip-inspector-skill.png)
+![](img/aip-console-skill.png)
 
-You can also query against the aip server's database to inspect. The whole skill: name, revision, procedure, steps, edges, inputs and questions:
+You can also query against the aip server's database to inspect. The whole skill: name, revision, procedure, steps, control flow and questions:
 
 ```cypher
 MATCH (n:Name {name: 'launch-email-blast'})-[:HAS_REVISION]->(s:Skill)-[:HAS_PROCEDURE]->(p:Procedure)
 MATCH p1 = (p)-[:HAS_STEP]->(st:Step)
-OPTIONAL MATCH p2 = (st)-[:INPUTS_TO|BRANCH]->(:Step)
-OPTIONAL MATCH p3 = (st)-[:DECLARES_INPUT|ASKS]->()
+OPTIONAL MATCH p2 = (st)-[:NEXT|THEN]->(:Step)
+OPTIONAL MATCH p3 = (st)-[:ASKS]->(:Question)
 RETURN n, s, p, p1, p2, p3
 ```
 
-Just the steps and the flow between them (13 steps, 18 edges; labels are the step kinds):
+Just the steps and the control flow between them (14 steps, 18 edges; labels are the step kinds, a
+router's `THEN` edge carries the value it branches on):
 
 ```cypher
 MATCH (:Name {name: 'launch-email-blast'})-[:HAS_REVISION]->(:Skill)-[:HAS_PROCEDURE]->(:Procedure)-[:HAS_STEP]->(st:Step)
-OPTIONAL MATCH e = (st)-[:INPUTS_TO|BRANCH]->(:Step)
+OPTIONAL MATCH e = (st)-[:NEXT|THEN]->(:Step)
 RETURN st, e
+```
+
+And the data flow, which 0.6 stores beside it: one `Data` node per key, `PRODUCES` from the step
+that declares it, `FEEDS` into every step that reads it. A decision step's incoming `FEEDS` edges
+are the whole list of what the model may see.
+
+```cypher
+MATCH (:Name {name: 'launch-email-blast'})-[:HAS_REVISION]->(:Skill)-[:HAS_PROCEDURE]->(p:Procedure)
+MATCH dataFlow = (p)-[:SUPPLIES]->(:Data)-[:FEEDS|PRODUCES*]->()
+RETURN dataFlow
 ```
 
 ![](img/aip-skill-neo4j-browser.png)
 
+(Browser screenshot from the 0.5a1 build, where the control-flow edges were named `INPUTS_TO` and
+`BRANCH`; the 0.6 catalog draws the same shape with `NEXT` and `THEN`.)
+
 ## Running graph skills, and what you get
 
 We could take the skill folder and run it like any other Agent Skill: the agent reads `SKILL.md`
-and walks the graph itself. But because it is a graph, the aip server can walk it instead, with a
-programmatic interface for the agent that enforces the flow: the server validates inputs, runs the
-scripts, sends each decision to Jev, follows the routers, and hands the agent only the pauses.
-The runtime is described, with the architecture diagram, in the
-[AIP README](https://github.com/zach-blumenfeld/aip/tree/aip-0.5a0#how-it-works).
+and walks the graph itself. But because it is a graph, the aip runtime can walk it instead, with a
+programmatic interface for the agent that enforces the flow. The server holds the catalog and the
+run: it validates each step's input and output against what the step declared, follows the routers,
+and records every step. The `aip` client on the agent's machine runs the scripts next to the data
+(`blast` is on its PATH, not the server's) and sends each decision to Jev with the author's
+thresholds. The agent sees only the pauses: a client task, or a review when an answer fell under
+its threshold. The runtime is described, with the architecture diagram, in the
+[AIP README](https://github.com/zach-blumenfeld/aip#how-it-works).
 ```mermaid
 flowchart LR
     subgraph authoring["Authoring (once, with a frontier model)"]
-        doc["runbook, playbook,<br/>freeform SKILL.md"] --> skill["aip skill<br/>compiles to an AIP step graph"]
+        doc["SOP page +<br/>recorded traces"] --> skill["aip skill<br/>compiles to an AIP step graph"]
         skill --> validate["aip-spec validate"]
         validate --> publish["aip publish"]
     end
     subgraph clients["Clients"]
-        agent["any agent +<br/>aip-runtime meta-skill"] --> cli["aip CLI<br/>search · info · run · resume"]
-        insp["aip-inspector<br/>catalog · run console · history · governance"]
+        agent["Claude Code +<br/>aip-runtime meta-skill"] --> cli["aip CLI<br/>search · info · run · resume"]
+        insp["aip-console<br/>catalog · run console · history · governance"]
+        scripts["scripts run here,<br/>next to the data (blast)"]
+        model["decision model (TypeSafe Jev)<br/>answers questions, flags low confidence"]
+        cli --> scripts
+        cli --> model
     end
     subgraph server["aip server (one HTTP API)"]
-        api["/catalog · /procedures/{name}/step · /runs · /governance"]
+        api["/catalog · /runs · /governance"]
         engine["execution engine<br/>steps · routing · validation"]
-        scripts["scripts run here"]
-        model["decision model (TypeSafe)<br/>answers questions, flags low confidence"]
         api --> engine
-        engine --> scripts
-        engine --> model
     end
     subgraph backend["Backend (one interface)"]
         neo["Neo4j<br/>catalog · files · runs · answers<br/>full-text search · graph queries"]
@@ -434,35 +465,46 @@ claude --model sonnet             # or plain claude
 ```
 
 The agent's `aip-runtime` skill searches the catalog, inspects the match, starts the run, and
-answers the one pause: writing the email. Everything else happens on the server.
+answers the one pause: writing the email. Everything else happens inside `aip run`: the scripts on
+this machine, the decisions with Jev, the routing and the record on the server.
 
-What you get, measured on the same brief:
+What you get, measured on the same day ([checkpoints/05-live-runs.md](checkpoints/05-live-runs.md)):
 
-| | turns | wall | pauses for the agent |
-|---|---|---|---|
-| free-form agent from the SOP | 14 to 32 | 5 to 8 min | n/a, it did everything |
-| skill through the server, default model | 20 | 100 to 120 s | 1 |
-| skill through the server, Sonnet | 15 | 70 s | 1 or 2 |
+| | turns | wall | cost | pauses for the agent |
+|---|---|---|---|---|
+| free-form agent from the SOP, default model | 17 to 19 | 91 to 120 s | $0.55 to 0.80 | n/a, it did everything |
+| skill through the runtime, default model | 16 | 135 s | $1.71 | 1 |
+| skill through the runtime, Sonnet | 14 | 58 s | $0.26 | 1 |
 
-Jev answered every decision above threshold (launch 1.0, normal urgency 0.98, no legal review
-0.11); the agent never saw those questions. The order is now the graph: compliance before
+The speed story is not the one the first build told. On 2026-10-21 the free-form agent was already fast,
+and the skill run driven by the default model was not faster than it; the skill run driven by Sonnet
+was, at a seventh of the cost, with the same result. What the skill changes is who decides and in
+what order. Jev answered every decision above its threshold (launch 1.00, normal urgency 1.00, no
+legal review at 0.89, the first subject line at 0.46 against a 0.45 threshold); the agent never saw
+those questions. The order is now the graph: compliance before
 scheduling, digests never scheduled, a legal flag stops the run. Every run is recorded as
-`Run` → `StepRun` → `Answer` for governance.
+`Run` → `StepRun` → `Answer` for governance, with who answered each decision (`resolver`
+`typesafe` or `manual`), the model, and whether a human overrode it at a review.
 Every run of the skill, with the answers the decision model gave:
 
 ```cypher
 MATCH (r:Run {name: 'launch-email-blast'})-[:OF_SKILL]->(s:Skill)
 MATCH p1 = (r)-[:STEP_RUN]->(sr:StepRun)
-OPTIONAL MATCH p2 = (sr)-[:NEXT]->(:StepRun)
+OPTIONAL MATCH p2 = (sr)-[:FOLLOWED_BY]->(:StepRun)
 OPTIONAL MATCH p3 = (sr)-[:OF_STEP]->(:Step)
 OPTIONAL MATCH p4 = (sr)-[:ANSWERED]->(:Answer)-[:OF_QUESTION]->(:Question)
 RETURN r, s, p1, p2, p3, p4
 ```
 
+The same run in the console's history tab, step by step, with each decision's resolver and review
+status:
+
+![](img/aip-console-history.png)
+
 ## Additional resources
 
 - neo4j-agent-memory: https://neo4j.com/labs/agent-memory/
 - NAMS: https://memory.neo4jlabs.com/docs
-- AIP: https://github.com/zach-blumenfeld/aip/tree/aip-0.5a0 ; spec: https://github.com/zach-blumenfeld/aip-spec ; paper: https://arxiv.org/abs/2606.04781
+- AIP: https://github.com/zach-blumenfeld/aip ; spec: https://github.com/zach-blumenfeld/aip-spec ; console: https://github.com/zach-blumenfeld/aip-console ; paper: https://arxiv.org/abs/2606.04781
 - Other Neo4j + AI resources: https://neo4j.com/developer/ai
 - TypeSafe: https://docs.typesafe.ai/

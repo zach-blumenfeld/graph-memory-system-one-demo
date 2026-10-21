@@ -1,7 +1,7 @@
 UV ?= uv
 BLAST = $(UV) run blast
 
-.PHONY: sync doctor import reset record export verify serve publish clean
+.PHONY: sync doctor import reset record export verify serve console publish clean author fresh
 
 sync:
 	$(UV) sync
@@ -23,8 +23,11 @@ record: ## step 2: four headless agent runs (~25 min, ~$3)
 export: ## step 3a: source/ for the AIP authoring skill
 	$(BLAST) traces export
 
-serve: ## step 4: the aip server (reads ~/.config/aip/server.toml)
-	aip server --inspector
+serve: ## step 4: the aip server (reads ~/.config/aip/server.toml); the console is separate, see `make console`
+	aip server
+
+console: ## the web console against the server `aip config` names (http://localhost:4280/)
+	npx aip-console --server http://localhost:8000
 
 publish: ## step 4: publish the authored skill
 	aip validate ./skills/launch-email-blast && aip publish ./skills/launch-email-blast
@@ -33,7 +36,7 @@ clean:
 	rm -rf .run
 
 author: ## step 3b: Claude Code + the aip authoring skill compile ./skills/launch-email-blast from source/ (~15 min)
-	claude -p "$$(cat prompts/author.md)" --allowedTools "Read,Write,Edit,Glob,Grep,Bash,Skill" --permission-mode dontAsk --output-format json > .run/author.json; python3 -c "import json;d=json.load(open('.run/author.json'));print(d.get('result','')[:3000]);print('cost',d.get('total_cost_usd'),'turns',d.get('num_turns'))"
+	BLAST_RECORD=0 claude -p "$$(cat prompts/author.md)" --allowedTools "Read,Write,Edit,Glob,Grep,Bash,Skill" --permission-mode dontAsk --output-format json > .run/author.json; python3 -c "import json;d=json.load(open('.run/author.json'));print(d.get('result','')[:3000]);print('cost',d.get('total_cost_usd'),'turns',d.get('num_turns'))"
 
-fresh: ## before a live run: forget previous local runs, drafts and the campaign-log working copy
-	rm -rf .aip/runs .run/drafts .run/notion drafts
+fresh: ## before a live run: forget previous drafts and the campaign-log working copy (run files live in ~/.aip/runs)
+	rm -rf .run/drafts .run/notion drafts

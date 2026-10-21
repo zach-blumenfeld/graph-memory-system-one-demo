@@ -4,8 +4,10 @@ The email-blast workflow, done the open-source way: agent-memory SDK over bolt (
 Claude Code doing the job from a Notion SOP, traces distilled into an AIP skill, run on the aip
 server with Jev answering the decisions.
 
-Two databases. Memory: Aura `1e78d87c` (this folder's `.env`). AIP catalog and runs: Aura
-`659edd6a` (`~/.config/aip/server.toml`, already set, with the TypeSafe key).
+Two databases. Memory: the instance in this folder's `.env` (Aura `1e78d87c` for the first build; a
+local Neo4j in Docker for the 0.6a1 rebuild of 2026-10-21). AIP catalog and runs: the instance in
+`~/.config/aip/server.toml`. Since aip 0.6 the TypeSafe key lives on the client (`aip config
+--decision-model`), not in the server config.
 
 ## Build order
 
@@ -29,9 +31,9 @@ Two databases. Memory: Aura `1e78d87c` (this folder's `.env`). AIP catalog and r
    Claude Code with the `aip` authoring skill compiles `./skills/launch-email-blast/` from `source/`.
    `aip validate`, `aip run --interactive` once locally. Scripts under `scripts/` are the
    `blast` commands.
-6. **Serve + run** — `aip server --inspector`, retire `billing-support`, `aip publish
+6. **Serve + run** — `aip server`, `npx aip-console --server http://localhost:8000`, `aip publish
    launch-email-blast`. Fresh `claude` with the `aip-runtime` skill: "launch brief-013".
-   Jev answers the decisions on the server; the agent writes the draft at the client task.
+   The `aip` client runs the scripts and asks Jev; the agent writes the draft at the client task.
 7. **Docs** — README.md (the walkthrough), docs/, queries.md (one query per beat).
 
 Checkpoints in `checkpoints/`: import ids, the four traces, the authored skill folder (committed),

@@ -1,0 +1,7 @@
+{
+  "stage": 4,
+  "server": "http://localhost:8000",
+  "published": [
+    {"name": "launch-email-blast", "revision": "89cc1042481bd146", "version": "1", "format": "0.6a1", "at": "2026-10-21T21:57:31Z"}
+  ]
+}

@@ -37,30 +37,43 @@ generation), write the YAML, the scripts, the templates and a reference file of 
 lifted from the traces, run `aip validate` until clean, run the procedure once locally against the
 decision model, and record in `source/README.md` what came from where and what was dropped.
 
-On 2026-10-07 this took 56 turns, 9.7 minutes and $6.07, and needed one YAML quoting fix that the
-validator caught.
+On 2026-10-21, against AIP format 0.6a1, this took 64 turns, 15 minutes and $9.48 (74K output
+tokens, 4.3M cache-read tokens). The 0.6 format asks for more than 0.5a1 did: every execution and
+client-task step declares its `outputs`, a `requires` block names the interpreter and the `blast`
+tool the scripts need, and the validator checks the data flow (every key read is produced on every
+path to it, by exactly one step). The session ran every script against synthetic state in a scratch
+`BLAST_ROOT`, then two full local runs with the decision model (brief-003 as a launch; brief-012 as a
+digest, where the subject pick fell under its threshold and paused for review). Earlier compiles of the
+same source: 56 turns and $6.07 on format 0.5a1 (2026-10-07).
 
 ## What came out
 
 `skills/launch-email-blast/`:
 
 ```
-SKILL.md                 frontmatter + the AIP runtime block + the procedure YAML (13 nodes)
-scripts/load.py          blast brief/product/segments/brand; segment rule          (execution)
-scripts/submit.py        blast draft + blast check; sets check_state passed/fix/stop (execution, used twice)
-scripts/schedule.py      send-time rule, blast schedule, blast decide x4, blast log   (execution)
-scripts/close.py         not-scheduled log with the reason (legal, digest, 2nd fail) (execution)
-scripts/blastlib.py      shared helper
+SKILL.md                 frontmatter + the AIP runtime block + requires + the procedure YAML (14 nodes)
+scripts/load.py          blast brief/product/segments/brand; the segment rule              (execution)
+scripts/submit.py        blast draft + blast check; check_passed and the failures           (execution)
+scripts/schedule.py      send-time rule, blast schedule, blast decide, blast log --scheduled (execution)
+scripts/close.py         three modes: legal hold, digest handoff, fix-up recheck; each logs (execution, used three times)
+scripts/blastlib.py      shared helper: call blast, read the state, print exactly the declared outputs
 assets/write.md          the client-task template for writing the email
 assets/fix.md            the client-task template for the one fix-up pass
-references/examples.md   claims rulings, a passing body, subject picks, from the traces
+references/examples.md   claims rulings, a passing body, subject picks, what the check tests, from the traces
 source/                  sop.md, traces.md, README.md (provenance and dropped items)
 ```
 
-The graph: `load` → `classify` (decision: `email_kind` choice, `urgency` score, `legal_review`
-noul) → `by-legal` (router) → `write` (client task) → `submit` → `gate` (router) → `fix` →
-`resubmit` → `gate` → `pick-subject` (decision: `subject_pick` choice) → `by-kind` (router) →
-`schedule` or `close` → `end`.
+The graph (14 nodes: 10 working steps, 3 routers, 1 end): `load` → `classify` (decision:
+`email_kind` choice, `urgency` score, `legal_review` noul; thresholds 0.6 / 0.6 / 0.3) → `by-legal`
+(router: a legal flag goes to `hold`, which logs and ends) → `write` (client task) → `submit` →
+`gate` (router) → `fix` (client task) → `recheck` → `end`, or → `pick-subject` (decision:
+`subject_pick` choice, threshold 0.45) → `by-kind` (router) → `schedule` or `handoff` → `end`.
+
+One shape changed from the 0.5a1 compile. There, a fixed draft rejoined the main path at the subject
+pick. Under 0.6 every key has exactly one producer, so a branch cannot re-run `submit`'s outputs and
+rejoin; the author chose to end the fix-up path after the recheck, logging the result either way, and
+leave a fixed draft for a human to schedule. It is noted in `source/README.md` under "decisions taken
+without asking".
 
 `source/README.md` has the table that maps each SOP paragraph and trace pattern to a step, with
 the reason for its kind, and the list of deliberate drops.

@@ -1,7 +1,7 @@
 # Browser queries, in demo order
 
 Paste each block into Neo4j Browser. The first comment line says which database: `memory` is the
-agent-memory Aura instance (`.env` in this folder), `aip` is the aip server's instance
+agent-memory instance (`.env` in this folder), `aip` is the aip server's instance
 (`~/.config/aip/server.toml`). Keep a Browser tab open on each.
 
 ```cypher
@@ -45,29 +45,45 @@ ORDER BY times DESC
 ```
 
 ```cypher
-// [aip] - 5 - the whole published skill: name, revision, procedure, steps, edges, inputs, questions
+// [aip] - 5 - the whole published skill: name, revision, procedure, steps, control flow, questions
 MATCH (n:Name {name: 'launch-email-blast'})-[:HAS_REVISION]->(s:Skill)-[:HAS_PROCEDURE]->(p:Procedure)
 MATCH p1 = (p)-[:HAS_STEP]->(st:Step)
-OPTIONAL MATCH p2 = (st)-[:INPUTS_TO|BRANCH]->(:Step)
-OPTIONAL MATCH p3 = (st)-[:DECLARES_INPUT|ASKS]->()
+OPTIONAL MATCH p2 = (st)-[:NEXT|THEN]->(:Step)
+OPTIONAL MATCH p3 = (st)-[:ASKS]->(:Question)
 RETURN n, s, p, p1, p2, p3
 ```
 
 ```cypher
-// [aip] - 6 - just the steps and the flow between them (13 steps, 18 edges; labels are the step kinds)
+// [aip] - 6 - just the steps and the control flow between them (labels are the step kinds; a router's THEN edge carries its value)
 MATCH (:Name {name: 'launch-email-blast'})-[:HAS_REVISION]->(:Skill)-[:HAS_PROCEDURE]->(:Procedure)-[:HAS_STEP]->(st:Step)
-OPTIONAL MATCH e = (st)-[:INPUTS_TO|BRANCH]->(:Step)
+OPTIONAL MATCH e = (st)-[:NEXT|THEN]->(:Step)
 RETURN st, e
 ```
 
 ```cypher
+// [aip] - 6b - the data flow: one Data node per key, PRODUCES from the step that declares it, FEEDS into every step that reads it
+MATCH (:Name {name: 'launch-email-blast'})-[:HAS_REVISION]->(:Skill)-[:HAS_PROCEDURE]->(p:Procedure)
+MATCH dataFlow = (p)-[:SUPPLIES]->(:Data)-[:FEEDS|PRODUCES*]->()
+RETURN dataFlow
+```
+
+```cypher
 // [aip] - 7 - every run of the skill, step by step, with the answers the decision model gave
+// (Answer nodes carry the model's value, the accepted value, and whether a human overrode it at a review)
 MATCH (r:Run {name: 'launch-email-blast'})-[:OF_SKILL]->(s:Skill)
 MATCH p1 = (r)-[:STEP_RUN]->(sr:StepRun)
-OPTIONAL MATCH p2 = (sr)-[:NEXT]->(:StepRun)
+OPTIONAL MATCH p2 = (sr)-[:FOLLOWED_BY]->(:StepRun)
 OPTIONAL MATCH p3 = (sr)-[:OF_STEP]->(:Step)
 OPTIONAL MATCH p4 = (sr)-[:ANSWERED]->(:Answer)-[:OF_QUESTION]->(:Question)
 RETURN r, s, p1, p2, p3, p4
+```
+
+```cypher
+// [aip] - 7b - the same runs as a table: who answered each decision (resolver typesafe or manual), the model, the value, and overrides
+MATCH (r:Run {name: 'launch-email-blast'})-[:STEP_RUN]->(sr:StepRun)-[:ANSWERED]->(a:Answer)
+RETURN r.id AS run, sr.step AS step, a.question AS question, a.resolver AS resolver, a.model AS model,
+       a.value AS model_said, a.accepted AS accepted, a.overridden AS overridden
+ORDER BY r.started_at, sr.order, a.question
 ```
 
 Swap `launch-email-blast` for `billing-support` in 5 and 6 to draw the small example skill.
