@@ -19,9 +19,9 @@ from `loan-demo/tools/make_fixture.py` and `loan-demo/src/loan/policy.py`.
   ~/dev/aip-0.9'`, so `aip --version` prints `aip 0.9.0 language 0.9`.
 - A TypeSafe key in `aip config` (`aip config --decision-model-key KEY`): the procedure's one
   `Decide` asks it.
-- The agents' model is Claude. Export `ANTHROPIC_API_KEY` in every terminal you open (the two
-  framework agents read it); `aip agent` reads `AIP_AGENT_MODEL_KEY` and `AIP_AGENT_MODEL_NAME`,
-  or `aip config agent --model-key KEY`.
+- The models are Claude. Put the key in `.env` (`ANTHROPIC_API_KEY`); the two framework agents read it from there, and
+  `aip agent` reads `AIP_AGENT_MODEL_KEY` and `AIP_AGENT_MODEL_NAME`, which `.env` sets from it. Before parts 2 and 4,
+  load it into the terminal once: `set -a; source .env; set +a`.
 - Copy `.env.example` to `.env`. `AIP_DEMO_BACKEND=local` keeps the main server's store in
   `.aip/main.rl`; `aura` puts it in the Aura database named there. Start with `local`.
 

@@ -18,6 +18,7 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+from pathlib import Path
 import shutil
 import sys
 import time
@@ -33,6 +34,21 @@ from mcp import StdioServerParameters
 
 AGENT = "adk"
 TOOLS = ["search", "describe", "run", "resume"]
+def _load_dotenv() -> None:
+    """Read KEY=VALUE lines from the demo's .env (this folder's parent's parent) into os.environ, without overriding."""
+    env = Path(__file__).resolve().parents[2] / ".env"
+    if not env.exists():
+        return
+    for line in env.read_text().splitlines():
+        line = line.split("#", 1)[0].strip()
+        if "=" in line and not line.startswith("export "):
+            k, v = line.split("=", 1)
+            v = os.path.expandvars(v.strip().strip('"').strip("'"))
+            os.environ.setdefault(k.strip(), v)
+
+
+_load_dotenv()
+
 MODEL = os.environ.get("DEMO_AGENT_MODEL", "claude-sonnet-5-5")
 SYSTEM = """You are a credit analyst's assistant at Lantern Mutual. You assess business-loan
 applications with the procedures in the AIP catalog, reached through four tools: `search` finds
