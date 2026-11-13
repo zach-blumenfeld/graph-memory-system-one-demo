@@ -1,0 +1,7 @@
+.env
+.aip/
+.venv/
+__pycache__/
+*.pyc
+built/
+/assess_business_loan/

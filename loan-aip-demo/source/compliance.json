@@ -1,0 +1,132 @@
+{
+  "system": "Compliance",
+  "as_of": "2026-10-13",
+  "records": {
+    "KycRecord": [
+      {
+        "id": "KYC-BUS-01",
+        "business_id": "BUS-01",
+        "status": "current",
+        "last_review": "2026-03-14",
+        "beneficial_owners_verified": true
+      },
+      {
+        "id": "KYC-BUS-02",
+        "business_id": "BUS-02",
+        "status": "current",
+        "last_review": "2026-05-20",
+        "beneficial_owners_verified": true
+      },
+      {
+        "id": "KYC-BUS-03",
+        "business_id": "BUS-03",
+        "status": "overdue",
+        "last_review": "2024-07-02",
+        "beneficial_owners_verified": false
+      },
+      {
+        "id": "KYC-BUS-04",
+        "business_id": "BUS-04",
+        "status": "current",
+        "last_review": "2026-01-22",
+        "beneficial_owners_verified": true
+      },
+      {
+        "id": "KYC-BUS-05",
+        "business_id": "BUS-05",
+        "status": "current",
+        "last_review": "2025-11-30",
+        "beneficial_owners_verified": true
+      },
+      {
+        "id": "KYC-BUS-06",
+        "business_id": "BUS-06",
+        "status": "current",
+        "last_review": "2026-08-11",
+        "beneficial_owners_verified": true
+      },
+      {
+        "id": "KYC-BUS-07",
+        "business_id": "BUS-07",
+        "status": "refresh_due",
+        "last_review": "2024-10-01",
+        "beneficial_owners_verified": true
+      }
+    ],
+    "Rule": [
+      {
+        "id": "R1",
+        "name": "kyc_current",
+        "kind": "hard",
+        "field": "kyc_status",
+        "threshold": "current",
+        "text": "KYC status must be current. Overdue is an automatic decline. Refresh due goes to review."
+      },
+      {
+        "id": "R2",
+        "name": "no_fraud_12m",
+        "kind": "hard",
+        "field": "months_since_fraud_event",
+        "threshold": 12,
+        "text": "A fraud event on the business in the last 12 months is an automatic decline."
+      },
+      {
+        "id": "R3",
+        "name": "coverage_floor",
+        "kind": "hard",
+        "field": "coverage_ratio",
+        "threshold": 1.25,
+        "secondary_threshold": 1.0,
+        "text": "Debt service coverage is the 12-month average monthly net inflow divided by the proposed monthly payment plus the payments on existing facilities. 1.25 or more can be approved without judgment. From 1.00 up to 1.25 goes to review. Below 1.00 is an automatic decline."
+      },
+      {
+        "id": "R4",
+        "name": "exposure_cap",
+        "kind": "hard",
+        "field": "total_exposure",
+        "threshold": 1500000,
+        "text": "Total exposure to the business, plus every business its owners hold 25% or more of, including the proposed amount, must stay at or under $1,500,000. Over the cap goes to review."
+      },
+      {
+        "id": "R5",
+        "name": "connected_delinquency",
+        "kind": "hard",
+        "field": "connected_worst_late_days",
+        "threshold": 60,
+        "text": "Any facility 60 or more days late at a business an owner holds 25% or more of goes to review. Never an automatic approval."
+      },
+      {
+        "id": "R6",
+        "name": "tenure",
+        "kind": "hard",
+        "field": "tenure_months",
+        "threshold": 24,
+        "text": "A customer of fewer than 24 months goes to review."
+      },
+      {
+        "id": "G1",
+        "name": "long_customer_decline",
+        "kind": "guidance",
+        "field": "tenure_years",
+        "threshold": 5,
+        "text": "A decline on a customer of five years or more goes to a human before it is filed."
+      },
+      {
+        "id": "R7",
+        "name": "connected_exposure_cap",
+        "kind": "hard",
+        "field": "connected_exposure",
+        "threshold": 250000,
+        "text": "Connected exposure, the principal of every open facility at businesses an owner of the applicant holds 25% or more of, over $250,000 always goes to a human. It is never decided by the procedure alone."
+      }
+    ],
+    "FraudEvent": [
+      {
+        "id": "FRD-01",
+        "business_id": "BUS-03",
+        "date": "2026-06-10",
+        "kind": "counterfeit cheque deposits; operating account blocked by the fraud team"
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+[project]
+name = "loan-aip-demo-adk"
+version = "0.1.0"
+description = "A Google ADK agent on Claude whose only tools are aip mcp's search, describe, run and resume."
+requires-python = ">=3.11"
+dependencies = [
+    "google-adk>=2.14",
+    "anthropic>=2.8",
+    "mcp>=1.30",
+]
+
+[tool.uv]
+package = false

@@ -1,0 +1,128 @@
+# assess_business_loan/procedure.aip (revision 2: assets/policy.md moves R3's coverage floor from 1.25 to 1.10)
+#
+# Lantern Mutual's business-loan assessment as an AIP procedure, compiled from
+# source/sop_assess_loan.md and source/policy.md. Scripts gather the figures from the five
+# bank systems (JSON files under source/) and apply the hard rules, with every threshold read
+# from assets/policy.md, so a rule change is an edit to the policy text and a republish. The
+# decision model judges only the cases the rules leave open; the agent writes the rationale.
+
+Procedure assess_business_loan
+  "Assess a business-loan application under Lantern Mutual's lending policy: scripts gather the figures from the bank's systems and apply the hard rules, a decision model judges the cases the rules leave open, and the agent writes the filed rationale. The result is approve, refer or decline, with the rules that fired."
+
+  Use_When
+    "A business-loan application (an id like APP-1004) needs an assessment: approve, refer or decline, with the rules that fired and a written rationale."
+    "Someone asks whether a loan application should be approved under the lending policy."
+  Do_Not_Use_When
+    "The application is a personal or consumer loan, or the applicant is not in the bank's systems."
+  Requires python 3.10
+  Avoid
+    "Quoting a figure the systems do not hold, or arguing with a hard rule in the write-up."
+    "Mentioning an owner's age, date of birth or any personal characteristic."
+
+risk_tier_question = """
+How risky is lending to this business? Judge from the figures and the rules that fired, the
+ownership summary, the tenure, the KYC status and the relationship manager's notes. Describe
+the business, not the people.
+"""
+connected_question = """
+Is the connected exposure (the facilities at other businesses the applicant's owners hold 25% or
+more of) material to this decision? It is material when a connected facility is late or large
+against the bank's total exposure, or when the loan would plausibly service it.
+"""
+outcome_question   = """
+The hard rules left this application to judgment. Decide the outcome. Approve when the fired
+rules are carried by the rest of the file (strong coverage or liquidity, a clean payment record,
+a long tenure, current KYC, a purpose the notes support). Decline when the file does not carry
+them. Refer when the question that settles the case is one only a person can ask, or when you
+are not sure.
+"""
+
+Start "The application to assess." {
+  application_id: string "The application's id, as the loans system holds it (APP-1001 to APP-1005)."
+  Next_Step gather
+}
+
+Execute gather "Pull the application, the business, its cash flow, facilities, KYC record, fraud events, owners and the owners' other businesses from the five bank systems under source/." {
+  Read application_id
+  Run_Script scripts/gather.py
+  Produce figures:   object "Every figure the policy needs, each with the record ids it came from."
+          case_file: string "The facts the assessment may see: the request, the business, the figures, the ownership summary (names and percentages), the KYC status and the relationship manager's notes. No dates of birth."
+  Next_Step apply_policy
+}
+
+Execute apply_policy "Apply hard rules R1 to R7 and guidance G1 to the figures, with every threshold read from the policy text." {
+  Read figures
+  Run_Script scripts/apply_policy.py
+  Use assets/policy.md
+  Produce policy_check:   object                                             "The rules that fired, each with its value, threshold and effect; the guidance that applies; the thresholds the policy text gave; the figures tested."
+          rules_fired:    list                                               "The ids of the rules that fired, R1 to R7."
+          policy_summary: string                                             "The policy check in a paragraph: what fired and against which threshold, what did not, and the guidance that applies."
+          band:           choice [auto_approve, review, human, auto_decline] "What the hard rules say: approve or decline without judgment, a judgment is needed, or a person must see it."
+  Next_Step by_band
+}
+
+Route by_band "The rules decide, or a judgment is needed." {
+  Read band
+  auto_approve -> settle_by_rules
+  auto_decline -> settle_by_rules
+  human        -> settle_by_rules
+  review       -> judge
+}
+
+Decide judge "The judgment the policy left open: the risk tier, whether the connected exposure matters, and the outcome." {
+  Read case_file, policy_summary
+  Answer_Questions {
+    risk_tier:          score [low, medium, high] risk_tier_question
+    connected_material: true_or_false connected_question
+    outcome:            choice [approve, decline, refer] outcome_question
+      approve: "The case for the loan is made by the file itself."
+      decline: "The file argues against the loan."
+      refer:   "The facts in the systems cannot settle it; a person must ask something."
+  }
+  Produce judgment
+  Next_Step by_judgment
+}
+
+Route by_judgment "The model's outcome stands when it is sure; otherwise a person decides." {
+  Read judgment.outcome
+  Confidence_Below 0.6 -> refer_unsure
+  approve -> settle_by_judgment
+  decline -> settle_by_judgment
+  refer   -> settle_by_judgment
+}
+
+Execute settle_by_rules "The outcome the hard rules decided, and why." {
+  Read band, policy_check
+  Run_Script scripts/settle_by_rules.py
+  Produce outcome:       string "approve, refer or decline."
+          decision_note: string "How the outcome was reached, in one paragraph."
+  Next_Step rationale
+}
+
+Execute settle_by_judgment "The outcome the decision model judged, with its risk tier and confidence." {
+  Read judgment, policy_check
+  Run_Script scripts/settle_by_judgment.py
+  Produce outcome:       string "approve, refer or decline."
+          decision_note: string "How the outcome was reached, in one paragraph."
+  Next_Step rationale
+}
+
+Execute refer_unsure "The model was not sure enough: the application goes to a person." {
+  Read judgment, policy_check
+  Run_Script scripts/refer_unsure.py
+  Produce outcome:       string "refer."
+          decision_note: string "How the outcome was reached, in one paragraph."
+  Next_Step rationale
+}
+
+Task_Agent rationale "Write the rationale a customer or an examiner could read, every figure marked with the record it came from." {
+  Read application_id, outcome, decision_note, policy_check, case_file
+  Prompt assets/rationale.md
+  Use assets/policy.md
+  Produce rationale: string "The filed rationale: the outcome first, what was asked for, what the policy found, what was decided and why."
+  Next_Step end
+}
+
+End "The outcome, the rules that fired, and the rationale." {
+  Read application_id, outcome, rules_fired, rationale, judgment
+}

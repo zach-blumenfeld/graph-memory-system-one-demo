@@ -1,0 +1,11 @@
+# Read by `aip server` when started from this folder (./aip-server.toml wins over
+# ~/.config/aip/server.toml, which on a machine upgraded from 0.6 may still carry keys 0.9
+# refuses). The Makefile passes host, port and the store as flags, which override this file.
+
+[server]
+host = "127.0.0.1"
+localhost_open = true
+log_level = "warning"
+
+[backend]
+kind = "relate"

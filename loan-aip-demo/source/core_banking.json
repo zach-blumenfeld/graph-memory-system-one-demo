@@ -1,0 +1,1818 @@
+{
+  "system": "Core banking",
+  "as_of": "2026-10-13",
+  "records": {
+    "Business": [
+      {
+        "id": "BUS-01",
+        "legal_name": "Harrow Street Bakery Ltd",
+        "dba": "Harrow Street Bakery",
+        "industry": "food retail: bakery and wholesale",
+        "founded": "2016-03-01",
+        "customer_since": "2020-09-14"
+      },
+      {
+        "id": "BUS-02",
+        "legal_name": "Ridgeline Dental Partners LLP",
+        "dba": "Ridgeline Dental",
+        "industry": "healthcare: dental practice",
+        "founded": "2015-06-01",
+        "customer_since": "2019-03-01"
+      },
+      {
+        "id": "BUS-03",
+        "legal_name": "Corvid Print Co. Ltd",
+        "dba": "Corvid Print",
+        "industry": "commercial printing",
+        "founded": "2018-02-01",
+        "customer_since": "2023-05-01"
+      },
+      {
+        "id": "BUS-04",
+        "legal_name": "Mossbank Climbing Gym Ltd",
+        "dba": "Mossbank Climbing",
+        "industry": "leisure: climbing gym",
+        "founded": "2018-09-01",
+        "customer_since": "2019-05-20"
+      },
+      {
+        "id": "BUS-05",
+        "legal_name": "Alder Logistics Ltd",
+        "dba": "Alder Logistics",
+        "industry": "road freight",
+        "founded": "2019-04-01",
+        "customer_since": "2022-03-01"
+      },
+      {
+        "id": "BUS-06",
+        "legal_name": "Pell & Daughters Plumbing Ltd",
+        "dba": "Pell & Daughters",
+        "industry": "building services: plumbing",
+        "founded": "2011-05-01",
+        "customer_since": "2023-07-01"
+      },
+      {
+        "id": "BUS-07",
+        "legal_name": "Wrenfield Mechanical Ltd",
+        "dba": "Wrenfield Mechanical",
+        "industry": "building services: heating and ventilation",
+        "founded": "2012-01-01",
+        "customer_since": "2021-09-01"
+      }
+    ],
+    "Account": [
+      {
+        "id": "ACC-101",
+        "business_id": "BUS-01",
+        "type": "operating",
+        "opened": "2020-09-14",
+        "balance": 86400.0
+      },
+      {
+        "id": "ACC-102",
+        "business_id": "BUS-01",
+        "type": "savings",
+        "opened": "2021-02-01",
+        "balance": 150000.0
+      },
+      {
+        "id": "ACC-201",
+        "business_id": "BUS-02",
+        "type": "operating",
+        "opened": "2019-03-01",
+        "balance": 212000.0
+      },
+      {
+        "id": "ACC-202",
+        "business_id": "BUS-02",
+        "type": "savings",
+        "opened": "2019-03-01",
+        "balance": 310000.0
+      },
+      {
+        "id": "ACC-301",
+        "business_id": "BUS-03",
+        "type": "operating",
+        "opened": "2023-05-01",
+        "balance": 9800.0
+      },
+      {
+        "id": "ACC-401",
+        "business_id": "BUS-04",
+        "type": "operating",
+        "opened": "2019-05-20",
+        "balance": 142000.0
+      },
+      {
+        "id": "ACC-402",
+        "business_id": "BUS-04",
+        "type": "savings",
+        "opened": "2020-01-15",
+        "balance": 95000.0
+      },
+      {
+        "id": "ACC-501",
+        "business_id": "BUS-05",
+        "type": "operating",
+        "opened": "2022-03-01",
+        "balance": 4100.0
+      },
+      {
+        "id": "ACC-601",
+        "business_id": "BUS-06",
+        "type": "operating",
+        "opened": "2023-07-01",
+        "balance": 61000.0
+      },
+      {
+        "id": "ACC-701",
+        "business_id": "BUS-07",
+        "type": "operating",
+        "opened": "2021-09-01",
+        "balance": 388000.0
+      }
+    ],
+    "MonthlyCashflow": [
+      {
+        "id": "MON-101-2024-10",
+        "account_id": "ACC-101",
+        "month": "2024-10",
+        "inflow": 111224.08,
+        "outflow": 97877.19
+      },
+      {
+        "id": "MON-101-2024-11",
+        "account_id": "ACC-101",
+        "month": "2024-11",
+        "inflow": 108881.67,
+        "outflow": 95815.87
+      },
+      {
+        "id": "MON-101-2024-12",
+        "account_id": "ACC-101",
+        "month": "2024-12",
+        "inflow": 126964.17,
+        "outflow": 111728.47
+      },
+      {
+        "id": "MON-101-2025-01",
+        "account_id": "ACC-101",
+        "month": "2025-01",
+        "inflow": 94296.75,
+        "outflow": 82981.14
+      },
+      {
+        "id": "MON-101-2025-02",
+        "account_id": "ACC-101",
+        "month": "2025-02",
+        "inflow": 91101.92,
+        "outflow": 80169.69
+      },
+      {
+        "id": "MON-101-2025-03",
+        "account_id": "ACC-101",
+        "month": "2025-03",
+        "inflow": 103651.0,
+        "outflow": 91212.88
+      },
+      {
+        "id": "MON-101-2025-04",
+        "account_id": "ACC-101",
+        "month": "2025-04",
+        "inflow": 107807.83,
+        "outflow": 94870.89
+      },
+      {
+        "id": "MON-101-2025-05",
+        "account_id": "ACC-101",
+        "month": "2025-05",
+        "inflow": 111363.0,
+        "outflow": 97999.44
+      },
+      {
+        "id": "MON-101-2025-06",
+        "account_id": "ACC-101",
+        "month": "2025-06",
+        "inflow": 105661.17,
+        "outflow": 92981.83
+      },
+      {
+        "id": "MON-101-2025-07",
+        "account_id": "ACC-101",
+        "month": "2025-07",
+        "inflow": 104068.83,
+        "outflow": 91580.57
+      },
+      {
+        "id": "MON-101-2025-08",
+        "account_id": "ACC-101",
+        "month": "2025-08",
+        "inflow": 99408.42,
+        "outflow": 87479.41
+      },
+      {
+        "id": "MON-101-2025-09",
+        "account_id": "ACC-101",
+        "month": "2025-09",
+        "inflow": 109770.75,
+        "outflow": 96598.26
+      },
+      {
+        "id": "MON-101-2025-10",
+        "account_id": "ACC-101",
+        "month": "2025-10",
+        "inflow": 113154.58,
+        "outflow": 99576.03
+      },
+      {
+        "id": "MON-101-2025-11",
+        "account_id": "ACC-101",
+        "month": "2025-11",
+        "inflow": 121546.92,
+        "outflow": 106961.29
+      },
+      {
+        "id": "MON-101-2025-12",
+        "account_id": "ACC-101",
+        "month": "2025-12",
+        "inflow": 137828.58,
+        "outflow": 121289.15
+      },
+      {
+        "id": "MON-101-2026-01",
+        "account_id": "ACC-101",
+        "month": "2026-01",
+        "inflow": 103400.25,
+        "outflow": 90992.22
+      },
+      {
+        "id": "MON-101-2026-02",
+        "account_id": "ACC-101",
+        "month": "2026-02",
+        "inflow": 97503.08,
+        "outflow": 85802.71
+      },
+      {
+        "id": "MON-101-2026-03",
+        "account_id": "ACC-101",
+        "month": "2026-03",
+        "inflow": 111028.17,
+        "outflow": 97704.79
+      },
+      {
+        "id": "MON-101-2026-04",
+        "account_id": "ACC-101",
+        "month": "2026-04",
+        "inflow": 114228.5,
+        "outflow": 100521.08
+      },
+      {
+        "id": "MON-101-2026-05",
+        "account_id": "ACC-101",
+        "month": "2026-05",
+        "inflow": 120502.5,
+        "outflow": 106042.2
+      },
+      {
+        "id": "MON-101-2026-06",
+        "account_id": "ACC-101",
+        "month": "2026-06",
+        "inflow": 119868.67,
+        "outflow": 105484.43
+      },
+      {
+        "id": "MON-101-2026-07",
+        "account_id": "ACC-101",
+        "month": "2026-07",
+        "inflow": 101903.92,
+        "outflow": 89675.45
+      },
+      {
+        "id": "MON-101-2026-08",
+        "account_id": "ACC-101",
+        "month": "2026-08",
+        "inflow": 106966.83,
+        "outflow": 94130.81
+      },
+      {
+        "id": "MON-101-2026-09",
+        "account_id": "ACC-101",
+        "month": "2026-09",
+        "inflow": 110553.58,
+        "outflow": 97287.15
+      },
+      {
+        "id": "MON-102-2024-10",
+        "account_id": "ACC-102",
+        "month": "2024-10",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2024-11",
+        "account_id": "ACC-102",
+        "month": "2024-11",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2024-12",
+        "account_id": "ACC-102",
+        "month": "2024-12",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2025-01",
+        "account_id": "ACC-102",
+        "month": "2025-01",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2025-02",
+        "account_id": "ACC-102",
+        "month": "2025-02",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2025-03",
+        "account_id": "ACC-102",
+        "month": "2025-03",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2025-04",
+        "account_id": "ACC-102",
+        "month": "2025-04",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2025-05",
+        "account_id": "ACC-102",
+        "month": "2025-05",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2025-06",
+        "account_id": "ACC-102",
+        "month": "2025-06",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2025-07",
+        "account_id": "ACC-102",
+        "month": "2025-07",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2025-08",
+        "account_id": "ACC-102",
+        "month": "2025-08",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2025-09",
+        "account_id": "ACC-102",
+        "month": "2025-09",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2025-10",
+        "account_id": "ACC-102",
+        "month": "2025-10",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2025-11",
+        "account_id": "ACC-102",
+        "month": "2025-11",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2025-12",
+        "account_id": "ACC-102",
+        "month": "2025-12",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2026-01",
+        "account_id": "ACC-102",
+        "month": "2026-01",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2026-02",
+        "account_id": "ACC-102",
+        "month": "2026-02",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2026-03",
+        "account_id": "ACC-102",
+        "month": "2026-03",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2026-04",
+        "account_id": "ACC-102",
+        "month": "2026-04",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2026-05",
+        "account_id": "ACC-102",
+        "month": "2026-05",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2026-06",
+        "account_id": "ACC-102",
+        "month": "2026-06",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2026-07",
+        "account_id": "ACC-102",
+        "month": "2026-07",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2026-08",
+        "account_id": "ACC-102",
+        "month": "2026-08",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-102-2026-09",
+        "account_id": "ACC-102",
+        "month": "2026-09",
+        "inflow": 375.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-201-2024-10",
+        "account_id": "ACC-201",
+        "month": "2024-10",
+        "inflow": 93916.89,
+        "outflow": 85464.37
+      },
+      {
+        "id": "MON-201-2024-11",
+        "account_id": "ACC-201",
+        "month": "2024-11",
+        "inflow": 94255.0,
+        "outflow": 85772.05
+      },
+      {
+        "id": "MON-201-2024-12",
+        "account_id": "ACC-201",
+        "month": "2024-12",
+        "inflow": 90059.0,
+        "outflow": 81953.69
+      },
+      {
+        "id": "MON-201-2025-01",
+        "account_id": "ACC-201",
+        "month": "2025-01",
+        "inflow": 87066.67,
+        "outflow": 79230.67
+      },
+      {
+        "id": "MON-201-2025-02",
+        "account_id": "ACC-201",
+        "month": "2025-02",
+        "inflow": 90672.56,
+        "outflow": 82512.03
+      },
+      {
+        "id": "MON-201-2025-03",
+        "account_id": "ACC-201",
+        "month": "2025-03",
+        "inflow": 96011.11,
+        "outflow": 87370.11
+      },
+      {
+        "id": "MON-201-2025-04",
+        "account_id": "ACC-201",
+        "month": "2025-04",
+        "inflow": 87811.11,
+        "outflow": 79908.11
+      },
+      {
+        "id": "MON-201-2025-05",
+        "account_id": "ACC-201",
+        "month": "2025-05",
+        "inflow": 94287.44,
+        "outflow": 85801.57
+      },
+      {
+        "id": "MON-201-2025-06",
+        "account_id": "ACC-201",
+        "month": "2025-06",
+        "inflow": 84639.33,
+        "outflow": 77021.79
+      },
+      {
+        "id": "MON-201-2025-07",
+        "account_id": "ACC-201",
+        "month": "2025-07",
+        "inflow": 79095.89,
+        "outflow": 71977.26
+      },
+      {
+        "id": "MON-201-2025-08",
+        "account_id": "ACC-201",
+        "month": "2025-08",
+        "inflow": 78877.44,
+        "outflow": 71778.47
+      },
+      {
+        "id": "MON-201-2025-09",
+        "account_id": "ACC-201",
+        "month": "2025-09",
+        "inflow": 98454.78,
+        "outflow": 89593.85
+      },
+      {
+        "id": "MON-201-2025-10",
+        "account_id": "ACC-201",
+        "month": "2025-10",
+        "inflow": 98724.56,
+        "outflow": 89839.35
+      },
+      {
+        "id": "MON-201-2025-11",
+        "account_id": "ACC-201",
+        "month": "2025-11",
+        "inflow": 106766.78,
+        "outflow": 97157.77
+      },
+      {
+        "id": "MON-201-2025-12",
+        "account_id": "ACC-201",
+        "month": "2025-12",
+        "inflow": 99743.67,
+        "outflow": 90766.74
+      },
+      {
+        "id": "MON-201-2026-01",
+        "account_id": "ACC-201",
+        "month": "2026-01",
+        "inflow": 103358.67,
+        "outflow": 94056.39
+      },
+      {
+        "id": "MON-201-2026-02",
+        "account_id": "ACC-201",
+        "month": "2026-02",
+        "inflow": 100981.44,
+        "outflow": 91893.11
+      },
+      {
+        "id": "MON-201-2026-03",
+        "account_id": "ACC-201",
+        "month": "2026-03",
+        "inflow": 108187.33,
+        "outflow": 98450.47
+      },
+      {
+        "id": "MON-201-2026-04",
+        "account_id": "ACC-201",
+        "month": "2026-04",
+        "inflow": 91802.22,
+        "outflow": 83540.02
+      },
+      {
+        "id": "MON-201-2026-05",
+        "account_id": "ACC-201",
+        "month": "2026-05",
+        "inflow": 100296.0,
+        "outflow": 91269.36
+      },
+      {
+        "id": "MON-201-2026-06",
+        "account_id": "ACC-201",
+        "month": "2026-06",
+        "inflow": 86371.56,
+        "outflow": 78598.12
+      },
+      {
+        "id": "MON-201-2026-07",
+        "account_id": "ACC-201",
+        "month": "2026-07",
+        "inflow": 95096.44,
+        "outflow": 86537.76
+      },
+      {
+        "id": "MON-201-2026-08",
+        "account_id": "ACC-201",
+        "month": "2026-08",
+        "inflow": 90618.0,
+        "outflow": 82462.38
+      },
+      {
+        "id": "MON-201-2026-09",
+        "account_id": "ACC-201",
+        "month": "2026-09",
+        "inflow": 95862.11,
+        "outflow": 87234.52
+      },
+      {
+        "id": "MON-202-2024-10",
+        "account_id": "ACC-202",
+        "month": "2024-10",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2024-11",
+        "account_id": "ACC-202",
+        "month": "2024-11",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2024-12",
+        "account_id": "ACC-202",
+        "month": "2024-12",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2025-01",
+        "account_id": "ACC-202",
+        "month": "2025-01",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2025-02",
+        "account_id": "ACC-202",
+        "month": "2025-02",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2025-03",
+        "account_id": "ACC-202",
+        "month": "2025-03",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2025-04",
+        "account_id": "ACC-202",
+        "month": "2025-04",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2025-05",
+        "account_id": "ACC-202",
+        "month": "2025-05",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2025-06",
+        "account_id": "ACC-202",
+        "month": "2025-06",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2025-07",
+        "account_id": "ACC-202",
+        "month": "2025-07",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2025-08",
+        "account_id": "ACC-202",
+        "month": "2025-08",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2025-09",
+        "account_id": "ACC-202",
+        "month": "2025-09",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2025-10",
+        "account_id": "ACC-202",
+        "month": "2025-10",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2025-11",
+        "account_id": "ACC-202",
+        "month": "2025-11",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2025-12",
+        "account_id": "ACC-202",
+        "month": "2025-12",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2026-01",
+        "account_id": "ACC-202",
+        "month": "2026-01",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2026-02",
+        "account_id": "ACC-202",
+        "month": "2026-02",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2026-03",
+        "account_id": "ACC-202",
+        "month": "2026-03",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2026-04",
+        "account_id": "ACC-202",
+        "month": "2026-04",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2026-05",
+        "account_id": "ACC-202",
+        "month": "2026-05",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2026-06",
+        "account_id": "ACC-202",
+        "month": "2026-06",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2026-07",
+        "account_id": "ACC-202",
+        "month": "2026-07",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2026-08",
+        "account_id": "ACC-202",
+        "month": "2026-08",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-202-2026-09",
+        "account_id": "ACC-202",
+        "month": "2026-09",
+        "inflow": 775.0,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-301-2024-10",
+        "account_id": "ACC-301",
+        "month": "2024-10",
+        "inflow": 114694.12,
+        "outflow": 105518.59
+      },
+      {
+        "id": "MON-301-2024-11",
+        "account_id": "ACC-301",
+        "month": "2024-11",
+        "inflow": 100990.37,
+        "outflow": 92911.14
+      },
+      {
+        "id": "MON-301-2024-12",
+        "account_id": "ACC-301",
+        "month": "2024-12",
+        "inflow": 84897.0,
+        "outflow": 78105.24
+      },
+      {
+        "id": "MON-301-2025-01",
+        "account_id": "ACC-301",
+        "month": "2025-01",
+        "inflow": 68400.25,
+        "outflow": 62928.23
+      },
+      {
+        "id": "MON-301-2025-02",
+        "account_id": "ACC-301",
+        "month": "2025-02",
+        "inflow": 83703.75,
+        "outflow": 77007.45
+      },
+      {
+        "id": "MON-301-2025-03",
+        "account_id": "ACC-301",
+        "month": "2025-03",
+        "inflow": 97040.12,
+        "outflow": 89276.91
+      },
+      {
+        "id": "MON-301-2025-04",
+        "account_id": "ACC-301",
+        "month": "2025-04",
+        "inflow": 104212.0,
+        "outflow": 95875.04
+      },
+      {
+        "id": "MON-301-2025-05",
+        "account_id": "ACC-301",
+        "month": "2025-05",
+        "inflow": 96960.0,
+        "outflow": 89203.2
+      },
+      {
+        "id": "MON-301-2025-06",
+        "account_id": "ACC-301",
+        "month": "2025-06",
+        "inflow": 96847.5,
+        "outflow": 89099.7
+      },
+      {
+        "id": "MON-301-2025-07",
+        "account_id": "ACC-301",
+        "month": "2025-07",
+        "inflow": 98607.12,
+        "outflow": 90718.55
+      },
+      {
+        "id": "MON-301-2025-08",
+        "account_id": "ACC-301",
+        "month": "2025-08",
+        "inflow": 87823.0,
+        "outflow": 80797.16
+      },
+      {
+        "id": "MON-301-2025-09",
+        "account_id": "ACC-301",
+        "month": "2025-09",
+        "inflow": 94270.38,
+        "outflow": 86728.75
+      },
+      {
+        "id": "MON-301-2025-10",
+        "account_id": "ACC-301",
+        "month": "2025-10",
+        "inflow": 127640.25,
+        "outflow": 117429.03
+      },
+      {
+        "id": "MON-301-2025-11",
+        "account_id": "ACC-301",
+        "month": "2025-11",
+        "inflow": 121857.87,
+        "outflow": 112109.24
+      },
+      {
+        "id": "MON-301-2025-12",
+        "account_id": "ACC-301",
+        "month": "2025-12",
+        "inflow": 84542.88,
+        "outflow": 77779.45
+      },
+      {
+        "id": "MON-301-2026-01",
+        "account_id": "ACC-301",
+        "month": "2026-01",
+        "inflow": 76182.12,
+        "outflow": 70087.55
+      },
+      {
+        "id": "MON-301-2026-02",
+        "account_id": "ACC-301",
+        "month": "2026-02",
+        "inflow": 84514.75,
+        "outflow": 77753.57
+      },
+      {
+        "id": "MON-301-2026-03",
+        "account_id": "ACC-301",
+        "month": "2026-03",
+        "inflow": 102819.12,
+        "outflow": 94593.59
+      },
+      {
+        "id": "MON-301-2026-04",
+        "account_id": "ACC-301",
+        "month": "2026-04",
+        "inflow": 107272.25,
+        "outflow": 98690.47
+      },
+      {
+        "id": "MON-301-2026-05",
+        "account_id": "ACC-301",
+        "month": "2026-05",
+        "inflow": 106675.5,
+        "outflow": 98141.46
+      },
+      {
+        "id": "MON-301-2026-06",
+        "account_id": "ACC-301",
+        "month": "2026-06",
+        "inflow": 114030.5,
+        "outflow": 104908.06
+      },
+      {
+        "id": "MON-301-2026-07",
+        "account_id": "ACC-301",
+        "month": "2026-07",
+        "inflow": 101219.0,
+        "outflow": 93121.48
+      },
+      {
+        "id": "MON-301-2026-08",
+        "account_id": "ACC-301",
+        "month": "2026-08",
+        "inflow": 97490.0,
+        "outflow": 89690.8
+      },
+      {
+        "id": "MON-301-2026-09",
+        "account_id": "ACC-301",
+        "month": "2026-09",
+        "inflow": 106660.12,
+        "outflow": 98127.31
+      },
+      {
+        "id": "MON-401-2024-10",
+        "account_id": "ACC-401",
+        "month": "2024-10",
+        "inflow": 58923.3,
+        "outflow": 47138.64
+      },
+      {
+        "id": "MON-401-2024-11",
+        "account_id": "ACC-401",
+        "month": "2024-11",
+        "inflow": 56659.05,
+        "outflow": 45327.24
+      },
+      {
+        "id": "MON-401-2024-12",
+        "account_id": "ACC-401",
+        "month": "2024-12",
+        "inflow": 53920.65,
+        "outflow": 43136.52
+      },
+      {
+        "id": "MON-401-2025-01",
+        "account_id": "ACC-401",
+        "month": "2025-01",
+        "inflow": 64030.25,
+        "outflow": 51224.2
+      },
+      {
+        "id": "MON-401-2025-02",
+        "account_id": "ACC-401",
+        "month": "2025-02",
+        "inflow": 58905.1,
+        "outflow": 47124.08
+      },
+      {
+        "id": "MON-401-2025-03",
+        "account_id": "ACC-401",
+        "month": "2025-03",
+        "inflow": 48245.25,
+        "outflow": 38596.2
+      },
+      {
+        "id": "MON-401-2025-04",
+        "account_id": "ACC-401",
+        "month": "2025-04",
+        "inflow": 49332.5,
+        "outflow": 39466.0
+      },
+      {
+        "id": "MON-401-2025-05",
+        "account_id": "ACC-401",
+        "month": "2025-05",
+        "inflow": 44800.4,
+        "outflow": 35840.32
+      },
+      {
+        "id": "MON-401-2025-06",
+        "account_id": "ACC-401",
+        "month": "2025-06",
+        "inflow": 46607.1,
+        "outflow": 37285.68
+      },
+      {
+        "id": "MON-401-2025-07",
+        "account_id": "ACC-401",
+        "month": "2025-07",
+        "inflow": 46354.6,
+        "outflow": 37083.68
+      },
+      {
+        "id": "MON-401-2025-08",
+        "account_id": "ACC-401",
+        "month": "2025-08",
+        "inflow": 47398.75,
+        "outflow": 37919.0
+      },
+      {
+        "id": "MON-401-2025-09",
+        "account_id": "ACC-401",
+        "month": "2025-09",
+        "inflow": 58443.55,
+        "outflow": 46754.84
+      },
+      {
+        "id": "MON-401-2025-10",
+        "account_id": "ACC-401",
+        "month": "2025-10",
+        "inflow": 66812.5,
+        "outflow": 53450.0
+      },
+      {
+        "id": "MON-401-2025-11",
+        "account_id": "ACC-401",
+        "month": "2025-11",
+        "inflow": 65017.45,
+        "outflow": 52013.96
+      },
+      {
+        "id": "MON-401-2025-12",
+        "account_id": "ACC-401",
+        "month": "2025-12",
+        "inflow": 62355.15,
+        "outflow": 49884.12
+      },
+      {
+        "id": "MON-401-2026-01",
+        "account_id": "ACC-401",
+        "month": "2026-01",
+        "inflow": 70788.1,
+        "outflow": 56630.48
+      },
+      {
+        "id": "MON-401-2026-02",
+        "account_id": "ACC-401",
+        "month": "2026-02",
+        "inflow": 61763.3,
+        "outflow": 49410.64
+      },
+      {
+        "id": "MON-401-2026-03",
+        "account_id": "ACC-401",
+        "month": "2026-03",
+        "inflow": 58216.85,
+        "outflow": 46573.48
+      },
+      {
+        "id": "MON-401-2026-04",
+        "account_id": "ACC-401",
+        "month": "2026-04",
+        "inflow": 53905.35,
+        "outflow": 43124.28
+      },
+      {
+        "id": "MON-401-2026-05",
+        "account_id": "ACC-401",
+        "month": "2026-05",
+        "inflow": 52225.6,
+        "outflow": 41780.48
+      },
+      {
+        "id": "MON-401-2026-06",
+        "account_id": "ACC-401",
+        "month": "2026-06",
+        "inflow": 52017.6,
+        "outflow": 41614.08
+      },
+      {
+        "id": "MON-401-2026-07",
+        "account_id": "ACC-401",
+        "month": "2026-07",
+        "inflow": 50917.6,
+        "outflow": 40734.08
+      },
+      {
+        "id": "MON-401-2026-08",
+        "account_id": "ACC-401",
+        "month": "2026-08",
+        "inflow": 50497.1,
+        "outflow": 40397.68
+      },
+      {
+        "id": "MON-401-2026-09",
+        "account_id": "ACC-401",
+        "month": "2026-09",
+        "inflow": 66202.6,
+        "outflow": 52962.08
+      },
+      {
+        "id": "MON-402-2024-10",
+        "account_id": "ACC-402",
+        "month": "2024-10",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2024-11",
+        "account_id": "ACC-402",
+        "month": "2024-11",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2024-12",
+        "account_id": "ACC-402",
+        "month": "2024-12",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2025-01",
+        "account_id": "ACC-402",
+        "month": "2025-01",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2025-02",
+        "account_id": "ACC-402",
+        "month": "2025-02",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2025-03",
+        "account_id": "ACC-402",
+        "month": "2025-03",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2025-04",
+        "account_id": "ACC-402",
+        "month": "2025-04",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2025-05",
+        "account_id": "ACC-402",
+        "month": "2025-05",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2025-06",
+        "account_id": "ACC-402",
+        "month": "2025-06",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2025-07",
+        "account_id": "ACC-402",
+        "month": "2025-07",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2025-08",
+        "account_id": "ACC-402",
+        "month": "2025-08",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2025-09",
+        "account_id": "ACC-402",
+        "month": "2025-09",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2025-10",
+        "account_id": "ACC-402",
+        "month": "2025-10",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2025-11",
+        "account_id": "ACC-402",
+        "month": "2025-11",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2025-12",
+        "account_id": "ACC-402",
+        "month": "2025-12",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2026-01",
+        "account_id": "ACC-402",
+        "month": "2026-01",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2026-02",
+        "account_id": "ACC-402",
+        "month": "2026-02",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2026-03",
+        "account_id": "ACC-402",
+        "month": "2026-03",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2026-04",
+        "account_id": "ACC-402",
+        "month": "2026-04",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2026-05",
+        "account_id": "ACC-402",
+        "month": "2026-05",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2026-06",
+        "account_id": "ACC-402",
+        "month": "2026-06",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2026-07",
+        "account_id": "ACC-402",
+        "month": "2026-07",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2026-08",
+        "account_id": "ACC-402",
+        "month": "2026-08",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-402-2026-09",
+        "account_id": "ACC-402",
+        "month": "2026-09",
+        "inflow": 237.5,
+        "outflow": 0.0
+      },
+      {
+        "id": "MON-501-2024-10",
+        "account_id": "ACC-501",
+        "month": "2024-10",
+        "inflow": 86307.8,
+        "outflow": 81992.41
+      },
+      {
+        "id": "MON-501-2024-11",
+        "account_id": "ACC-501",
+        "month": "2024-11",
+        "inflow": 91500.2,
+        "outflow": 86925.19
+      },
+      {
+        "id": "MON-501-2024-12",
+        "account_id": "ACC-501",
+        "month": "2024-12",
+        "inflow": 67904.8,
+        "outflow": 64509.56
+      },
+      {
+        "id": "MON-501-2025-01",
+        "account_id": "ACC-501",
+        "month": "2025-01",
+        "inflow": 77095.4,
+        "outflow": 73240.63
+      },
+      {
+        "id": "MON-501-2025-02",
+        "account_id": "ACC-501",
+        "month": "2025-02",
+        "inflow": 77152.2,
+        "outflow": 73294.59
+      },
+      {
+        "id": "MON-501-2025-03",
+        "account_id": "ACC-501",
+        "month": "2025-03",
+        "inflow": 78374.6,
+        "outflow": 74455.87
+      },
+      {
+        "id": "MON-501-2025-04",
+        "account_id": "ACC-501",
+        "month": "2025-04",
+        "inflow": 80080.6,
+        "outflow": 76076.57
+      },
+      {
+        "id": "MON-501-2025-05",
+        "account_id": "ACC-501",
+        "month": "2025-05",
+        "inflow": 81592.6,
+        "outflow": 77512.97
+      },
+      {
+        "id": "MON-501-2025-06",
+        "account_id": "ACC-501",
+        "month": "2025-06",
+        "inflow": 83851.0,
+        "outflow": 79658.45
+      },
+      {
+        "id": "MON-501-2025-07",
+        "account_id": "ACC-501",
+        "month": "2025-07",
+        "inflow": 77977.4,
+        "outflow": 74078.53
+      },
+      {
+        "id": "MON-501-2025-08",
+        "account_id": "ACC-501",
+        "month": "2025-08",
+        "inflow": 79149.8,
+        "outflow": 75192.31
+      },
+      {
+        "id": "MON-501-2025-09",
+        "account_id": "ACC-501",
+        "month": "2025-09",
+        "inflow": 78264.2,
+        "outflow": 74350.99
+      },
+      {
+        "id": "MON-501-2025-10",
+        "account_id": "ACC-501",
+        "month": "2025-10",
+        "inflow": 95719.6,
+        "outflow": 90933.62
+      },
+      {
+        "id": "MON-501-2025-11",
+        "account_id": "ACC-501",
+        "month": "2025-11",
+        "inflow": 100937.2,
+        "outflow": 95890.34
+      },
+      {
+        "id": "MON-501-2025-12",
+        "account_id": "ACC-501",
+        "month": "2025-12",
+        "inflow": 79621.2,
+        "outflow": 75640.14
+      },
+      {
+        "id": "MON-501-2026-01",
+        "account_id": "ACC-501",
+        "month": "2026-01",
+        "inflow": 78419.4,
+        "outflow": 74498.43
+      },
+      {
+        "id": "MON-501-2026-02",
+        "account_id": "ACC-501",
+        "month": "2026-02",
+        "inflow": 77933.4,
+        "outflow": 74036.73
+      },
+      {
+        "id": "MON-501-2026-03",
+        "account_id": "ACC-501",
+        "month": "2026-03",
+        "inflow": 87172.4,
+        "outflow": 82813.78
+      },
+      {
+        "id": "MON-501-2026-04",
+        "account_id": "ACC-501",
+        "month": "2026-04",
+        "inflow": 83369.2,
+        "outflow": 79200.74
+      },
+      {
+        "id": "MON-501-2026-05",
+        "account_id": "ACC-501",
+        "month": "2026-05",
+        "inflow": 85648.2,
+        "outflow": 81365.79
+      },
+      {
+        "id": "MON-501-2026-06",
+        "account_id": "ACC-501",
+        "month": "2026-06",
+        "inflow": 86115.8,
+        "outflow": 81810.01
+      },
+      {
+        "id": "MON-501-2026-07",
+        "account_id": "ACC-501",
+        "month": "2026-07",
+        "inflow": 88430.6,
+        "outflow": 84009.07
+      },
+      {
+        "id": "MON-501-2026-08",
+        "account_id": "ACC-501",
+        "month": "2026-08",
+        "inflow": 75192.6,
+        "outflow": 71432.97
+      },
+      {
+        "id": "MON-501-2026-09",
+        "account_id": "ACC-501",
+        "month": "2026-09",
+        "inflow": 83371.0,
+        "outflow": 79202.45
+      },
+      {
+        "id": "MON-601-2024-10",
+        "account_id": "ACC-601",
+        "month": "2024-10",
+        "inflow": 81979.73,
+        "outflow": 69682.77
+      },
+      {
+        "id": "MON-601-2024-11",
+        "account_id": "ACC-601",
+        "month": "2024-11",
+        "inflow": 82061.47,
+        "outflow": 69752.25
+      },
+      {
+        "id": "MON-601-2024-12",
+        "account_id": "ACC-601",
+        "month": "2024-12",
+        "inflow": 76753.47,
+        "outflow": 65240.45
+      },
+      {
+        "id": "MON-601-2025-01",
+        "account_id": "ACC-601",
+        "month": "2025-01",
+        "inflow": 79560.53,
+        "outflow": 67626.45
+      },
+      {
+        "id": "MON-601-2025-02",
+        "account_id": "ACC-601",
+        "month": "2025-02",
+        "inflow": 84337.73,
+        "outflow": 71687.07
+      },
+      {
+        "id": "MON-601-2025-03",
+        "account_id": "ACC-601",
+        "month": "2025-03",
+        "inflow": 74084.6,
+        "outflow": 62971.91
+      },
+      {
+        "id": "MON-601-2025-04",
+        "account_id": "ACC-601",
+        "month": "2025-04",
+        "inflow": 71803.47,
+        "outflow": 61032.95
+      },
+      {
+        "id": "MON-601-2025-05",
+        "account_id": "ACC-601",
+        "month": "2025-05",
+        "inflow": 77221.93,
+        "outflow": 65638.64
+      },
+      {
+        "id": "MON-601-2025-06",
+        "account_id": "ACC-601",
+        "month": "2025-06",
+        "inflow": 75443.53,
+        "outflow": 64127.0
+      },
+      {
+        "id": "MON-601-2025-07",
+        "account_id": "ACC-601",
+        "month": "2025-07",
+        "inflow": 71507.67,
+        "outflow": 60781.52
+      },
+      {
+        "id": "MON-601-2025-08",
+        "account_id": "ACC-601",
+        "month": "2025-08",
+        "inflow": 79361.2,
+        "outflow": 67457.02
+      },
+      {
+        "id": "MON-601-2025-09",
+        "account_id": "ACC-601",
+        "month": "2025-09",
+        "inflow": 71353.47,
+        "outflow": 60650.45
+      },
+      {
+        "id": "MON-601-2025-10",
+        "account_id": "ACC-601",
+        "month": "2025-10",
+        "inflow": 91778.53,
+        "outflow": 78011.75
+      },
+      {
+        "id": "MON-601-2025-11",
+        "account_id": "ACC-601",
+        "month": "2025-11",
+        "inflow": 87660.87,
+        "outflow": 74511.74
+      },
+      {
+        "id": "MON-601-2025-12",
+        "account_id": "ACC-601",
+        "month": "2025-12",
+        "inflow": 81818.53,
+        "outflow": 69545.75
+      },
+      {
+        "id": "MON-601-2026-01",
+        "account_id": "ACC-601",
+        "month": "2026-01",
+        "inflow": 88540.4,
+        "outflow": 75259.34
+      },
+      {
+        "id": "MON-601-2026-02",
+        "account_id": "ACC-601",
+        "month": "2026-02",
+        "inflow": 92544.6,
+        "outflow": 78662.91
+      },
+      {
+        "id": "MON-601-2026-03",
+        "account_id": "ACC-601",
+        "month": "2026-03",
+        "inflow": 79416.4,
+        "outflow": 67503.94
+      },
+      {
+        "id": "MON-601-2026-04",
+        "account_id": "ACC-601",
+        "month": "2026-04",
+        "inflow": 76130.47,
+        "outflow": 64710.9
+      },
+      {
+        "id": "MON-601-2026-05",
+        "account_id": "ACC-601",
+        "month": "2026-05",
+        "inflow": 76013.53,
+        "outflow": 64611.5
+      },
+      {
+        "id": "MON-601-2026-06",
+        "account_id": "ACC-601",
+        "month": "2026-06",
+        "inflow": 81878.4,
+        "outflow": 69596.64
+      },
+      {
+        "id": "MON-601-2026-07",
+        "account_id": "ACC-601",
+        "month": "2026-07",
+        "inflow": 87314.73,
+        "outflow": 74217.52
+      },
+      {
+        "id": "MON-601-2026-08",
+        "account_id": "ACC-601",
+        "month": "2026-08",
+        "inflow": 88244.6,
+        "outflow": 75007.91
+      },
+      {
+        "id": "MON-601-2026-09",
+        "account_id": "ACC-601",
+        "month": "2026-09",
+        "inflow": 81903.87,
+        "outflow": 69618.29
+      },
+      {
+        "id": "MON-701-2024-10",
+        "account_id": "ACC-701",
+        "month": "2024-10",
+        "inflow": 174785.43,
+        "outflow": 150315.47
+      },
+      {
+        "id": "MON-701-2024-11",
+        "account_id": "ACC-701",
+        "month": "2024-11",
+        "inflow": 153202.93,
+        "outflow": 131754.52
+      },
+      {
+        "id": "MON-701-2024-12",
+        "account_id": "ACC-701",
+        "month": "2024-12",
+        "inflow": 150032.5,
+        "outflow": 129027.95
+      },
+      {
+        "id": "MON-701-2025-01",
+        "account_id": "ACC-701",
+        "month": "2025-01",
+        "inflow": 174955.71,
+        "outflow": 150461.91
+      },
+      {
+        "id": "MON-701-2025-02",
+        "account_id": "ACC-701",
+        "month": "2025-02",
+        "inflow": 171585.0,
+        "outflow": 147563.1
+      },
+      {
+        "id": "MON-701-2025-03",
+        "account_id": "ACC-701",
+        "month": "2025-03",
+        "inflow": 151478.64,
+        "outflow": 130271.63
+      },
+      {
+        "id": "MON-701-2025-04",
+        "account_id": "ACC-701",
+        "month": "2025-04",
+        "inflow": 136311.5,
+        "outflow": 117227.89
+      },
+      {
+        "id": "MON-701-2025-05",
+        "account_id": "ACC-701",
+        "month": "2025-05",
+        "inflow": 135482.5,
+        "outflow": 116514.95
+      },
+      {
+        "id": "MON-701-2025-06",
+        "account_id": "ACC-701",
+        "month": "2025-06",
+        "inflow": 128297.29,
+        "outflow": 110335.67
+      },
+      {
+        "id": "MON-701-2025-07",
+        "account_id": "ACC-701",
+        "month": "2025-07",
+        "inflow": 161836.64,
+        "outflow": 139179.51
+      },
+      {
+        "id": "MON-701-2025-08",
+        "account_id": "ACC-701",
+        "month": "2025-08",
+        "inflow": 162035.57,
+        "outflow": 139350.59
+      },
+      {
+        "id": "MON-701-2025-09",
+        "account_id": "ACC-701",
+        "month": "2025-09",
+        "inflow": 149174.93,
+        "outflow": 128290.44
+      },
+      {
+        "id": "MON-701-2025-10",
+        "account_id": "ACC-701",
+        "month": "2025-10",
+        "inflow": 185896.29,
+        "outflow": 159870.81
+      },
+      {
+        "id": "MON-701-2025-11",
+        "account_id": "ACC-701",
+        "month": "2025-11",
+        "inflow": 192502.86,
+        "outflow": 165552.46
+      },
+      {
+        "id": "MON-701-2025-12",
+        "account_id": "ACC-701",
+        "month": "2025-12",
+        "inflow": 164134.36,
+        "outflow": 141155.55
+      },
+      {
+        "id": "MON-701-2026-01",
+        "account_id": "ACC-701",
+        "month": "2026-01",
+        "inflow": 196525.5,
+        "outflow": 169011.93
+      },
+      {
+        "id": "MON-701-2026-02",
+        "account_id": "ACC-701",
+        "month": "2026-02",
+        "inflow": 179232.21,
+        "outflow": 154139.7
+      },
+      {
+        "id": "MON-701-2026-03",
+        "account_id": "ACC-701",
+        "month": "2026-03",
+        "inflow": 176802.5,
+        "outflow": 152050.15
+      },
+      {
+        "id": "MON-701-2026-04",
+        "account_id": "ACC-701",
+        "month": "2026-04",
+        "inflow": 152757.71,
+        "outflow": 131371.63
+      },
+      {
+        "id": "MON-701-2026-05",
+        "account_id": "ACC-701",
+        "month": "2026-05",
+        "inflow": 164178.93,
+        "outflow": 141193.88
+      },
+      {
+        "id": "MON-701-2026-06",
+        "account_id": "ACC-701",
+        "month": "2026-06",
+        "inflow": 166266.0,
+        "outflow": 142988.76
+      },
+      {
+        "id": "MON-701-2026-07",
+        "account_id": "ACC-701",
+        "month": "2026-07",
+        "inflow": 160723.86,
+        "outflow": 138222.52
+      },
+      {
+        "id": "MON-701-2026-08",
+        "account_id": "ACC-701",
+        "month": "2026-08",
+        "inflow": 171827.0,
+        "outflow": 147771.22
+      },
+      {
+        "id": "MON-701-2026-09",
+        "account_id": "ACC-701",
+        "month": "2026-09",
+        "inflow": 169154.07,
+        "outflow": 145472.5
+      }
+    ]
+  }
+}
