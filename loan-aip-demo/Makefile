@@ -45,8 +45,9 @@ status:
 	@curl -fs $(MAIN)/health && echo || echo "main down ($(MAIN))"
 	@curl -fs $(EMPTY)/health && echo || echo "empty down ($(EMPTY))"
 
-reset: down ## forget both stores (the main one only when local) and start again
+reset: down ## forget both stores (the main one only when local), the live build under ./built, and start again
 	rm -f .aip/empty.rl
+	rm -rf built
 	@if [ "$(AIP_DEMO_BACKEND)" = "local" ]; then rm -f .aip/main.rl; else echo "aura store left as it is; empty it in Aura if you need to"; fi
 	$(MAKE) up
 
