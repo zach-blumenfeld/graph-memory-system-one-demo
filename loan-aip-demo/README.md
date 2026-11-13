@@ -17,6 +17,7 @@ cd ~/dev/graph-memory-system-one-demo/loan-aip-demo
 cp .env.example .env            # then put your Anthropic key on the ANTHROPIC_API_KEY= line
 aip config --decision-model-key <TYPESAFE_KEY>
 make setup
+make prebuild-4                 # part 4's first `aip agent`, once, before the demo; see solutions/part4.md
 ```
 
 ## Start (every time)
@@ -27,10 +28,11 @@ Terminal A:
 cd ~/dev/graph-memory-system-one-demo/loan-aip-demo
 set -a; source .env; set +a
 make reset                      # fresh stores, both servers up: main :8300, empty :8301
-make console                    # http://localhost:4280 ; leave it running
+make console                    # http://localhost:4280 in the background; `make down` stops it
 ```
 
-If anything is off: `make down`, then `make reset` again.
+If anything is off: `make down`, then `make reset` again. If port 4280 is taken, `make console`
+names the process holding it: kill it, or set `AIP_DEMO_CONSOLE_PORT` in `.env`.
 
 ## Part 1: build it, live
 
@@ -132,18 +134,36 @@ make check-v2
 
 ## Part 4: the harness goes away
 
-1. Terminal A, pointed at the empty server:
+The first `aip agent` on the empty server, the one that built the procedure from scratch, was
+done before the demo: `make prebuild-4` ran it once, timed it, and wrote `solutions/part4.md`
+(the session id, how long it took, what it built, the outcome). `make reset` keeps that server
+as it is. Live, the same session carries on.
+
+1. Terminal A, pointed at the empty server and the session the build ran in:
 
 ```sh
 export AIP_SERVER=http://127.0.0.1:8301
+export AIP_SESSION=$(cat solutions/part4.session)
 aip list
-aip agent --new --progress "Assess loan application APP-1004 under Lantern Mutual's lending policy and SOP in ./source (policy.md and sop_assess_loan.md; the bank's five systems are the JSON files there). Report approve, refer or decline, with the rules that fired and a short rationale. If no procedure in the catalog does this, build one from ./source and write it under ./built, then run it."
+aip runs --session $AIP_SESSION
 ```
 
-   You see: `search` finds nothing, `build_procedure` runs, a name is published, it runs, the
-   outcome prints.
+   You see: a catalog with one procedure that was not there before, and the session's runs:
+   `assist`, the `build_procedure` it ran, and the first run of what it built. `solutions/part4.md`
+   has the timing to say out loud.
 
-2. Terminal D:
+2. Terminal A: `make console-empty`, then http://localhost:4281: the procedure the agent built,
+   its step graph, and the build's runs under History.
+
+3. Terminal A, the same session, a second application:
+
+```sh
+aip agent --progress "Now assess loan application APP-1002 the same way: approve, refer or decline, the rules that fired and a short rationale."
+```
+
+   You see: `search` finds the procedure, nothing is built, it runs, the outcome prints.
+
+4. Terminal D:
 
 ```sh
 cd ~/dev/graph-memory-system-one-demo/loan-aip-demo && AIP_SERVER=http://127.0.0.1:8301 claude
@@ -151,20 +171,33 @@ cd ~/dev/graph-memory-system-one-demo/loan-aip-demo && AIP_SERVER=http://127.0.0
 
    Paste:
 
-> Use aip to find the loan assessment procedure in the catalog and run it on APP-1002.
+> Use aip to find the loan assessment procedure in the catalog and run it on APP-1003.
 
-3. Terminal A: `make console-empty`, then http://localhost:4281.
+5. Terminal A:
 
-4. The slide, the whole harness (`~/dev/aip-0.9/src/aip/agent.py`):
+```sh
+make check-4
+```
+
+   You see: every run of the agent-built procedure on the empty server beside the known outcome.
+
+6. The slide, the whole harness (`~/dev/aip-0.9/src/aip/agent.py`):
 
 ```python
-result = self.client.run(target, inputs, agent=AGENT, session=session, on_step=on_step)
-while isinstance(result, Paused):
-    answered = self.answer(result, session, out, on_step)   # one model call, no tools
-    if answered is None:
-        out.status, out.pause = "paused", result.to_json()
-        return out
-    result = answered
+def agent(client, chat, text, session):
+    r = client.run("assist", {"task": text, "outcome": history(client, session, text)}, agent="agent", session=session)
+    while isinstance(r, Paused):
+        msg = message_for(client, r)
+        for _ in range(4):                                   # one answer, up to three corrections
+            reply = chat(msg)
+            try:
+                r = client.resume(r, parse(reply), agent="agent", session=session, work=work_of(reply, r))
+                break
+            except RunError as e:
+                msg = msg + refused(reply, e)
+        else:
+            break                                            # left paused, for whoever answers next
+    return r
 ```
 
 ## After
@@ -181,6 +214,7 @@ aip config server local
 | `source/` | policy, SOP, the five systems as JSON |
 | `solutions/assess_business_loan/`, `-v2/`, `policy-v2.md` | the prebuilt procedure and its revision 2 |
 | `solutions/README.md` | the design, what was run with run ids, what did not work, what aip is missing |
+| `solutions/part4.md`, `part4.session`, `part4.name`, `prebuild_4.py` | part 4's pre-built `aip agent` session: the record, its id, the name it published, and the script `make prebuild-4` runs |
 | `agents/adk/`, `agents/langgraph/` | the two framework agents |
 | `check.py` | each run beside its expected outcome, tick or cross |
 | `Makefile`, `.env.example`, `aip-server.toml` | setup, servers, console, reset |

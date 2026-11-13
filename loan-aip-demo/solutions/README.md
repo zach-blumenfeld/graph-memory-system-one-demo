@@ -135,6 +135,18 @@ as the final rehearsal left them, with both servers running; `make reset` emptie
 
 ## What aip needs
 
+- **`aip agent` cannot turn thinking off, and Claude 5.5 thinks past its reply cap.** On Anthropic's
+  OpenAI-compatible endpoint (`/v1/chat/completions`), `claude-sonnet-5-5` and `claude-opus-5-5`
+  think by default; `aip.chat.ChatClient` sends `model`, `messages` and `max_tokens` only (32000
+  for `aip agent`), so the thinking counts against the cap and nothing turns it off. Asked for
+  `build_procedure`'s `draft` (the whole folder as one JSON object, a 34,000-token prompt), both
+  models spent all 32000 tokens thinking (`output_tokens_details.thinking_tokens: 3000` of 3000 in a
+  capped probe, `finish_reason: length`, empty content), four times over 16 minutes, and `aip agent`
+  gave up: `aip agent: gave up at plan after 4 answers: the reply holds no JSON object` (session
+  `agent-20261112-233937-4713`, 2026-11-13). The Messages API refuses `thinking: disabled` for these
+  models too. `claude-sonnet-4-5` on the same endpoint answers with content at once, so the demo's
+  `.env` sets `AIP_AGENT_MODEL_NAME=claude-sonnet-4-5` for `aip agent`. A `reasoning_effort` (or
+  `thinking`) setting on `aip config agent`, or a larger cap, would let 5.5 drive it.
 - **A folder named like a published procedure shadows the name.** `aip run assess_business_loan`
   run from a directory holding `./assess_business_loan/` runs that folder, as a draft, not the
   published revision; `aip mcp`'s `run` does the same. The rehearsal hit it: the live build had
