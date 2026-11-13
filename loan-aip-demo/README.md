@@ -69,11 +69,8 @@ cd ~/dev/graph-memory-system-one-demo/loan-aip-demo && AIP_SESSION=run-1 claude
 
 4. Paste:
 
-> Use aip to run the published procedure `assess_business_loan` on APP-1001, APP-1003 and
-> APP-1004, in parallel: start the three runs in one Bash call (in the background, collecting
-> their output), then answer each run's pause with `aip resume`, writing the rationale its task
-> asks for from the task's state. Do not assess the applications yourself and do not change the
-> catalog. Report each application's outcome and run id.
+> Run `assess_business_loan` on APP-1001, APP-1003 and APP-1004, in parallel. Report each
+> outcome and run id.
 
 5. Console, http://localhost:4280: open `assess_business_loan`. Step graph: control flow, then
    data flow, then everything, then run traffic.
@@ -113,9 +110,8 @@ aip publish built/assess_business_loan
 
 2. Terminal C, paste:
 
-> The procedure has a new revision. Use aip to run the published procedure `assess_business_loan`
-> by its name alone, no `@1`, so the newest revision runs, on APP-1004 and APP-1001, in parallel,
-> answering each pause with `aip resume`. Report each outcome, revision and run id.
+> Run `assess_business_loan` by name, no `@1`, so the new revision runs, on APP-1004 and
+> APP-1001, in parallel. Report each outcome, revision and run id.
 
 3. Terminal A:
 
@@ -174,7 +170,7 @@ cd ~/dev/graph-memory-system-one-demo/loan-aip-demo && AIP_SERVER=http://127.0.0
 
    Paste:
 
-> Use aip to find the loan assessment procedure in the catalog and run it on APP-1003.
+> Find the loan assessment procedure in the catalog and run it on APP-1003.
 
 5. Terminal A:
 
