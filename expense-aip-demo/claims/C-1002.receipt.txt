@@ -1,0 +1,15 @@
+From: billing@gridline-apps.example
+Subject: Your receipt #GL-88213
+Receipt  GL-88213        Paid Nov 8, 2026
+Gridline Apps Ltd.
+Bill to: Tomas Reyes
+
+Description                    Qty   Amount
+Gridline Diagram Pro           1     129.00
+  annual licence, 1 seat
+  Nov 8 2026 - Nov 7 2027
+                         Subtotal    129.00
+                         Tax (0%)      0.00
+                    Amount paid     $129.00
+Paid with Mastercard ending 0932
+Questions? support@gridline-apps.example

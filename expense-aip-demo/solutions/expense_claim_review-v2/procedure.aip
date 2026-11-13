@@ -1,0 +1,102 @@
+Procedure expense_claim_review
+  "Review an expense claim against its receipt and the expense policy, approve it when everything is clear, send anything failed or doubtful to a person, and record every decision in a ledger."
+
+  Use_When
+    "An expense claim with a receipt needs checking against the expense policy."
+  Use_When
+    "An expense claim must be approved or declined and the decision recorded in ledger.txt."
+  Requires python 3.10
+
+judge_question = "Does this claim clearly satisfy the rule you are given? Use the claim, the receipt facts and the computed facts. Answer true only when the rule clearly holds. Answer false when it fails. When it is doubtful or the evidence is unclear, answer with low confidence."
+
+Start "One expense claim with its receipt text." {
+  claim_id: string "The claim id."
+  amount: float    "The claimed amount."
+  category: string "The claimed category."
+  date: string     "The day the claim was submitted, as YYYY-MM-DD."
+  claimant: string "Who made the claim."
+  approver: string "The name in the claim's approver field."
+  receipt: string  "The receipt as free text, often a messy photo transcription."
+  Next_Step read_receipt
+}
+
+Task_Agent read_receipt "Read the receipt text and extract vendor, date, total and line items." {
+  Read claim_id, amount, category, date, claimant, receipt
+  Prompt assets/read_receipt.md
+  Produce vendor:        string
+          receipt_date:  string
+          receipt_total: float
+          line_items:    list
+          receipt_why:   string
+  Next_Step load_rules
+}
+
+Execute load_rules "Load the policy rules to check, one entry per rule." {
+  Read claim_id
+  Run_Script scripts/load_rules.py
+  Use assets/rules.json
+  Produce rules: list
+  Next_Step compute_facts
+}
+
+Execute compute_facts "Compute the exact facts: amounts against limits, the date difference, category, receipt presence, approver comparison." {
+  Read amount, category, date, claimant, approver, receipt, receipt_date, receipt_total, line_items
+  Run_Script scripts/compute_facts.py
+  Produce facts: object
+  Next_Step check_each
+}
+
+For check_each Over rules As rule, At_Most 20, Collect verdict Into verdicts {
+  Decide judge_rule judge_question {
+    Read rule, facts, amount, category, date, claimant, approver, receipt, vendor, receipt_date, receipt_total, line_items, receipt_why
+    Answer_Questions {
+      follows: true_or_false "Does the claim clearly satisfy this rule?"
+    }
+    Produce verdict
+    Continue
+  }
+
+  Next_Step summarize_checks
+}
+
+Aggregate summarize_checks "Every rule holds, including that the receipt supports the claim, and the model was sure of each." {
+  Read verdicts
+  Aggregations {
+    all_hold: All verdicts.follows With Confidence_Above 0.8
+  }
+  Produce check_summary
+  Next_Step route_checks
+}
+
+Route route_checks "Clear passes are approved automatically; anything failed or doubtful goes to a person." {
+  Read check_summary.all_hold
+  true  -> auto_approve
+  false -> person_decides
+}
+
+Execute auto_approve "Approve the claim: the receipt supports it and all rules hold." {
+  Read claim_id
+  Run_Script scripts/auto_approve.py
+  Produce status: string
+          reason: string
+  Next_Step record_ledger
+}
+
+Task_Agent person_decides "Take the findings to a person, who decides approved or declined with a one-line reason." {
+  Read claim_id, amount, category, date, claimant, approver, vendor, receipt_date, receipt_total, receipt_why, rules, verdicts, facts
+  Prompt assets/person_decision.md
+  Produce status: string
+          reason: string
+  Next_Step record_ledger
+}
+
+Execute record_ledger "Append one line for this decided claim to ledger.txt." {
+  Read claim_id, claimant, amount, category, date, status
+  Run_Script scripts/record_ledger.py
+  Produce ledger_line: string
+  Next_Step end
+}
+
+End "The claim has a status and a reason, and a ledger line has been appended." {
+  Read status, reason
+}

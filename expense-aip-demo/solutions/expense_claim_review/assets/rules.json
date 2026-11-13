@@ -1,0 +1,11 @@
+[
+  {"id": "receipt_supports", "text": "The receipt clearly supports the claim: vendor, receipt date and total were all found, the receipt total matches the claimed amount, and the vendor and items fit the claimed category. If any is missing or disagrees with the claim, this does not hold."},
+  {"id": "no_item_over_200", "text": "No single item is over 200. Compare the claim amount and each receipt line item to 200 (see facts.claim_over_200, facts.items_over_200). Any over 200 fails. If the line items are unclear (facts.line_items_clear is false), it is doubtful."},
+  {"id": "monthly_limit_1000", "text": "No more than 1000 a month, judged from this claim and its receipt alone, with no history. The claim amount and the receipt total must each be 1000 or less (see facts.amount_over_1000, facts.total_over_1000). Over 1000 fails."},
+  {"id": "allowed_category", "text": "The category is exactly one of travel, meals, software or equipment (see facts.category_allowed). Anything else fails."},
+  {"id": "receipt_for_over_25", "text": "A receipt is required for anything over 25. If the amount is over 25 (facts.receipt_required) the receipt text must be present and usable (facts.receipt_text_usable). A missing or unusable receipt on such a claim fails."},
+  {"id": "no_alcohol", "text": "No alcohol. Read the receipt vendor and line items. Alcohol present fails. Ambiguous items or an unclear vendor are doubtful."},
+  {"id": "within_30_days", "text": "The claim is submitted within 30 days of the receipt date. The 30 days run from the receipt date to the claim date (see facts.days_between). More than 30 fails. An unreadable or missing receipt date is doubtful."},
+  {"id": "no_self_approval", "text": "The claimant cannot be named as the approver. See facts.approver_differs: if the approver field differs from the claimant it passes; if it is the same name it fails."},
+  {"id": "no_splitting", "text": "No splitting one purchase into several claims, judged from this claim and its receipt alone. It fails or is doubtful if the receipt shows a larger single purchase than the claimed amount (see facts.receipt_total_exceeds_claim), or if the claim is evidently one part of a purchase that was split up. Otherwise it passes."}
+]

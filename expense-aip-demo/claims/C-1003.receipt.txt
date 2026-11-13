@@ -1,0 +1,15 @@
+BRIGHTDESK SUPPLY CO
+unit 4, mill road trading est
+  www.brightdesk.example
+INV0ICE / RECEIPT   no. BD-30417
+date 03 NOV 2026  till 2  op: K.
+-------------------------------
+ERGO MONITOR ARM DUAL  x1
+  SKU 77-201          236.00
+-------------------------------
+items: 1
+T0TAL GBP             236.00
+CARD (contactless)    236.00
+CHANGE                  0.00
+ ** returns within 28 days **
+ ** with this receipt **

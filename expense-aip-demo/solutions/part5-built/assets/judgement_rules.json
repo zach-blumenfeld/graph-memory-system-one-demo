@@ -1,0 +1,4 @@
+[
+  "No alcohol: neither the receipt text nor the claim's items include alcohol (beer, wine, spirits, a bar tab or similar).",
+  "No splitting: the claim is not one purchase split into several claims (for example items or amounts that look like parts of a single larger purchase, or a receipt whose total is larger than this claim's amount)."
+]

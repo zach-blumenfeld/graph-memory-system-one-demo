@@ -1,0 +1,10 @@
+.env
+.aip/
+.venv/
+__pycache__/
+*.pyc
+built/
+ledger.txt
+/*.rl
+/expense_review/
+part5/expense_review/
