@@ -84,7 +84,8 @@ cd ~/dev/graph-memory-system-one-demo/loan-aip-demo && AIP_SESSION=run-1 claude
 make check
 ```
 
-   You see: APP-1001 refer, APP-1003 decline, APP-1004 refer, three ticks.
+   You see: APP-1001 refer, APP-1003 decline, APP-1004 refer, three ticks (and a `draft` row
+   if the build tried its procedure once).
 
 ## Part 2: any agent
 
@@ -112,8 +113,9 @@ aip publish built/assess_business_loan
 
 2. Terminal C, paste:
 
-> Use aip to run the published procedure `assess_business_loan` on APP-1004 and APP-1001, in
-> parallel, answering each pause with `aip resume`. Report each outcome and run id.
+> The procedure has a new revision. Use aip to run the published procedure `assess_business_loan`
+> by its name alone, no `@1`, so the newest revision runs, on APP-1004 and APP-1001, in parallel,
+> answering each pause with `aip resume`. Report each outcome, revision and run id.
 
 3. Terminal A:
 
@@ -149,8 +151,9 @@ aip runs --session $AIP_SESSION
 ```
 
    You see: a catalog with one procedure that was not there before, and the session's runs:
-   `assist`, the `build_procedure` it ran, and the first run of what it built. `solutions/part4.md`
-   has the timing to say out loud.
+   `assist` and the `build_procedure` runs that built and published it (17 minutes). The build
+   published `assess_business_loan`; `assist` then stopped on a second, failed build instead of
+   running it, so its first run is the live one in step 3. `solutions/part4.md` has the details.
 
 2. Terminal A: `make console-empty`, then http://localhost:4281: the procedure the agent built,
    its step graph, and the build's runs under History.

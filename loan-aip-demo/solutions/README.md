@@ -104,6 +104,24 @@ stayed refer under G1 (`f5e350c9a48d4037`); and one round where a live-built fol
 published name (under "What aip needs"). Both stores (`.aip/main.rl`, `.aip/empty.rl`) are left
 as the final rehearsal left them, with both servers running; `make reset` empties them.
 
+**Full rehearsal, 2026-11-13, README as written, `claude -p` for each Claude Code terminal.**
+Part 1: the live build compiled and published `assess_business_loan@1` in 176 s (its own test run
+`acc4b6233b8a4e2e`, draft); session `run-1` gave APP-1001 refer `a21d97c4bbb645ab`, APP-1003
+decline `5b0d0415d2144a42`, APP-1004 refer `2732bcbf88f544d8` in 56 s. Part 2: ADK APP-1002
+approve `2b2773fda8e74bd4`, APP-1005 refer `7bff92a8d0fe4632`; LangGraph APP-1004 refer
+`abc82cfa080c441e`, APP-1001 refer `f45419f4332b49aa`; 15 s each. Part 3: revision 2 published;
+Claude Code APP-1004 approve `c525db6bb96d45f3`, APP-1001 refer `ba4aac89436545fb`; ADK APP-1004
+approve `b42e7833b3d240f9`; LangGraph APP-1004 approve `aecbde21c8ff469d`. `make check-v2`: 14
+right, 0 wrong. Part 4 on the pre-built store: `aip agent` in session
+`agent-20261113-000430-a8bd` found the procedure and ran APP-1002, approve `a1cb93d6b0b841f5`, 26 s,
+nothing built; Claude Code on :8301 ran APP-1003, decline `f1689f740a0c4fc2`, 38 s. `make check-4`:
+2 right. Two fixes came out of it: ADK 2.14's `Claude` class is Vertex-only and refuses an
+`AsyncAnthropic` client, so the ADK agent now uses `AnthropicLlm`; and the part-3 prompt now says
+to run by name, not `@1`, because a continued Claude Code session pinned the revision it had used
+before. The empty store was put back as `make prebuild-4` left it (a copy is in
+`.aip/empty-prebuilt.rl`), and the main store was reset. The two items below about keys and
+part 4 are resolved by this rehearsal.
+
 ## What did not work
 
 - **The two framework agents and `aip agent` could not be run live from this session.** The

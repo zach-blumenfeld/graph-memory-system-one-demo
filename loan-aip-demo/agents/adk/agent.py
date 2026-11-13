@@ -9,8 +9,8 @@ procedure's scripts look for `source/`. Each application is assessed in parallel
 as one session of agent `adk`. The agent's tools are `search`, `describe`, `run` and `resume`:
 it can find and run procedures and answer their pauses, and cannot compile, publish or hand a
 task to `aip agent`. The model is Claude (`DEMO_AGENT_MODEL`, default claude-sonnet-5-5), through
-ADK's own Anthropic model class given an `anthropic.AsyncAnthropic` client (without one ADK takes a
-`claude-*` name to mean Claude on Vertex AI); the key is ANTHROPIC_API_KEY, else AIP_AGENT_MODEL_KEY.
+ADK's Anthropic API model class (`AnthropicLlm`) given an `anthropic.AsyncAnthropic` client (ADK's `Claude` is
+Claude on Vertex AI only and refuses that client); the key is ANTHROPIC_API_KEY, else AIP_AGENT_MODEL_KEY.
 """
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ import time
 
 from anthropic import AsyncAnthropic
 from google.adk.agents import LlmAgent
-from google.adk.models.anthropic_llm import Claude
+from google.adk.models.anthropic_llm import AnthropicLlm
 from google.adk.runners import InMemoryRunner
 from google.adk.tools.mcp_tool import McpToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import StdioConnectionParams
@@ -73,7 +73,7 @@ def aip_mcp(session: str) -> McpToolset:
 
 async def assess(application_id: str, session: str) -> str:
     toolset = aip_mcp(session)
-    agent = LlmAgent(name=f"loan_{application_id.replace('-', '_').lower()}", model=Claude(model=MODEL, max_tokens=8192, client=AsyncAnthropic()), instruction=SYSTEM, tools=[toolset])
+    agent = LlmAgent(name=f"loan_{application_id.replace('-', '_').lower()}", model=AnthropicLlm(model=MODEL, max_tokens=8192, client=AsyncAnthropic()), instruction=SYSTEM, tools=[toolset])
     runner = InMemoryRunner(agent=agent, app_name="loan-aip-demo")
     adk_session = await runner.session_service.create_session(app_name="loan-aip-demo", user_id="demo")
     message = types.Content(role="user", parts=[types.Part(text=f"Assess loan application {application_id}.")])
