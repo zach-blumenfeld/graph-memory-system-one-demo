@@ -172,7 +172,9 @@ def main():
     out = BENCH / "results" / f"{config_path.stem}-{time.strftime('%Y%m%d-%H%M%S')}"
     out.mkdir(parents=True)
     shutil.copy(config_path, out / "config.toml")
-    jobs = [(c, a, r) for c in cells for a in apps for r in range(1, config.get("repeats", 1) + 1)]
+    # Repeat by repeat, and within a repeat application by application across the cells, so a run
+    # that is cut short still leaves every cell with the same applications done.
+    jobs = [(c, a, r) for r in range(1, config.get("repeats", 1) + 1) for a in apps for c in cells]
     (out / "plan.json").write_text(json.dumps(
         [{"cell": f"{c['arm']}-{c['model']}-{c['effort']}", "application": a.stem, "repeat": r} for c, a, r in jobs]))
     print(f"{len(jobs)} runs, {config.get('concurrency', 8)} at a time -> {out}", flush=True)
