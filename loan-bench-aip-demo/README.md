@@ -1,0 +1,148 @@
+# The loan benchmark
+
+One task, done two ways, measured the same way. The task is Lantern Mutual's small-business
+term loan assessment: one written application in, one of four outcomes out. The two ways are a
+**baseline** agent that is handed the SOP and the policy and told to follow them, and an **AIP**
+agent that runs a procedure compiled from the same two documents. The agent is Claude Code in
+both.
+
+## The task
+
+| Path | What |
+|---|---|
+| `source/policy.md` | The rules: completeness, seven hard rules (H1 to H7, checkable by arithmetic), five judgment rules (J1 to J5, which a reader must judge), and how they form the outcome |
+| `source/sop.md` | The order of work, the six fields every assessment returns (section 6) and the rules for the two messages (section 7) |
+| `applications/` | The benchmark's applications, one file each. Sections 1 to 4 are `Label: value` fields and a document list; sections 5 to 7 are the applicant's own words |
+| `expected.json` | The right answer for each application: outcome, failed rules, missing items. Read only by the scorer |
+| `applications-dev/` | Two applications that are not in the benchmark. The procedure's builder sees these and no others |
+| `built/` | The procedure Claude built (below) |
+
+The four outcomes, tested in this order: **return** (incomplete), **decline** (fails a hard
+rule), **approve** (every judgment rule holds, each with a probability above 0.75), **escalate**
+(anything else; the application goes to a credit officer's queue and the assessment ends).
+
+## What is measured
+
+Each run returns six fields, enforced by a JSON schema (`bench/result.schema.json`). Five are
+scored, each 0 or 1:
+
+| Measure | 1 when |
+|---|---|
+| `outcome` | it equals the expected outcome |
+| `failed_rules` | the set of rule ids equals the expected set (order ignored) |
+| `missing` | the set of missing items equals the expected set (order, case and spacing ignored) |
+| `customer_message` | it passes a scripted rubric: 150 words or fewer, the outcome in the first sentence, no rule ids, and the reasons present (the missing items for a return, the required figure for each failed hard rule, the amount, term and payment for an approval, the credit officer for an escalation) |
+| `officer_message` | it passes its rubric: 150 words or fewer, the outcome in the first sentence, every expected rule id |
+
+Beside them, from what Claude Code reports for the run: tokens (input, cache write, cache read,
+output; thinking tokens are counted inside output and also shown alone), estimated cost at list
+price, turns, and seconds. The rubrics are in `bench/score.py`; they are strict and literal.
+
+## Isolation
+
+Every agent run is one Docker container, and the rule is that a container holds only what the
+agent is meant to have.
+
+- **What a baseline run sees:** `sop.md`, `policy.md` and one `application.md`, mounted
+  read-only at `/work`. It has two tools, Read and Bash.
+- **What it never sees:** `expected.json`, the scorer, any other application, this folder, your
+  home directory. None of them is in the image or mounted. Scoring happens on the host, after
+  the container has gone.
+- **Network:** the container is on a Docker network created with `--internal`, which has no
+  route out. Its one exit is `bench/proxy.py`, a small HTTPS proxy that allows the hosts on its
+  command line and refuses the rest: `api.anthropic.com` for the baseline, plus the decision
+  model (`api.typesafe.ai`) wherever aip runs. Every connection attempt, allowed or denied, is
+  logged and saved as `egress.log` with the results.
+- **Claude Code itself:** started with `--bare`, so no memory, skills, plugins, hooks, MCP
+  servers or `CLAUDE.md` load, and with a fresh home directory. It signs in with
+  `ANTHROPIC_API_KEY` only (bare mode reads nothing else), so runs are billed to that API key.
+
+The keys are passed in the container's environment and are never written to a file. The
+Anthropic key is read from `ANTHROPIC_API_KEY`, or else from `../loan-aip-demo/.env`
+(`--key-file` to change it). The decision model's key is read from `AIP_DECISION_MODEL_KEY`, or
+else from `~/.config/aip/config.json`.
+
+## Running the benchmark
+
+Needs Docker, Python 3.11 or later, and the Anthropic key.
+
+```sh
+cd ~/dev/graph-memory-system-one-demo/loan-bench-aip-demo
+python3 bench/run.py bench/configs/floor-ceiling.toml     # run every cell on every application
+python3 bench/watch.py                                    # in another terminal: the live screen
+python3 bench/score.py bench/results/<folder>             # the table, scores.csv, summary.json
+```
+
+A config is a list of cells. Each cell is an arm, a model and an effort, so the baseline and
+AIP arms can cover different models and efforts:
+
+```toml
+applications = "APP-*"      # a glob over the ids in applications/
+concurrency  = 8            # containers at once
+repeats      = 1            # runs of each cell on each application
+
+[[cell]]
+arm    = "baseline"
+model  = "sonnet"           # passed to `claude --model`
+effort = "max"              # passed to `claude --effort`: low, medium, high, xhigh, max
+```
+
+Sonnet 5.5 and Haiku 5.5 always think; there is no "off". `low` is the least.
+
+`run.py --only APP-2001` runs one application, as a smoke test. `watch.py` shows, for each cell,
+the running averages of every measure, then one group of five marks per run in the order
+outcome, rules, missing, customer message, officer message, then what each failed run missed.
+
+### What a run leaves
+
+Everything goes to `bench/results/<config>-<time>/`, which git ignores:
+
+| File | What |
+|---|---|
+| `runs/<cell>/<APP>.r<n>.json` | One run: the six-field answer, usage per model, cost, turns, durations, exit code |
+| `runs/<cell>/<APP>.r<n>.transcript.jsonl` | The run's transcript: every message and tool call |
+| `plan.json`, `config.toml` | The runs planned, and the config as it was |
+| `egress.log` | Every connection the containers attempted |
+| `scores.csv`, `summary.json` | Written by `score.py`: one row per run, and the averages per cell |
+
+## Building the procedure
+
+The AIP arm runs a procedure, and Claude builds it, alone, in a container of its own:
+
+```sh
+python3 bench/build.py --model fable --effort high
+```
+
+- **The prompt** is `bench/prompt-build.md`. It says what the procedure's input and result are,
+  which kind of step does each kind of work (a script for the form check, a `For` over the
+  judgment rules with one `Decide` each, an `Aggregate`, routes for the endings, a script for
+  each of the four endings, one `Task_Agent` for the two messages) and what "done" means.
+- **The image** is `bench/Dockerfile.aip`: Claude Code, Python 3.14, the `aip` wheel built from
+  the local checkout (`~/dev/aip-0.9`, or `AIP_CHECKOUT`), and the aip skill at
+  `/opt/aip/skill`.
+- **What the builder sees:** the SOP, the policy and the two applications under
+  `applications-dev/`. It does not see the benchmark's applications or `expected.json`, so it
+  cannot fit the procedure to the answers. It can reach the Anthropic API and the decision
+  model, and nothing else.
+- **What it leaves:** the procedure is copied to `built/assess_term_loan/`. The transcript, the
+  builder's closing report (`report.md`), its usage and cost (`result.json`), the files it left
+  in its working directory and the egress log go to `bench/results/build-<time>/`.
+
+Read `built/` before using it: it is what the AIP arm will run.
+
+## Files under `bench/`
+
+| File | What |
+|---|---|
+| `run.py` | The runner: one container per run, in parallel |
+| `score.py`, `watch.py` | The scorer and the live screen; both run on the host |
+| `build.py`, `prompt-build.md` | The procedure's build |
+| `proxy.py` | The allow-list proxy that is each container's only way out |
+| `Dockerfile.baseline`, `Dockerfile.aip` | The two images |
+| `prompt-baseline.md` | What the baseline agent is told |
+| `result.schema.json` | The six fields every run must return |
+| `configs/` | The benchmark configs |
+
+## Not built yet
+
+The AIP arm of `run.py`. The runner has one arm today, `baseline`.
