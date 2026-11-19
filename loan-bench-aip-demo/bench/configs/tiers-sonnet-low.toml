@@ -1,0 +1,10 @@
+# A stronger model at its least thinking: the baseline alone on Sonnet at low effort, five runs
+# of each of the thirty applications, to set beside the Haiku rows.
+applications = "APP-*"
+concurrency = 8
+repeats = 5
+
+[[cell]]
+arm = "baseline"
+model = "sonnet"
+effort = "low"
