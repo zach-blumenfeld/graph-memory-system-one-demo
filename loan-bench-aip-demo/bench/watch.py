@@ -8,6 +8,7 @@ order outcome, failed rules, missing, customer message, officer message.
 """
 import json
 import pathlib
+import re
 import sys
 import time
 
@@ -28,7 +29,7 @@ def screen(folder):
     apps = sorted({j["application"] for j in plan} | {r["application"] for r in rows})
     repeats = sorted({j["repeat"] for j in plan} | {r["repeat"] for r in rows})
     started = folder.stat().st_birthtime if hasattr(folder.stat(), "st_birthtime") else folder.stat().st_ctime
-    last = max((p.stat().st_mtime for p in folder.glob("runs/*/*.r*.json")), default=time.time())
+    last = max((p.stat().st_mtime for p in (p for p in folder.glob("runs/*/*.json") if re.search(r"\.r\d+\.json$", p.name))), default=time.time())
     finished = bool(plan) and len(done) >= len(plan)
     elapsed = int((last if finished else time.time()) - started)
     lines = [f"{BOLD}{folder.name}{OFF}   {len(done)}/{len(plan) or len(done)} runs   "

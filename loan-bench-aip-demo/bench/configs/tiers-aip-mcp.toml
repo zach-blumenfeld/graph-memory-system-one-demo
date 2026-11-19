@@ -1,0 +1,10 @@
+# The procedure alone on the thirty applications, five runs of each: the AIP half of
+# tiers-haiku-low.toml, for a rerun after the procedure changes.
+applications = "APP-*"
+concurrency = 8
+repeats = 5
+
+[[cell]]
+arm = "aip-mcp"
+model = "haiku"
+effort = "low"

@@ -1,0 +1,9 @@
+# The procedure handed to the agent as MCP tools, five times on each application.
+applications = "APP-*"
+concurrency = 8
+repeats = 5
+
+[[cell]]
+arm = "aip-mcp"
+model = "haiku"
+effort = "low"

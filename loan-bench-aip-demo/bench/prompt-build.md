@@ -14,14 +14,16 @@ application for Lantern Mutual. Write it to `./built/assess_term_loan`.
 
 ## What the procedure must be
 
-Its one input is `application`, a string: the whole text of one application form. Its result is
+Its one input is `application_file`, a string: the path of one application form's file under the
+run's working directory. The form check opens the file itself, so nobody re-types the form to
+start a run. Its result is
 the six fields of SOP section 6, with exactly those names: `application_id`, `outcome`,
 `failed_rules`, `missing`, `customer_message`, `officer_message`.
 
 Follow the SOP's order of work, and give each kind of work to the right kind of step:
 
-1. **The form check is a script.** One `Execute` reads the fields out of the application text
-   and checks completeness and hard rules H1 to H7. It reads every threshold and the list of
+1. **The form check is a script.** One `Execute` opens the application file, reads the fields
+   out of it and checks completeness and hard rules H1 to H7. It reads every threshold and the list of
    required documents from a copy of the policy kept at `assets/policy.md`, so a changed number
    is an edit to that file and nothing else. It produces an answer a route can read: incomplete,
    failed, or passed.

@@ -1,0 +1,15 @@
+# Easy, medium and hard applications, ten each: the baseline against the procedure, both on
+# Haiku at low effort, five runs of each.
+applications = "APP-*"
+concurrency = 8
+repeats = 5
+
+[[cell]]
+arm = "baseline"
+model = "haiku"
+effort = "low"
+
+[[cell]]
+arm = "aip-mcp"
+model = "haiku"
+effort = "low"
