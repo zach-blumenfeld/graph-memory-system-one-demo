@@ -25,8 +25,20 @@ BENCH = pathlib.Path(__file__).resolve().parent
 DEMO = BENCH.parent
 DEFAULT_KEY_FILE = DEMO.parent / "loan-aip-demo" / ".env"
 NETWORK, PROXY, PROXY_IMAGE = "loan-bench-net", "loan-bench-proxy", "python:3.12-slim"
-IMAGES = {"baseline": ("loan-bench-baseline", "Dockerfile.baseline")}
-ALLOWED_HOSTS = {"baseline": ["api.anthropic.com"]}
+# The arms. `aip` drives the procedure with the aip command, learned from the skill file;
+# `aip-mcp` is handed aip as MCP tools (describe, run, resume) and has no other tool.
+IMAGES = {"baseline": ("loan-bench-baseline", "Dockerfile.baseline"), "aip": ("loan-bench-aip", "Dockerfile.aip"),
+          "aip-mcp": ("loan-bench-aip", "Dockerfile.aip")}
+ALLOWED_HOSTS = {"baseline": ["api.anthropic.com"], "aip": ["api.anthropic.com", "api.typesafe.ai"],
+                 "aip-mcp": ["api.anthropic.com", "api.typesafe.ai"]}
+MCP_CONFIG = json.dumps({"mcpServers": {"aip": {"command": "aip", "args": ["mcp"], "env": {
+    k: "${" + k + "}" for k in ("AIP_DECISION_MODEL_KEY", "HTTPS_PROXY", "HTTP_PROXY", "PATH", "HOME")}}}})
+TOOLS = {"baseline": ["--tools", "Read,Bash"], "aip": ["--tools", "Read,Bash"],
+         "aip-mcp": ["--tools", "", "--mcp-config", MCP_CONFIG, "--strict-mcp-config", "--disallowedTools",
+                     "mcp__aip__search,mcp__aip__compile,mcp__aip__agent,mcp__aip__pull,mcp__aip__publish"]}
+AIP_CONFIG = pathlib.Path.home() / ".config" / "aip" / "config.json"
+PROCEDURE = DEMO / "built" / "assess_term_loan"
+AIP_ARMS = {"aip", "aip-mcp"}
 RUN_TIMEOUT = 1200
 
 
@@ -41,6 +53,16 @@ def api_key(path):
         if line.startswith("ANTHROPIC_API_KEY="):
             return line.split("=", 1)[1].strip().strip("\"'")
     raise SystemExit(f"no ANTHROPIC_API_KEY in the environment or in {path}")
+
+
+def decision_model_key():
+    """The decision model's key, which the AIP arm needs: a `Decide` cannot run without it."""
+    if os.environ.get("AIP_DECISION_MODEL_KEY"):
+        return os.environ["AIP_DECISION_MODEL_KEY"]
+    key = (json.loads(AIP_CONFIG.read_text()).get("decision_model") or {}).get("api_key") if AIP_CONFIG.exists() else None
+    if not key:
+        raise SystemExit(f"no decision model key in AIP_DECISION_MODEL_KEY or {AIP_CONFIG}")
+    return key
 
 
 def start_network(hosts, network=NETWORK, proxy=PROXY):
@@ -63,14 +85,19 @@ def stop_network(out, network=NETWORK, proxy=PROXY):
 def workdir(arm, app):
     """The files one run sees, and nothing else."""
     d = pathlib.Path(tempfile.mkdtemp(prefix="loan-bench-", dir="/tmp"))
-    d.chmod(0o755)
-    shutil.copy(DEMO / "source" / "sop.md", d / "sop.md")
-    shutil.copy(DEMO / "source" / "policy.md", d / "policy.md")
     shutil.copy(app, d / "application.md")
+    if arm in AIP_ARMS:                   # the procedure and the application; aip writes its run's files here
+        shutil.copytree(PROCEDURE, d / PROCEDURE.name, ignore=shutil.ignore_patterns("__pycache__"))
+        for path in [d, *d.rglob("*")]:
+            path.chmod(0o777)
+    else:                                 # the SOP, the policy and the application, read-only
+        shutil.copy(DEMO / "source" / "sop.md", d / "sop.md")
+        shutil.copy(DEMO / "source" / "policy.md", d / "policy.md")
+        d.chmod(0o755)
     return d
 
 
-def one_run(cell, app, repeat, key, out):
+def one_run(cell, app, repeat, keys, out):
     arm, model, effort = cell["arm"], cell["model"], cell["effort"]
     name = f"{arm}-{model}-{effort}"
     target = out / "runs" / name / f"{app.stem}.r{repeat}.json"
@@ -78,25 +105,28 @@ def one_run(cell, app, repeat, key, out):
     d = workdir(arm, app)
     command = [
         "docker", "run", "--rm", "--network", NETWORK,
-        "-e", "ANTHROPIC_API_KEY",
+        "-e", "ANTHROPIC_API_KEY", *(["-e", "AIP_DECISION_MODEL_KEY"] if arm in AIP_ARMS else []),
         "-e", f"HTTPS_PROXY=http://{PROXY}:8080", "-e", f"HTTP_PROXY=http://{PROXY}:8080",
         "-e", "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1", "-e", "DISABLE_AUTOUPDATER=1",
-        "-v", f"{d}:/work:ro", "--tmpfs", "/tmp", "--memory", "900m",
+        "-v", f"{d}:/work" + ("" if arm in AIP_ARMS else ":ro"), "--tmpfs", "/tmp", "--memory", "900m",
         IMAGES[arm][0],
-        "claude", "-p", (BENCH / f"prompt-{arm}.md").read_text(),
+        "claude", "-p", (BENCH / f"prompt-{arm}.md").read_text().replace("{application}", app.read_text()),
         "--bare", "--model", model, "--effort", effort,
-        "--tools", "Read,Bash", "--dangerously-skip-permissions",
+        *TOOLS[arm], "--dangerously-skip-permissions",
         "--output-format", "stream-json", "--verbose", "--json-schema", (BENCH / "result.schema.json").read_text(),
         "--no-session-persistence", "--max-budget-usd", str(cell.get("max_budget_usd", 5)),
     ]
     started = time.time()
     try:
         p = subprocess.run(command, capture_output=True, text=True, timeout=RUN_TIMEOUT,
-                           env={**os.environ, "ANTHROPIC_API_KEY": key})
+                           env={**os.environ, **keys})
         code, stdout, stderr = p.returncode, p.stdout, p.stderr
     except subprocess.TimeoutExpired as e:
         code, stdout, stderr = -1, e.stdout or "", "timeout"
     wall = time.time() - started
+    if arm in AIP_ARMS:                   # what the procedure filed: the decisions, returns and queue lines
+        filed = {f.name: f.read_text() for f in d.rglob("*.jsonl")}
+        target.with_suffix(".filed.json").write_text(json.dumps(filed, indent=2) + "\n")
     shutil.rmtree(d, ignore_errors=True)
     # stdout is the run's transcript, one JSON event per line; the last `result` event is the answer.
     target.with_suffix(".transcript.jsonl").write_text(stdout)
@@ -125,12 +155,18 @@ def main():
     args = parser.parse_args()
     config_path = pathlib.Path(args.config)
     config = tomllib.loads(config_path.read_text())
-    key = api_key(args.key_file)
+    keys = {"ANTHROPIC_API_KEY": api_key(args.key_file)}
     apps = sorted(a for a in (DEMO / "applications").glob("*.md")
                   if fnmatch.fnmatch(a.stem, args.only or config.get("applications", "*")))
     cells = config["cell"]
     arms = {c["arm"] for c in cells}
-    for arm in arms:
+    if arms & AIP_ARMS:
+        keys["AIP_DECISION_MODEL_KEY"] = decision_model_key()
+        if not (PROCEDURE / "procedure.aip").exists():
+            raise SystemExit(f"no procedure at {PROCEDURE}: run bench/build.py first")
+        import build
+        build.build_image()
+    for arm in arms - AIP_ARMS:
         image, dockerfile = IMAGES[arm]
         subprocess.run(["docker", "build", "-q", "-t", image, "-f", str(BENCH / dockerfile), str(BENCH)], check=True)
     out = BENCH / "results" / f"{config_path.stem}-{time.strftime('%Y%m%d-%H%M%S')}"
@@ -143,7 +179,7 @@ def main():
     start_network({h for arm in arms for h in ALLOWED_HOSTS[arm]})
     try:
         with concurrent.futures.ThreadPoolExecutor(config.get("concurrency", 8)) as pool:
-            list(pool.map(lambda j: one_run(*j, key, out), jobs))
+            list(pool.map(lambda j: one_run(*j, keys, out), jobs))
     finally:
         stop_network(out)
     print(out)

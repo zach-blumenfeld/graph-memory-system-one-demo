@@ -20,6 +20,7 @@ FIRST = {"approve": r"approv", "decline": r"declin|not approved|unable to (appro
 THRESHOLD = {"H1": r"10000|250000", "H2": r"\b(12|60)\b", "H3": r"\b24\b|two years", "H4": r"\b660\b",
              "H5": r"bankrupt|lien", "H6": r"1\.25", "H7": r"\b25\b|quarter"}
 MEASURES = ["outcome", "failed_rules", "missing", "customer_message", "officer_message"]
+DECIDED = ["outcome", "failed_rules", "missing"]
 
 
 def norm(text):
@@ -82,7 +83,8 @@ def score(record, expected):
     claude = record.get("claude") or {}
     got = claude.get("structured_output") or {}
     row = {"cell": record["cell"], "application": record["application"], "repeat": record["repeat"],
-           "expected": want["outcome"], "got": got.get("outcome", ""), "answered": int(bool(got))}
+           "difficulty": want.get("difficulty", ""), "expected": want["outcome"], "got": got.get("outcome", ""),
+           "answered": int(bool(got))}
     customer, officer = message_checks(want, fields(record["application"]),
                                        got.get("customer_message", ""), got.get("officer_message", ""))
     row["outcome"] = int(got.get("outcome") == want["outcome"])
@@ -122,7 +124,7 @@ def summarize(rows):
 def load(folder, expected=None):
     expected = expected or json.loads((DEMO / "expected.json").read_text())
     rows = []
-    for p in sorted(folder.glob("runs/*/*.r*.json")):
+    for p in sorted((p for p in folder.glob("runs/*/*.json") if re.search(r"\.r\d+\.json$", p.name))):
         try:
             rows.append(score(json.loads(p.read_text()), expected))
         except ValueError:
@@ -143,7 +145,20 @@ def main():
     print("cell".ljust(28) + "".join(k[:14].rjust(15) for k in keys))
     for cell, s in summary.items():
         print(cell.ljust(28) + "".join(str(s[k]).rjust(15) for k in keys))
-    wrong = [r for r in rows if not all(r[m] for m in MEASURES)]
+    tiers = [t for t in ("easy", "medium", "hard") if any(r["difficulty"] == t for r in rows)]
+    if tiers:
+        decided = ("outcome", "failed_rules", "missing")
+        print("\ncorrect runs by difficulty (outcome / rules / missing), and applications where every repeat agreed")
+        for cell in summary:
+            for tier in tiers:
+                mine = [r for r in rows if r["cell"] == cell and r["difficulty"] == tier]
+                answers = {}
+                for r in mine:
+                    answers.setdefault(r["application"], set()).add((r["got"], r["got_failed_rules"]))
+                stable = sum(1 for a in answers.values() if len(a) == 1)
+                print(f"  {cell:26} {tier:7} " + "  ".join(f"{sum(r[m] for r in mine):>3}/{len(mine)}" for m in decided)
+                      + f"   stable {stable}/{len(answers)}")
+    wrong = [r for r in rows if not all(r[m] for m in DECIDED)] if tiers else [r for r in rows if not all(r[m] for m in MEASURES)]
     if wrong:
         print("\nruns that missed a measure:")
         for r in wrong:

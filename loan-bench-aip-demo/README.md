@@ -12,10 +12,11 @@ both.
 |---|---|
 | `source/policy.md` | The rules: completeness, seven hard rules (H1 to H7, checkable by arithmetic), five judgment rules (J1 to J5, which a reader must judge), and how they form the outcome |
 | `source/sop.md` | The order of work, the six fields every assessment returns (section 6) and the rules for the two messages (section 7) |
-| `applications/` | The benchmark's applications, one file each. Sections 1 to 4 are `Label: value` fields and a document list; sections 5 to 7 are the applicant's own words |
-| `expected.json` | The right answer for each application: outcome, failed rules, missing items. Read only by the scorer |
+| `applications/` | The benchmark's thirty applications, one file each, in three tiers of ten: easy (`APP-20xx`), medium (`APP-21xx`), hard (`APP-22xx`). Sections 1 to 4 are `Label: value` fields and a document list; sections 5 to 7 are the applicant's own words |
+| `expected.json` | The right answer for each application: its tier, outcome, failed rules, missing items. Read only by the scorer |
+| `make_applications.py` | Writes both of the above. It recomputes the hard-rule answers from the fields and stops if one disagrees with its label; the judgment-rule answers are by design |
 | `applications-dev/` | Two applications that are not in the benchmark. The procedure's builder sees these and no others |
-| `built/` | The procedure Claude built (below) |
+| `built/` | The procedure the AIP arms run: built by Claude (below), then edited by hand |
 
 The four outcomes, tested in this order: **return** (incomplete), **decline** (fails a hard
 rule), **approve** (every judgment rule holds, each with a probability above 0.75), **escalate**
@@ -89,6 +90,9 @@ effort = "max"              # passed to `claude --effort`: low, medium, high, xh
 
 Sonnet 5.5 and Haiku 5.5 always think; there is no "off". `low` is the least.
 
+With tiers in `expected.json`, `score.py` also prints the correct runs for each tier and the
+number of applications where every repeat gave the same answer.
+
 `run.py --only APP-2001` runs one application, as a smoke test. `watch.py` shows, for each cell,
 the running averages of every measure, then one group of five marks per run in the order
 outcome, rules, missing, customer message, officer message, then what each failed run missed.
@@ -128,7 +132,11 @@ python3 bench/build.py --model fable --effort high
   builder's closing report (`report.md`), its usage and cost (`result.json`), the files it left
   in its working directory and the egress log go to `bench/results/build-<time>/`.
 
-Read `built/` before using it: it is what the AIP arm will run.
+`built/` is what the AIP arms run. It is not a one-shot build: procedures are built in rounds
+with a person, so it is the build's output improved by hand, and each hand edit is also written
+into `prompt-build.md` so the prompt still describes the procedure. One edit so far: the input
+is the application's file (`application_file`), which the form check opens itself. Before that
+the agent had to type the form's text into the run, and sometimes mistyped it.
 
 ## Files under `bench/`
 
@@ -139,10 +147,26 @@ Read `built/` before using it: it is what the AIP arm will run.
 | `build.py`, `prompt-build.md` | The procedure's build |
 | `proxy.py` | The allow-list proxy that is each container's only way out |
 | `Dockerfile.baseline`, `Dockerfile.aip` | The two images |
-| `prompt-baseline.md` | What the baseline agent is told |
+| `prompt-baseline.md`, `prompt-aip-mcp.md`, `prompt-aip.md` | What each arm's agent is told |
 | `result.schema.json` | The six fields every run must return |
 | `configs/` | The benchmark configs |
 
-## Not built yet
+## The arms
 
-The AIP arm of `run.py`. The runner has one arm today, `baseline`.
+A cell's `arm` is one of three:
+
+| Arm | What the agent is given | Its tools |
+|---|---|---|
+| `baseline` | `sop.md`, `policy.md` and `application.md`, and the instruction to follow them (`prompt-baseline.md`) | Read, Bash |
+| `aip-mcp` | `application.md` and the procedure folder, with aip as MCP tools (`prompt-aip-mcp.md`). The agent calls `describe`, `run` with the application's file name, and `resume` with the two messages | aip's `describe`, `run`, `resume`; nothing else |
+| `aip` | The same folder, the `aip` command and the aip skill file to learn it from (`prompt-aip.md`). Costs more tokens than `aip-mcp` for the same procedure | Read, Bash |
+
+Both aip arms run `built/assess_term_loan` in the `Dockerfile.aip` image, with the decision
+model's key in the environment and `api.typesafe.ai` allowed through the proxy. Their work
+folder is writable, and the lines the procedure files (`decisions.jsonl`, `returns.jsonl`,
+`credit_officer_queue.jsonl`) are saved beside each run as `<APP>.r<n>.filed.json`: the proof
+that the procedure ran and what it decided.
+
+What Claude Code reports covers the agent only. The decision model's calls, five for each
+application that reaches the judgment rules, are not in the token or cost columns; their time is
+in the seconds.

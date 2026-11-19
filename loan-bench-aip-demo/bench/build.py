@@ -17,22 +17,12 @@ import subprocess
 import tempfile
 import time
 
-from run import BENCH, DEFAULT_KEY_FILE, DEMO, api_key, start_network, stop_network
+from run import BENCH, DEFAULT_KEY_FILE, DEMO, api_key, decision_model_key, start_network, stop_network
 
 AIP_CHECKOUT = pathlib.Path(os.environ.get("AIP_CHECKOUT", pathlib.Path.home() / "dev" / "aip-0.9"))
-AIP_CONFIG = pathlib.Path.home() / ".config" / "aip" / "config.json"
 IMAGE, NETWORK, PROXY = "loan-bench-aip", "loan-bench-build-net", "loan-bench-build-proxy"
 HOSTS = ["api.anthropic.com", "api.typesafe.ai"]
 TIMEOUT = 90 * 60
-
-
-def decision_model_key():
-    if os.environ.get("AIP_DECISION_MODEL_KEY"):
-        return os.environ["AIP_DECISION_MODEL_KEY"]
-    key = (json.loads(AIP_CONFIG.read_text()).get("decision_model") or {}).get("api_key")
-    if not key:
-        raise SystemExit(f"no decision model key in AIP_DECISION_MODEL_KEY or {AIP_CONFIG}")
-    return key
 
 
 def build_image():
