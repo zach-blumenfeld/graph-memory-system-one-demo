@@ -1,6 +1,6 @@
 # Agent procedures, graph memory and System One: worked examples
 
-Six examples built around the [Agent Instruction Protocol (AIP)](https://github.com/zach-blumenfeld/aip).
+Four examples built around the [Agent Instruction Protocol (AIP)](https://github.com/zach-blumenfeld/aip).
 AIP turns a multi-step job (a runbook, an SOP) into a procedure: a graph of typed steps. Scripts
 do the mechanical steps, a decision model answers the judgment questions with a probability, and
 the agent is asked only for the steps that need an agent.
@@ -13,8 +13,6 @@ are already in the folder.
 | [`loan-bench-aip-demo/`](loan-bench-aip-demo/README.md) | A benchmark comparing an agent with and without AIP on 30 loan applications | 0.9 | Procedure language (a `procedure.aip` file) |
 | [`aip-demo/`](aip-demo/README.md) | A walkthrough of graph memory, distilling recorded agent runs into an AIP skill, and running it with a decision model, on an email campaign job | 0.6a1 | YAML, inside a `SKILL.md` (format 0.6a1) |
 | [`loan-demo/`](loan-demo/README.md) | A walkthrough of graph memory, distilling recorded agent runs into an AIP skill, and running it with a decision model, on a business-loan assessment | 0.6a1 | YAML, inside a `SKILL.md` (format 0.6a1) |
-| [`loan-aip-demo/`](loan-aip-demo/README.md) | A live-demo script: a loan assessment procedure built from an SOP and a policy, run from Claude Code and two agent frameworks | 0.9 | Procedure language (a `procedure.aip` file) |
-| [`expense-aip-demo/`](expense-aip-demo/README.md) | A live-demo script: an expense claim review built in the console's Studio, run from Claude Code and a LangGraph agent | 0.9 | Procedure language (a `procedure.aip` file) |
 | [`nams-demo/`](nams-demo/README.md) | Unfinished: an email campaign job with a hosted memory service doing the distillation | None | No AIP procedure |
 
 ## The two ways a procedure is written
@@ -25,7 +23,7 @@ AIP changed how a procedure is written between these examples, and the two do no
   and `loan-demo` use this. They install `aip` 0.6a1 and do not run on 0.9.
 - **Procedure language (AIP 0.9).** The procedure is its own file, `procedure.aip`, in a small
   language with keywords such as `Execute`, `Decide`, `Route` and `For`, which a compiler checks.
-  `loan-bench-aip-demo`, `loan-aip-demo` and `expense-aip-demo` use this.
+  `loan-bench-aip-demo` uses this.
 
 ## The examples
 
@@ -73,13 +71,6 @@ assessment, where the explanation matters as much as the answer:
 
 This is a different, larger loan task than the one in `loan-bench-aip-demo`. The two share the
 made-up bank and nothing else.
-
-### [`loan-aip-demo/`](loan-aip-demo/README.md) and [`expense-aip-demo/`](expense-aip-demo/README.md): live-demo scripts (AIP 0.9, procedure language)
-
-Two copy-paste runbooks written for presenting AIP 0.9 live, one on a business-loan assessment
-and one on an expense claim review. Each builds a procedure, runs it from more than one agent,
-changes one rule and runs it again. They install `aip` from a local checkout of the AIP
-repository and are less polished than the other examples.
 
 ### [`nams-demo/`](nams-demo/README.md): unfinished (no AIP)
 
