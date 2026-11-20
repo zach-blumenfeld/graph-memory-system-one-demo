@@ -59,16 +59,21 @@ agent is meant to have.
   `ANTHROPIC_API_KEY` only (bare mode reads nothing else), so runs are billed to that API key.
 
 The keys are passed in the container's environment and are never written to a file. The
-Anthropic key is read from `ANTHROPIC_API_KEY`, or else from `../loan-aip-demo/.env`
-(`--key-file` to change it). The decision model's key is read from `AIP_DECISION_MODEL_KEY`, or
-else from `~/.config/aip/config.json`.
+Anthropic key is read from `ANTHROPIC_API_KEY` in the environment, or else from `.env` in this
+folder (`--key-file` to change it). The decision model's key is read from
+`AIP_DECISION_MODEL_KEY` in the same two places, or else from `~/.config/aip/config.json`, where
+`aip config --decision-model-key` keeps it.
 
 ## Running the benchmark
 
-Needs Docker, Python 3.11 or later, and the Anthropic key.
+Needs Docker, Python 3.11 or later, an Anthropic API key, and for the aip arms a
+[TypeSafe](https://typesafe.ai) key for the decision model. Nothing else is installed on your
+machine: Claude Code and `aip` (0.9.0, from PyPI) are installed inside the images, which the
+first run builds.
 
 ```sh
-cd ~/dev/graph-memory-system-one-demo/loan-bench-aip-demo
+cd loan-bench-aip-demo
+cp .env.example .env                                      # then put the two keys in it
 python3 bench/run.py bench/configs/floor-ceiling.toml     # run every cell on every application
 python3 bench/watch.py                                    # in another terminal: the live screen
 python3 bench/score.py bench/results/<folder>             # the table, scores.csv, summary.json
@@ -109,6 +114,13 @@ Everything goes to `bench/results/<config>-<time>/`, which git ignores:
 | `egress.log` | Every connection the containers attempted |
 | `scores.csv`, `summary.json` | Written by `score.py`: one row per run, and the averages per cell |
 
+## The results
+
+`analysis.html` is the results of our runs as figures and tables; open it in a browser.
+`analysis.ipynb` is the notebook behind it. The run data itself is not in the repository, so to
+run the notebook, run the benchmark first and put your own results folders in the `RUNS` list in
+its first code cell.
+
 ## Building the procedure
 
 The AIP arm runs a procedure, and Claude builds it, alone, in a container of its own:
@@ -121,8 +133,8 @@ python3 bench/build.py --model fable --effort high
   which kind of step does each kind of work (a script for the form check, a `For` over the
   judgment rules with one `Decide` each, an `Aggregate`, routes for the endings, a script for
   each of the four endings, one `Task_Agent` for the two messages) and what "done" means.
-- **The image** is `bench/Dockerfile.aip`: Claude Code, Python 3.14, the `aip` wheel built from
-  the local checkout (`~/dev/aip-0.9`, or `AIP_CHECKOUT`), and the aip skill at
+- **The image** is `bench/Dockerfile.aip`: Claude Code, Python 3.14, `aip` 0.9.0 from PyPI
+  (`AIP_VERSION` in the environment to change the release), and the aip skill at
   `/opt/aip/skill`.
 - **What the builder sees:** the SOP, the policy and the two applications under
   `applications-dev/`. It does not see the benchmark's applications or `expected.json`, so it

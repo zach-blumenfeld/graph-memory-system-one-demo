@@ -23,7 +23,7 @@ import tomllib
 
 BENCH = pathlib.Path(__file__).resolve().parent
 DEMO = BENCH.parent
-DEFAULT_KEY_FILE = DEMO.parent / "loan-aip-demo" / ".env"
+DEFAULT_KEY_FILE = DEMO / ".env"
 NETWORK, PROXY, PROXY_IMAGE = "loan-bench-net", "loan-bench-proxy", "python:3.12-slim"
 # The arms. `aip` drives the procedure with the aip command, learned from the skill file;
 # `aip-mcp` is handed aip as MCP tools (describe, run, resume) and has no other tool.
@@ -46,23 +46,32 @@ def docker(*args, check=True, **kw):
     return subprocess.run(["docker", *args], check=check, capture_output=True, text=True, **kw)
 
 
-def api_key(path):
-    if os.environ.get("ANTHROPIC_API_KEY"):
-        return os.environ["ANTHROPIC_API_KEY"]
-    for line in pathlib.Path(path).read_text().splitlines():
-        if line.startswith("ANTHROPIC_API_KEY="):
+def key(name, path):
+    """A key from the environment, or else from its `NAME=value` line in the key file."""
+    if os.environ.get(name):
+        return os.environ[name]
+    path = pathlib.Path(path)
+    for line in path.read_text().splitlines() if path.exists() else []:
+        if line.startswith(name + "="):
             return line.split("=", 1)[1].strip().strip("\"'")
-    raise SystemExit(f"no ANTHROPIC_API_KEY in the environment or in {path}")
+    return None
 
 
-def decision_model_key():
+def api_key(path):
+    found = key("ANTHROPIC_API_KEY", path)
+    if not found:
+        raise SystemExit(f"no ANTHROPIC_API_KEY in the environment or in {path}")
+    return found
+
+
+def decision_model_key(path):
     """The decision model's key, which the AIP arm needs: a `Decide` cannot run without it."""
-    if os.environ.get("AIP_DECISION_MODEL_KEY"):
-        return os.environ["AIP_DECISION_MODEL_KEY"]
-    key = (json.loads(AIP_CONFIG.read_text()).get("decision_model") or {}).get("api_key") if AIP_CONFIG.exists() else None
-    if not key:
-        raise SystemExit(f"no decision model key in AIP_DECISION_MODEL_KEY or {AIP_CONFIG}")
-    return key
+    found = key("AIP_DECISION_MODEL_KEY", path)
+    if not found and AIP_CONFIG.exists():      # where `aip config --decision-model-key` keeps it
+        found = (json.loads(AIP_CONFIG.read_text()).get("decision_model") or {}).get("api_key")
+    if not found:
+        raise SystemExit(f"no AIP_DECISION_MODEL_KEY in the environment, in {path} or in {AIP_CONFIG}")
+    return found
 
 
 def start_network(hosts, network=NETWORK, proxy=PROXY):
@@ -161,7 +170,7 @@ def main():
     cells = config["cell"]
     arms = {c["arm"] for c in cells}
     if arms & AIP_ARMS:
-        keys["AIP_DECISION_MODEL_KEY"] = decision_model_key()
+        keys["AIP_DECISION_MODEL_KEY"] = decision_model_key(args.key_file)
         if not (PROCEDURE / "procedure.aip").exists():
             raise SystemExit(f"no procedure at {PROCEDURE}: run bench/build.py first")
         import build
