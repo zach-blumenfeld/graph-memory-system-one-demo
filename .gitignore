@@ -7,3 +7,4 @@ __pycache__/
 reports/*.tmp
 .idea/
 .pytest_cache/
+.DS_Store

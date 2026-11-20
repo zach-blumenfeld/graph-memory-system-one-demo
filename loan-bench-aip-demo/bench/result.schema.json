@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "properties": {
+    "application_id": {"type": "string"},
+    "outcome": {"type": "string", "enum": ["return", "decline", "approve", "escalate"]},
+    "failed_rules": {"type": "array", "items": {"type": "string"}},
+    "missing": {"type": "array", "items": {"type": "string"}},
+    "customer_message": {"type": "string"},
+    "officer_message": {"type": "string"}
+  },
+  "required": ["application_id", "outcome", "failed_rules", "missing", "customer_message", "officer_message"],
+  "additionalProperties": false
+}

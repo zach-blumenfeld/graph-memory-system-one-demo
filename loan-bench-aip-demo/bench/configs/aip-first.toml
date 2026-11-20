@@ -1,0 +1,10 @@
+# The AIP arm's first run: the built procedure on the eight applications, cheapest agent,
+# five times each to set beside haiku-low-repeats.toml.
+applications = "APP-*"
+concurrency = 8
+repeats = 5
+
+[[cell]]
+arm = "aip"
+model = "haiku"
+effort = "low"

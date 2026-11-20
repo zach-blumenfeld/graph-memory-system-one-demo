@@ -1,0 +1,261 @@
+{
+  "APP-2001": {
+    "application_id": "APP-2001",
+    "difficulty": "easy",
+    "outcome": "approve",
+    "failed_rules": [],
+    "missing": []
+  },
+  "APP-2002": {
+    "application_id": "APP-2002",
+    "difficulty": "easy",
+    "outcome": "decline",
+    "failed_rules": [
+      "H6"
+    ],
+    "missing": []
+  },
+  "APP-2003": {
+    "application_id": "APP-2003",
+    "difficulty": "easy",
+    "outcome": "return",
+    "failed_rules": [],
+    "missing": [
+      "Business bank statements, last six months"
+    ]
+  },
+  "APP-2004": {
+    "application_id": "APP-2004",
+    "difficulty": "easy",
+    "outcome": "escalate",
+    "failed_rules": [
+      "J1"
+    ],
+    "missing": []
+  },
+  "APP-2005": {
+    "application_id": "APP-2005",
+    "difficulty": "easy",
+    "outcome": "escalate",
+    "failed_rules": [
+      "J3"
+    ],
+    "missing": []
+  },
+  "APP-2006": {
+    "application_id": "APP-2006",
+    "difficulty": "easy",
+    "outcome": "approve",
+    "failed_rules": [],
+    "missing": []
+  },
+  "APP-2007": {
+    "application_id": "APP-2007",
+    "difficulty": "easy",
+    "outcome": "decline",
+    "failed_rules": [
+      "H3",
+      "H4"
+    ],
+    "missing": []
+  },
+  "APP-2008": {
+    "application_id": "APP-2008",
+    "difficulty": "easy",
+    "outcome": "escalate",
+    "failed_rules": [
+      "J2"
+    ],
+    "missing": []
+  },
+  "APP-2009": {
+    "application_id": "APP-2009",
+    "difficulty": "easy",
+    "outcome": "decline",
+    "failed_rules": [
+      "H7"
+    ],
+    "missing": []
+  },
+  "APP-2010": {
+    "application_id": "APP-2010",
+    "difficulty": "easy",
+    "outcome": "return",
+    "failed_rules": [],
+    "missing": [
+      "Annual revenue, last fiscal year"
+    ]
+  },
+  "APP-2101": {
+    "application_id": "APP-2101",
+    "difficulty": "medium",
+    "outcome": "approve",
+    "failed_rules": [],
+    "missing": []
+  },
+  "APP-2102": {
+    "application_id": "APP-2102",
+    "difficulty": "medium",
+    "outcome": "decline",
+    "failed_rules": [
+      "H6"
+    ],
+    "missing": []
+  },
+  "APP-2103": {
+    "application_id": "APP-2103",
+    "difficulty": "medium",
+    "outcome": "decline",
+    "failed_rules": [
+      "H3"
+    ],
+    "missing": []
+  },
+  "APP-2104": {
+    "application_id": "APP-2104",
+    "difficulty": "medium",
+    "outcome": "approve",
+    "failed_rules": [],
+    "missing": []
+  },
+  "APP-2105": {
+    "application_id": "APP-2105",
+    "difficulty": "medium",
+    "outcome": "decline",
+    "failed_rules": [
+      "H7"
+    ],
+    "missing": []
+  },
+  "APP-2106": {
+    "application_id": "APP-2106",
+    "difficulty": "medium",
+    "outcome": "escalate",
+    "failed_rules": [
+      "J4"
+    ],
+    "missing": []
+  },
+  "APP-2107": {
+    "application_id": "APP-2107",
+    "difficulty": "medium",
+    "outcome": "escalate",
+    "failed_rules": [
+      "J5"
+    ],
+    "missing": []
+  },
+  "APP-2108": {
+    "application_id": "APP-2108",
+    "difficulty": "medium",
+    "outcome": "return",
+    "failed_rules": [],
+    "missing": [
+      "Existing monthly debt payments",
+      "Business tax returns, last two years"
+    ]
+  },
+  "APP-2109": {
+    "application_id": "APP-2109",
+    "difficulty": "medium",
+    "outcome": "decline",
+    "failed_rules": [
+      "H1",
+      "H2"
+    ],
+    "missing": []
+  },
+  "APP-2110": {
+    "application_id": "APP-2110",
+    "difficulty": "medium",
+    "outcome": "approve",
+    "failed_rules": [],
+    "missing": []
+  },
+  "APP-2201": {
+    "application_id": "APP-2201",
+    "difficulty": "hard",
+    "outcome": "approve",
+    "failed_rules": [],
+    "missing": []
+  },
+  "APP-2202": {
+    "application_id": "APP-2202",
+    "difficulty": "hard",
+    "outcome": "decline",
+    "failed_rules": [
+      "H6"
+    ],
+    "missing": []
+  },
+  "APP-2203": {
+    "application_id": "APP-2203",
+    "difficulty": "hard",
+    "outcome": "return",
+    "failed_rules": [],
+    "missing": [
+      "Business tax returns, last two years"
+    ]
+  },
+  "APP-2204": {
+    "application_id": "APP-2204",
+    "difficulty": "hard",
+    "outcome": "decline",
+    "failed_rules": [
+      "H4"
+    ],
+    "missing": []
+  },
+  "APP-2205": {
+    "application_id": "APP-2205",
+    "difficulty": "hard",
+    "outcome": "escalate",
+    "failed_rules": [
+      "J1"
+    ],
+    "missing": []
+  },
+  "APP-2206": {
+    "application_id": "APP-2206",
+    "difficulty": "hard",
+    "outcome": "escalate",
+    "failed_rules": [
+      "J2"
+    ],
+    "missing": []
+  },
+  "APP-2207": {
+    "application_id": "APP-2207",
+    "difficulty": "hard",
+    "outcome": "escalate",
+    "failed_rules": [
+      "J5"
+    ],
+    "missing": []
+  },
+  "APP-2208": {
+    "application_id": "APP-2208",
+    "difficulty": "hard",
+    "outcome": "escalate",
+    "failed_rules": [
+      "J3"
+    ],
+    "missing": []
+  },
+  "APP-2209": {
+    "application_id": "APP-2209",
+    "difficulty": "hard",
+    "outcome": "escalate",
+    "failed_rules": [
+      "J1"
+    ],
+    "missing": []
+  },
+  "APP-2210": {
+    "application_id": "APP-2210",
+    "difficulty": "hard",
+    "outcome": "approve",
+    "failed_rules": [],
+    "missing": []
+  }
+}

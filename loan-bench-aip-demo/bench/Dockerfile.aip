@@ -1,0 +1,15 @@
+# The image for anything that needs aip: building the procedure (bench/build.py) and, later,
+# the AIP arm of the benchmark. Claude Code, Python 3.14, aip from PyPI, and the aip skill at
+# /opt/aip/skill. No application, no expected outcome, no scorer.
+FROM node:22-slim
+ARG AIP_VERSION=0.9.0
+COPY --from=ghcr.io/astral-sh/uv:0.11.14 /uv /usr/local/bin/uv
+RUN apt-get update && apt-get install -y --no-install-recommends python3 ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+RUN npm install -g @anthropic-ai/claude-code@2.1.328
+RUN useradd -m bench && mkdir -p /opt/aip && chown bench /opt/aip
+USER bench
+ENV PATH=/home/bench/.local/bin:$PATH UV_PYTHON_PREFERENCE=only-managed
+RUN uv tool install --python 3.14 "agent-instruction-protocol==${AIP_VERSION}" && aip config server none \
+    && aip skill install --path /opt/aip && ln -s /opt/aip/aip /opt/aip/skill && aip --version
+WORKDIR /work

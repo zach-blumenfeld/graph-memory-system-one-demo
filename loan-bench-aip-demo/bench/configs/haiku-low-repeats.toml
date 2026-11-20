@@ -1,0 +1,9 @@
+# How stable is the floor? Haiku low, five times on each application.
+applications = "APP-*"
+concurrency = 8
+repeats = 5
+
+[[cell]]
+arm = "baseline"
+model = "haiku"
+effort = "low"

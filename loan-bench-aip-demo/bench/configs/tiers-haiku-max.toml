@@ -1,0 +1,15 @@
+# The same thirty applications with thinking turned all the way up: the baseline against the
+# procedure, both on Haiku at max effort, two runs of each (max effort is slow: about 160 seconds a baseline run).
+applications = "APP-*"
+concurrency = 16
+repeats = 2
+
+[[cell]]
+arm = "baseline"
+model = "haiku"
+effort = "max"
+
+[[cell]]
+arm = "aip-mcp"
+model = "haiku"
+effort = "max"

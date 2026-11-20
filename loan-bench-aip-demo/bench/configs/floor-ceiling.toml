@@ -1,0 +1,14 @@
+# The baseline's floor and ceiling on the first eight applications.
+applications = "APP-*"
+concurrency = 8
+repeats = 1
+
+[[cell]]
+arm = "baseline"
+model = "sonnet"
+effort = "max"
+
+[[cell]]
+arm = "baseline"
+model = "haiku"
+effort = "low"
