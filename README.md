@@ -40,9 +40,8 @@ It measures whether the answer was right, the tokens and cost, and the time, acr
 applications in three tiers of difficulty. `analysis.html` is the results as figures; open it in
 a browser without running anything.
 
-To run it you need Docker, an Anthropic API key, a TypeSafe key for the decision model, and a
-local checkout of AIP 0.9 (the `release-0.9.0` branch, at `~/dev/aip-0.9` or wherever
-`AIP_CHECKOUT` points).
+To run it you need Docker, Python, an Anthropic API key and a TypeSafe key for the decision
+model. `aip` 0.9.0 is installed from PyPI inside the container.
 
 ### [`aip-demo/`](aip-demo/README.md): the email campaign walkthrough (AIP 0.5a0, YAML)
 

@@ -19,20 +19,16 @@ import time
 
 from run import BENCH, DEFAULT_KEY_FILE, DEMO, api_key, decision_model_key, start_network, stop_network
 
-AIP_CHECKOUT = pathlib.Path(os.environ.get("AIP_CHECKOUT", pathlib.Path.home() / "dev" / "aip-0.9"))
+AIP_VERSION = os.environ.get("AIP_VERSION", "0.9.0")      # the aip release on PyPI the image installs
 IMAGE, NETWORK, PROXY = "loan-bench-aip", "loan-bench-build-net", "loan-bench-build-proxy"
 HOSTS = ["api.anthropic.com", "api.typesafe.ai"]
 TIMEOUT = 90 * 60
 
 
 def build_image():
-    """The aip wheel from the local checkout and the aip skill, then the image over them."""
-    context = BENCH / ".context"
-    shutil.rmtree(context, ignore_errors=True)
-    subprocess.run(["uv", "build", "--wheel", "-o", str(context / "wheels")], cwd=AIP_CHECKOUT, check=True,
-                   capture_output=True)
-    shutil.copytree(AIP_CHECKOUT / "skills" / "aip", context / "skill")
-    subprocess.run(["docker", "build", "-q", "-t", IMAGE, "-f", str(BENCH / "Dockerfile.aip"), str(BENCH)], check=True)
+    """The image with Claude Code, aip from PyPI and the aip skill."""
+    subprocess.run(["docker", "build", "-q", "-t", IMAGE, "--build-arg", f"AIP_VERSION={AIP_VERSION}",
+                    "-f", str(BENCH / "Dockerfile.aip"), str(BENCH)], check=True)
 
 
 def main():
@@ -42,7 +38,7 @@ def main():
     parser.add_argument("--max-budget-usd", default="40")
     parser.add_argument("--key-file", default=DEFAULT_KEY_FILE)
     args = parser.parse_args()
-    keys = {"ANTHROPIC_API_KEY": api_key(args.key_file), "AIP_DECISION_MODEL_KEY": decision_model_key()}
+    keys = {"ANTHROPIC_API_KEY": api_key(args.key_file), "AIP_DECISION_MODEL_KEY": decision_model_key(args.key_file)}
     build_image()
     out = BENCH / "results" / f"build-{time.strftime('%Y%m%d-%H%M%S')}"
     out.mkdir(parents=True)
