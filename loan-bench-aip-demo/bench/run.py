@@ -32,7 +32,7 @@ IMAGES = {"baseline": ("loan-bench-baseline", "Dockerfile.baseline"), "aip": ("l
 ALLOWED_HOSTS = {"baseline": ["api.anthropic.com"], "aip": ["api.anthropic.com", "api.typesafe.ai"],
                  "aip-mcp": ["api.anthropic.com", "api.typesafe.ai"]}
 MCP_CONFIG = json.dumps({"mcpServers": {"aip": {"command": "aip", "args": ["mcp"], "env": {
-    k: "${" + k + "}" for k in ("AIP_DECISION_MODEL_KEY", "HTTPS_PROXY", "HTTP_PROXY", "PATH", "HOME")}}}})
+    k: "${" + k + "}" for k in ("AIP_DECISION_MODEL_KEY", "AIP_HOME", "HTTPS_PROXY", "HTTP_PROXY", "PATH", "HOME")}}}})
 TOOLS = {"baseline": ["--tools", "Read,Bash"], "aip": ["--tools", "Read,Bash"],
          "aip-mcp": ["--tools", "", "--mcp-config", MCP_CONFIG, "--strict-mcp-config", "--disallowedTools",
                      "mcp__aip__search,mcp__aip__compile,mcp__aip__agent,mcp__aip__pull,mcp__aip__publish"]}
@@ -114,7 +114,9 @@ def one_run(cell, app, repeat, keys, out):
     d = workdir(arm, app)
     command = [
         "docker", "run", "--rm", "--network", NETWORK,
-        "-e", "ANTHROPIC_API_KEY", *(["-e", "AIP_DECISION_MODEL_KEY"] if arm in AIP_ARMS else []),
+        "-e", "ANTHROPIC_API_KEY",
+        # aip keeps its run files under AIP_HOME; in the work folder they outlive the container
+        *(["-e", "AIP_DECISION_MODEL_KEY", "-e", "AIP_HOME=/work/.aip"] if arm in AIP_ARMS else []),
         "-e", f"HTTPS_PROXY=http://{PROXY}:8080", "-e", f"HTTP_PROXY=http://{PROXY}:8080",
         "-e", "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1", "-e", "DISABLE_AUTOUPDATER=1",
         "-v", f"{d}:/work" + ("" if arm in AIP_ARMS else ":ro"), "--tmpfs", "/tmp", "--memory", "900m",
@@ -136,6 +138,9 @@ def one_run(cell, app, repeat, keys, out):
     if arm in AIP_ARMS:                   # what the procedure filed: the decisions, returns and queue lines
         filed = {f.name: f.read_text() for f in d.rglob("*.jsonl")}
         target.with_suffix(".filed.json").write_text(json.dumps(filed, indent=2) + "\n")
+        # aip's own record of each run: every step it took, with what the step read and produced
+        records = [json.loads(f.read_text()) for f in sorted((d / ".aip" / "runs").glob("*.json"))]
+        target.with_suffix(".aip-runs.json").write_text(json.dumps(records, indent=2) + "\n")
     shutil.rmtree(d, ignore_errors=True)
     # stdout is the run's transcript, one JSON event per line; the last `result` event is the answer.
     target.with_suffix(".transcript.jsonl").write_text(stdout)

@@ -110,6 +110,7 @@ Everything goes to `bench/results/<config>-<time>/`, which git ignores:
 |---|---|
 | `runs/<cell>/<APP>.r<n>.json` | One run: the six-field answer, usage per model, cost, turns, durations, exit code |
 | `runs/<cell>/<APP>.r<n>.transcript.jsonl` | The run's transcript: every message and tool call |
+| `runs/<cell>/<APP>.r<n>.aip-runs.json` | For the aip arms, aip's own record of the run: every step, with what it read and produced, each hard rule's figure and each judgment rule's probability |
 | `plan.json`, `config.toml` | The runs planned, and the config as it was |
 | `egress.log` | Every connection the containers attempted |
 | `scores.csv`, `summary.json` | Written by `score.py`: one row per run, and the averages per cell |
