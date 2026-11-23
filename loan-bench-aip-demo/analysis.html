@@ -8552,6 +8552,102 @@ a.anchor-link {
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6ea7a05d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="The-same-questions,-measured">The same questions, measured<a class="anchor-link" href="#The-same-questions,-measured">¶</a></h3><p>The table above says what each record could answer. This one counts how often it does, over every run whose application needs rule checks.</p>
+<ul>
+<li><strong>For the baselines,</strong> a model (Claude Sonnet, <code>bench/extract.py</code>) read each answer and copied out the figures it states, with nothing worked out. That is the reading an auditor would have to do. Each figure is then checked against the form.</li>
+<li><strong>For AIP,</strong> the figures are read from fields of the run file.</li>
+<li><strong>A figure counts</strong> when the record states it and it matches the form: exact for the amount, term and score, within 0.01 for coverage, within half a point for size, and within a year for time in business.</li>
+</ul>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=f90cc5e9">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Baseline, Haiku low</th>
+<th>Baseline, Haiku max</th>
+<th>Baseline, Sonnet low</th>
+<th>AIP, Haiku low</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>Why was this one declined: the failed rule's own figure?</th>
+<td>45 of 45 (100%)</td>
+<td>18 of 18 (100%)</td>
+<td>45 of 45 (100%)</td>
+<td>45 of 45 (100%)</td>
+</tr>
+<tr>
+<th>What was the coverage ratio on this decision?</th>
+<td>128 of 130 (98%)</td>
+<td>34 of 52 (65%)</td>
+<td>130 of 130 (100%)</td>
+<td>130 of 130 (100%)</td>
+</tr>
+<tr>
+<th>Every hard-rule figure for this decision: amount, term, time in business, score, coverage, size?</th>
+<td>128 of 130 (98%)</td>
+<td>30 of 52 (58%)</td>
+<td>112 of 130 (86%)</td>
+<td>130 of 130 (100%)</td>
+</tr>
+<tr>
+<th>How sure was the judgment on each of the five judgment rules, as a number?</th>
+<td>2 of 85 (2%)</td>
+<td>29 of 34 (85%)</td>
+<td>14 of 85 (16%)</td>
+<td>85 of 85 (100%)</td>
+</tr>
+<tr>
+<th>Which approved or escalated decisions had coverage under 1.5?</th>
+<td>10 of 10 (100%)</td>
+<td>4 of 4 (100%)</td>
+<td>10 of 10 (100%)</td>
+<td>10 of 10 (100%)</td>
+</tr>
+<tr>
+<th>Figures the record states that do not match the form</th>
+<td>3 of 759 (0.4%)</td>
+<td>4 of 219 (1.8%)</td>
+<td>4 of 652 (0.6%)</td>
+<td>0 of 780 (0.0%)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cell-15">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">

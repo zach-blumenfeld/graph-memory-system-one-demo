@@ -157,6 +157,7 @@ the agent had to type the form's text into the run, and sometimes mistyped it.
 |---|---|
 | `run.py` | The runner: one container per run, in parallel |
 | `score.py`, `watch.py` | The scorer and the live screen; both run on the host |
+| `extract.py` | Reads the figures out of each baseline answer with a model, for the notebook's audit questions; needs the `anthropic` package |
 | `build.py`, `prompt-build.md` | The procedure's build |
 | `proxy.py` | The allow-list proxy that is each container's only way out |
 | `Dockerfile.baseline`, `Dockerfile.aip` | The two images |
