@@ -1,0 +1,20 @@
+[
+ {"question": "How did the runs end? The outcome mix, straight from the step each run took.",
+  "baseline": "Read the outcome field of each saved answer and count. This one is as easy without AIP.",
+  "cypher": "MATCH (r:Run {name: 'assess_term_loan'})-[:HAS_ENTRY]->(e:Entry)\nWHERE r.session IS NOT NULL AND e.step IN ['return_application', 'decline', 'approve', 'escalate']\nRETURN e.step AS ending, count(*) AS runs\nORDER BY runs DESC"},
+ {"question": "How sure was the decision model on each judgment rule, across every run?",
+  "baseline": "Not recorded. A model has to read each officer note for a stated confidence (bench/extract.py, one call per run); Sonnet's notes give a number for all five rules in 16% of runs, and it is the model's own estimate.",
+  "cypher": "MATCH (r:Run {name: 'assess_term_loan'})-[:HAS_ENTRY]->(e:Entry {step: 'judge_rule'})-[:GAVE]->(a:Answer)\nWHERE r.session IS NOT NULL\nRETURN 'J' + toString(e.pass + 1) AS rule, a.value AS holds, count(*) AS decisions,\n       round(min(a.confidence), 2) AS least_sure, round(avg(a.confidence), 2) AS average\nORDER BY rule, holds"},
+ {"question": "Which approvals were close calls: approved, with a judgment rule answered at under 0.85 confidence?",
+  "baseline": "Not answerable from most records: needs a confidence for every rule on every approval.",
+  "cypher": "MATCH (r:Run {name: 'assess_term_loan'})-[:HAS_ENTRY]->(:Entry {step: 'approve'})\nMATCH (r)-[:HAS_ENTRY]->(e:Entry {step: 'judge_rule'})-[:GAVE]->(a:Answer)\nWHERE a.confidence < 0.85\nRETURN r.session AS application, 'J' + toString(e.pass + 1) AS rule,\n       count(DISTINCT r) AS runs, round(min(a.confidence), 2) AS least_sure\nORDER BY least_sure"},
+ {"question": "Does the same application get the same judgment every time? Rules where the answer or the confidence moved between runs.",
+  "baseline": "Compare the failed_rules lists of the repeats, which shows a changed answer but not a drifting confidence.",
+  "cypher": "MATCH (r:Run {name: 'assess_term_loan'})-[:HAS_ENTRY]->(e:Entry {step: 'judge_rule'})-[:GAVE]->(a:Answer)\nWHERE r.session IS NOT NULL\nWITH r.session AS application, 'J' + toString(e.pass + 1) AS rule, collect(DISTINCT a.value) AS answers,\n     min(a.confidence) AS low, max(a.confidence) AS high, count(*) AS runs\nWHERE size(answers) > 1 OR high - low >= 0.05\nRETURN application, rule, runs, answers, round(low, 2) AS low, round(high, 2) AS high\nORDER BY high - low DESC"},
+ {"question": "Where does a run's time go, step by step?",
+  "baseline": "The trace has one duration for the whole run and one per model call; there are no steps to attribute it to.",
+  "cypher": "MATCH (r:Run {name: 'assess_term_loan'})-[:HAS_ENTRY]->(e:Entry)\nWHERE r.session IS NOT NULL AND e.kind IN ['Execute', 'Decide', 'Task_Agent']\nRETURN e.step AS step, e.kind AS kind, count(*) AS times_run,\n       round(avg(coalesce(e.waited_seconds, e.seconds)), 3) AS average_seconds\nORDER BY average_seconds DESC"},
+ {"question": "Which version of the procedure and policy made these decisions?",
+  "baseline": "The trace holds the text of the files the agent read. Hash that text in each transcript and compare.",
+  "cypher": "MATCH (r:Run {name: 'assess_term_loan'})\nWHERE r.session IS NOT NULL\nRETURN r.name AS procedure, r.revision AS revision, left(r.bundle_id, 12) AS bundle, count(*) AS runs"}
+]

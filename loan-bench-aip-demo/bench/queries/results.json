@@ -1,0 +1,378 @@
+[
+ {
+  "question": "How did the runs end? The outcome mix, straight from the step each run took.",
+  "rows": [
+   {
+    "ending": "escalate",
+    "runs": 50
+   },
+   {
+    "ending": "decline",
+    "runs": 45
+   },
+   {
+    "ending": "approve",
+    "runs": 35
+   },
+   {
+    "ending": "return_application",
+    "runs": 20
+   }
+  ]
+ },
+ {
+  "question": "How sure was the decision model on each judgment rule, across every run?",
+  "rows": [
+   {
+    "rule": "J1",
+    "holds": false,
+    "decisions": 15,
+    "least_sure": 0.96,
+    "average": 0.97
+   },
+   {
+    "rule": "J1",
+    "holds": true,
+    "decisions": 70,
+    "least_sure": 0.78,
+    "average": 0.94
+   },
+   {
+    "rule": "J2",
+    "holds": false,
+    "decisions": 10,
+    "least_sure": 0.74,
+    "average": 0.79
+   },
+   {
+    "rule": "J2",
+    "holds": true,
+    "decisions": 75,
+    "least_sure": 0.84,
+    "average": 0.95
+   },
+   {
+    "rule": "J3",
+    "holds": false,
+    "decisions": 10,
+    "least_sure": 0.86,
+    "average": 0.91
+   },
+   {
+    "rule": "J3",
+    "holds": true,
+    "decisions": 75,
+    "least_sure": 0.64,
+    "average": 0.93
+   },
+   {
+    "rule": "J4",
+    "holds": false,
+    "decisions": 5,
+    "least_sure": 0.96,
+    "average": 0.96
+   },
+   {
+    "rule": "J4",
+    "holds": true,
+    "decisions": 80,
+    "least_sure": 0.66,
+    "average": 0.92
+   },
+   {
+    "rule": "J5",
+    "holds": false,
+    "decisions": 10,
+    "least_sure": 0.78,
+    "average": 0.88
+   },
+   {
+    "rule": "J5",
+    "holds": true,
+    "decisions": 75,
+    "least_sure": 0.54,
+    "average": 0.8
+   }
+  ]
+ },
+ {
+  "question": "Which approvals were close calls: approved, with a judgment rule answered at under 0.85 confidence?",
+  "rows": [
+   {
+    "application": "APP-2210",
+    "rule": "J5",
+    "runs": 5,
+    "least_sure": 0.68
+   },
+   {
+    "application": "APP-2201",
+    "rule": "J3",
+    "runs": 5,
+    "least_sure": 0.72
+   },
+   {
+    "application": "APP-2006",
+    "rule": "J5",
+    "runs": 5,
+    "least_sure": 0.76
+   },
+   {
+    "application": "APP-2110",
+    "rule": "J5",
+    "runs": 5,
+    "least_sure": 0.76
+   },
+   {
+    "application": "APP-2110",
+    "rule": "J3",
+    "runs": 5,
+    "least_sure": 0.76
+   },
+   {
+    "application": "APP-2110",
+    "rule": "J1",
+    "runs": 5,
+    "least_sure": 0.78
+   },
+   {
+    "application": "APP-2201",
+    "rule": "J1",
+    "runs": 3,
+    "least_sure": 0.78
+   },
+   {
+    "application": "APP-2101",
+    "rule": "J5",
+    "runs": 4,
+    "least_sure": 0.8
+   },
+   {
+    "application": "APP-2104",
+    "rule": "J5",
+    "runs": 1,
+    "least_sure": 0.82
+   },
+   {
+    "application": "APP-2201",
+    "rule": "J5",
+    "runs": 5,
+    "least_sure": 0.82
+   },
+   {
+    "application": "APP-2110",
+    "rule": "J2",
+    "runs": 1,
+    "least_sure": 0.84
+   }
+  ]
+ },
+ {
+  "question": "Does the same application get the same judgment every time? Rules where the answer or the confidence moved between runs.",
+  "rows": [
+   {
+    "application": "APP-2005",
+    "rule": "J5",
+    "runs": 5,
+    "answers": [
+     true
+    ],
+    "low": 0.54,
+    "high": 0.74
+   },
+   {
+    "application": "APP-2207",
+    "rule": "J3",
+    "runs": 5,
+    "answers": [
+     true
+    ],
+    "low": 0.64,
+    "high": 0.8
+   },
+   {
+    "application": "APP-2201",
+    "rule": "J1",
+    "runs": 5,
+    "answers": [
+     true
+    ],
+    "low": 0.78,
+    "high": 0.9
+   },
+   {
+    "application": "APP-2004",
+    "rule": "J5",
+    "runs": 5,
+    "answers": [
+     true
+    ],
+    "low": 0.68,
+    "high": 0.78
+   },
+   {
+    "application": "APP-2201",
+    "rule": "J3",
+    "runs": 5,
+    "answers": [
+     true
+    ],
+    "low": 0.72,
+    "high": 0.82
+   },
+   {
+    "application": "APP-2004",
+    "rule": "J4",
+    "runs": 5,
+    "answers": [
+     true
+    ],
+    "low": 0.82,
+    "high": 0.9
+   },
+   {
+    "application": "APP-2104",
+    "rule": "J5",
+    "runs": 5,
+    "answers": [
+     true
+    ],
+    "low": 0.82,
+    "high": 0.9
+   },
+   {
+    "application": "APP-2208",
+    "rule": "J5",
+    "runs": 5,
+    "answers": [
+     true
+    ],
+    "low": 0.72,
+    "high": 0.8
+   },
+   {
+    "application": "APP-2101",
+    "rule": "J5",
+    "runs": 5,
+    "answers": [
+     true
+    ],
+    "low": 0.8,
+    "high": 0.88
+   },
+   {
+    "application": "APP-2107",
+    "rule": "J5",
+    "runs": 5,
+    "answers": [
+     false
+    ],
+    "low": 0.78,
+    "high": 0.86
+   },
+   {
+    "application": "APP-2110",
+    "rule": "J3",
+    "runs": 5,
+    "answers": [
+     true
+    ],
+    "low": 0.76,
+    "high": 0.84
+   },
+   {
+    "application": "APP-2008",
+    "rule": "J2",
+    "runs": 5,
+    "answers": [
+     false
+    ],
+    "low": 0.74,
+    "high": 0.8
+   },
+   {
+    "application": "APP-2110",
+    "rule": "J5",
+    "runs": 5,
+    "answers": [
+     true
+    ],
+    "low": 0.76,
+    "high": 0.82
+   },
+   {
+    "application": "APP-2209",
+    "rule": "J5",
+    "runs": 5,
+    "answers": [
+     true
+    ],
+    "low": 0.76,
+    "high": 0.82
+   }
+  ]
+ },
+ {
+  "question": "Where does a run's time go, step by step?",
+  "rows": [
+   {
+    "step": "write_messages",
+    "kind": "Task_Agent",
+    "times_run": 148,
+    "average_seconds": 5.814
+   },
+   {
+    "step": "judge_rule",
+    "kind": "Decide",
+    "times_run": 425,
+    "average_seconds": 0.157
+   },
+   {
+    "step": "check_form",
+    "kind": "Execute",
+    "times_run": 150,
+    "average_seconds": 0.036
+   },
+   {
+    "step": "escalate",
+    "kind": "Execute",
+    "times_run": 50,
+    "average_seconds": 0.022
+   },
+   {
+    "step": "approve",
+    "kind": "Execute",
+    "times_run": 35,
+    "average_seconds": 0.02
+   },
+   {
+    "step": "decline",
+    "kind": "Execute",
+    "times_run": 45,
+    "average_seconds": 0.019
+   },
+   {
+    "step": "return_application",
+    "kind": "Execute",
+    "times_run": 20,
+    "average_seconds": 0.019
+   },
+   {
+    "step": "list_judgment_rules",
+    "kind": "Execute",
+    "times_run": 85,
+    "average_seconds": 0.014
+   }
+  ]
+ },
+ {
+  "question": "Which version of the procedure and policy made these decisions?",
+  "rows": [
+   {
+    "procedure": "assess_term_loan",
+    "revision": "1",
+    "bundle": "aac0063a7732",
+    "runs": 150
+   }
+  ]
+ }
+]

@@ -158,6 +158,8 @@ the agent had to type the form's text into the run, and sometimes mistyped it.
 | `run.py` | The runner: one container per run, in parallel |
 | `score.py`, `watch.py` | The scorer and the live screen; both run on the host |
 | `extract.py` | Reads the figures out of each baseline answer with a model, for the notebook's audit questions; needs the `anthropic` package |
+| `load_runs.py` | Posts the aip run files a results folder kept to an aip server, so the runs can be queried |
+| `queries/` | The notebook's analytics questions as Cypher (`queries.json`), the script that runs them over a server's graph, and what they returned (`results.json`) |
 | `build.py`, `prompt-build.md` | The procedure's build |
 | `proxy.py` | The allow-list proxy that is each container's only way out |
 | `Dockerfile.baseline`, `Dockerfile.aip` | The two images |
