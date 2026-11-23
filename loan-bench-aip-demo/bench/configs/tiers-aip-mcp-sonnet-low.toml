@@ -1,0 +1,10 @@
+# The procedure run by Sonnet at low effort, five times on each of the thirty applications:
+# the AIP side of tiers-sonnet-low.toml.
+applications = "APP-*"
+concurrency = 16
+repeats = 5
+
+[[cell]]
+arm = "aip-mcp"
+model = "sonnet"
+effort = "low"
