@@ -7804,7 +7804,7 @@ a.anchor-link {
 <h1 id="Following-an-SOP,-against-running-a-procedure">Following an SOP, against running a procedure<a class="anchor-link" href="#Following-an-SOP,-against-running-a-procedure">¶</a></h1><p>One loan-assessment task, done by an agent that is handed the SOP and the policy (the baseline) and by an agent that runs a procedure built from them (AIP).</p>
 <h2 id="The-findings">The findings<a class="anchor-link" href="#The-findings">¶</a></h2><ol>
 <li><strong>100% correctness on the cheapest model.</strong> The cheapest model has a 6% error rate without AIP. Adding AIP reduces the error to zero.</li>
-<li><strong>78% lower inference cost at 100% correctness.</strong> Achieving 100% correctness and compliance without AIP requires a larger model, increasing inference costs by 4.5x.</li>
+<li><strong>78% lower inference cost.</strong> Achieving 100% correctness and compliance without AIP requires a larger model, increasing inference costs by 4.5x.</li>
 <li><strong>25% fewer reasoning tokens.</strong> AIP reduces thinking tokens in exchange for cached input. This pays off with reduced cost and latency for tasks and models that require a lot of reasoning.</li>
 <li><strong>100% of policy rules checked and recorded.</strong> AIP records a result for every policy rule it must check, on 100% of runs. Without AIP, 8% to 15% of runs leave at least one rule unaccounted for.</li>
 <li><strong>Complete auditing and analytics.</strong> With AIP, auditing and analyzing agent behavior is a deterministic database query. Without it, you need another AI to read and parse the traces, and some questions have no answer. We tested six questions: with AIP, each was one Cypher query; without it, two were unanswerable and one needed an LLM call for every run.</li>
@@ -7896,7 +7896,7 @@ a.anchor-link {
 <li><strong>AIP costs more to run, and the difference is small beside what the errors cost.</strong> For every 1,000 applications AIP adds about <span class="tex2jax_ignore">$</span>1.40 of inference. The baseline's needless reviews cost about <span class="tex2jax_ignore">$</span>3,100 over the same 1,000, taking a review at <span class="tex2jax_ignore">$</span>30 and 40% of applications as clean. At 10 million applications a year that is about <span class="tex2jax_ignore">$</span>31 million, with a range of <span class="tex2jax_ignore">$</span>17 million to <span class="tex2jax_ignore">$</span>50 million from the small sample. Section 3 has the assumptions.</li>
 </ul>
 <p><small>Outcomes correct: the run's outcome equals the application's known answer. Lists correct: the failed rules and the missing items both exactly right. Cost: what Claude Code reported for each run, per 1,000 runs; the decision model adds about 5¢ per 1,000 to AIP and is not in the bar.</small></p>
-<h3 id="Finding-2.-78%25-lower-inference-cost-at-100%25-correctness.">Finding 2. 78% lower inference cost at 100% correctness.<a class="anchor-link" href="#Finding-2.-78%25-lower-inference-cost-at-100%25-correctness.">¶</a></h3><p>Achieving 100% correctness and compliance without AIP requires a larger model, increasing inference costs by 4.5x.</p>
+<h3 id="Finding-2.-78%25-lower-inference-cost.">Finding 2. 78% lower inference cost.<a class="anchor-link" href="#Finding-2.-78%25-lower-inference-cost.">¶</a></h3><p>Achieving 100% correctness and compliance without AIP requires a larger model, increasing inference costs by 4.5x.</p>
 </div>
 </div>
 </div>
