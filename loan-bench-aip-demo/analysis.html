@@ -7803,11 +7803,11 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h1 id="Following-an-SOP,-against-running-a-procedure">Following an SOP, against running a procedure<a class="anchor-link" href="#Following-an-SOP,-against-running-a-procedure">¶</a></h1><p>One loan-assessment task, done by an agent that is handed the SOP and the policy (the baseline) and by an agent that runs a procedure built from them (AIP).</p>
 <h2 id="The-findings">The findings<a class="anchor-link" href="#The-findings">¶</a></h2><ol>
-<li><strong>The cheapest model has a 6% error rate without AIP. Adding AIP reduces the error to zero.</strong></li>
-<li><strong>Achieving 100% correctness and compliance without AIP requires a larger model, increasing inference costs by 4.5x.</strong></li>
-<li><strong>AIP reduces thinking tokens in exchange for cached input.</strong> This pays off with reduced cost and latency for tasks and models that require a lot of reasoning.</li>
-<li><strong>AIP records a result for every policy rule it must check, on 100% of runs.</strong> Without AIP, 8% to 15% of runs leave at least one rule unaccounted for.</li>
-<li><strong>With AIP, auditing and analyzing agent behavior is a deterministic database query.</strong> Without it, you need another AI to read and parse the traces, and some questions have no answer. We tested six questions: with AIP, each was one Cypher query; without it, two could not be answered and one needed an LLM call for every run.</li>
+<li><strong>100% correctness on the cheapest model.</strong> The cheapest model has a 6% error rate without AIP. Adding AIP reduces the error to zero.</li>
+<li><strong>78% lower inference cost at 100% correctness.</strong> Achieving 100% correctness and compliance without AIP requires a larger model, increasing inference costs by 4.5x.</li>
+<li><strong>25% fewer reasoning tokens.</strong> AIP reduces thinking tokens in exchange for cached input. This pays off with reduced cost and latency for tasks and models that require a lot of reasoning.</li>
+<li><strong>100% of policy rules checked and recorded.</strong> AIP records a result for every policy rule it must check, on 100% of runs. Without AIP, 8% to 15% of runs leave at least one rule unaccounted for.</li>
+<li><strong>Complete auditing and analytics.</strong> With AIP, auditing and analyzing agent behavior is a deterministic database query. Without it, you need another AI to read and parse the traces, and some questions have no answer. We tested six questions: with AIP, each was one Cypher query; without it, two were unanswerable and one needed an LLM call for every run.</li>
 </ol>
 <p>Section 2 gives the evidence for each. Sections 3 to 6 are the detail.</p>
 <h2 id="1.-Experimental-design">1. Experimental design<a class="anchor-link" href="#1.-Experimental-design">¶</a></h2><p><strong>The task.</strong> Assess one small-business loan application under a written policy: return it, decline it, approve it or escalate it to a credit officer, with the reasons and two short messages.</p>
@@ -7866,7 +7866,8 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="2.-Key-findings">2. Key findings<a class="anchor-link" href="#2.-Key-findings">¶</a></h2><h3 id="Finding-1.-The-cheapest-model-has-a-6%25-error-rate-without-AIP.-Adding-AIP-reduces-the-error-to-zero.">Finding 1. The cheapest model has a 6% error rate without AIP. Adding AIP reduces the error to zero.<a class="anchor-link" href="#Finding-1.-The-cheapest-model-has-a-6%25-error-rate-without-AIP.-Adding-AIP-reduces-the-error-to-zero.">¶</a></h3><p>The cheapest option is Haiku at low effort.</p>
+<h2 id="2.-Key-findings">2. Key findings<a class="anchor-link" href="#2.-Key-findings">¶</a></h2><h3 id="Finding-1.-100%25-correctness-on-the-cheapest-model.">Finding 1. 100% correctness on the cheapest model.<a class="anchor-link" href="#Finding-1.-100%25-correctness-on-the-cheapest-model.">¶</a></h3><p>The cheapest model has a 6% error rate without AIP. Adding AIP reduces the error to zero.</p>
+<p>The cheapest option is Haiku at low effort.</p>
 </div>
 </div>
 </div>
@@ -7895,7 +7896,7 @@ a.anchor-link {
 <li><strong>AIP costs more to run, and the difference is small beside what the errors cost.</strong> For every 1,000 applications AIP adds about <span class="tex2jax_ignore">$</span>1.40 of inference. The baseline's needless reviews cost about <span class="tex2jax_ignore">$</span>3,100 over the same 1,000, taking a review at <span class="tex2jax_ignore">$</span>30 and 40% of applications as clean. At 10 million applications a year that is about <span class="tex2jax_ignore">$</span>31 million, with a range of <span class="tex2jax_ignore">$</span>17 million to <span class="tex2jax_ignore">$</span>50 million from the small sample. Section 3 has the assumptions.</li>
 </ul>
 <p><small>Outcomes correct: the run's outcome equals the application's known answer. Lists correct: the failed rules and the missing items both exactly right. Cost: what Claude Code reported for each run, per 1,000 runs; the decision model adds about 5¢ per 1,000 to AIP and is not in the bar.</small></p>
-<h3 id="Finding-2.-Achieving-100%25-correctness-and-compliance-without-AIP-requires-a-larger-model,-increasing-inference-costs-by-4.5x.">Finding 2. Achieving 100% correctness and compliance without AIP requires a larger model, increasing inference costs by 4.5x.<a class="anchor-link" href="#Finding-2.-Achieving-100%25-correctness-and-compliance-without-AIP-requires-a-larger-model,-increasing-inference-costs-by-4.5x.">¶</a></h3>
+<h3 id="Finding-2.-78%25-lower-inference-cost-at-100%25-correctness.">Finding 2. 78% lower inference cost at 100% correctness.<a class="anchor-link" href="#Finding-2.-78%25-lower-inference-cost-at-100%25-correctness.">¶</a></h3><p>Achieving 100% correctness and compliance without AIP requires a larger model, increasing inference costs by 4.5x.</p>
 </div>
 </div>
 </div>
@@ -7923,7 +7924,7 @@ a.anchor-link {
 <li><strong>Sonnet got every outcome right, and named one rule too many on 5 of 150 runs.</strong></li>
 <li><strong>Sonnet is faster:</strong> 6 seconds a run against AIP's 14.</li>
 </ul>
-<h3 id="Finding-3.-AIP-reduces-thinking-tokens-in-exchange-for-cached-input.">Finding 3. AIP reduces thinking tokens in exchange for cached input.<a class="anchor-link" href="#Finding-3.-AIP-reduces-thinking-tokens-in-exchange-for-cached-input.">¶</a></h3><p>This pays off with reduced cost and latency for tasks and models that require a lot of reasoning.</p>
+<h3 id="Finding-3.-25%25-fewer-reasoning-tokens.">Finding 3. 25% fewer reasoning tokens.<a class="anchor-link" href="#Finding-3.-25%25-fewer-reasoning-tokens.">¶</a></h3><p>AIP reduces thinking tokens in exchange for cached input. This pays off with reduced cost and latency for tasks and models that require a lot of reasoning.</p>
 </div>
 </div>
 </div>
@@ -7946,12 +7947,12 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <ul>
-<li><strong>Thinking falls in every setting:</strong> by 7% on Haiku at low effort, 25% on Haiku at max effort and 89% on Sonnet.</li>
+<li><strong>The 25% is Haiku at max effort, with and without AIP.</strong> Thinking also falls by 7% on Haiku at low effort and by 89% on Sonnet at low effort, where there is little thinking to begin with.</li>
 <li><strong>On Haiku at max effort AIP is cheaper and faster:</strong> cost down 13%, time down 25%. The thinking it removes costs more than the cached input it adds.</li>
 <li><strong>At low effort there is little thinking to remove,</strong> so AIP's extra requests cost more than they save.</li>
 <li><strong>This rests on one setting,</strong> 60 runs a side. Section 5 has the token breakdown.</li>
 </ul>
-<h3 id="Finding-4.-AIP-records-a-result-for-every-policy-rule-it-must-check,-on-100%25-of-runs.">Finding 4. AIP records a result for every policy rule it must check, on 100% of runs.<a class="anchor-link" href="#Finding-4.-AIP-records-a-result-for-every-policy-rule-it-must-check,-on-100%25-of-runs.">¶</a></h3><p>Without AIP, 8% to 15% of runs leave at least one rule unaccounted for.</p>
+<h3 id="Finding-4.-100%25-of-policy-rules-checked-and-recorded.">Finding 4. 100% of policy rules checked and recorded.<a class="anchor-link" href="#Finding-4.-100%25-of-policy-rules-checked-and-recorded.">¶</a></h3><p>AIP records a result for every policy rule it must check, on 100% of runs. Without AIP, 8% to 15% of runs leave at least one rule unaccounted for.</p>
 </div>
 </div>
 </div>
@@ -7979,7 +7980,7 @@ a.anchor-link {
 <li><strong>How a rule counts:</strong> for a baseline, the answer names it or covers it with a phrase such as "H1-H7 all pass". For AIP, the run file holds its result.</li>
 </ul>
 <p><small>The baseline was not asked to list its checks, and its two messages are capped at 150 words; this is what each approach leaves behind as run. The AIP run files come from a repeat of the same 150 runs. Section 6 has the detail.</small></p>
-<h3 id="Finding-5.-With-AIP,-auditing-and-analyzing-agent-behavior-is-a-deterministic-database-query.">Finding 5. With AIP, auditing and analyzing agent behavior is a deterministic database query.<a class="anchor-link" href="#Finding-5.-With-AIP,-auditing-and-analyzing-agent-behavior-is-a-deterministic-database-query.">¶</a></h3><p>Without it, you need another AI to read and parse the traces, and some questions have no answer. We tested six questions: with AIP, each was one Cypher query; without it, two could not be answered and one needed an LLM call for every run.</p>
+<h3 id="Finding-5.-Complete-auditing-and-analytics.">Finding 5. Complete auditing and analytics.<a class="anchor-link" href="#Finding-5.-Complete-auditing-and-analytics.">¶</a></h3><p>With AIP, auditing and analyzing agent behavior is a deterministic database query. Without it, you need another AI to read and parse the traces, and some questions have no answer. We tested six questions: with AIP, each was one Cypher query; without it, two were unanswerable and one needed an LLM call for every run.</p>
 </div>
 </div>
 </div>
@@ -8071,7 +8072,7 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <ul>
 <li><strong>With AIP the runs are a graph on the server,</strong> and each of the six questions was one Cypher query of three to six lines, with no model involved.</li>
-<li><strong>Without AIP, two could not be answered:</strong> which approvals were close calls, and where a run's time goes step by step. The baseline records no confidence for each rule and has no steps.</li>
+<li><strong>Without AIP, two were unanswerable:</strong> which approvals were close calls, and where a run's time goes step by step. The baseline records no confidence for each rule and has no steps.</li>
 <li><strong>One needed an LLM call for every run:</strong> how sure the judgment was on each rule, which has to be read out of each note.</li>
 <li><strong>Reading the baselines' notes for the audit in section 6 took 360 LLM calls,</strong> one per run. The same figures for AIP were read from fields.</li>
 </ul>
