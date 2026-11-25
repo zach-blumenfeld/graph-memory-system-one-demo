@@ -7801,12 +7801,13 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Following-an-SOP,-against-running-a-procedure">Following an SOP, against running a procedure<a class="anchor-link" href="#Following-an-SOP,-against-running-a-procedure">¶</a></h1><p>One loan-assessment task, done by an agent that is handed the SOP and the policy (the baseline) and by an agent that runs a procedure built from them (AIP).</p>
-<h2 id="The-findings">The findings<a class="anchor-link" href="#The-findings">¶</a></h2><ol>
-<li><strong>100% correctness on the cheapest model.</strong> The cheapest model has a 6% error rate without AIP. Adding AIP reduces the error to zero.</li>
-<li><strong>78% lower inference cost.</strong> Achieving 100% correctness and compliance without AIP requires a larger model, increasing inference costs by 4.5x.</li>
+<h1 id="AIP-Loan-Application-Assessment-Benchmark">AIP Loan Application Assessment Benchmark<a class="anchor-link" href="#AIP-Loan-Application-Assessment-Benchmark">¶</a></h1><p>This report benchmarks AIP's ability to improve agent correctness, policy compliance, inference costs and auditability. We use a simple loan application scenario, where an agent (currently Claude Code) follows an SOP and policy rules to approve, decline, escalate, or return a customer's loan application. We simulate loan applications stratified by difficulty (easy, medium, hard) with known outcomes according to an SOP and policy document. We test Claude Code with and without access to AIP using Haiku and Sonnet. See <a href="#1.-Experimental-design">Experimental design</a> for more details on the setup.</p>
+<h2 id="Key-findings">Key findings<a class="anchor-link" href="#Key-findings">¶</a></h2><p>We observed AIP providing the following:</p>
+<ol>
+<li><strong>100% correctness on the cheapest model.</strong> The cheapest model (Haiku at low effort) has a 6% error rate without AIP. Adding AIP reduces the error to zero.</li>
+<li><strong>78% lower inference cost.</strong> Achieving 100% correct outcomes without AIP requires a higher-tier model (Sonnet), increasing inference costs by 4.5x.</li>
 <li><strong>25% fewer reasoning tokens.</strong> AIP reduces thinking tokens in exchange for cached input. This pays off with reduced cost and latency for tasks and models that require a lot of reasoning.</li>
-<li><strong>100% of policy rules checked and recorded.</strong> AIP records a result for every policy rule it must check, on 100% of runs. Without AIP, 8% to 15% of runs leave at least one rule unaccounted for.</li>
+<li><strong>100% of policy rules checked, complied with, and recorded.</strong> AIP records a result for every policy rule it must check, on 100% of runs. Without AIP, 8% to 15% of runs leave at least one rule unaccounted for.</li>
 <li><strong>Complete auditing and analytics.</strong> With AIP, auditing and analyzing agent behavior is a deterministic database query. Without it, you need another AI to read and parse the traces, and some questions have no answer. We tested six questions: with AIP, each was one Cypher query; without it, two were unanswerable and one needed an LLM call for every run.</li>
 </ol>
 <p>Section 2 gives the evidence for each. Sections 3 to 6 are the detail.</p>
@@ -7866,7 +7867,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="2.-Key-findings">2. Key findings<a class="anchor-link" href="#2.-Key-findings">¶</a></h2><h3 id="Finding-1:-100%25-correctness-on-the-cheapest-model.">Finding 1: 100% correctness on the cheapest model.<a class="anchor-link" href="#Finding-1:-100%25-correctness-on-the-cheapest-model.">¶</a></h3><p>The cheapest model has a 6% error rate without AIP. Adding AIP reduces the error to zero.</p>
+<h2 id="2.-Key-findings-In-Detail">2. Key findings In Detail<a class="anchor-link" href="#2.-Key-findings-In-Detail">¶</a></h2><h3 id="Finding-1:-100%25-correctness-on-the-cheapest-model.">Finding 1: 100% correctness on the cheapest model.<a class="anchor-link" href="#Finding-1:-100%25-correctness-on-the-cheapest-model.">¶</a></h3><p>The cheapest model has a 6% error rate without AIP. Adding AIP reduces the error to zero.</p>
 <p>The cheapest option is Haiku at low effort.</p>
 </div>
 </div>
